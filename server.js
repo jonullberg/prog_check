@@ -9,11 +9,17 @@ var port = process.env.PORT || 3000;
 
 process.env.APP_SECRET = process.env.APP_SECRET || 'changethischangethischangethis!';
 
+var usersRoutes = express.Router();
+
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/progcheck_dev');
 
 app.use(passport.initialize());
 
 require('./lib/passport_strat')(passport);
+
+require('./routes/user_routes.js')(usersRoutes, passport);
+
+app.use('/api', usersRoutes);
 
 app.listen(port, function() {
 	console.log('Your server is running on port ' + port);
