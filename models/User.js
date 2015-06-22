@@ -9,7 +9,8 @@ var userSchema = mongoose.Schema({
 	'basic': {
 		'username': { type: String, unique: true, required: '{USERNAME is a required field}' },
 		'password': { type: String, required: '{PASSWORD is a required field}' }
-	}
+	},
+	'userType': { type: String }
 });
 
 userSchema.methods.generateHash = function(password, callback) {
