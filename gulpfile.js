@@ -27,9 +27,9 @@ gulp.task('webpack:client', function(callback) {
 });
 
 gulp.task('copy:html', function() {
-  var srcFiles = ['**/*.html'];
+  var srcFiles = 'app/**/*.html';
   return gulp.src(srcFiles)
-    .pipe(copy('./build'))
+    .pipe(gulp.dest('build/'));
 });
 
 gulp.task('lint', function() {
