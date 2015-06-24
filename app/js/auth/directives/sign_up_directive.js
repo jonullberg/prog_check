@@ -3,9 +3,9 @@
 module.exports = function(app) {
   app.directive('signUpDirective', function() {
     return {
-      restrict: 'E',
+      restrict: 'ECA',
       replace: true,
-      templateUrl: '/templates/directives/sign_up.html',
+      templateUrl: '/templates/directives/sign_up.html'
     };
   });
 };
