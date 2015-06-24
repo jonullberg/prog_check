@@ -1,0 +1,12 @@
+{
+  "node": true,
+  "globals": {
+    "desribe": true,
+    "it": true,
+    "before": true,
+    "after": true,
+    "beforeEach": true,
+    "afterEach": true,
+    "angular": true
+  }
+}
