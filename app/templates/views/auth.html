@@ -1,10 +1,12 @@
-<section data-ng-controller="authController">
-  <ul>
-    <li data-ng-repeat="tab in tabs"
-        data-ng-class="{active:isActiveTab(tab.url)}"
-        data-ng-click="onClickTab(tab)">{{tab.title}}
-    </li>
-  </ul>
+<section class="auth-view" data-ng-controller="authController">
+  <tabset justified="true">
+    <tab data-ng-repeat="tab in tabs"
+      heading="{{tab.title}}"
+      data-ng-click="onClickTab(tab)"
+      active="tab.active">
+      {{tab.content}}
+    </tab>
+  </tabset>
 
   <div data-ng-include="currentTab"></div>
 </section>
