@@ -23,19 +23,25 @@ module.exports = function(router, passport) {
 		newUser.generateHash(req.body.password, function(err, hash) {
 			if(err) {
 				console.log(err);
-				return res.status(500).json({ 'msg': 'Internal Server Error' });
+				return res.status(500).json({
+					'msg': 'Internal Server Error'
+				});
 			}
 			newUser.basic.password = hash;
 			newUser.save(function(err, user) {
 				if(err) {
 					console.log(err);
-					return res.status(500).json({ 'msg': 'Internal Server Error' });
+					return res.status(500).json({
+						'msg': 'Internal Server Error'
+					});
 				}
 
 				user.generateToken(process.env.APP_SECRET, function(err, token) {
 					if(err) {
 						console.log(err);
-						return res.status(500).json({ 'msg': 'Internal Server Error' });
+						return res.status(500).json({
+							'msg': 'Internal Server Error'
+						});
 					}
 
 					res.json({
