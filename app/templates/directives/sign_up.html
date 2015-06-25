@@ -2,18 +2,29 @@
   <form data-ng-submit="authSubmit(user)">
     <fieldset>
       <legend>Sign Up</legend>
-      <label for="username">Username</label>
-      <input type="text" id="username" name="username" data-ng-model="user.username" />
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input class="form-control col-lg-6" type="text" id="username" name="username" data-ng-model="user.username" />
+      </div>
 
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" data-ng-model="user.email" />
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input class="form-control col-lg-6" type="email" id="email" name="email" data-ng-model="user.email" />
+      </div>
 
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" data-ng-model="user.password" />
-      <label for="passwordConfirmation">Confirm Your Password</label>
-      <input type="password" id="passwordConfirmation" name="passwordConfirmation" data-ng-model="user.passwordConfirmation" />
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input class="form-control col-lg-6" type="password" id="password" name="password" data-ng-model="user.password" />
 
-      <input type="submit" value="Sign Up" />
+      </div>
+
+      <div class="form-group">
+        <label for="passwordConfirmation">Confirm Your Password</label>
+        <input class="form-control col-lg-6"type="password" id="passwordConfirmation" name="passwordConfirmation" data-ng-model="user.passwordConfirmation" />
+
+      </div>
+
+      <button class="btn btn-default" type="submit">Sign Up </button>
 
     </fieldset>
   </form>
