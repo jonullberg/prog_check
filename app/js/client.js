@@ -40,6 +40,10 @@ progCheck.config(['$routeProvider', function($routeProvider) {
       templateUrl: 'templates/views/home.html'
       // No controller needed as of now
     })
+    .when('/dashboard', {
+      templateUrl: 'templates/views/dashboard.html'
+      // No controller needed as of now
+    })
     .otherwise({
       redirectTo: '/sign-up'
     });
