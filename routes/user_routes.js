@@ -7,7 +7,8 @@ var passport = require('passport');
 module.exports = function(router, passport) {
 	router.use(bodyparser.json());
 
-	router.post('/users', function(req, res) {
+	router.post('/create_user', function(req, res) {
+		console.log('hit post');
 		var newUserData = JSON.parse(JSON.stringify(req.body));
 		delete newUserData.username;
 		delete newUserData.password;
@@ -45,7 +46,7 @@ module.exports = function(router, passport) {
 					}
 
 					res.json({
-						'msg': 'You have successfully created a user'
+						'token': token
 					});
 				});
 			});
