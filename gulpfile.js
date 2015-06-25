@@ -33,7 +33,7 @@ gulp.task('clean', function () {
 });
 
 gulp.task('copy:html', function() {
-  var srcFiles = 'app/**/*.html';
+  var srcFiles = ['app/**/*.html', 'app/**/*.css'];
   return gulp.src(srcFiles)
     .pipe(gulp.dest('build/'));
 });

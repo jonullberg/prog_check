@@ -1,10 +1,13 @@
-<header>
+<header class="prog-header">
   <h1>Prog Check</h1>
-  <nav>
-    <tabset justified="true" type="pill">
-      <tab heading="Home"></tab>
-      <tab heading="About Us"></tab>
-      <tab heading="Pricing"></tab>
+  <div>
+
+  </div>
+  <nav class="navbar navbar-default">
+    <tabset class="nav navbar-nav" type="pills" vertical="false" justified="true">
+      <tab heading="Home" data-ng-click="changeView('home')"></tab>
+      <tab heading="About Us" data-ng-click="changeView('about')"></tab>
+      <tab heading="Pricing" data-ng-click="changeView('pricing')"></tab>
     </tabset>
   </nav>
 </header>
