@@ -10,7 +10,8 @@
       <tab heading="Teachers" data-ng-click="changeDashboardModule('teachers')"></tab>
     </tabset>
   </nav>
-  <pc-create-standard></pc-create-standard>
+  <pc-create-standard data-ng-if="visibleModule === 'standards'"></pc-create-standard>
+  <pc-show-teachers data-ng-if="visibleModule === 'teachers'"></pc-show-teachers>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin suscipit id ligula nec tempus. Vestibulum lacus neque, ultricies vel dolor ut, tincidunt gravida nibh. Donec et euismod purus, id laoreet sem. Quisque sed elit id eros semper eleifend ut nec lacus. Nulla imperdiet consectetur tellus, non faucibus leo interdum vel. Ut et ipsum bibendum, rutrum nulla mollis, sollicitudin lorem. Aenean eu risus eu ante ornare sagittis. Nam dictum metus felis, vitae suscipit arcu mollis sit amet. Nunc ante metus, condimentum vitae semper vitae, gravida quis turpis. Nunc vel tincidunt purus, non tincidunt tortor. Phasellus volutpat gravida libero, at luctus nisl finibus sed. Cras sed nibh placerat, faucibus dolor nec, mattis massa.
     <br /> <br />
   Aliquam sit amet nisl id libero posuere auctor. Ut fringilla orci ipsum, at placerat lorem commodo a. Nunc non arcu condimentum ex euismod convallis at in lorem. Phasellus euismod turpis commodo tortor interdum mattis. Fusce sit amet odio bibendum, porttitor turpis a, convallis est. Curabitur posuere vitae tortor non eleifend. Vestibulum rhoncus mauris id tempus blandit. Morbi venenatis lorem ac tortor porttitor vulputate. Duis at consectetur est, vitae fermentum metus. Cras faucibus aliquam feugiat. Aenean vitae facilisis velit. Maecenas scelerisque nulla sed dui scelerisque posuere. Integer iaculis eget nunc ac pretium. Morbi sit amet neque non augue volutpat ultrices nec in tortor. Sed sed commodo nisl. Sed ac congue elit.</p>
