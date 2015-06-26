@@ -7,8 +7,11 @@
   <link rel="stylesheet" href="css/app.css">
 </head>
 <body data-ng-app="progCheck">
-  <pc-header class="container-fluid"></pc-header>
-  <main data-ng-view class="container-fluid row"></main>
+  <div class="container">
+    <pc-header></pc-header>
+    <main data-ng-view class="row"></main>
+
+  </div>
   <script type="text/javascript" src="bundle.js"></script>
 </body>
 </html>
