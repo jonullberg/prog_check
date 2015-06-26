@@ -6,7 +6,7 @@ module.exports = function(app) {
       restrict: 'E',
       replace: true,
       templateUrl: '/templates/directives/pc_account_tools.html',
-      controller: ['$scope', '$location', 'auth', function($scope, $location, auth) {
+      controller: ['$scope', '$cookies', '$location', 'auth', function($scope, $cookies, $location, auth) {
 
         $scope.signedIn = function() {
           return auth.isSignedIn();
@@ -22,7 +22,7 @@ module.exports = function(app) {
         };
 
         $scope.changeView = function(view) {
-          $location.path(view)
+          $location.path(view);
         };
 
       }]

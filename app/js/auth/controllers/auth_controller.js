@@ -34,13 +34,15 @@ module.exports = function(app) {
       if(user.passwordConfirmation) {
         if(user.password !== user.passwordConfirmation) {
 
-          window.alert('Your password and confirmation do not match');
+          console.log('Your password and confirmation do not match');
           return;
         }
         auth.create(user, function(err) {
           if(err)  {
             console.log(err);
-            return $scope.errors.push({ msg: 'Could not sign in' });
+            return $scope.errors.push({
+              msg: 'Could not sign in'
+            });
           }
           $location.path('/dashboard');
         });
@@ -48,7 +50,9 @@ module.exports = function(app) {
         auth.signIn(user, function(err) {
           if(err) {
             console.log(err);
-            return $scope.errors.push({ msg: 'Could not sign in' });
+            return $scope.errors.push({
+              msg: 'Could not sign in'
+            });
           }
           $location.path('/dashboard');
         });
