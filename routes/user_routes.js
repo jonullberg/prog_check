@@ -46,6 +46,13 @@ module.exports = function(router, passport) {
 
 					res.json({
 						'token': token
+<<<<<<< HEAD
+					});
+				});
+			});
+		});
+	});
+=======
 					}); // end res.json
 				}); // end generate Token
 			}); // end user save
@@ -63,4 +70,5 @@ module.exports = function(router, passport) {
 	    res.json({msg: 'authenticated as: ' + req.user.basic.email, username: req.user.username, token: token});
 	  });//end generateToken
 	});//end GET
+>>>>>>> 3aa646cfb391a5aebf3eaf86307b61c6124c6f0f
 };
