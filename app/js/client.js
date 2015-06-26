@@ -14,12 +14,14 @@ require('./services/rest_resource.js')(progCheck);
 
 //  controllers
 require('./auth/controllers/auth_controller')(progCheck);
+require('./controllers/dashboard_controller')(progCheck);
 
 //  directives
 require('./auth/directives/sign_up_directive')(progCheck);
 require('./directives/header_directive')(progCheck);
 require('./auth/directives/account_tools_directive')(progCheck);
 require('./standards/directives/create_standard_directive')(progCheck);
+require('./teachers/directives/pc_teachers_directive')(progCheck);
 
 progCheck.config(['$routeProvider', function($routeProvider) {
   $routeProvider
@@ -45,8 +47,8 @@ progCheck.config(['$routeProvider', function($routeProvider) {
       // No controller needed as of now
     })
     .when('/dashboard', {
-      templateUrl: 'templates/views/dashboard.html'
-      // No controller needed as of now
+      templateUrl: 'templates/views/dashboard.html',
+      controller: 'dashboardController'
     })
     .otherwise({
       redirectTo: '/sign-up'
