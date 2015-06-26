@@ -20,7 +20,7 @@ module.exports = function(app) {
       }
     ];
 
-    $scope.currentTab = '../templates/directives/sign_in.html';
+    $scope.currentTab = '../templates/directives/sign_up.html';
 
     $scope.onClickTab = function(tab) {
       $scope.currentTab = tab.url;
