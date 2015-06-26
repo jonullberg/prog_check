@@ -3,8 +3,7 @@
     <tab class="col-lg-3" data-ng-repeat="tab in tabs"
       heading="{{tab.title}}"
       data-ng-click="onClickTab(tab)"
-      active="tab.active"
-      ng-class="{'col-lg-offset-3':$first}">
+      active="tab.active">
       {{tab.content}}
     </tab>
   </tabset>
