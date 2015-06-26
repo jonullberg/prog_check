@@ -1,0 +1,44 @@
+<section>
+  <h3>Add Standard<span class="glyphicon glyphicon-plus"></span></h3>
+  <form action="">
+    <legend>Standard Information</legend>
+    <div class="form-group">
+      <label for="name">What is the name of the standard?</label>
+      <input type="text"
+        class="form-control"
+        name="name" id="name"
+        data-ng-model="standard.name" />
+    </div>
+    <div class="form-group">
+      <label for="grade">What grade is this standard for?</label>
+      <select type="text"
+        class="form-control"
+        name="grade" id="grade"
+        data-ng-model="standard.grade">
+        <option value="kindergarten">Kindergarten</option>
+        <option value="firstGrade">First Grade</option>
+        <option value="secondGrade">Second Grade</option>
+        <option value="thirdGrade">Third Grade</option>
+        <option value="fourthGrade">Fourth Grade</option>
+        <option value="fifthGrade">Fifth Grade</option>
+        <option value="sixthGrade">Sixth Grade</option>
+        <!-- TODO: How many grades need to be added? -->
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="code">What is the standard code?</label>
+      <input type="text"
+        class="form-control"
+        name="code" id="code"
+        data-ng-model="standard.code" />
+    </div>
+    <div class="form-group">
+      <label for="name">What is the language of the standard?</label>
+      <input type="text"
+        class="form-control"
+        name="language" id="language"
+        data-ng-model="standard.language" />
+    </div>
+    <button type="submit" class="btn btn-default">Create Standard</button>
+  </form>
+</section>
