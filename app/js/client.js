@@ -9,6 +9,8 @@ require('angular-bootstrap');
 var progCheck = angular.module('progCheck', ['ngRoute', 'ngCookies', 'base64', 'ui.bootstrap']);
 
 //  services
+require('./auth/services/auth_service')(progCheck);
+require('./services/rest_resource.js')(progCheck);
 
 //  controllers
 require('./auth/controllers/auth_controller')(progCheck);
@@ -16,6 +18,7 @@ require('./auth/controllers/auth_controller')(progCheck);
 //  directives
 require('./auth/directives/sign_up_directive')(progCheck);
 require('./directives/header_directive')(progCheck);
+require('./auth/directives/account_tools_directive')(progCheck);
 
 progCheck.config(['$routeProvider', function($routeProvider) {
   $routeProvider
@@ -38,6 +41,10 @@ progCheck.config(['$routeProvider', function($routeProvider) {
     })
     .when('/home', {
       templateUrl: 'templates/views/home.html'
+      // No controller needed as of now
+    })
+    .when('/dashboard', {
+      templateUrl: 'templates/views/dashboard.html'
       // No controller needed as of now
     })
     .otherwise({
