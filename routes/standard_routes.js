@@ -16,7 +16,7 @@ module.exports = function(router) {
         });
       }
       res.json({
-        'msg': 'Successfully saved user'
+        'msg': 'Successfully saved standard'
       });
     });
   });
