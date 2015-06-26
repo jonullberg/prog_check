@@ -10,8 +10,8 @@ module.exports = function(app) {
       },
       controller: ['$scope', function($scope) {
         $scope.changeView = function(view) {
-          $location.path(view)
-        }
+          $location.path(view);
+        };
       }]
     };
   }]);

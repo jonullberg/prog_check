@@ -7,7 +7,9 @@ module.exports = function(app) {
         var encoded = $base64.encode(user.email + ':' + user.password);
         $http
           .get('/api/sign_in', {
-            headers: {'Authorization': 'Basic ' + encoded }
+            headers: {
+              'Authorization': 'Basic ' + encoded
+            }
           })
           .success(function(data) {
             $cookies.put('token', data.token);
