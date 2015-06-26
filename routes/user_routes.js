@@ -2,7 +2,6 @@
 
 var User = require('../models/User');
 var bodyparser = require('body-parser');
-// var passport = require('passport');
 
 module.exports = function(router, passport) {
 	router.use(bodyparser.json());
