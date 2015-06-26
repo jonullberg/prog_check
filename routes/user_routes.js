@@ -45,7 +45,7 @@ module.exports = function(router, passport) {
 					}
 
 					res.json({
-						'msg': 'You have successfully created a user'
+						'token': token
 					}); // end res.json
 				}); // end generate Token
 			}); // end user save
