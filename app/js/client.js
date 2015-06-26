@@ -19,6 +19,7 @@ require('./auth/controllers/auth_controller')(progCheck);
 require('./auth/directives/sign_up_directive')(progCheck);
 require('./directives/header_directive')(progCheck);
 require('./auth/directives/account_tools_directive')(progCheck);
+require('./standards/directives/create_standard_directive')(progCheck);
 
 progCheck.config(['$routeProvider', function($routeProvider) {
   $routeProvider
