@@ -10,8 +10,6 @@ var expect = chai.expect;
 var app = 'localhost:3000';
 chai.use(chaihttp);
 
-var User = require('../../models/User');
-
 describe('The login API', function() {
   var successfulTestUser = {
     'username': 'successfulTestUsername',
