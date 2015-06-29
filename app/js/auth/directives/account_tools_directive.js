@@ -5,7 +5,7 @@ module.exports = function(app) {
     return {
       restrict: 'E',
       replace: true,
-      templateUrl: '/templates/directives/pc_account_tools.html',
+      templateUrl: '/templates/directives/account_tools.html',
       controller: ['$scope', '$cookies', '$location', 'auth', function($scope, $cookies, $location, auth) {
 
         $scope.signedIn = function() {

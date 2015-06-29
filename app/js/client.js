@@ -11,16 +11,19 @@ var progCheck = angular.module('progCheck', ['ngRoute', 'ngCookies', 'base64', '
 //  services
 require('./auth/services/auth_service')(progCheck);
 require('./services/rest_resource.js')(progCheck);
+require('./services/copy.js')(progCheck);
 
 //  controllers
 require('./auth/controllers/auth_controller')(progCheck);
 require('./controllers/dashboard_controller')(progCheck);
+require('./standards/controllers/standards_controller')(progCheck);
 
 //  directives
 require('./auth/directives/sign_up_directive')(progCheck);
 require('./directives/header_directive')(progCheck);
 require('./auth/directives/account_tools_directive')(progCheck);
-require('./standards/directives/create_standard_directive')(progCheck);
+require('./standards/directives/pc_standards_directive')(progCheck);
+require('./standards/directives/pc_standard_form_directive')(progCheck);
 require('./teachers/directives/pc_teachers_directive')(progCheck);
 
 progCheck.config(['$routeProvider', function($routeProvider) {
