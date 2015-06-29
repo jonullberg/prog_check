@@ -8,16 +8,14 @@ module.exports = function(router) {
 
   router.post('/standards', function(req, res) {
     var newStandard = new Standard(req.body);
-    newStandard.save(function(err, standard) {
+    newStandard.save(function(err, data) {
       if (err) {
         console.log(err);
         return res.status(500).json({
           'msg': 'Internal Server Error'
         });
       }
-      res.json({
-        'msg': 'Successfully saved standard'
-      });
+      res.json(data);
     });
   });
 
