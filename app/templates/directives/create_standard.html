@@ -1,44 +1,67 @@
 <section>
-  <h3>Add Standard<span class="glyphicon glyphicon-plus"></span></h3>
-  <form action="">
-    <legend>Standard Information</legend>
-    <div class="form-group">
-      <label for="name">What is the name of the standard?</label>
-      <input type="text"
-        class="form-control"
-        name="name" id="name"
-        data-ng-model="standard.name" />
+  <div class="col-lg-6">
+    <h3>More info on a specific standard</h3>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin suscipit id ligula nec tempus. Vestibulum lacus neque, ultricies vel dolor ut, tincidunt gravida nibh. Donec et euismod purus, id laoreet sem. Quisque sed elit id eros semper eleifend ut nec lacus. Nulla imperdiet consectetur tellus, non faucibus leo interdum vel. Ut et ipsum bibendum, rutrum nulla mollis, sollicitudin lorem. Aenean eu risus eu ante ornare sagittis. Nam dictum metus felis, vitae suscipit arcu mollis sit amet. Nunc ante metus, condimentum vitae semper vitae, gravida quis turpis. Nunc vel tincidunt purus, non tincidunt tortor. Phasellus volutpat gravida libero, at luctus nisl finibus sed. Cras sed nibh placerat, faucibus dolor nec, mattis massa.
+    </p>
+  </div>
+  <div class="col-lg-6" data-ng-if="!formShowing" data-ng-init="getAll()">
+
+    <div class="row">
+      <h3 class="col-lg-9">List of Current Standards</h3>
+      <button type="btn" class="btn btn-default col-lg-3" data-ng-click="showForm()">Add Standard <span class="glyphicon glyphicon-plus"></span></button>
     </div>
-    <div class="form-group">
-      <label for="grade">What grade is this standard for?</label>
-      <select type="text"
-        class="form-control"
-        name="grade" id="grade"
-        data-ng-model="standard.grade">
-        <option value="kindergarten">Kindergarten</option>
-        <option value="firstGrade">First Grade</option>
-        <option value="secondGrade">Second Grade</option>
-        <option value="thirdGrade">Third Grade</option>
-        <option value="fourthGrade">Fourth Grade</option>
-        <option value="fifthGrade">Fifth Grade</option>
-        <option value="sixthGrade">Sixth Grade</option>
-        <!-- TODO: How many grades need to be added? -->
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="code">What is the standard code?</label>
-      <input type="text"
-        class="form-control"
-        name="code" id="code"
-        data-ng-model="standard.code" />
-    </div>
-    <div class="form-group">
-      <label for="name">What is the language of the standard?</label>
-      <input type="text"
-        class="form-control"
-        name="language" id="language"
-        data-ng-model="standard.language" />
-    </div>
-    <button type="submit" class="btn btn-default">Create Standard</button>
-  </form>
+    <input type="text" class="col-lg-8" placeholder="Search..." />
+    <button type="button" class="col-lg-2 col-lg-offset-2">Search</button>
+    <ul >
+      <li data-ng-repeat="standard in standards">{{standard.name}}</li>
+    </ul>
+  </div>
+  <div class="col-lg-6" data-ng-if="formShowing">
+    <form action="">
+      <legend>Standard Information</legend>
+      <div class="form-group">
+        <label for="name">What is the name of the standard?</label>
+        <input type="text"
+          class="form-control"
+          name="name" id="name"
+          data-ng-model="standard.name" />
+      </div>
+      <div class="form-group">
+        <label for="grade">What grade is this standard for?</label>
+        <select type="text"
+          class="form-control"
+          name="grade" id="grade"
+          data-ng-model="standard.grade">
+          <option value="kindergarten">Kindergarten</option>
+          <option value="firstGrade">First Grade</option>
+          <option value="secondGrade">Second Grade</option>
+          <option value="thirdGrade">Third Grade</option>
+          <option value="fourthGrade">Fourth Grade</option>
+          <option value="fifthGrade">Fifth Grade</option>
+          <option value="sixthGrade">Sixth Grade</option>
+          <!-- TODO: How many grades need to be added? -->
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="code">What is the standard code?</label>
+        <input type="text"
+          class="form-control"
+          name="code" id="code"
+          data-ng-model="standard.code" />
+      </div>
+      <div class="form-group">
+        <label for="name">What is the language of the standard?</label>
+        <input type="text"
+          class="form-control"
+          name="language" id="language"
+          data-ng-model="standard.language" />
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-default">Create Standard</button>
+        <button type="button" class="btn btn-default" data-ng-click="showForm()">Cancel</button>
+      </div>
+    </form>
+
+  </div>
+  <div class="clearfix"></div>
 </section>
