@@ -12,9 +12,22 @@
     </div>
     <input type="text" class="col-lg-8" placeholder="Search..." />
     <button type="button" class="col-lg-2 col-lg-offset-2">Search</button>
-    <ul >
-      <li data-ng-repeat="standard in standards">{{standard.name}}</li>
-    </ul>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <td>Name</td>
+          <td>Grade</td>
+          <td>Code</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr data-ng-repeat="standard in standards">
+          <td>{{standard.name}}</td>
+          <td>{{standard.grade}}</td>
+          <td>{{standard.code}}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
   <div class="col-lg-6" data-ng-if="formShowing">
     <pc-standard-form

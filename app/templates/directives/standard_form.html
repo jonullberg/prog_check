@@ -38,6 +38,13 @@
       data-ng-model="standard.language" />
   </div>
   <div class="form-group">
+    <label for="description">A short description</label>
+    <textarea class="form-control"
+      name="description"
+      id="description"
+      data-ng-model="standard.description"></textarea>
+  </div>
+  <div class="form-group">
     <button type="submit" class="btn btn-default">Create Standard</button>
     <button type="button" class="btn btn-default" data-ng-click="toggleForm()">Cancel</button>
   </div>
