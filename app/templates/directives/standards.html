@@ -1,20 +1,27 @@
 <section data-ng-controller="standardsController">
   <div class="col-lg-6">
     <h3>More info on a specific standard</h3>
-    <div data-ng-model="displayedStandard">
+    <div data-ng-repeat="standard in displayedStandard">
       <h4>
-        {{displayedStandard.name}}
+        {{standard.name}}
       </h4>
       <p>
-        {{displayedStandard.description}}
+        {{standard.description}}
       </p>
+      <button type="button"
+        class="btn btn-default"
+        data-ng-if="!standard.editing"
+        data-ng-click="toggleEdit(standard)">Edit</button>
+      <button type="button"
+        class="btn btn-default"
+        data-ng-click="removeStandard(standard)">Delete</button>
     </div>
   </div>
   <div class="col-lg-6" data-ng-if="!formShowing" data-ng-init="getAll()">
 
     <div class="row">
       <h3 class="col-lg-9">List of Current Standards</h3>
-      <button type="btn" class="btn btn-default col-lg-3" data-ng-click="showForm()">Add Standard <span class="glyphicon glyphicon-plus"></span></button>
+      <button type="btn" class="btn btn-default col-lg-3" data-ng-click="toggleEdit()">Add Standard <span class="glyphicon glyphicon-plus"></span></button>
     </div>
     <input type="text"
       class="col-lg-8"
@@ -42,7 +49,17 @@
   <div class="col-lg-6" data-ng-if="formShowing">
     <pc-standard-form
       data-save="createNewStandard(standard)"
-      data-toggle-form="showForm()"></pc-standard-form>
+      data-toggle-edit="toggleEdit()"
+      data-button-text="'Create Standard'"
+      data-ng-if="!standard.editing && formShowing">
+    </pc-standard-form>
+    <pc-standard-form
+      data-save="saveStandard(standard)"
+      data-ng-if="standard.editing && formShowing"
+      data-standard="standard"
+      data-toggle-edit="toggleEdit(standard)"
+      data-button-text="'Update Standard'">
+    </pc-standard-form>
   </div>
   <div class="clearfix"></div>
 </section>
