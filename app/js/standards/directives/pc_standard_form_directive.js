@@ -9,7 +9,9 @@ module.exports = function(app) {
       scope: {
         save: '&',
         standard: '=',
-        toggleForm: '&'
+        toggleEdit: '&',
+        formShowing: '=',
+        buttonText: '='
       },
       transclude: true
     };
