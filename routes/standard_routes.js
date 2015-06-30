@@ -15,6 +15,7 @@ module.exports = function(router) {
           'msg': 'Internal Server Error'
         });
       }
+
       res.json(data);
     });
   });
@@ -27,7 +28,41 @@ module.exports = function(router) {
           'msg': 'Internal Server Error'
         });
       }
+
       res.json(data);
+    });
+  });
+
+  router.put('/standards/:id', function(req, res) {
+    var updatedStandard = req.body;
+    delete updatedStandard._id;
+    Standard.update({_id: req.params.id},
+      updatedStandard, function(err) {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({
+            'msg': 'Internal Server Error'
+          });
+        }
+
+        res.json({
+          'msg': 'Success'
+        });
+      });
+  });
+
+  router.delete('/standards/:id', function(req, res) {
+    Standard.remove({'_id': req.params.id}, function(err, data) {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          'msg': 'Internal Server Error'
+        });
+      }
+
+      res.json({
+        'msg': 'Success'
+      });
     });
   });
 };
