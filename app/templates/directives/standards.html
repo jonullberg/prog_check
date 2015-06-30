@@ -1,8 +1,14 @@
 <section data-ng-controller="standardsController">
   <div class="col-lg-6">
     <h3>More info on a specific standard</h3>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin suscipit id ligula nec tempus. Vestibulum lacus neque, ultricies vel dolor ut, tincidunt gravida nibh. Donec et euismod purus, id laoreet sem. Quisque sed elit id eros semper eleifend ut nec lacus. Nulla imperdiet consectetur tellus, non faucibus leo interdum vel. Ut et ipsum bibendum, rutrum nulla mollis, sollicitudin lorem. Aenean eu risus eu ante ornare sagittis. Nam dictum metus felis, vitae suscipit arcu mollis sit amet. Nunc ante metus, condimentum vitae semper vitae, gravida quis turpis. Nunc vel tincidunt purus, non tincidunt tortor. Phasellus volutpat gravida libero, at luctus nisl finibus sed. Cras sed nibh placerat, faucibus dolor nec, mattis massa.
-    </p>
+    <div data-ng-model="displayedStandard">
+      <h4>
+        {{displayedStandard.name}}
+      </h4>
+      <p>
+        {{displayedStandard.description}}
+      </p>
+    </div>
   </div>
   <div class="col-lg-6" data-ng-if="!formShowing" data-ng-init="getAll()">
 
@@ -10,7 +16,10 @@
       <h3 class="col-lg-9">List of Current Standards</h3>
       <button type="btn" class="btn btn-default col-lg-3" data-ng-click="showForm()">Add Standard <span class="glyphicon glyphicon-plus"></span></button>
     </div>
-    <input type="text" class="col-lg-8" placeholder="Search..." />
+    <input type="text"
+      class="col-lg-8"
+      placeholder="Search..."
+      data-ng-model="search.$" />
     <button type="button" class="col-lg-2 col-lg-offset-2">Search</button>
     <table class="table table-striped">
       <thead>
@@ -21,7 +30,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr data-ng-repeat="standard in standards">
+        <tr data-ng-repeat="standard in standards | filter:search | limitTo:quantity"
+        data-ng-click="setDisplayedStandard(standard)">
           <td>{{standard.name}}</td>
           <td>{{standard.grade}}</td>
           <td>{{standard.code}}</td>

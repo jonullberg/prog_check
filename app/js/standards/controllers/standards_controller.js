@@ -10,6 +10,15 @@ module.exports = function(app) {
     $scope.formShowing = false;
 
     /**
+     * Holds the standard that has been clicked.
+     */
+    $scope.displayedStandard;
+
+    $scope.setDisplayedStandard = function(standard) {
+      $scope.displayedStandard = standard;
+    };
+
+    /**
      * Calls on our REST resource to hit the API at /api/standards
      * @type {[type]}
      */
@@ -27,6 +36,7 @@ module.exports = function(app) {
      */
     $scope.errors = [];
 
+    $scope.quantity = 5;
     /**
      * Will make a GET request to /api/standards and return an array of standards to be displayed
      */
