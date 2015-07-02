@@ -1,0 +1,33 @@
+<form
+  data-ng-submit="save({question: question})">
+  <div class="form-group">
+    <label for="question">Question: </label>
+    <input type="text"
+      class="form-control"
+      name="question"
+      id="question"
+      data-ng-model="question.question" />
+  </div>
+  <div class="form-group">
+    <label for="correctAnswer">Correct answer: </label>
+    <input type="text"
+      class="form-control"
+      name="correctAnswer"
+      id="correctAnswer"
+      data-ng-model="question.correct">
+  </div>
+  <div class="form-group form-inline">
+    <label for="answers">Additional Options: </label>
+    <input type="text"
+    class="form-control">
+    <input type="text"
+    class="form-control">
+    <input type="text"
+    class="form-control">
+  </div>
+  <div class="form-group">
+    <button type="submit"
+      class="btn btn-default"
+      data-ng-click="saveQuestion()">Add Question</button>
+  </div>
+</form>
