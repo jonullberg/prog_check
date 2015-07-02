@@ -4,18 +4,15 @@
   data-ng-submit="saveTest(test)">
   <legend>Add A Test</legend>
   <div class="form-group">
-    <label for="standard">Select the standard for the test</label>
-    <h4 data-ng-model="test.standardId">
-      {{_id}}
-    </h4>
+    <h4 data-ng-model="test.standardId">Test Standard: {{displayedStandard.name}}</h4>
   </div>
   <div class="form-group">
-    <label for="testQuestion">Test Question:</label>
+    <label for="testQuestion">Directions for Test:</label>
     <input type="text"
       class="form-control"
       name="testQuestion"
       id="testQuestion"
-      data-ng-model="test.testQuestion">
+      data-ng-model="test.testDirections">
   </div>
   <div>
     <ul>
@@ -24,7 +21,8 @@
   </div>
   <div>
     <pc-question-form
-      data-save="saveQuestion(question)"></pc-question-form>
+      data-save="saveQuestion(question)">
+    </pc-question-form>
   </div>
   <div class="form-group">
     <button type="submit"

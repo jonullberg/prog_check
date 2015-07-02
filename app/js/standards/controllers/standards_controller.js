@@ -1,11 +1,10 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('standardsController', ['$scope', 'RESTResource', 'copy', function($scope, resource, copy) {
+  app.controller('standardsController', ['$scope', 'RESTResource', 'copy', 'dataStore', function($scope, resource, copy, dataStore) {
 
     /**
      * Calls on our REST resource to hit the API at /api/standards
-     * @type {[type]}
      */
     var Standard = resource('standards');
 
@@ -20,6 +19,8 @@ module.exports = function(app) {
      * @type {Array}
      */
     $scope.errors = [];
+
+    $scope.tests = dataStore.tests;
 
     $scope.quantity = 5;
 
@@ -49,9 +50,14 @@ module.exports = function(app) {
 
     /**
      * Holds the standard that has been clicked.
+     * @type {Array}
      */
     $scope.displayedStandard = [];
 
+    /**
+     * Will set a standard to be displayed to the user
+     * @param {Object} standard The specificed standard to be displayed
+     */
     $scope.setDisplayedStandard = function(standard) {
       $scope.displayedStandard.splice(0, 1, standard);
     };
@@ -66,7 +72,9 @@ module.exports = function(app) {
             'msg': 'Error retrieving standards'
           });
         }
+        dataStore.standards = data;
         $scope.standards = data;
+
       });
     };
 
@@ -76,7 +84,7 @@ module.exports = function(app) {
      */
     $scope.createNewStandard = function(standard) {
       var newStandard = copy(standard);
-      $scope.standards.push(newStandard);
+      dataStore.standards.push(newStandard);
       $scope.displayedStandard.splice(0, 1, newStandard);
       Standard.create(newStandard, function(err, data) {
         if (err) {
@@ -86,6 +94,8 @@ module.exports = function(app) {
         }
         $scope.standards.splice($scope.standards.indexOf(newStandard), 1, data);
         $scope.displayedStandard.splice(0, 1, data);
+        dataStore.standards.splice(dataStore.standards.indexOf(newStandard), 1, data);
+
         $scope.formShowing = false;
       });
     };
@@ -112,6 +122,8 @@ module.exports = function(app) {
      */
     $scope.removeStandard = function(standard) {
       $scope.standards.splice($scope.standards.indexOf(standard), 1);
+      dataStore.standards.splice(dataStore.standards.indexOf(standard), 1);
+
       $scope.displayedStandard = [];
       Standard.remove(standard, function(err) {
         if(err) return $scope.errors.push({

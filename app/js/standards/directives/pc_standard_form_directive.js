@@ -12,8 +12,7 @@ module.exports = function(app) {
         toggleEdit: '&',
         formShowing: '=',
         buttonText: '='
-      },
-      transclude: true
+      }
     };
   });
 };
