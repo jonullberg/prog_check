@@ -9,6 +9,8 @@ module.exports = function(app) {
 
     $scope.errors = [];
 
+    $scope.displayedTest = null;
+
     $scope.getAll = function() {
       Test.getAll(function(err, data) {
         if (err) {
