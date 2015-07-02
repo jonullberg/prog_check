@@ -52,9 +52,6 @@
       <p>
         {{standard.description}}
       </p>
-      <ul>
-        <li data-ng-repeat="test in tests | filter: {standardId: standard._id}">{{test.testName}}</li>
-      </ul>
       <button type="button"
         class="btn btn-default"
         data-ng-if="!standard.editing"
@@ -72,11 +69,19 @@
   </div>
   <div class="clearfix"></div>
   <div class="col-lg-6">
-    <pc-tests-list>
+    <pc-tests-list
+      data-tests="tests"
+      data-standard="standard"
+      data-ng-if="!testShowing">
     </pc-tests-list>
+    <pc-single-test
+      data-test="displayedTest"
+      data-ng-if="testShowing">
+    </pc-single-test>
   </div>
   <div class="col-lg-6">
-    <pc-test-form>
+    <pc-test-form
+      data-ng-if="testEditing">
     </pc-test-form>
   </div>
   <div class="clearfix"></div>

@@ -5,7 +5,11 @@ module.exports = function(app) {
     return {
       restrict: 'E',
       replace: true,
-      templateUrl: '/templates/directives/tests_list.html'
+      templateUrl: '/templates/directives/tests_list.html',
+      scope: {
+        tests: '=',
+        standard: '='
+      }
     };
   });
 };

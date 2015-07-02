@@ -1,4 +1,4 @@
-<aside class="panel panel-primary">
+<section class="panel panel-primary">
   <header class="panel-heading">
     <h3 class="col-lg-6">List of Tests</h3>
     <button class="btn btn-default col-lg-3 col-lg-offset-3">
@@ -8,11 +8,7 @@
   </header>
   <section class="panel-body">
     <ul>
-      <li>Test 1</li>
-      <li>Test 2</li>
-      <li>Test 3</li>
-      <li>Test 4</li>
-      <li>Test 5</li>
+      <li data-ng-repeat="test in tests | filter: {standardId: standard._id}">{{test.testName}}</li>
     </ul>
   </section>
-</aside>
+</section>
