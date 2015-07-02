@@ -35,7 +35,7 @@ module.exports = function(app) {
         $scope.formShowing = false;
         return;
       } else {
-        if (standard) {
+        if(standard) {
           standard.editing = true;
           $scope.formShowing = true;
           $scope.standard = standard;
@@ -47,6 +47,8 @@ module.exports = function(app) {
         }
       }
     };
+
+    $scope.testShowing;
 
     /**
      * Holds the standard that has been clicked.
