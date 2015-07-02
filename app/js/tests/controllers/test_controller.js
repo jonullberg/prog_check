@@ -16,7 +16,6 @@ module.exports = function(app) {
             'msg': 'Error retrieving tests'
           });
         }
-
         dataStore.tests = data;
         $scope.tests = data;
 
