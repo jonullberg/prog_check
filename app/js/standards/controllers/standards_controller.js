@@ -30,9 +30,12 @@ module.exports = function(app) {
      */
     $scope.formShowing = false;
 
+    $scope.isStandardShowing;
+
     $scope.toggleEdit = function(standard) {
       if ($scope.formShowing) {
         $scope.formShowing = false;
+        standard.editing = false;
         return;
       } else {
         if(standard) {
@@ -41,6 +44,7 @@ module.exports = function(app) {
           $scope.standard = standard;
           return;
         } else {
+          standard.editing = true;
           $scope.standard = null;
           $scope.formShowing = true;
           return;
@@ -60,8 +64,9 @@ module.exports = function(app) {
      * Will set a standard to be displayed to the user
      * @param {Object} standard The specificed standard to be displayed
      */
-    $scope.setDisplayedStandard = function(standard) {
+    $scope.showStandard = function(standard) {
       $scope.selectedStandard = standard;
+      $scope.isStandardShowing = true;
     };
 
     /**
@@ -76,7 +81,6 @@ module.exports = function(app) {
         }
         dataStore.standards = data;
         $scope.standards = data;
-
       });
     };
 

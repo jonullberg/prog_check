@@ -1,55 +1,36 @@
-<section data-ng-controller="standardsController">
-<div class="col-lg-6" data-ng-if="!formShowing" data-ng-init="getAll()">
-
-  <div class="row">
-    <h3 class="col-lg-9">List of Current Standards</h3>
-    <button type="btn" class="btn btn-default col-lg-3" data-ng-click="toggleEdit()">Add Standard <span class="glyphicon glyphicon-plus"></span></button>
-  </div>
-  <input type="text"
-    class="col-lg-8"
-    placeholder="Search..."
-    data-ng-model="search.$" />
-  <button type="button" class="col-lg-2 col-lg-offset-2">Search</button>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <td>Name</td>
-        <td>Grade</td>
-        <td>Code</td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr data-ng-repeat="standard in standards | filter:search | limitTo:quantity"
-      data-ng-click="setDisplayedStandard(standard)">
-        <td>{{standard.name}}</td>
-        <td>{{standard.grade}}</td>
-        <td>{{standard.code}}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<div class="col-lg-6" data-ng-if="formShowing">
-  <pc-standard-form
-    data-save="createNewStandard(standard)"
-    data-toggle-edit="toggleEdit()"
-    data-button-text="'Create Standard'"
-    data-ng-if="!standard.editing && formShowing">
-  </pc-standard-form>
-  <pc-standard-form
-    data-save="saveStandard(standard)"
-    data-ng-if="standard.editing && formShowing"
-    data-standard="standard"
-    data-toggle-edit="toggleEdit(standard)"
-    data-button-text="'Update Standard'">
-  </pc-standard-form>
-</div>
-
+<section
+  data-ng-controller="standardsController">
   <div class="col-lg-6">
+    <pc-standards-list
+      data-ng-if="!isStandardShowing"
+      data-standards="standards"
+      data-show="showStandard(standard)"
+      data-get-all="getAll()"
+      data-toggle-edit="toggleEdit()">
+    </pc-standards-list>
     <pc-single-standard
-      data-standard="selectedStandard">
+      data-ng-if="isStandardShowing"
+      data-standard="selectedStandard"
+      data-toggle-edit="toggleEdit(standard)">
     </pc-single-standard>
   </div>
+  <div class="col-lg-6" data-ng-if="formShowing">
+    <pc-standard-form
+      data-save="createNewStandard(standard)"
+      data-toggle-edit="toggleEdit()"
+      data-button-text="'Create Standard'"
+      data-ng-if="!standard.editing && formShowing">
+    </pc-standard-form>
+    <pc-standard-form
+      data-save="saveStandard(standard)"
+      data-ng-if="standard.editing && formShowing"
+      data-standard="standard"
+      data-toggle-edit="toggleEdit(standard)"
+      data-button-text="'Update Standard'">
+    </pc-standard-form>
+  </div>
   <div class="clearfix"></div>
+
   <div class="col-lg-6">
     <pc-tests-list
       data-tests="tests"

@@ -30,6 +30,7 @@ require('./teachers/directives/pc_teachers_directive')(progCheck);
 require('./standards/directives/pc_standards_directive')(progCheck);
 require('./standards/directives/pc_standard_form_directive')(progCheck);
 require('./standards/directives/pc_single_standard')(progCheck);
+require('./standards/directives/pc_standards_list')(progCheck);
 
   //  Test directives
 require('./tests/directives/pc_test_form')(progCheck);  // Form for adding or editing tests
