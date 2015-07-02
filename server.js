@@ -14,6 +14,7 @@ process.env.APP_SECRET = process.env.APP_SECRET || 'changethischangethischangeth
 
 var usersRoutes = express.Router();
 var standardsRoutes = express.Router();
+var testsRoutes = express.Router();
 
 //  The database URI to connect to for saving information
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/progcheck_dev');
@@ -24,9 +25,11 @@ require('./lib/passport_strat')(passport);
 
 require('./routes/user_routes.js')(usersRoutes, passport);
 require('./routes/standard_routes.js')(standardsRoutes);
+require('./routes/test_routes.js')(testsRoutes)
 
 app.use('/api', usersRoutes);
 app.use('/api', standardsRoutes);
+app.use('/api', testsRoutes);
 
 app.listen(port, function() {
 	console.log('Your server is running on port ' + port);
