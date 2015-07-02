@@ -1,7 +1,7 @@
 'use strict';
 
 var Test = require('../models/Test');
-var Standard = require('./models/Standard');
+var Standard = require('../models/Standard');
 var bodyparser = require('body-parser');
 
 module.exports = function(router) {
