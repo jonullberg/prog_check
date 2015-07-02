@@ -10,9 +10,9 @@ var progCheck = angular.module('progCheck', ['ngRoute', 'ngCookies', 'base64', '
 
 //  services
 require('./auth/services/auth_service')(progCheck);
-require('./services/rest_resource.js')(progCheck);
-require('./services/copy.js')(progCheck);
-require('./services/data_service.js')(progCheck);
+require('./services/rest_resource')(progCheck);
+require('./services/copy')(progCheck);
+require('./services/data_service')(progCheck);
 
 //  controllers
 require('./auth/controllers/auth_controller')(progCheck);
@@ -27,8 +27,11 @@ require('./auth/directives/account_tools_directive')(progCheck);
 require('./standards/directives/pc_standards_directive')(progCheck);
 require('./standards/directives/pc_standard_form_directive')(progCheck);
 require('./teachers/directives/pc_teachers_directive')(progCheck);
-require('./tests/directives/pc_test_form')(progCheck);
-require('./tests/directives/pc_question_form')(progCheck);
+
+  //  Test directives
+require('./tests/directives/pc_test_form')(progCheck);  // Form for adding or editing tests
+require('./tests/directives/pc_question_form')(progCheck);  // Ability to add questions
+require('./tests/directives/pc_tests_list')(progCheck); // Shows a list of all tests attached to standard
 
 progCheck.config(['$routeProvider', function($routeProvider) {
   $routeProvider
