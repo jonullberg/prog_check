@@ -54,14 +54,14 @@ module.exports = function(app) {
      * Holds the standard that has been clicked.
      * @type {Array}
      */
-    $scope.displayedStandard = [];
+    $scope.selectedStandard = null;
 
     /**
      * Will set a standard to be displayed to the user
      * @param {Object} standard The specificed standard to be displayed
      */
     $scope.setDisplayedStandard = function(standard) {
-      $scope.displayedStandard.splice(0, 1, standard);
+      $scope.selectedStandard = standard;
     };
 
     /**

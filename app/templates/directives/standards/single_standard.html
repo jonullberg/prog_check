@@ -1,0 +1,27 @@
+<section class="panel panel-primary">
+  <header class="panel-heading">
+    <h3>
+      {{standard.name}}
+    </h3>
+  </header>
+  <div class="panel-body">
+    <p>
+      {{standard.description}}
+    </p>
+  </div>
+  <div class="panel-footer">
+    <button type="button"
+      class="btn btn-default"
+      data-ng-if="!standard.editing"
+      data-ng-click="toggleEdit(standard)">Edit Standard
+    </button>
+    <button type="button"
+      class="btn btn-default"
+      data-ng-click="removeStandard(standard)">Delete Standard
+    </button>
+    <button type="button"
+      class="btn btn-default">Add A Test
+      <span class="glyphicon glyphicon-plus"></span>
+    </button>
+  </div>
+</section>

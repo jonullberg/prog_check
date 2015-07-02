@@ -45,27 +45,9 @@
 </div>
 
   <div class="col-lg-6">
-    <div data-ng-repeat="standard in displayedStandard">
-      <h3>
-        {{standard.name}}
-      </h3>
-      <p>
-        {{standard.description}}
-      </p>
-      <button type="button"
-        class="btn btn-default"
-        data-ng-if="!standard.editing"
-        data-ng-click="toggleEdit(standard)">Edit Standard
-      </button>
-      <button type="button"
-        class="btn btn-default"
-        data-ng-click="removeStandard(standard)">Delete Standard
-      </button>
-      <button type="button"
-        class="btn btn-default">Add A Test
-        <span class="glyphicon glyphicon-plus"></span>
-      </button>
-    </div>
+    <pc-single-standard
+      data-standard="selectedStandard">
+    </pc-single-standard>
   </div>
   <div class="clearfix"></div>
   <div class="col-lg-6">
