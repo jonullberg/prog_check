@@ -7,7 +7,8 @@ module.exports = function(app) {
       replace: true,
       templateUrl: '/templates/directives/standards/single_standard.html',
       scope: {
-        selectedStandard: '='
+        standard: '=',
+        toggleEdit: '&'
       }
     };
   });
