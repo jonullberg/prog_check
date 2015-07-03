@@ -7,7 +7,7 @@ module.exports = function(app) {
       replace: true,
       templateUrl: '/templates/directives/single_test.html',
       scope: {
-        test: '&'
+        test: '='
       }
     };
   });
