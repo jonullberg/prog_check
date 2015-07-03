@@ -8,7 +8,8 @@ module.exports = function(app) {
       templateUrl: '/templates/directives/tests_list.html',
       scope: {
         tests: '=',
-        standard: '='
+        standard: '=',
+        show: '&'
       }
     };
   });

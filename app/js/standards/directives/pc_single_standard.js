@@ -8,7 +8,8 @@ module.exports = function(app) {
       templateUrl: '/templates/directives/standards/single_standard.html',
       scope: {
         standard: '=',
-        toggleEdit: '&'
+        toggleEdit: '&',
+        goBack: '&'
       }
     };
   });

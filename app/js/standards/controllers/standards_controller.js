@@ -144,12 +144,25 @@ module.exports = function(app) {
       $scope.standards.splice($scope.standards.indexOf(standard), 1);
       dataStore.standards.splice(dataStore.standards.indexOf(standard), 1);
 
-      $scope.displayedStandard = [];
+      $scope.selectedStandard = null;
       Standard.remove(standard, function(err) {
         if(err) return $scope.errors.push({
           'msg': 'There was an error deleting this standard'
         });
       });
+    };
+
+    $scope.goBack = function() {
+      $scope.selectedStandard = null;
+      $scope.isStandardShowing = false;
+    };
+
+    $scope.selectedTest = null;
+
+    $scope.showTest = function(test) {
+      console.log(test);
+      $scope.selectedTest = test;
+      $scope.testShowing = true;
     };
   }]);
 };
