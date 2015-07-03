@@ -5,7 +5,12 @@ module.exports = function(app) {
     return {
       restrict: 'E',
       replace: true,
-      templateUrl: '/templates/directives/test_form.html'
+      templateUrl: '/templates/directives/test_form.html',
+      scope: {
+        test: '=',
+        buttonText: '=',
+        save: '&'
+      }
     };
   });
 };

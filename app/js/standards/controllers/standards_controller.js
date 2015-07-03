@@ -160,9 +160,15 @@ module.exports = function(app) {
     $scope.selectedTest = null;
 
     $scope.showTest = function(test) {
-      console.log(test);
       $scope.selectedTest = test;
       $scope.testShowing = true;
+    };
+
+    $scope.isTestFormShowing;
+
+    $scope.editTest = function(test) {
+      $scope.selectedTest = test;
+      $scope.isTestFormShowing = true
     };
   }]);
 };
