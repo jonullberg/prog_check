@@ -3,6 +3,9 @@
     <h3>
       {{standard.name}}
     </h3>
+    <button type="button"
+      class="btn btn-default"
+      data-ng-click="goBack()">Go Back</button>
   </header>
   <div class="panel-body">
     <p>
@@ -11,17 +14,13 @@
   </div>
   <div class="panel-footer">
     <button type="button"
-      class="btn btn-default"
+      class="btn btn-primary"
       data-ng-if="!standard.editing"
       data-ng-click="toggleEdit({standard: standard})">Edit Standard
     </button>
     <button type="button"
-      class="btn btn-default"
+      class="btn btn-danger"
       data-ng-click="removeStandard(standard)">Delete Standard
-    </button>
-    <button type="button"
-      class="btn btn-default">Add A Test
-      <span class="glyphicon glyphicon-plus"></span>
     </button>
   </div>
 </section>

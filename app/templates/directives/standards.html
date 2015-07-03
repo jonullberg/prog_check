@@ -11,7 +11,8 @@
     <pc-single-standard
       data-ng-if="isStandardShowing"
       data-standard="selectedStandard"
-      data-toggle-edit="toggleEdit(standard)">
+      data-toggle-edit="toggleEdit(standard)"
+      data-go-back="goBack()">
     </pc-single-standard>
   </div>
   <div class="col-lg-6" data-ng-if="formShowing">
@@ -37,17 +38,18 @@
       data-ng-if="!testShowing"
       data-ng-init="getAllTests()"
       data-tests="tests"
-      data-standard="selectedStandard">
+      data-standard="selectedStandard"
+      data-show="showTest(test)">
     </pc-tests-list>
     <pc-single-test
-      data-test="displayedTest"
-      data-ng-if="testShowing">
+      data-ng-if="testShowing"
+      data-test="selectedTest">
     </pc-single-test>
   </div>
   <div class="col-lg-6"
     data-ng-if="selectedStandard">
     <pc-test-form
-      data-ng-if="test.editing">
+      data-ng-if="testEdit">
     </pc-test-form>
   </div>
   <div class="clearfix"></div>
