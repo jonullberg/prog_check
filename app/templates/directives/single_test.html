@@ -5,13 +5,15 @@
     <div class="clearfix"></div>
   </header>
   <section class="panel-body">
+    <h4>Directions:</h4>
+    <p>{{test.testQuestion}}</p>
     <h4>Questions: </h4>
     <ul>
-      <li>Question 1</li>
-      <li>Question 2</li>
-      <li>Question 3</li>
-      <li>Question 4</li>
-      <li>Question 5</li>
+      <li data-ng-repeat="question in test.questions">{{question.question}}
+        <ul data-ng-if="areAnswersShowing">
+          <li data-ng-repeat="answer in question.answers">{{answer}}</li>
+        </ul>
+      </li>
     </ul>
   </section>
   <footer class="panel-footer">
