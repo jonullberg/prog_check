@@ -29,9 +29,31 @@ module.exports = function(app) {
      * Tells whether the form should be shown or not, false means the list of standards should be shown, true means form to add a standard is shown
      * @type {Boolean}
      */
+
     $scope.formShowing = false;
 
+    /**
+     * Holds the standard that has been clicked.
+     * @type {Array}
+     */
+    $scope.standard = null;
+
     $scope.isStandardShowing;
+    $scope.isStandardFormShowing;
+
+    $scope.addStandard = function() {
+      $scope.isStandardFormShowing = true;
+    };
+
+    $scope.editStandard = function(standard) {
+      standard.editing = true;
+      $scope.isStandardFormShowing = true;
+      $scope.standard = standard;
+    };
+
+    $scope.cancelEdit = function() {
+
+    };
 
     $scope.toggleEdit = function(standard) {
       if ($scope.formShowing) {
@@ -44,29 +66,19 @@ module.exports = function(app) {
           $scope.formShowing = true;
           $scope.standard = standard;
           return;
-        } else {
-          standard.editing = true;
-          $scope.standard = null;
-          $scope.formShowing = true;
-          return;
         }
       }
     };
 
     $scope.testShowing;
 
-    /**
-     * Holds the standard that has been clicked.
-     * @type {Array}
-     */
-    $scope.selectedStandard = null;
 
     /**
      * Will set a standard to be displayed to the user
      * @param {Object} standard The specificed standard to be displayed
      */
     $scope.showStandard = function(standard) {
-      $scope.selectedStandard = standard;
+      $scope.standard = standard;
       $scope.isStandardShowing = true;
     };
 
@@ -144,7 +156,7 @@ module.exports = function(app) {
       $scope.standards.splice($scope.standards.indexOf(standard), 1);
       dataStore.standards.splice(dataStore.standards.indexOf(standard), 1);
 
-      $scope.selectedStandard = null;
+      $scope.standard = null;
       Standard.remove(standard, function(err) {
         if(err) return $scope.errors.push({
           'msg': 'There was an error deleting this standard'
@@ -153,7 +165,7 @@ module.exports = function(app) {
     };
 
     $scope.goBack = function() {
-      $scope.selectedStandard = null;
+      $scope.standard = null;
       $scope.isStandardShowing = false;
     };
 

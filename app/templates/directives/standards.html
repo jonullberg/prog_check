@@ -6,25 +6,25 @@
       data-standards="standards"
       data-show="showStandard(standard)"
       data-get-all="getAllStandards()"
-      data-toggle-edit="toggleEdit()">
+      data-add-standard="addStandard()">
     </pc-standards-list>
     <pc-single-standard
       data-ng-if="isStandardShowing"
-      data-standard="selectedStandard"
-      data-toggle-edit="toggleEdit(standard)"
+      data-standard="standard"
+      data-edit="editStandard(standard)"
       data-go-back="goBack()">
     </pc-single-standard>
   </div>
-  <div class="col-lg-6" data-ng-if="formShowing">
+  <div class="col-lg-6">
     <pc-standard-form
       data-save="createNewStandard(standard)"
       data-toggle-edit="toggleEdit()"
       data-button-text="'Create Standard'"
-      data-ng-if="!standard.editing && formShowing">
+      data-ng-if="!standard.editing && isStandardFormShowing">
     </pc-standard-form>
     <pc-standard-form
       data-save="saveStandard(standard)"
-      data-ng-if="standard.editing && formShowing"
+      data-ng-if="standard.editing && isStandardFormShowing"
       data-standard="standard"
       data-toggle-edit="toggleEdit(standard)"
       data-button-text="'Update Standard'">
