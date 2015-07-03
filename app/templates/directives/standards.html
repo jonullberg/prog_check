@@ -12,7 +12,10 @@
       data-ng-if="isStandardShowing"
       data-standard="standard"
       data-toggle="toggleEdit(standard)"
-      data-go-back="goBack()">
+      data-go-back="goBack()"
+      data-toggle-alert="toggleAlert()"
+      data-is-alert-shown="isAlertShown"
+      data-remove-standard="removeStandard(standard)">
     </pc-single-standard>
   </div>
   <div class="col-lg-6">
@@ -43,7 +46,7 @@
     </pc-tests-list>
     <pc-single-test
       data-ng-if="isTestShowing"
-      data-test="selectedTest"
+      data-test="test"
       data-edit-test="editTest(test)">
     </pc-single-test>
   </div>

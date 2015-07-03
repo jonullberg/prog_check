@@ -3,49 +3,26 @@
 module.exports = function(app) {
   app.controller('standardsController', ['$scope', '$filter', 'RESTResource', 'copy', 'dataStore', function($scope, $filter, resource, copy, dataStore) {
 
-    /**
-     * Calls on our REST resource to hit the API at /api/standards
-     */
     var Standard = resource('standards');
     var Test = resource('tests');
 
-    /**
-     * Holds all of the standards to be displayed
-     * @type {Array}
-     */
     $scope.standards = [];
-
-    /**
-     * Holds any errors
-     * @type {Array}
-     */
     $scope.errors = [];
-
     $scope.tests = null;
-
     $scope.quantity = 5;
-
-    /**
-     * Tells whether the form should be shown or not, false means the list of standards should be shown, true means form to add a standard is shown
-     * @type {Boolean}
-     */
-
     $scope.formShowing = false;
-
-    /**
-     * Holds the standard that has been clicked.
-     * @type {Array}
-     */
     $scope.standard = null;
-
     $scope.isStandardShowing;
     $scope.isStandardFormShowing;
+    $scope.master = {};
+    $scope.isTestShowing;
+    $scope.test = null;
+    $scope.isTestFormShowing;
+    $scope.isAlertShown = false;
 
     $scope.addStandard = function() {
       $scope.isStandardFormShowing = true;
     };
-
-    $scope.master = {};
 
     $scope.toggleEdit = function(standard) {
       if (standard.editing) {
@@ -57,9 +34,6 @@ module.exports = function(app) {
         standard.editing = true;
       }
     };
-
-    $scope.isTestShowing;
-
 
     /**
      * Will set a standard to be displayed to the user
@@ -130,10 +104,8 @@ module.exports = function(app) {
         if (err) return $scope.errors.push({
           'msg': 'There was an error while updating this standard'
         });
-
+        standard.editing = false;
         $scope.standard = standard;
-        $scope.isStandardFormShowing = false;
-        $scope.standard.editing = false;
       });
     };
 
@@ -146,10 +118,12 @@ module.exports = function(app) {
       dataStore.standards.splice(dataStore.standards.indexOf(standard), 1);
 
       $scope.standard = null;
+      $scope.isStandardShowing = false;
       Standard.remove(standard, function(err) {
         if(err) return $scope.errors.push({
           'msg': 'There was an error deleting this standard'
         });
+
       });
     };
 
@@ -158,18 +132,25 @@ module.exports = function(app) {
       $scope.isStandardShowing = false;
     };
 
-    $scope.test = null;
 
     $scope.showTest = function(test) {
       $scope.test = test;
       $scope.isTestShowing = true;
     };
 
-    $scope.isTestFormShowing;
 
     $scope.editTest = function(test) {
       $scope.test = test;
       $scope.isTestFormShowing = true
+    };
+
+
+    $scope.toggleAlert = function() {
+      if ($scope.isAlertShown) {
+        $scope.isAlertShown = false;
+      } else {
+        $scope.isAlertShown = true;
+      }
     };
   }]);
 };

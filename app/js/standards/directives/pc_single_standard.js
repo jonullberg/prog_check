@@ -9,7 +9,10 @@ module.exports = function(app) {
       scope: {
         standard: '=',
         toggle: '&',
-        goBack: '&'
+        goBack: '&',
+        toggleAlert: '&',
+        isAlertShown: '=',
+        removeStandard: '&'
       }
     };
   });
