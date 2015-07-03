@@ -70,7 +70,7 @@ module.exports = function(app) {
       }
     };
 
-    $scope.testShowing;
+    $scope.isTestShowing;
 
 
     /**
@@ -80,6 +80,8 @@ module.exports = function(app) {
     $scope.showStandard = function(standard) {
       $scope.standard = standard;
       $scope.isStandardShowing = true;
+      $scope.isStandardFormShowing = false;
+      $scope.isTestShowing = false;
     };
 
     /**
@@ -104,7 +106,6 @@ module.exports = function(app) {
             'msg': 'Error retrieving tests'
           });
         }
-
         dataStore.tests = data;
         $scope.tests = data;
       });
@@ -117,7 +118,7 @@ module.exports = function(app) {
     $scope.createNewStandard = function(standard) {
       var newStandard = copy(standard);
       dataStore.standards.push(newStandard);
-      $scope.displayedStandard.splice(0, 1, newStandard);
+      $scope.standard = newStandard;
       Standard.create(newStandard, function(err, data) {
         if (err) {
           return $scope.errors.push({
@@ -125,10 +126,10 @@ module.exports = function(app) {
           });
         }
         $scope.standards.splice($scope.standards.indexOf(newStandard), 1, data);
-        $scope.displayedStandard.splice(0, 1, data);
+        $scope.standard = data;
         dataStore.standards.splice(dataStore.standards.indexOf(newStandard), 1, data);
 
-        $scope.formShowing = false;
+        $scope.isStandardFormShowing = false;
       });
     };
 
@@ -142,9 +143,9 @@ module.exports = function(app) {
           'msg': 'There was an error while updating this standard'
         });
 
-        $scope.standard = null;
-        $scope.formShowing = false;
-        standard.editing = false;
+        $scope.standard = standard;
+        $scope.isStandardFormShowing = false;
+        $scope.standard.editing = false;
       });
     };
 
@@ -173,7 +174,7 @@ module.exports = function(app) {
 
     $scope.showTest = function(test) {
       $scope.selectedTest = test;
-      $scope.testShowing = true;
+      $scope.isTestShowing = true;
     };
 
     $scope.isTestFormShowing;

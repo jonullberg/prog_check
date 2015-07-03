@@ -33,22 +33,22 @@
   <div class="clearfix"></div>
 
   <div class="col-lg-6"
-    data-ng-if="selectedStandard">
+    data-ng-if="standard">
     <pc-tests-list
-      data-ng-if="!testShowing"
+      data-ng-if="!isTestShowing"
       data-ng-init="getAllTests()"
       data-tests="tests"
-      data-standard="selectedStandard"
+      data-standard="standard"
       data-show="showTest(test)">
     </pc-tests-list>
     <pc-single-test
-      data-ng-if="testShowing"
+      data-ng-if="isTestShowing"
       data-test="selectedTest"
       data-edit-test="editTest(test)">
     </pc-single-test>
   </div>
   <div class="col-lg-6"
-    data-ng-if="selectedStandard">
+    data-ng-if="standard">
     <pc-test-form
       data-ng-if="isTestFormShowing"
       data-button-text="'Update Test'"
