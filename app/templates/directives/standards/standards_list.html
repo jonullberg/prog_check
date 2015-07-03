@@ -6,11 +6,17 @@
     <div class="clearfix"></div>
   </header>
   <div class="panel-body">
-    <input type="text"
-      class="col-lg-8"
-      placeholder="Search..."
-      data-ng-model="search.$" />
-    <button type="button" class="col-lg-2 col-lg-offset-2">Search</button>
+    <div class="input-group col-md-12">
+      <input type="text"
+        class="form-control input-lg"
+        placeholder="Search..."
+        data-ng-model="search.$" />
+      <span class="input-group-btn">
+        <button type="button" class="btn btn-primary btn-lg">
+          <i class="glyphicon glyphicon-search"></i>
+        </button>
+      </span>
+    </div>
     <table class="table table-striped">
       <thead>
         <tr>
