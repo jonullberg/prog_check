@@ -11,22 +11,22 @@
     <pc-single-standard
       data-ng-if="isStandardShowing"
       data-standard="standard"
-      data-edit="editStandard(standard)"
+      data-toggle="toggleEdit(standard)"
       data-go-back="goBack()">
     </pc-single-standard>
   </div>
   <div class="col-lg-6">
     <pc-standard-form
       data-save="createNewStandard(standard)"
-      data-toggle-edit="toggleEdit()"
+      data-toggle="cancelEdit()"
       data-button-text="'Create Standard'"
       data-ng-if="!standard.editing && isStandardFormShowing">
     </pc-standard-form>
     <pc-standard-form
+      data-ng-if="standard.editing"
       data-save="saveStandard(standard)"
-      data-ng-if="standard.editing && isStandardFormShowing"
       data-standard="standard"
-      data-toggle-edit="toggleEdit(standard)"
+      data-toggle="toggleEdit(standard)"
       data-button-text="'Update Standard'">
     </pc-standard-form>
   </div>
@@ -49,6 +49,12 @@
   </div>
   <div class="col-lg-6"
     data-ng-if="standard">
+    <pc-test-form
+      data-ng-if="isTestFormShowing"
+      data-button-text="'Update Test'"
+      data-save="createTest(test)"
+      data-test="test">
+    </pc-test-form>
     <pc-test-form
       data-ng-if="isTestFormShowing"
       data-button-text="'Update Test'"

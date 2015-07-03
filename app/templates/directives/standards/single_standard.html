@@ -1,11 +1,12 @@
 <section class="panel panel-primary">
   <header class="panel-heading">
-    <h3>
+    <h3 class="panel-title col-lg-9">
       {{standard.name}}
     </h3>
     <button type="button"
-      class="btn btn-default"
+      class="btn btn-default col-lg-3"
       data-ng-click="goBack()">Go Back</button>
+    <div class="clearfix"></div>
   </header>
   <div class="panel-body">
     <p>
@@ -15,7 +16,7 @@
   <div class="panel-footer">
     <button type="button"
       class="btn btn-primary"
-      data-ng-click="edit({standard: standard})">Edit Standard
+      data-ng-click="toggle({standard: standard})">Edit Standard
     </button>
     <button type="button"
       class="btn btn-danger"

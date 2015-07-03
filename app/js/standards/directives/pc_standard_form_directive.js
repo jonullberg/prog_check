@@ -10,7 +10,7 @@ module.exports = function(app) {
         save: '&',
         standard: '=',
         addStandard: '&',
-        formShowing: '=',
+        toggle: '&',
         buttonText: '='
       }
     };
