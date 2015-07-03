@@ -43,13 +43,17 @@
     </pc-tests-list>
     <pc-single-test
       data-ng-if="testShowing"
-      data-test="selectedTest">
+      data-test="selectedTest"
+      data-edit-test="editTest(test)">
     </pc-single-test>
   </div>
   <div class="col-lg-6"
     data-ng-if="selectedStandard">
     <pc-test-form
-      data-ng-if="testEdit">
+      data-ng-if="isTestFormShowing"
+      data-button-text="'Update Test'"
+      data-save="saveTest(test)"
+      data-test="selectedTest">
     </pc-test-form>
   </div>
   <div class="clearfix"></div>
