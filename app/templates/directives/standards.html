@@ -5,7 +5,7 @@
       data-ng-if="!isStandardShowing"
       data-standards="standards"
       data-show="showStandard(standard)"
-      data-get-all="getAll()"
+      data-get-all="getAllStandards()"
       data-toggle-edit="toggleEdit()">
     </pc-standards-list>
     <pc-single-standard
@@ -31,20 +31,23 @@
   </div>
   <div class="clearfix"></div>
 
-  <div class="col-lg-6">
+  <div class="col-lg-6"
+    data-ng-if="selectedStandard">
     <pc-tests-list
+      data-ng-if="!testShowing"
+      data-ng-init="getAllTests()"
       data-tests="tests"
-      data-standard="standard"
-      data-ng-if="!testShowing">
+      data-standard="selectedStandard">
     </pc-tests-list>
     <pc-single-test
       data-test="displayedTest"
       data-ng-if="testShowing">
     </pc-single-test>
   </div>
-  <div class="col-lg-6">
+  <div class="col-lg-6"
+    data-ng-if="selectedStandard">
     <pc-test-form
-      data-ng-if="testEditing">
+      data-ng-if="test.editing">
     </pc-test-form>
   </div>
   <div class="clearfix"></div>

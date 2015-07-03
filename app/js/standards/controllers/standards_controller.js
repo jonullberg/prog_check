@@ -1,12 +1,13 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('standardsController', ['$scope', 'RESTResource', 'copy', 'dataStore', function($scope, resource, copy, dataStore) {
+  app.controller('standardsController', ['$scope', '$filter', 'RESTResource', 'copy', 'dataStore', function($scope, $filter, resource, copy, dataStore) {
 
     /**
      * Calls on our REST resource to hit the API at /api/standards
      */
     var Standard = resource('standards');
+    var Test = resource('tests');
 
     /**
      * Holds all of the standards to be displayed
@@ -20,7 +21,7 @@ module.exports = function(app) {
      */
     $scope.errors = [];
 
-    $scope.tests = dataStore.tests;
+    $scope.tests = null;
 
     $scope.quantity = 5;
 
@@ -72,7 +73,7 @@ module.exports = function(app) {
     /**
      * Will make a GET request to /api/standards and return an array of standards to be displayed
      */
-    $scope.getAll = function() {
+    $scope.getAllStandards = function() {
       Standard.getAll(function(err, data) {
         if (err) {
           return $scope.errors.push({
@@ -81,6 +82,19 @@ module.exports = function(app) {
         }
         dataStore.standards = data;
         $scope.standards = data;
+      });
+    };
+
+    $scope.getAllTests = function() {
+      Test.getAll(function(err, data) {
+        if (err) {
+          return $scope.errors.push({
+            'msg': 'Error retrieving tests'
+          });
+        }
+
+        dataStore.tests = data;
+        $scope.tests = data;
       });
     };
 
