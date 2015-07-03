@@ -11,7 +11,7 @@ module.exports = function(app) {
         standards: '=',
         quantity: '&',
         getAll: '&',
-        toggleEdit: '&'
+        addStandard: '&'
       }
     };
   });

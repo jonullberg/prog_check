@@ -9,7 +9,7 @@ module.exports = function(app) {
       scope: {
         save: '&',
         standard: '=',
-        toggleEdit: '&',
+        addStandard: '&',
         formShowing: '=',
         buttonText: '='
       }
