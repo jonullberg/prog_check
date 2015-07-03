@@ -45,28 +45,16 @@ module.exports = function(app) {
       $scope.isStandardFormShowing = true;
     };
 
-    $scope.editStandard = function(standard) {
-      standard.editing = true;
-      $scope.isStandardFormShowing = true;
-      $scope.standard = standard;
-    };
-
-    $scope.cancelEdit = function() {
-
-    };
+    $scope.master = {};
 
     $scope.toggleEdit = function(standard) {
-      if ($scope.formShowing) {
-        $scope.formShowing = false;
+      if (standard.editing) {
+        angular.copy($scope.master, standard);
+        $scope.master = {};
         standard.editing = false;
-        return;
       } else {
-        if(standard) {
-          standard.editing = true;
-          $scope.formShowing = true;
-          $scope.standard = standard;
-          return;
-        }
+        $scope.master = angular.copy(standard);
+        standard.editing = true;
       }
     };
 
@@ -170,17 +158,17 @@ module.exports = function(app) {
       $scope.isStandardShowing = false;
     };
 
-    $scope.selectedTest = null;
+    $scope.test = null;
 
     $scope.showTest = function(test) {
-      $scope.selectedTest = test;
+      $scope.test = test;
       $scope.isTestShowing = true;
     };
 
     $scope.isTestFormShowing;
 
     $scope.editTest = function(test) {
-      $scope.selectedTest = test;
+      $scope.test = test;
       $scope.isTestFormShowing = true
     };
   }]);
