@@ -1,7 +1,7 @@
 <section class="panel panel-primary"
   data-ng-init="getAll()">
   <header class="panel-heading">
-    <h3 class="panel-title col-lg-9">List of Current Standards</h3>
+    <h3 class="col-lg-9">List of Current Standards</h3>
     <button type="button" class="btn btn-default col-lg-3" data-ng-click="addStandard()">Add Standard <span class="glyphicon glyphicon-plus"></span></button>
     <div class="clearfix"></div>
   </header>
@@ -17,7 +17,8 @@
         </button>
       </span>
     </div>
-    <table class="table table-striped">
+    <table class="table table-striped"
+      data-ng-init="limit = 5">
       <thead>
         <tr>
           <td>Name</td>
@@ -26,7 +27,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr data-ng-repeat="standard in standards | filter:search | limitTo: 5"
+        <tr data-ng-repeat="standard in standards | filter:search | limitTo: limit as results"
         data-ng-click="show({standard: standard})">
           <td>{{standard.name}}</td>
           <td>{{standard.grade}}</td>
@@ -34,5 +35,9 @@
         </tr>
       </tbody>
     </table>
+    <button class="btn btn-primary"
+      data-ng-if=""
+      data-ng-click="limit = limit + 5">Show more</button>
+
   </div>
 </section>
