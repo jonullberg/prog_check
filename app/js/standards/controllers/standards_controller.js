@@ -152,5 +152,10 @@ module.exports = function(app) {
         $scope.isAlertShown = true;
       }
     };
+
+    $scope.addTest = function() {
+      $scope.test = null;
+      $scope.isTestFormShowing = true;
+    };
   }]);
 };

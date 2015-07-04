@@ -42,7 +42,8 @@
       data-ng-init="getAllTests()"
       data-tests="tests"
       data-standard="standard"
-      data-show="showTest(test)">
+      data-show="showTest(test)"
+      data-add-test="addTest()">
     </pc-tests-list>
     <pc-single-test
       data-ng-if="isTestShowing"
@@ -53,16 +54,16 @@
   <div class="col-lg-6"
     data-ng-if="standard">
     <pc-test-form
-      data-ng-if="isTestFormShowing"
-      data-button-text="'Update Test'"
+      data-ng-if="isTestFormShowing && !test.editing"
+      data-button-text="'Create Test'"
       data-save="createTest(test)"
       data-test="test">
     </pc-test-form>
     <pc-test-form
-      data-ng-if="isTestFormShowing"
+      data-ng-if="isTestFormShowing && test.editing"
       data-button-text="'Update Test'"
       data-save="saveTest(test)"
-      data-test="selectedTest">
+      data-test="test">
     </pc-test-form>
   </div>
   <div class="clearfix"></div>

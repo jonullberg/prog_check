@@ -1,6 +1,6 @@
 <section class="panel panel-primary">
   <header class="panel-heading">
-    <h3>{{test.testName}}</h3>
+    <h3>{{test.testName || 'New Test'}} </h3>
   </header>
   <form class="panel-body"
     data-ng-submit="save({test: test})"></form>
@@ -11,6 +11,9 @@
         name="testQuestion"
         id="testQuestion"
         data-ng-model="test.testQuestion">
+    </div>
+    <div>
+      <ul></ul>
     </div>
     <div class="form-group">
       <button type="submit"
