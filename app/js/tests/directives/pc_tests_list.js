@@ -9,7 +9,8 @@ module.exports = function(app) {
       scope: {
         tests: '=',
         standard: '=',
-        show: '&'
+        show: '&',
+        addTest: '&'
       }
     };
   });
