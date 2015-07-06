@@ -37,9 +37,13 @@
   </div>
   <div class="form-group">
     <button type="submit"
+      class="btn btn-default">
+      {{buttonText}}
+    </button>
+    <button type="button"
       class="btn btn-default"
-      data-ng-click="update(question)">
-      Add Question
+      data-ng-click="cancel({question: question})">
+      Cancel Edit
     </button>
   </div>
 </form>

@@ -15,7 +15,8 @@
     <div>
       <ul>
         <p data-ng-if="!test.questions.length">You have no questions, feel free to add some.</p>
-        <li data-ng-repeat="question in test.questions">{{question.question}}</li>
+        <li data-ng-repeat="question in test.questions"
+          data-ng-click="editQuestion(question)">{{question.question}}</li>
       </ul>
       <button type="button"
         class="btn btn-default"
@@ -28,9 +29,18 @@
       data-test="test"
       data-ng-if="areWeAddingQuestions"
       data-save="addQuestion(question)"
+      data-cancel="cancelEdit(question)"
+      data-button-text="'Add Question'"
       data-question="question">
     </pc-question-form>
-  </div>
+    <pc-question-form
+      data-ng-if="question.editing"
+      data-save="saveQuestion(question)"
+      data-cancel="cancelEdit(question)"
+      data-button-text="'Update Question'"
+      data-question="question"
+      data-test="test">
+    </pc-question-form>  </div>
   <footer class="panel-footer">
     <div class="form-group">
       <button type="submit"

@@ -14,7 +14,9 @@ module.exports = function(app) {
       scope: {
         question: '=',
         save: '&',
-        addQuestion: '&'
+        addQuestion: '&',
+        buttonText: '=',
+        cancel: '&'
       }
     };
   });
