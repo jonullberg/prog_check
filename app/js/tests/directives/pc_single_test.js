@@ -19,7 +19,8 @@ module.exports = function(app) {
       scope: {
         test: '=',
         editTest: '&',
-        remove: '&'
+        remove: '&',
+        goBack: '&'
       },
       controller: controller
     };
