@@ -5,6 +5,23 @@
     <div class="clearfix"></div>
   </header>
   <section class="panel-body">
+    <div class="alert alert-danger"
+      data-ng-if="isAlertShown">
+      <p class="col-lg-8">Are you sure? Deleting can't be undone</p>
+      <div class="btn-group col-lg-4">
+        <button type="button"
+          class="btn btn-danger"
+          data-ng-click="remove({test: test})">Yes
+        </button>
+        <button type="button"
+          class="btn btn-primary"
+          data-ng-click="toggleAlert()">
+          No
+        </button>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+
     <h4>Directions:</h4>
     <p>{{test.testDirections}}</p>
     <h4>Questions: </h4>
@@ -20,6 +37,11 @@
     <button type="button"
       class="btn btn-primary"
       data-ng-click="editTest({test: test})">Edit Test</button>
+    <button type="button"
+      class="btn btn-danger"
+      data-ng-click="toggleAlert()">
+      Delete Test
+    </button>
 
   </footer>
 </section>

@@ -191,5 +191,19 @@ module.exports = function(app) {
       $scope.test = null;
       $scope.isTestFormShowing = true;
     };
+
+    $scope.removeTest = function(test) {
+      $scope.isTestShowing = false;
+      dataStore.tests.splice(dataStore.tests.indexOf(test), 1);
+      Test.remove(test, function(err) {
+        if (err) return $scope.errors.push({
+          'msg': 'There was an error deleting your test'
+        });
+      });
+    };
+
+    $scope.cancelEdit = function(test) {
+      angular.copy
+    }
   }]);
 };
