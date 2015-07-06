@@ -202,8 +202,11 @@ module.exports = function(app) {
       });
     };
 
+    $scope.goBackTest = function() {
+      $scope.test = {};
+      $scope.isTestShowing = false;
+    };
     $scope.cancelEdit = function(test) {
-      angular.copy
-    }
+    };
   }]);
 };
