@@ -21,13 +21,13 @@ var testSchema = mongoose.Schema({
   testName: {
     type: String
   },
-  'testQuestion': {
+  'testDirections': {
     type: String
   },
   'questions': [questionSchema]
 });
 
-testSchema.pre('save', function(next) {
+testSchema.pre('validate', function(next) {
   var doc = this;
   if (doc.testName === undefined) {
     mongoose.model('Test').count(function(err, num) {
@@ -38,6 +38,8 @@ testSchema.pre('save', function(next) {
       doc.testName = 'Test ' + number;
       next();
     });
+  } else {
+    next();
   }
 });
 
