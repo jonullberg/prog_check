@@ -61,18 +61,6 @@ module.exports = function(app) {
       });
     };
 
-    $scope.getAllTests = function() {
-      Test.getAll(function(err, data) {
-        if (err) {
-          return $scope.errors.push({
-            'msg': 'Error retrieving tests'
-          });
-        }
-        dataStore.tests = data;
-        $scope.tests = data;
-      });
-    };
-
     /**
      * Will add standard to display, hide the form for adding a standard, and make a POST request to the API to create a new standard
      * @param  {object} standard The specified standard to create
@@ -133,6 +121,48 @@ module.exports = function(app) {
     };
 
 
+
+    // Tests Controller
+    // TODO: refactor into its own controller
+    $scope.getAllTests = function() {
+      Test.getAll(function(err, data) {
+        if (err) {
+          return $scope.errors.push({
+            'msg': 'Error retrieving tests'
+          });
+        }
+        dataStore.tests = data;
+        $scope.tests = data;
+      });
+    };
+
+    $scope.createTest = function(test) {
+      var newTest = angular.copy(test);
+      test = {};
+      newTest.standardId = $scope.standard._id;
+      var numberOfTests = $filter('filter')($scope.tests, {standardId: $scope.standard._id});
+      newTest.testName = 'Test ' + (numberOfTests.length + 1);
+      console.log($scope.tests);
+      dataStore.tests.push(newTest);
+      $scope.test = newTest;
+      Test.create(newTest, function(err, data) {
+        if (err) {
+          return $scope.errors.push({
+            'msg': 'There was an error creating your test'
+          });
+        }
+        console.log('successfully hit POST');
+        $scope.standards.splice($scope.tests.indexOf(newTest), 1, data);
+        $scope.test = null;
+        dataStore.tests.splice(dataStore.tests.indexOf(newTest), 1, data);
+        $scope.isTestFormShowing = false;
+      });
+    };
+
+    $scope.addQuestion = function(question) {
+
+    };
+
     $scope.showTest = function(test) {
       $scope.test = test;
       $scope.isTestShowing = true;
@@ -144,7 +174,7 @@ module.exports = function(app) {
       $scope.isTestFormShowing = true
     };
 
-
+    // TODO: put this into alert directive
     $scope.toggleAlert = function() {
       if ($scope.isAlertShown) {
         $scope.isAlertShown = false;

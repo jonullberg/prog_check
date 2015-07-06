@@ -14,20 +14,32 @@
       class="form-control"
       name="correctAnswer"
       id="correctAnswer"
-      data-ng-model="question.correct">
+      data-ng-model="question.correct"
+      data-ng-change="question.answers[0] = question.correct">
   </div>
-  <div class="form-group form-inline">
-    <label for="answers">Additional Options: </label>
+  <div class="form-group">
+    <label for="answers">Additional (Wrong) Answers: </label>
     <input type="text"
-    class="form-control">
+      name="wrongAnswer1"
+      id="wrongAnswer1"
+      data-ng-model="question.answers[1]"
+      class="form-control" />
     <input type="text"
-    class="form-control">
+      name="wrongAnswer2"
+      id="wrongAnswer2"
+      data-ng-model="question.answers[2]"
+      class="form-control" />
     <input type="text"
-    class="form-control">
+      name="wrongAnswer3"
+      id="wrongAnswer3"
+      data-ng-model="question.answers[3]"
+      class="form-control" />
   </div>
   <div class="form-group">
     <button type="submit"
       class="btn btn-default"
-      data-ng-click="saveQuestion()">Add Question</button>
+      data-ng-click="update(question)">
+      Add Question
+    </button>
   </div>
 </form>
