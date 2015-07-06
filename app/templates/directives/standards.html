@@ -54,13 +54,13 @@
   <div class="col-lg-6"
     data-ng-if="standard">
     <pc-test-form
-      data-ng-if="isTestFormShowing && !test.editing"
+      data-ng-if="isTestFormShowing"
       data-button-text="'Create Test'"
       data-save="createTest(test)"
       data-test="test">
     </pc-test-form>
     <pc-test-form
-      data-ng-if="isTestFormShowing && test.editing"
+      data-ng-if="test.editing"
       data-button-text="'Update Test'"
       data-save="saveTest(test)"
       data-test="test">

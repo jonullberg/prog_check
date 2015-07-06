@@ -132,17 +132,17 @@ module.exports = function(app) {
           });
         }
         dataStore.tests = data;
+        // Can we just use data store?
         $scope.tests = data;
       });
     };
 
     $scope.createTest = function(test) {
       var newTest = angular.copy(test);
+      var numberOfTests = $filter('filter')($scope.tests, {standardId: $scope.standard._id});
       test = {};
       newTest.standardId = $scope.standard._id;
-      var numberOfTests = $filter('filter')($scope.tests, {standardId: $scope.standard._id});
       newTest.testName = 'Test ' + (numberOfTests.length + 1);
-      console.log($scope.tests);
       dataStore.tests.push(newTest);
       $scope.test = newTest;
       Test.create(newTest, function(err, data) {
@@ -151,7 +151,6 @@ module.exports = function(app) {
             'msg': 'There was an error creating your test'
           });
         }
-        console.log('successfully hit POST');
         $scope.standards.splice($scope.tests.indexOf(newTest), 1, data);
         $scope.test = null;
         dataStore.tests.splice(dataStore.tests.indexOf(newTest), 1, data);
@@ -159,8 +158,13 @@ module.exports = function(app) {
       });
     };
 
-    $scope.addQuestion = function(question) {
-
+    $scope.saveTest = function(test) {
+      Test.save(test, function(err, data) {
+        if (err) return $scope.errors.push({
+          'msg': 'There was an error updating your test'
+        });
+        test.editing = false;
+      });
     };
 
     $scope.showTest = function(test) {
@@ -170,8 +174,8 @@ module.exports = function(app) {
 
 
     $scope.editTest = function(test) {
+      test.editing = true;
       $scope.test = test;
-      $scope.isTestFormShowing = true
     };
 
     // TODO: put this into alert directive
