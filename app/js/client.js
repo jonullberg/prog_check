@@ -13,6 +13,7 @@ require('./auth/services/auth_service')(progCheck);
 require('./services/rest_resource')(progCheck);
 require('./services/copy')(progCheck);
 require('./services/data_service')(progCheck);
+require('./standards/services/pc_grades_service')(progCheck);
 
 //  controllers
 require('./auth/controllers/auth_controller')(progCheck);

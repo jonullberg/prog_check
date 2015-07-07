@@ -2,6 +2,14 @@
 
 module.exports = function(app) {
   app.directive('pcStandardForm', function() {
+    var controller = ['$scope', 'pcGrades', function($scope, pcGrades) {
+
+      $scope.grades = angular.fromJson(pcGrades.grades);
+      $scope.thisGrade;
+      $scope.changeGrade = function(grade) {
+        $scope.thisGrade = angular.fromJson(grade);
+      };
+    }];
     return {
       restrict: 'E',
       replace: true,
@@ -12,7 +20,8 @@ module.exports = function(app) {
         addStandard: '&',
         toggle: '&',
         buttonText: '='
-      }
+      },
+      controller: controller
     };
   });
 };

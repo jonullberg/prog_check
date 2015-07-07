@@ -1,4 +1,6 @@
-<form name="standardForm" data-ng-submit="save({standard: standard})">
+<form name="standardForm"
+  data-ng-submit="save({standard: standard})"
+  data-ng-init="showGrades()">
   <legend>Standard Information</legend>
   <div class="form-group">
     <label for="name">What is the name of the standard?</label>
@@ -11,15 +13,12 @@
     <label for="grade">What grade is this standard for?</label>
     <select class="form-control"
       name="grade" id="grade"
-      data-ng-model="standard.grade">
-      <option value="kindergarten">Kindergarten</option>
-      <option value="firstGrade">First Grade</option>
-      <option value="secondGrade">Second Grade</option>
-      <option value="thirdGrade">Third Grade</option>
-      <option value="fourthGrade">Fourth Grade</option>
-      <option value="fifthGrade">Fifth Grade</option>
-      <option value="sixthGrade">Sixth Grade</option>
-      <!-- TODO: How many grades need to be added? -->
+      data-ng-model="standard.grade"
+      data-ng-change="changeGrade(standard.grade)">
+      <option value="{{grade}}"
+        data-ng-repeat="grade in grades">
+        {{grade.name}}
+      </option>
     </select>
   </div>
   <div class="form-group">
@@ -30,18 +29,21 @@
       data-ng-model="standard.code" />
   </div>
   <div class="form-group">
-    <label for="name">What is the language of the standard?</label>
-    <input type="text"
-      class="form-control"
-      name="language" id="language"
-      data-ng-model="standard.language" />
+    <label for="domain">What is the domain of the standard?</label>
+    <select class="form-control"
+      name="domain" id="domain"
+      data-ng-model="domain"
+      data-ng-change="showDomain()">
+      <option value="{{thisDomain.name}}"
+        data-ng-repeat="thisDomain in thisGrade.domains">{{thisDomain}}</option>
+      </select>
   </div>
   <div class="form-group">
-    <label for="description">A short description</label>
+    <label for="language">What is the language of the standard?</label>
     <textarea class="form-control"
-      name="description"
-      id="description"
-      data-ng-model="standard.description"></textarea>
+      name="language"
+      id="language"
+      data-ng-model="standard.language"></textarea>
   </div>
   <div class="form-group">
     <button type="submit" class="btn btn-default">{{buttonText}}</button>
