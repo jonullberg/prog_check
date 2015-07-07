@@ -44,7 +44,7 @@ module.exports = function(app) {
               msg: 'Could not sign in'
             });
           }
-          $location.path('/dashboard');
+          $location.path('/home');
         });
       } else {
         auth.signIn(user, function(err) {

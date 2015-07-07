@@ -9,17 +9,13 @@ module.exports = function(router) {
 
   router.post('/tests', function(req, res) {
     var newTest = new Test(req.body);
-    console.log(newTest);
     newTest.save(function(err, data) {
-      console.log(data);
-      console.log(err);
       if (err) {
         console.log(err);
         return res.status(500).json({
           'msg': 'Internal Server Error'
         });
       }
-      console.log('saved test');
       res.json(data);
     });
   });

@@ -1,13 +1,17 @@
-<header>
+<header data-ng-init="getHeaders()">
   <div class="row">
     <h1 class="col-md-6 col-lg-4">Prog Check</h1>
-    <pc-account-tools class="col-md-6 col-lg-4 col-lg-offset-4"></pc-account-tools>
+    <pc-account-tools
+      class="col-md-6 col-lg-4 col-lg-offset-4"
+      data-get-headers="getHeaders()">
+    </pc-account-tools>
   </div>
   <nav>
     <tabset class="nav navbar-nav" type="pills" vertical="false" justified="true">
       <tab heading="Home" data-ng-click="changeView('home')"></tab>
-      <tab heading="About Us" data-ng-click="changeView('about')"></tab>
-      <tab heading="Pricing" data-ng-click="changeView('pricing')"></tab>
+      <tab data-ng-repeat="tab in tabs"
+        heading="{{tab.header}}"
+        data-ng-click="changeView(tab.url)"></tab>
     </tabset>
   </nav>
 </header>
