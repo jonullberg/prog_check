@@ -7,10 +7,15 @@
 
   <link rel="stylesheet" href="css/app.css">
 </head>
-<body data-ng-app="progCheck">
+<body data-ng-app="progCheck"
+  data-ng-controller="mainController">
   <div class="container">
-    <pc-header></pc-header>
-    <main data-ng-view class="row"></main>
+    <pc-header
+      data-get-tabs="changeTabs()"
+      data-tabs="tabs"
+      data-change-view="changeView(url)"></pc-header>
+    <div class="clearfix"></div>
+    <main data-ng-view></main>
 
   </div>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.0/lodash.js"></script>

@@ -2,20 +2,19 @@
 
 module.exports = function(app) {
   app.directive('pcAccountTools', function() {
-    var controller = ['$scope', '$cookies', '$location', 'auth', function($scope, $cookies, $location, auth) {
+    var controller = ['$scope', '$cookies', '$location', 'UserService', function($scope, $cookies, $location, UserService) {
 
       $scope.signedIn = function() {
-        return auth.isSignedIn();
+        return UserService.isSignedIn();
       };
 
       $scope.displayUsername = function() {
-        return $cookies.get('username');
+        return $cookies.get('fullName');
       };
 
       $scope.logOut = function() {
-        auth.logout();
+        UserService.logout();
         $location.path('/home');
-        $scope.getHeaders();
       };
 
       $scope.changeView = function(view) {
@@ -34,5 +33,6 @@ module.exports = function(app) {
 
     };
   });
+
 
 };

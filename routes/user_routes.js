@@ -28,7 +28,6 @@ module.exports = function(router, passport) {
 			}
 			newUser.basic.password = hash;
 			newUser.save(function(err, user) {
-				console.log(user);
 				if(err) {
 					console.log(err);
 					return res.status(500).json({
@@ -43,8 +42,9 @@ module.exports = function(router, passport) {
 							'msg': 'Internal Server Error'
 						});
 					}
-
 					res.json({
+						'role': user.role,
+						'fullName': user.firstName + ' ' + user.lastName,
 						'token': token
 					}); // end res.json
 				}); // end generate Token
@@ -58,10 +58,9 @@ module.exports = function(router, passport) {
 	      console.log(err);
 	      return res.status(500).json({msg: 'error generating token'});
 	    }
-
 	    res.json({
-	    	'msg': 'authenticated as: ' + req.user.basic.email,
-	    	'username': req.user.username,
+	    	'role': req.user.role,
+	    	'fullName': req.user.firstName + ' ' + req.user.lastName,
 	    	'token': token
 	    });
 	  });//end generateToken

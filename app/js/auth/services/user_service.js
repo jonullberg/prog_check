@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.factory('UserService', ['$http', '$base64', '$cookies', function($http, $base64, $cookies) {
+  app.factory('UserService', ['$http', '$base64', '$cookies', 'AuthenticationService', function($http, $base64, $cookies, AuthenticationService) {
     return {
       signIn: function(user, callback) {
         var encoded = $base64.encode(user.email + ':' + user.password);
@@ -13,7 +13,9 @@ module.exports = function(app) {
           })
           .success(function(data) {
             $cookies.put('token', data.token);
-            $cookies.put('username', data.username);
+            $cookies.put('fullName', data.fullName);
+            $cookies.put('role', data.role);
+            AuthenticationService.isLogged = true;
             callback(null);
           })
           .error(function(data) {
@@ -26,7 +28,9 @@ module.exports = function(app) {
           .post('/api/create_user', user)
           .success(function(data) {
             $cookies.put('token', data.token);
-            $cookies.put('username', data.username);
+            $cookies.put('fullName', data.fullName);
+            $cookies.put('role', data.role);
+            AuthenticationService.isLogged = true;
             callback(null);
           })
           .error(function(data) {
@@ -36,6 +40,9 @@ module.exports = function(app) {
 
       logout: function() {
         $cookies.put('token', '');
+        $cookies.put('fullName', '');
+        $cookies.put('role', '');
+        AuthenticationService.isLogged = false;
       },
 
       isSignedIn: function() {
