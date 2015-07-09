@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('authController', ['$scope', '$location', 'auth', function($scope, $location, auth) {
+  app.controller('authController', ['$scope', '$location', 'UserService', function($scope, $location, auth) {
 
     $scope.errors = [];
 
@@ -11,16 +11,16 @@ module.exports = function(app) {
      */
     $scope.tabs = [
       {
-        title: 'Sign Up',
-        url: '../templates/directives/sign_up.html'
-      },
-      {
         title: 'Sign In',
         url: '../templates/directives/sign_in.html'
+      },
+      {
+        title: 'Sign Up',
+        url: '../templates/directives/sign_up.html'
       }
     ];
 
-    $scope.currentTab = '../templates/directives/sign_up.html';
+    $scope.currentTab = '../templates/directives/sign_in.html';
 
     $scope.onClickTab = function(tab) {
       $scope.currentTab = tab.url;
@@ -31,6 +31,7 @@ module.exports = function(app) {
     };
 
     $scope.authSubmit = function(user) {
+      console.log(user);
       if(user.passwordConfirmation) {
         if(user.password !== user.passwordConfirmation) {
 
@@ -54,7 +55,7 @@ module.exports = function(app) {
               msg: 'Could not sign in'
             });
           }
-          $location.path('/dashboard');
+          $location.path('/home');
         });
       }
     };
