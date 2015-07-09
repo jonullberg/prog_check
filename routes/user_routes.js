@@ -28,6 +28,7 @@ module.exports = function(router, passport) {
 			}
 			newUser.basic.password = hash;
 			newUser.save(function(err, user) {
+				console.log(user);
 				if(err) {
 					console.log(err);
 					return res.status(500).json({

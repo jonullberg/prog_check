@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('standardsController', ['$scope', '$filter', 'RESTResource', 'copy', 'dataStore', function($scope, $filter, resource, copy, dataStore) {
+  app.controller('standardsController', ['$scope', '$filter', 'RESTResource', 'copy', 'dataStore', 'pcGrades', function($scope, $filter, resource, copy, dataStore, pcGrades) {
 
     var Standard = resource('standards');
     var Test = resource('tests');
@@ -57,7 +57,7 @@ module.exports = function(app) {
           });
         }
         dataStore.standards = data;
-        $scope.standards = data;
+        $scope.standards = dataStore.standards;
       });
     };
 

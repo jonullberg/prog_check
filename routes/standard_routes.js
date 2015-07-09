@@ -2,11 +2,12 @@
 
 var Standard = require('../models/Standard');
 var bodyparser = require('body-parser');
+var eatAuth = require('../lib/eat_auth')(process.env.APP_SECRET);
 
 module.exports = function(router) {
   router.use(bodyparser.json());
 
-  router.post('/standards', function(req, res) {
+  router.post('/standards', eatAuth, function(req, res) {
     var newStandard = new Standard(req.body);
     newStandard.save(function(err, data) {
       if (err) {
@@ -33,7 +34,7 @@ module.exports = function(router) {
     });
   });
 
-  router.put('/standards/:id', function(req, res) {
+  router.put('/standards/:id', eatAuth, function(req, res) {
     var updatedStandard = req.body;
     delete updatedStandard._id;
     Standard.update({_id: req.params.id},
@@ -51,7 +52,7 @@ module.exports = function(router) {
       });
   });
 
-  router.delete('/standards/:id', function(req, res) {
+  router.delete('/standards/:id', eatAuth, function(req, res) {
     Standard.remove({'_id': req.params.id}, function(err, data) {
       if (err) {
         console.log(err);

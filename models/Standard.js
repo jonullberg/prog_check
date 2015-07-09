@@ -2,6 +2,15 @@
 
 var mongoose = require('mongoose');
 
+var goalSchema = mongoose.Schema({
+  'name': {
+    type: String
+  },
+  'description': {
+    type: String
+  }
+});
+
 var standardSchema = mongoose.Schema({
   'name': {
     type: String,
@@ -21,9 +30,7 @@ var standardSchema = mongoose.Schema({
   'keywords': {
     type: Array
   },
-  'description': {
-    type: String
-  }
+  'goals': [goalSchema]
 });
 
 module.exports = mongoose.model('Standard', standardSchema);
