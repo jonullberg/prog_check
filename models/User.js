@@ -5,26 +5,41 @@ var bcrypt = require('bcrypt-nodejs');
 var eat = require('eat');
 
 var userSchema = mongoose.Schema({
+  'basic': {
+    'email': {
+      type: String,
+      unique: true,
+      required: '{EMAIL is a required field}'
+    },
+    'password': {
+      type: String,
+      required: '{PASSWORD is a required field}'
+    }
+  },
   'role': {
     type: String,
     required: true
   },
-	'username': {
-		type: String,
-		unique: true,
-		required: '{USERNAME is a required field}'
-	},
-	'basic': {
-		'email': {
-			type: String,
-			unique: true,
-			required: '{EMAIL is a required field}'
-		},
-		'password': {
-			type: String,
-			required: '{PASSWORD is a required field}'
-		}
-	}
+  'firstName': {
+    type: String,
+    required: true
+  },
+  'lastName': {
+    type: String,
+    required: true,
+  },
+  'school': {
+    'schoolName': {
+      type: String
+    },
+    'schoolState': {
+      type: String
+    },
+    'schoolDistrict': {
+      type: String
+    }
+  }
+
 });
 
 userSchema.methods.generateHash = function(password, callback) {
@@ -51,8 +66,8 @@ userSchema.methods.checkPassword = function(password, callback) {
 };
 
 userSchema.pre('validate', function(next) {
-  var adminUsers = ['krisular', 'jonullberg'];
-  if (adminUsers.indexOf(this.username) !== -1) {
+  var adminUsers = ['jonathan@example.com', 'krisula@example.com'];
+  if (adminUsers.indexOf(this.basic.email) !== -1) {
     this.role = 'admin';
   } else {
     this.role = 'teacher';

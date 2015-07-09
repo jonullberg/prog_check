@@ -9,16 +9,19 @@ require('angular-bootstrap');
 var progCheck = angular.module('progCheck', ['ngRoute', 'ngCookies', 'base64', 'ui.bootstrap']);
 
 //  services
-require('./auth/services/auth_service')(progCheck);
+require('./auth/services/user_service')(progCheck);
 require('./services/rest_resource')(progCheck);
 require('./services/copy')(progCheck);
 require('./services/data_service')(progCheck);
 require('./standards/services/pc_grades_service')(progCheck);
 require('./services/lodash')(progCheck);
+require('./auth/services/authentication_service')(progCheck);
+require('./services/us_states')(progCheck);
+require('./auth/services/token_interceptor')(progCheck);
 
 //  controllers
 require('./auth/controllers/auth_controller')(progCheck);
-require('./controllers/dashboard_controller')(progCheck);
+require('./controllers/main_controller')(progCheck);
 require('./standards/controllers/standards_controller')(progCheck);
 require('./tests/controllers/test_controller')(progCheck);
 
@@ -41,66 +44,5 @@ require('./tests/directives/pc_question_form')(progCheck);  // Ability to add qu
 require('./tests/directives/pc_tests_list')(progCheck); // Shows a list of all tests attached to standard
 require('./tests/directives/pc_single_test')(progCheck); // Shows the information for a single test
 
-progCheck.config(['$routeProvider', function($routeProvider) {
-  $routeProvider
-    .when('/admin/sign-in', {
-      templateUrl: 'templates/views/sign-in.html',
-      controller: 'authController'
-    })
-    .when('/about', {
-      templateUrl: 'templates/views/about.html'
-      // No controller needed as of now
-    })
-    .when('/pricing', {
-      templateUrl: 'templates/views/pricing.html'
-      // No controller needed as of now
-    })
-    .when('/admin/home', {
-      templateUrl: 'templates/views/home.html'
-      // No controller needed as of now
-    })
-    .when('/admin/standards', {
-      templateUrl: 'templates/directives/standards.html',
-      controller: 'standardsController'
-    })
-    .when('/admin/teachers', {
-      templateUrl: '/templates/directives/teachers.html'
-      // No controller as of now
-    })
-    .when('/teacher/sign-up', {
-      templateUrl: 'templates/teachers/views/sign-up.html'
-      // No controller as of now
-    })
-    .when('/teacher/sign-in', {
-      templateUrl: 'templates/views/sign-in.html'
-    })
-    .when('/teacher/home', {
-      templateUrl: 'templates/teachers/views/home.html'
-    })
-    .when('/student/sign-in', {
-      templateUrl: 'templates/views/sign-in.html'
-    })
-    .when('/students/home', {
-      templateUrl: 'templates/students/views/home.html'
-    })
-    .otherwise({
-      redirectTo: '/home'
-    });
-}]);
-
-// progCheck.run(['$rootScope', '$location', '_', 'auth', function($rootScope, $location, _, auth) {
-//   var routesThatDontRequireAuth = ['/sign-in', '/sign-up', 'about', '/pricing', '/home'];
-
-//   var routeClean = function(route) {
-//     return _.find(routesThatDontRequireAuth,
-//       function(noAuthRoute) {
-//         return _.str.startsWith(route, noAuthRoute);
-//       });
-//   };
-
-//   $rootScope.$on('$routeChangeStart', function(event, next, current) {
-//     if (!routeClean($location.url()) && !auth.isSignedIn()) {
-//       $location.path('/sign-in');
-//     }
-//   });
-// }]);
+//  Configuration
+require('./config/routes')(progCheck);
