@@ -11,6 +11,7 @@ module.exports = function(app) {
         if (!$scope.test.questions) {
           $scope.test = {
             testDirections: test.testDirections,
+            goalId: test.goalId,
             questions: []
           };
         }
@@ -40,6 +41,10 @@ module.exports = function(app) {
         $scope.areWeAddingQuestions = false;
         $scope.question = {};
       };
+      $scope.prepareTest = function(test) {
+        test.standardId = $scope.standard._id;
+        $scope.save({test: test});
+      };
     }];
     return {
       restrict: 'E',
@@ -48,7 +53,8 @@ module.exports = function(app) {
       scope: {
         test: '=',
         buttonText: '=',
-        save: '&'
+        save: '&',
+        standard: '='
       },
       controller: controller
     };

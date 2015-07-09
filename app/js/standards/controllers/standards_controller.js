@@ -16,12 +16,12 @@ module.exports = function(app) {
     $scope.isStandardFormShowing;
     $scope.master = {};
     $scope.isTestShowing;
-    $scope.test = null;
     $scope.isTestFormShowing;
+    $scope.test = null;
     $scope.isAlertShown = false;
 
     $scope.addStandard = function() {
-      $scope.isStandardFormShowing = true;
+      $scope.isStandardFormShowing = !$scope.isStandardFormShowing;
     };
 
     $scope.toggleEdit = function(standard) {
@@ -66,7 +66,7 @@ module.exports = function(app) {
      * @param  {object} standard The specified standard to create
      */
     $scope.createNewStandard = function(standard) {
-      var newStandard = copy(standard);
+      var newStandard = angular.copy(standard);
       dataStore.standards.push(newStandard);
       $scope.standard = newStandard;
       Standard.create(newStandard, function(err, data) {
@@ -141,7 +141,6 @@ module.exports = function(app) {
       var newTest = angular.copy(test);
       var numberOfTests = $filter('filter')($scope.tests, {standardId: $scope.standard._id});
       test = {};
-      newTest.standardId = $scope.standard._id;
       newTest.testName = 'Test ' + (numberOfTests.length + 1);
       dataStore.tests.push(newTest);
       $scope.test = newTest;

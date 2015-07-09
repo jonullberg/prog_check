@@ -2,7 +2,11 @@
   data-ng-init="getAll()">
   <header class="panel-heading">
     <h3 class="col-lg-9">List of Current Standards</h3>
-    <button type="button" class="btn btn-default col-lg-3" data-ng-click="addStandard()">Add Standard <span class="glyphicon glyphicon-plus"></span></button>
+    <button type="button"
+      class="btn btn-default col-lg-3"
+      data-ng-click="addStandard()">
+      Add Standard <span class="glyphicon glyphicon-plus"></span>
+    </button>
     <div class="clearfix"></div>
   </header>
   <div class="panel-body">
@@ -30,7 +34,7 @@
         <tr data-ng-repeat="standard in standards | filter:search | limitTo: limit as results"
         data-ng-click="show({standard: standard})">
           <td>{{standard.name}}</td>
-          <td>{{standard.grade}}</td>
+          <td>{{standard.shortGrade}}</td>
           <td>{{standard.code}}</td>
         </tr>
       </tbody>
