@@ -18,10 +18,13 @@ var testSchema = mongoose.Schema({
   'standardId': {
     type: String
   },
-  testName: {
+  'testName': {
     type: String
   },
   'testDirections': {
+    type: String
+  },
+  'goalId': {
     type: String
   },
   'questions': [questionSchema]

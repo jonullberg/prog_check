@@ -5,6 +5,10 @@ var bcrypt = require('bcrypt-nodejs');
 var eat = require('eat');
 
 var userSchema = mongoose.Schema({
+  'role': {
+    type: String,
+    required: true
+  },
 	'username': {
 		type: String,
 		unique: true,
@@ -20,9 +24,6 @@ var userSchema = mongoose.Schema({
 			type: String,
 			required: '{PASSWORD is a required field}'
 		}
-	},
-	'userType': {
-		type: String
 	}
 });
 
@@ -48,4 +49,15 @@ userSchema.methods.checkPassword = function(password, callback) {
     callback(null, result);
   });
 };
+
+userSchema.pre('validate', function(next) {
+  var adminUsers = ['krisular', 'jonullberg'];
+  if (adminUsers.indexOf(this.username) !== -1) {
+    this.role = 'admin';
+  } else {
+    this.role = 'teacher';
+  }
+  next();
+});
+
 module.exports = mongoose.model('User', userSchema);
