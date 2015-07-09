@@ -6,9 +6,7 @@ module.exports = function(app) {
       $scope.tabs;
 
       $scope.getHeaders = function() {
-        console.log($scope.tabs);
-        if (auth.isSignedIn()) {
-          console.log('signed in');
+       if (auth.isSignedIn()) {
           $scope.tabs = [{
             header: 'Standards',
             url: 'standards'
@@ -30,7 +28,6 @@ module.exports = function(app) {
       };
 
       $scope.changeView = function(url) {
-        console.log(url);
         $location.path(url);
       };
 

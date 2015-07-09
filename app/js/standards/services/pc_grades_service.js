@@ -3,7 +3,7 @@
 module.exports = function(app) {
   app.factory('pcGrades', function() {
     return {
-      "grades": [
+      'grades': [
         {
           'name': 'Kindergarten',
           'shortName': 'K',
