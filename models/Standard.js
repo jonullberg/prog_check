@@ -16,7 +16,11 @@ var standardSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  'grade': {
+  'gradeName': {
+    type: String,
+    required: true
+  },
+  'shortGrade': {
     type: String,
     required: true
   },
@@ -27,7 +31,7 @@ var standardSchema = mongoose.Schema({
   'language': {
     type: String
   },
-  'keywords': {
+  'domain': {
     type: Array
   },
   'goals': [goalSchema]
