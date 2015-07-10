@@ -1,0 +1,32 @@
+<form class="panel panel-primary"
+  data-ng-submit="save({test: test})">
+  <header class="panel-heading">
+    <h3>{{test.testName || 'New Test'}} </h3>
+  </header>
+  <div class="panel-body">
+    <div class="form-group">
+      <label for="testDirections">Directions for Test:</label>
+      <input type="text"
+        class="form-control"
+        name="testDirections"
+        id="testDirections"
+        data-ng-model="test.testDirections">
+    </div>
+    <div>
+      <ul>
+        <p data-ng-if="!test.questions.length">You have no questions, feel free to add some.</p>
+        <li data-ng-repeat="question in test.questions">{{question.question}}</li>
+      </ul>
+      <button type="button"
+        class="btn btn-default">Add Questions</button>
+    </div>
+  </div>
+  <footer class="panel-footer">
+    <div class="form-group">
+      <button type="submit"
+        class="btn btn-primary">
+        {{buttonText}}
+      </button>
+    </div>
+  </footer>
+</form>

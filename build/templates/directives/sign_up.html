@@ -1,0 +1,34 @@
+<section>
+  <form data-ng-submit="authSubmit(user)">
+    <fieldset>
+      <legend>Sign Up</legend>
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input class="form-control col-lg-6" type="text" id="username" name="username" data-ng-model="user.username" />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input class="form-control col-lg-6" type="email" id="email" name="email" data-ng-model="user.email" />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input class="form-control col-lg-6" type="password" id="password" name="password" data-ng-model="user.password" />
+
+      </div>
+
+      <div class="form-group">
+        <label for="passwordConfirmation">Confirm Your Password</label>
+        <input class="form-control col-lg-6"type="password" id="passwordConfirmation" name="passwordConfirmation" data-ng-model="user.passwordConfirmation" />
+      </div>
+      <div class="form-group">
+        <button type="submit"
+          class="btn btn-default">
+          Sign Up
+        </button>
+      </div>
+
+    </fieldset>
+  </form>
+</section>

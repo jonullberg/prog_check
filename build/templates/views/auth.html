@@ -1,0 +1,12 @@
+<section class="auth-view" data-ng-controller="authController">
+  <tabset>
+    <tab class="col-lg-3" data-ng-repeat="tab in tabs"
+      heading="{{tab.title}}"
+      data-ng-click="onClickTab(tab)"
+      active="tab.active">
+      {{tab.content}}
+    </tab>
+  </tabset>
+
+  <div class="user-display" data-ng-include="currentTab"></div>
+</section>

@@ -1,0 +1,74 @@
+<section
+  data-ng-controller="standardsController">
+  <div class="col-lg-6">
+    <pc-standards-list
+      data-ng-if="!isStandardShowing"
+      data-standards="standards"
+      data-show="showStandard(standard)"
+      data-get-all="getAllStandards()"
+      data-add-standard="addStandard()">
+    </pc-standards-list>
+    <pc-single-standard
+      data-ng-if="isStandardShowing"
+      data-standard="standard"
+      data-toggle="toggleEdit(standard)"
+      data-go-back="goBack()"
+      data-toggle-alert="toggleAlert()"
+      data-is-alert-shown="isAlertShown"
+      data-remove-standard="removeStandard(standard)">
+    </pc-single-standard>
+  </div>
+  <div class="col-lg-6">
+    <pc-standard-form
+      data-save="createNewStandard(standard)"
+      data-toggle="cancelEdit()"
+      data-button-text="'Create Standard'"
+      data-ng-if="!standard.editing && isStandardFormShowing">
+    </pc-standard-form>
+    <pc-standard-form
+      data-ng-if="standard.editing"
+      data-save="saveStandard(standard)"
+      data-standard="standard"
+      data-toggle="toggleEdit(standard)"
+      data-button-text="'Update Standard'">
+    </pc-standard-form>
+  </div>
+  <div class="clearfix"></div>
+
+  <div class="col-lg-6"
+    data-ng-if="standard">
+    <pc-tests-list
+      data-ng-if="!isTestShowing"
+      data-ng-init="getAllTests()"
+      data-tests="tests"
+      data-standard="standard"
+      data-show="showTest(test)"
+      data-add-test="addTest()">
+    </pc-tests-list>
+    <pc-single-test
+      data-ng-if="isTestShowing"
+      data-test="test"
+      data-go-back="goBackTest()"
+      data-edit-test="editTest(test)"
+      data-remove="removeTest(test)">
+    </pc-single-test>
+  </div>
+  <div class="col-lg-6"
+    data-ng-if="standard">
+    <pc-test-form
+      data-ng-if="isTestFormShowing"
+      data-button-text="'Create Test'"
+      data-save="createTest(test)"
+      data-test="test"
+      data-standard="standard">
+    </pc-test-form>
+    <pc-test-form
+      data-ng-if="test.editing"
+      data-button-text="'Update Test'"
+      data-save="saveTest(test)"
+      data-cancel="cancelEdit(test)"
+      data-test="test">
+    </pc-test-form>
+  </div>
+  <div class="clearfix"></div>
+</section>
