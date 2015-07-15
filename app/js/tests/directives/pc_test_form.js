@@ -14,8 +14,6 @@ module.exports = function(app) {
             goalId: test.goalId,
             questions: []
           };
-        } else {
-          console.log(test);
         }
       };
       $scope.addQuestion = function(question) {
