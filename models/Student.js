@@ -4,16 +4,20 @@ var mongoose = require('mongoose');
 
 var studentSchema = mongoose.Schema({
   'firstName': {
-    type: String
+    type: String,
+    required: true
   },
   'lastName': {
-    type: String
+    type: String,
+    required: true
   },
   'pin': {
-    type: String
+    type: String,
+    required: true
   },
   'teacherId': {
-    type: String
+    type: String,
+    required: true
   },
   'goals': {
     type: Array

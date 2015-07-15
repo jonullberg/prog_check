@@ -7,16 +7,16 @@
   </header>
   <section class="panel-body">
     <div class="alert alert-danger"
-      data-ng-if="isAlertShown">
+      data-ng-if="isDeleteShown">
       <p class="col-lg-8">Are you sure? Deleting can't be undone</p>
       <div class="btn-group col-lg-4">
         <button type="button"
           class="btn btn-danger"
-          data-ng-click="remove({test: test})">Yes
+          data-ng-click="removeTest(test)">Yes
         </button>
         <button type="button"
           class="btn btn-primary"
-          data-ng-click="toggleAlert()">
+          data-ng-click="toggleDelete()">
           No
         </button>
       </div>
@@ -27,7 +27,8 @@
     <p>{{test.testDirections}}</p>
     <p>{{test.goal}}
     <h4>Questions: </h4>
-    <ul>
+    <p data-ng-if="!test.questions.length">You have no questions, please add some</p>
+    <ul data-ng-if="test.questions.length">
       <li data-ng-repeat="question in test.questions">{{question.question}}
         <ul data-ng-if="areAnswersShowing">
           <li data-ng-repeat="answer in question.answers">{{answer}}</li>
@@ -38,10 +39,10 @@
   <footer class="panel-footer">
     <button type="button"
       class="btn btn-primary"
-      data-ng-click="editTest({test: test})">Edit Test</button>
+      data-ng-click="editTest(test)">Edit Test</button>
     <button type="button"
       class="btn btn-danger"
-      data-ng-click="toggleAlert()">
+      data-ng-click="toggleDelete()">
       Delete Test
     </button>
 

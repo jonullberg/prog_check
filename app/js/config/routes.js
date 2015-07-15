@@ -52,7 +52,6 @@ module.exports = function(app) {
       })
       .when('/admin/standards', {
         templateUrl: 'templates/directives/standards.html',
-        controller: 'standardsController',
         access: {
           requiredLogin: true,
           requiredAdmin: true
@@ -66,8 +65,19 @@ module.exports = function(app) {
         }
         // No controller as of now
       })
-      .when('/teacher/home', {
-        templateUrl: 'templates/teachers/views/home.html',
+      .when('/teacher/students', {
+        templateUrl: 'templates/views/teacher/students_list.html',
+        controller: 'teacherCtrl',
+        access: {
+          requiredLogin: true,
+          requiredTeacher: true
+        }
+      })
+      .when('/teachers/students/:studentId', {
+        templateUrl: 'templates/views/teacher/single_student.html',
+        resolve: {
+
+        },
         access: {
           requiredLogin: true,
           requiredTeacher: true

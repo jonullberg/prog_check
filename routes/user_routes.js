@@ -45,7 +45,8 @@ module.exports = function(router, passport) {
 					res.json({
 						'role': user.role,
 						'fullName': user.firstName + ' ' + user.lastName,
-						'token': token
+						'token': token,
+						'userId': user._id
 					}); // end res.json
 				}); // end generate Token
 			}); // end user save
@@ -61,6 +62,7 @@ module.exports = function(router, passport) {
 	    res.json({
 	    	'role': req.user.role,
 	    	'fullName': req.user.firstName + ' ' + req.user.lastName,
+	    	'userId': req.user._id,
 	    	'token': token
 	    });
 	  });//end generateToken

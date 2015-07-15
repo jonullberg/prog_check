@@ -1,5 +1,6 @@
 <section
-  data-ng-controller="standardsController">
+  data-ng-controller="standardsCtrl"
+  data-ng-init="getAllStandards()">
   <div class="col-lg-6">
     <pc-standards-list
       data-ng-if="!isStandardShowing"
@@ -39,18 +40,15 @@
     data-ng-if="standard">
     <pc-tests-list
       data-ng-if="!isTestShowing"
-      data-ng-init="getAllTests()"
-      data-tests="tests"
-      data-standard="standard"
-      data-show="showTest(test)"
-      data-add-test="addTest()">
+      data-toggle-single-test="toggleSingleTest()"
+      data-toggle-test-form="toggleTestForm()">
     </pc-tests-list>
     <pc-single-test
       data-ng-if="isTestShowing"
-      data-test="test"
-      data-go-back="goBackTest()"
-      data-edit-test="editTest(test)"
-      data-remove="removeTest(test)">
+      data-is-test-showing="isTestShowing"
+      data-is-test-form-showing="isTestFormShowing"
+      data-toggle-single-test="toggleSingleTest()"
+      data-toggle-test-form="toggleTestForm()">
     </pc-single-test>
   </div>
   <div class="col-lg-6"
@@ -59,15 +57,16 @@
       data-ng-if="isTestFormShowing"
       data-button-text="'Create Test'"
       data-save="createTest(test)"
-      data-test="test"
-      data-standard="standard">
+      data-standard="standard"
+      data-toggle-single-test="toggleSingleTest()">
     </pc-test-form>
     <pc-test-form
       data-ng-if="test.editing"
       data-button-text="'Update Test'"
       data-save="saveTest(test)"
       data-cancel="cancelEdit(test)"
-      data-test="test">
+      data-test="test"
+      data-toggle-single-test="toggleSingleTest()">
     </pc-test-form>
   </div>
   <div class="clearfix"></div>

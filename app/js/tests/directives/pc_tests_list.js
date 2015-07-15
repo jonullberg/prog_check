@@ -8,10 +8,12 @@ module.exports = function(app) {
       templateUrl: '/templates/directives/tests_list.html',
       scope: {
         tests: '=',
+        test: '=',
         standard: '=',
-        show: '&',
-        addTest: '&'
-      }
+        toggleSingleTest: '&',
+        toggleTestForm: '&'
+      },
+      controller: 'testCtrl'
     };
   });
 };

@@ -23,7 +23,14 @@ require('./auth/services/token_interceptor')(progCheck);
 require('./auth/controllers/auth_controller')(progCheck);
 require('./controllers/main_controller')(progCheck);
 require('./standards/controllers/standards_controller')(progCheck);
+
+//    Teacher Controllers
+require('./teachers/controllers/teachers_controller')(progCheck);
+require('./teachers/controllers/student_form_controller')(progCheck);
+
+//    Test Controllers
 require('./tests/controllers/test_controller')(progCheck);
+require('./tests/controllers/test_form_controller')(progCheck);
 
 //  directives
 require('./auth/directives/sign_up_directive')(progCheck);
