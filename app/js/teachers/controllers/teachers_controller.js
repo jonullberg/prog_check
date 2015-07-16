@@ -1,22 +1,26 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('teacherCtrl', ['$scope', '$modal', 'RESTResource', 'dataStore', function($scope, $modal, resource, dataStore) {
+  app.controller('teacherCtrl', ['$scope', '$location', '$modal', 'RESTResource', 'dataStore', function($scope, $location, $modal, resource, dataStore) {
 
     var Student = resource('students');
 
-    $scope.source = dataStore;
+    $scope.students;
 
     $scope.getStudents = function() {
-      Student.getAll(function(err, data) {
-        $scope.students = dataStore.getStudents(function(err, data) {
-          if (err) {
-            console.log(err);
-            return;
-          }
-        });
+      dataStore.getStudents(function(err, data) {
+        if (err) {
+          console.log(err);
+          return;
+        }
+        $scope.students = data;
       });
     };
+
+    $scope.showStudent = function(student) {
+      var url = 'teacher/students/' + student._id;
+      $location.path(url);
+    }
 
     $scope.open = function(size) {
       $modal.open({

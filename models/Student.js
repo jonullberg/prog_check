@@ -11,6 +11,10 @@ var studentSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  'username': {
+    type: String,
+    required: true
+  },
   'pin': {
     type: String,
     required: true
@@ -23,5 +27,14 @@ var studentSchema = mongoose.Schema({
     type: Array
   }
 });
+
+studentSchema.pre('validate', function(next) {
+  var doc = this;
+  if (doc.userName === undefined) {
+    var username = doc.firstName.slice(0, 1).toLowerCase() + doc.lastName.toLowerCase();
+    doc.username = username;
+    next();
+  }
+})
 
 module.exports = mongoose.model('Student', studentSchema);

@@ -58,7 +58,7 @@ module.exports = function(app) {
         }
       })
       .when('/admin/teachers', {
-        templateUrl: '/templates/directives/teachers.html',
+        templateUrl: 'templates/directives/teachers.html',
         access: {
           requiredLogin: true,
           requiredAdmin: true
@@ -73,11 +73,9 @@ module.exports = function(app) {
           requiredTeacher: true
         }
       })
-      .when('/teachers/students/:studentId', {
+      .when('/teacher/students/:studentId', {
         templateUrl: 'templates/views/teacher/single_student.html',
-        resolve: {
-
-        },
+      controller: 'singleStudentCtrl',
         access: {
           requiredLogin: true,
           requiredTeacher: true

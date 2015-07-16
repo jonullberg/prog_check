@@ -18,9 +18,12 @@ var testSchema = mongoose.Schema({
   'standardId': {
     type: String
   },
-  'testName': {
+  'goalName': {
     type: String
   },
+  'goalDescription': {
+    type: String
+  }
   'testDirections': {
     type: String
   },
@@ -33,6 +36,7 @@ var testSchema = mongoose.Schema({
 testSchema.pre('validate', function(next) {
   var doc = this;
   if (doc.testName === undefined) {
+    doc.testName =
     mongoose.model('Test').count(function(err, num) {
       if (err) return next(err);
 

@@ -38,6 +38,9 @@ module.exports = function(app) {
       }
     };
 
+    $scope.testFn = function() {
+      $scope.standard = standard;
+    };
     /**
      * Will set a standard to be displayed to the user
      * @param {Object} standard The specificed standard to be displayed

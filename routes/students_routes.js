@@ -28,7 +28,6 @@ module.exports = function(router) {
           'msg': 'Internal Server Error'
         });
       }
-
       res.json(data);
     });
   });

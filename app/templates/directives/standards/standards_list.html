@@ -1,9 +1,11 @@
-<section class="panel panel-primary"
+<section
+  class="panel panel-primary"
   data-ng-init="getAllStandards()">
   <header class="panel-heading">
     <h3 class="col-lg-9">List of Current Standards</h3>
     <button type="button"
       class="btn btn-default col-lg-3"
+      data-ng-if="admin"
       data-ng-click="addStandard()">
       Add Standard <span class="glyphicon glyphicon-plus"></span>
     </button>
@@ -44,4 +46,7 @@
       data-ng-click="limit = limit + 5">Show more</button>
 
   </div>
+  <footer class="panel-footer">
+    <h3>Footer element here?</h3>
+  </footer>
 </section>

@@ -19,15 +19,19 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <td>Name</td>
+            <td>First Name</td>
+            <td>Last Name</td>
+            <td>Username</td>
             <td>Grade</td>
           </tr>
         </thead>
         <tbody>
-          <tr data-ng-repeat="student in source.students">
-            <td>{{student.firstName}} {{student.lastName}}</td>
+          <tr data-ng-repeat="student in students"
+            data-ng-click="showStudent(student)">
+            <td>{{student.firstName}}</td>
+            <td>{{student.lastName}}</td>
+            <td>{{student.username}}</td>
             <td>{{student.pin}}</td>
-            <td></td>
           </tr>
         </tbody>
       </table>
