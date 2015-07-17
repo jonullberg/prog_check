@@ -18,12 +18,12 @@ var testSchema = mongoose.Schema({
   'standardId': {
     type: String
   },
-  'goalName': {
+  'testName': {
     type: String
   },
-  'goalDescription': {
+  'testDescription': {
     type: String
-  }
+  },
   'testDirections': {
     type: String
   },
