@@ -31,7 +31,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr data-ng-repeat="standard in standards | filter:search | limitTo: limit as results"
+        <tr data-ng-repeat="standard in standards | filter:search"
         data-ng-click="show({standard: standard})">
           <td>{{standard.name}}</td>
           <td>{{standard.shortGrade}}</td>
@@ -39,9 +39,5 @@
         </tr>
       </tbody>
     </table>
-    <button class="btn btn-primary"
-      data-ng-if=""
-      data-ng-click="limit = limit + 5">Show more</button>
-
   </div>
 </section>
