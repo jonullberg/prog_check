@@ -1,0 +1,14 @@
+
+.container {
+  margin-left:auto;
+  margin-right: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* Styling for the user tabs */
+.auth-view {
+  width: 50%;
+  margin: 0 auto;
+}
+

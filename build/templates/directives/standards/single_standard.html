@@ -1,0 +1,50 @@
+<section class="panel panel-primary"
+  data-ng-init="testFn()">
+  <header class="panel-heading">
+    <h3 class="col-lg-9">
+      {{standard.name}}
+    </h3>
+    <button type="button"
+      class="btn btn-default col-lg-3"
+      data-ng-click="goBack()">Go Back</button>
+    <div class="clearfix"></div>
+  </header>
+  <div class="panel-body">
+    <div class="alert alert-danger"
+      data-ng-if="isAlertShown">
+      <p class="col-lg-8">Are you sure? Deleting can't be undone</p>
+      <div class="btn-group col-lg-4">
+        <button type="button"
+          class="btn btn-danger"
+          data-ng-click="removeStandard({standard: standard})">Yes
+        </button>
+        <button type="button"
+          class="btn btn-primary"
+          data-ng-click="toggleAlert()">
+          No
+        </button>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+
+    <h3>Standard</h3>
+    <p>
+      {{standard.language}}
+    </p>
+    <h3>Goals</h3>
+    <ul>
+      <li data-ng-click="select(goal)"
+        data-ng-repeat="goal in standard.goals">{{goal.description}}</li>
+    </ul>
+  </div>
+  <div class="panel-footer">
+    <button type="button"
+      class="btn btn-primary"
+      data-ng-click="toggle({standard: standard})">{{buttonText}}
+    </button>
+    <button type="button"
+      class="btn btn-danger"
+      data-ng-click="toggleAlert()">Delete Standard
+    </button>
+  </div>
+</section>

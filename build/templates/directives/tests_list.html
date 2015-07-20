@@ -1,0 +1,36 @@
+<section class="panel panel-primary"
+  data-ng-init="getAll()">
+  <header class="panel-heading">
+    <h3 class="col-lg-9">List of Tests for {{standard.name}}</h3>
+    <div class="clearfix"></div>
+  </header>
+  <section class="panel-body">
+    <p data-ng-if="tests">There are no tests for this standard, feel free to add some</p>
+    <table class="table table-striped"
+      data-ng-init="limit = 5">
+      <thead>
+        <tr>
+          <td>Name</td>
+          <td>Directions</td>
+          <td>Goal</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr data-ng-repeat="test in tests | filter: {standardId: standard._id} | limitTo: limit as results"
+          data-ng-click="selectTest(test)">
+          <td>{{test.testName}}</td>
+          <td>{{test.testDirections}}</td>
+          <td>{{test.goalId}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </section>
+  <footer class="panel-footer">
+    <button type="button"
+      class="btn btn-primary"
+      data-ng-click="newTest()">
+      Add A Test <span class="glyphicon glyphicon-plus"></span>
+    </button>
+  </footer>
+</section>
