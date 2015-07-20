@@ -39,6 +39,7 @@
     "gulp-copy": "0.0.2",
     "gulp-jscs": "^1.6.0",
     "gulp-jshint": "^1.11.0",
+    "gulp-karma": "0.0.4",
     "gulp-mocha": "^2.1.0",
     "gulp-util": "^3.0.6",
     "jasmine-core": "^2.3.4",

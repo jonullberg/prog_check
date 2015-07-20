@@ -12,9 +12,15 @@ chai.use(chaihttp);
 
 describe('The login API', function() {
   var successfulTestUser = {
-    'username': 'successfulTestUsername',
     'email': 'successTest@example.com',
-    'password': 'foobar123'
+    'password': 'foobar123',
+    'firstName': 'Jonathan',
+    'lastName': 'Testing',
+    'school': {
+      'schoolName': 'Test School',
+      'schoolState': 'WA',
+      'schoolDistrict': 'school district'
+    }
   };
 
   afterEach(function(done) {
@@ -52,9 +58,9 @@ describe('The login API', function() {
         .auth('successTest@example.com', 'foobar123')
         .end(function(err, res) {
           expect(err).to.equal(null);
-          expect(res.body.username).to.equal('successfulTestUsername');
+          expect(res.body.role).to.equal('teacher');
+          expect(res.body).to.have.property('fullName');
           expect(res.body).to.have.property('token');
-          expect(res.body.msg).to.equal('authenticated as: successTest@example.com')
           done();
         });
     });

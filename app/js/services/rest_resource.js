@@ -35,10 +35,8 @@ module.exports = function(app) {
 
     return function(resourceName) {
       var token = $cookies.get('token');
-      var username = $cookies.get('username');
 
       $http.defaults.headers.common.token = token;
-      $http.defaults.headers.common.username = username;
       return {
 
         /**
@@ -46,6 +44,17 @@ module.exports = function(app) {
          */
         getAll: function(callback) {
           $http.get('/api/' + resourceName)
+            .success(handleSuccess(callback))
+            .error(handleError(callback));
+        },
+
+        /**
+         * Will go to server and grab one item based on resourceData and process with callback
+         * @param  {mixed}   resourceData  Usually a objectId to find a single item
+         * @param  {Function} callback     A function to run on error or data
+         */
+        getOne: function(resourceData, callback) {
+          $http.get('/api/' + resourceName + '/' + resourceData)
             .success(handleSuccess(callback))
             .error(handleError(callback));
         },

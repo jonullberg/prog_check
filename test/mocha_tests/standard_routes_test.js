@@ -11,17 +11,35 @@ var app = 'localhost:3000';
 chai.use(chaihttp);
 
 describe('The standards API', function() {
-
-  var testingStandard = {
-    'name': 'This Is A Test Standard',
-    'grade': 'firstGrade',
-    'code': '1.0.0.0',
-    'language': 'addition',
-    'keywords': ['addition', 'test', 'math'],
-    'description': 'This is the description for a test. The description should be a bit longer'
+  var testUser = {
+    'email': 'successTest@example.com',
+    'password': 'foobar123',
+    'firstName': 'Jonathan',
+    'lastName': 'Testing'
   };
-
-  after(function(done) {
+  var successfulStandard = {
+    'name': 'This Is A Test Standard',
+    'gradeName': 'firstGrade',
+    'shortGrade': '1st',
+    'code': '1.0.0.0',
+    'domain': 'test domain',
+    'language': 'This is the description for a test. The description should be a bit longer',
+    'goals': [{
+      'name': 'Test Goal',
+      'description': 'test description'
+    }]
+  };
+  var token;
+  beforeEach(function(done) {
+    chai.request(app)
+      .post('/api/create_user')
+      .send(testUser)
+      .end(function(err, res) {
+        token = res.body.token;
+        done();
+      });
+  });
+  afterEach(function(done) {
     mongoose.connection.db.dropDatabase(function() {
       done();
     });
@@ -32,26 +50,35 @@ describe('The standards API', function() {
     it('Should save a standard', function(done) {
       chai.request(app)
         .post('/api/standards')
-        .send(testingStandard)
+        .set({token: token})
+        .send(successfulStandard)
         .end(function(err, res) {
           expect(err).to.equal(null);
           expect(res.body).to.have.property('name');
-          expect(res.body).to.have.property('grade');
           expect(res.body.code).to.equal('1.0.0.0');
-          expect(res.body.keywords).to.have.length(3);
           done();
         });
     });
   });
 
   describe('Getting standards', function() {
+    beforeEach(function(done) {
+      chai.request(app)
+        .post('/api/standards')
+        .set({token: token})
+        .send(successfulStandard)
+        .end(function(err, res) {
+          done();
+        });
+    });
+
     it('Should retrieve an array of standards', function(done) {
       chai.request(app)
         .get('/api/standards')
         .end(function(err, res) {
           expect(err).to.equal(null);
           expect(res.body).to.be.an('array');
-          expect(res.body[0]).to.have.property('name');
+          expect(res.body[0].gradeName).to.equal('firstGrade');
           done();
         });
     });

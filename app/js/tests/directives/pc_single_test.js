@@ -17,12 +17,12 @@ module.exports = function(app) {
       replace: true,
       templateUrl: '/templates/directives/single_test.html',
       scope: {
-        test: '=',
-        editTest: '&',
-        remove: '&',
-        goBack: '&'
+        toggleSingleTest: '&',
+        toggleTestForm: '&',
+        isTestShowing: '=',
+        isTestFormShowing: '='
       },
-      controller: controller
+      controller: 'testCtrl'
     };
   });
 };

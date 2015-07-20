@@ -16,6 +16,7 @@ module.exports = function(app) {
           $cookies.put('token', '');
           $cookies.put('fullName', '');
           $cookies.put('role', '');
+          $cookies.put('userId', '');
           AuthenticationService.isLogged = false;
           $location.path('/sign-in');
 

@@ -1,22 +1,26 @@
-<form class="panel panel-primary"
-  data-ng-submit="prepareTest(test)">
-  <header class="panel-heading">
+<form class=""
+  data-ng-submit="addNewTest(test)">
+  <header class="modal-header">
     <h3>{{test.testName || 'New Test'}} </h3>
   </header>
-  <div class="panel-body">
+  <div class="modal-body">
     <div class="form-group">
       <label for="testDirections">Directions for Test:</label>
       <input type="text"
         class="form-control" required="required"
         name="testDirections" id="testDirections"
+        placeholder="Test Directions"
         data-ng-model="test.testDirections">
     </div>
     <div class="form-group">
       <label for="testGoal">Choose a goal for this test: </label>
       <select name="testGoal" id="testGoal"
         class="form-control" required="required"
-        data-ng-model="test.goalId"
-        data-ng-options="goal._id as goal.name + ' - ' + goal.description for goal in standard.goals"></select>
+        data-ng-init="setGoal(test)"
+        data-ng-change="test.goalId = test._goal"
+        data-ng-model="test._goal"
+        data-ng-options="goal._id as goal.description for goal in standard.goals">
+      </select>
     </div>
     <div>
       <ul>
@@ -27,7 +31,7 @@
       <button type="button"
         class="btn btn-default"
         data-ng-if="!areWeAddingQuestions"
-        data-ng-click="addQuestions(test)">
+        data-ng-click="newQuestions(test)">
         Add Questions
       </button>
     </div>
@@ -47,17 +51,15 @@
       data-question="question"
       data-test="test">
     </pc-question-form>  </div>
-  <footer class="panel-footer">
-    <div class="form-group">
-      <button type="submit"
-        class="btn btn-primary">
-        {{buttonText}}
-      </button>
-      <button type="button"
-        class="btn btn-danger"
-        data-ng-click="cancel({test: test})">
-        Cancel
-      </button>
-    </div>
+  <footer class="modal-footer">
+    <button type="submit"
+      class="btn btn-primary">
+      {{buttonText}}
+    </button>
+    <button type="button"
+      class="btn btn-danger"
+      data-ng-click="cancel(test)">
+      Cancel
+    </button>
   </footer>
 </form>

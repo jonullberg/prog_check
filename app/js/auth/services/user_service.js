@@ -15,6 +15,7 @@ module.exports = function(app) {
             $cookies.put('token', data.token);
             $cookies.put('fullName', data.fullName);
             $cookies.put('role', data.role);
+            $cookies.put('userId', data.userId);
             AuthenticationService.isLogged = true;
             callback(null);
           })
@@ -30,6 +31,7 @@ module.exports = function(app) {
             $cookies.put('token', data.token);
             $cookies.put('fullName', data.fullName);
             $cookies.put('role', data.role);
+            $cookies.put('userId', data.userId);
             AuthenticationService.isLogged = true;
             callback(null);
           })

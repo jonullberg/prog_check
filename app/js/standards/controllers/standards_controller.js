@@ -1,27 +1,30 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('standardsController', ['$scope', '$filter', 'RESTResource', 'copy', 'dataStore', 'pcGrades', function($scope, $filter, resource, copy, dataStore, pcGrades) {
+  app.controller('standardsCtrl', ['$scope', '$filter', 'RESTResource', 'copy', 'dataStore', 'pcGrades', function($scope, $filter, resource, copy, dataStore, pcGrades) {
 
     var Standard = resource('standards');
-    var Test = resource('tests');
 
-    $scope.standards = [];
-    $scope.errors = [];
-    $scope.tests = null;
+    $scope.standards = dataStore.standards;
+    $scope.errors = dataStore.errors;
+    $scope.tests = dataStore.tests;
     $scope.quantity = 5;
     $scope.formShowing = false;
-    $scope.standard = null;
+    $scope.standard = dataStore.standard;
     $scope.isStandardShowing;
     $scope.isStandardFormShowing;
     $scope.master = {};
-    $scope.isTestShowing;
-    $scope.isTestFormShowing;
-    $scope.test = null;
+    $scope.isTestShowing = false;
+    $scope.isTestFormShowing = false;
+    $scope.test = dataStore.test;
     $scope.isAlertShown = false;
 
     $scope.addStandard = function() {
       $scope.isStandardFormShowing = !$scope.isStandardFormShowing;
+    };
+
+    $scope.toggleTestForm = function() {
+      $scope.isTestFormShowing = !$scope.isTestFormShowing;
     };
 
     $scope.toggleEdit = function(standard) {
@@ -35,12 +38,17 @@ module.exports = function(app) {
       }
     };
 
+    $scope.testFn = function(standard) {
+      console.log(standard);
+      $scope.standard = standard;
+    };
     /**
      * Will set a standard to be displayed to the user
      * @param {Object} standard The specificed standard to be displayed
      */
     $scope.showStandard = function(standard) {
-      $scope.standard = standard;
+      dataStore.standard = standard;
+      $scope.standard = dataStore.standard;
       $scope.isStandardShowing = true;
       $scope.isStandardFormShowing = false;
       $scope.isTestShowing = false;
@@ -120,62 +128,11 @@ module.exports = function(app) {
       $scope.isStandardShowing = false;
     };
 
-
-
     // Tests Controller
     // TODO: refactor into its own controller
-    $scope.getAllTests = function() {
-      Test.getAll(function(err, data) {
-        if (err) {
-          return $scope.errors.push({
-            'msg': 'Error retrieving tests'
-          });
-        }
-        dataStore.tests = data;
-        // Can we just use data store?
-        $scope.tests = data;
-      });
-    };
-
-    $scope.createTest = function(test) {
-      var newTest = angular.copy(test);
-      var numberOfTests = $filter('filter')($scope.tests, {standardId: $scope.standard._id});
-      test = {};
-      newTest.testName = 'Test ' + (numberOfTests.length + 1);
-      dataStore.tests.push(newTest);
-      $scope.test = newTest;
-      Test.create(newTest, function(err, data) {
-        if (err) {
-          return $scope.errors.push({
-            'msg': 'There was an error creating your test'
-          });
-        }
-        $scope.standards.splice($scope.tests.indexOf(newTest), 1, data);
-        $scope.test = null;
-        dataStore.tests.splice(dataStore.tests.indexOf(newTest), 1, data);
-        $scope.isTestFormShowing = false;
-      });
-    };
-
-    $scope.saveTest = function(test) {
-      Test.save(test, function(err, data) {
-        if (err) return $scope.errors.push({
-          'msg': 'There was an error updating your test'
-        });
-        test.editing = false;
-      });
-    };
-
-    $scope.showTest = function(test) {
-      $scope.test = test;
-      $scope.isTestShowing = true;
-    };
 
 
-    $scope.editTest = function(test) {
-      test.editing = true;
-      $scope.test = test;
-    };
+
 
     // TODO: put this into alert directive
     $scope.toggleAlert = function() {
@@ -186,20 +143,11 @@ module.exports = function(app) {
       }
     };
 
-    $scope.addTest = function() {
-      $scope.test = null;
-      $scope.isTestFormShowing = true;
-    };
 
-    $scope.removeTest = function(test) {
-      $scope.isTestShowing = false;
-      dataStore.tests.splice(dataStore.tests.indexOf(test), 1);
-      Test.remove(test, function(err) {
-        if (err) return $scope.errors.push({
-          'msg': 'There was an error deleting your test'
-        });
-      });
-    };
+
+    $scope.toggleSingleTest = function() {
+      $scope.isTestShowing = !$scope.isTestShowing;
+    }
 
     $scope.goBackTest = function() {
       $scope.test = {};

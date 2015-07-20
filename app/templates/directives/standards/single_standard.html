@@ -1,4 +1,5 @@
-<section class="panel panel-primary">
+<section class="panel panel-primary"
+  data-ng-init="testFn()">
   <header class="panel-heading">
     <h3 class="col-lg-9">
       {{standard.name}}
@@ -26,14 +27,20 @@
       <div class="clearfix"></div>
     </div>
 
+    <h3>Standard</h3>
     <p>
       {{standard.language}}
     </p>
+    <h3>Goals</h3>
+    <ul>
+      <li data-ng-click="select(goal)"
+        data-ng-repeat="goal in standard.goals">{{goal.description}}</li>
+    </ul>
   </div>
   <div class="panel-footer">
     <button type="button"
       class="btn btn-primary"
-      data-ng-click="toggle({standard: standard})">Edit Standard
+      data-ng-click="toggle({standard: standard})">{{buttonText}}
     </button>
     <button type="button"
       class="btn btn-danger"

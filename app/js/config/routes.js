@@ -52,22 +52,30 @@ module.exports = function(app) {
       })
       .when('/admin/standards', {
         templateUrl: 'templates/directives/standards.html',
-        controller: 'standardsController',
         access: {
           requiredLogin: true,
           requiredAdmin: true
         }
       })
       .when('/admin/teachers', {
-        templateUrl: '/templates/directives/teachers.html',
+        templateUrl: 'templates/directives/teachers.html',
         access: {
           requiredLogin: true,
           requiredAdmin: true
         }
         // No controller as of now
       })
-      .when('/teacher/home', {
-        templateUrl: 'templates/teachers/views/home.html',
+      .when('/teacher/students', {
+        templateUrl: 'templates/views/teacher/students_list.html',
+        controller: 'teacherCtrl',
+        access: {
+          requiredLogin: true,
+          requiredTeacher: true
+        }
+      })
+      .when('/teacher/students/:studentId', {
+        templateUrl: 'templates/views/teacher/single_student.html',
+      controller: 'singleStudentCtrl',
         access: {
           requiredLogin: true,
           requiredTeacher: true
