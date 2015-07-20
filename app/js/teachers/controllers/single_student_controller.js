@@ -10,7 +10,8 @@ module.exports = function(app) {
           console.log(err);
           return;
         }
-        $scope.student = data[0];
+        dataStore.student = data[0];
+        $scope.student = dataStore.student;
       });
     };
 
@@ -18,7 +19,7 @@ module.exports = function(app) {
       $modal.open({
         animation: true,
         templateUrl: '/templates/directives/standards/standards_list.html',
-        controller: 'standardsListCtrl',
+        controller: 'StandardsListCtrl',
         size: 'lg'
       });
     };

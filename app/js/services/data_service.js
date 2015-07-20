@@ -12,8 +12,16 @@ module.exports = function(app) {
           if (err) {
             return callback(err);
           }
-          // $rootScope.$broadcast('student:changed');
           callback(err, data);
+        });
+      },
+      saveStudent: function() {
+
+        Student.save(this.student, function(err, data) {
+          if (err) {
+            console.log(err);
+          }
+          console.log(data);
         });
       },
       getStudents: function(callback) {

@@ -38,7 +38,8 @@ module.exports = function(app) {
       }
     };
 
-    $scope.testFn = function() {
+    $scope.testFn = function(standard) {
+      console.log(standard);
       $scope.standard = standard;
     };
     /**

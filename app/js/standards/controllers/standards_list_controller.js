@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('standardsListCtrl', ['$scope', '$modal', '$modalInstance', 'dataStore', function($scope, $modal, $modalInstance, dataStore) {
+  app.controller('StandardsListCtrl', ['$scope', '$modal', '$modalInstance', 'dataStore', function($scope, $modal, $modalInstance, dataStore) {
     $scope.standards = dataStore.standards;
     $scope.getAllStandards = function() {
       dataStore.getStandards(function(err, data) {
@@ -12,18 +12,24 @@ module.exports = function(app) {
       });
     };
     $scope.show = function(standard) {
+      var controller = ['$scope', '$modalInstance', function($scope, $modalInstance) {
+        $scope.buttonText = 'Add This Standard';
+        $scope.standard = standard.standard;
+        $scope.toggle = function(standard) {
+          dataStore.student.goals.push(standard.standard);
+          $scope.student = dataStore.student;
+          dataStore.saveStudent();
+          $modalInstance.close();
+
+        };
+      }];
       $modal.open({
         animation: true,
         templateUrl: '/templates/directives/standards/single_standard.html',
-        controller: 'standardsCtrl',
+        controller: controller,
         size: 'lg',
-        resolve: {
-          standard: function() {
-            return standard.standard;
-          }
-        }
       });
-      $modalInstance.close()
+      $modalInstance.close();
     };
   }]);
 };

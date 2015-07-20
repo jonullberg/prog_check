@@ -22,11 +22,11 @@
             <td>First Name</td>
             <td>Last Name</td>
             <td>Username</td>
-            <td>Grade</td>
+            <td>PIN</td>
           </tr>
         </thead>
         <tbody>
-          <tr data-ng-repeat="student in students"
+          <tr data-ng-repeat="student in students | orderBy: 'lastName'"
             data-ng-click="showStudent(student)">
             <td>{{student.firstName}}</td>
             <td>{{student.lastName}}</td>

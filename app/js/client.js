@@ -24,6 +24,7 @@ require('./auth/controllers/auth_controller')(progCheck);
 require('./controllers/main_controller')(progCheck);
 require('./standards/controllers/standards_controller')(progCheck);
 require('./standards/controllers/standards_list_controller')(progCheck);
+require('./standards/controllers/single_standard_controller')(progCheck);
 
 //    Teacher Controllers
 require('./teachers/controllers/teachers_controller')(progCheck);

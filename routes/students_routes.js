@@ -44,4 +44,22 @@ module.exports = function(router) {
       res.json(data);
     });
   });
+
+  router.put('/students/:id', function(req, res) {
+    var updatedStudent = req.body;
+    delete updatedStudent._id;
+    Student.update({_id: req.params.id},
+      updatedStudent, function(err) {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({
+            'msg': 'Internal Server Error'
+          });
+        }
+
+        res.json({
+          'msg': 'Success'
+        });
+      });
+  });
 };
