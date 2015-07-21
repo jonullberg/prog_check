@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('singleStudentCtrl', ['$scope', '$routeParams', '$modal', 'dataStore', function($scope, $routeParams, $modal, dataStore) {
+  app.controller('singleStudentCtrl', ['$scope', '$routeParams', '$modal', '$location', 'dataStore', function($scope, $routeParams, $modal, $location, dataStore) {
     $scope.student;
     $scope.getStudent = function() {
       var id = $routeParams.studentId;
@@ -13,6 +13,14 @@ module.exports = function(app) {
         dataStore.student = data[0];
         $scope.student = dataStore.student;
       });
+    };
+
+    $scope.goBack = function() {
+      $location.path('teacher/students');
+    };
+
+    $scope.removeGoal = function(goal) {
+      dataStore.removeGoal(goal);
     };
 
     $scope.openGoalForm = function() {

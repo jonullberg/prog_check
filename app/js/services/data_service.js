@@ -17,12 +17,10 @@ module.exports = function(app) {
         });
       },
       saveStudent: function() {
-
-        Student.save(this.student, function(err, data) {
+        Student.save(this.student, function(err) {
           if (err) {
             console.log(err);
           }
-          console.log(data);
         });
       },
       getStudents: function(callback) {
@@ -34,15 +32,21 @@ module.exports = function(app) {
           callback(err, data);
         });
       },
+      removeGoal: function(goal, callback) {
+        this.student.goals.splice(this.student.goals.indexOf(goal), 1);
+        this.saveStudent();
+      },
 
       standard: null,
       standards: [],
       getStandards: function(callback) {
+        var that = this;
         Standard.getAll(function(err, data) {
           if (err) {
             return callback(err);
           }
-          this.standards = data;
+          that.standards = data;
+
           callback(err, data);
         });
       },

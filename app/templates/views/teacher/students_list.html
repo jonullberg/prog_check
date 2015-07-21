@@ -26,7 +26,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr data-ng-repeat="student in students | orderBy: 'lastName'"
+          <tr data-ng-repeat="student in students | orderBy: 'lastName' | filter:search"
             data-ng-click="showStudent(student)">
             <td>{{student.firstName}}</td>
             <td>{{student.lastName}}</td>

@@ -2,7 +2,7 @@
 
 module.exports = function(app) {
   app.controller('StandardsListCtrl', ['$scope', '$modal', '$modalInstance', 'dataStore', function($scope, $modal, $modalInstance, dataStore) {
-    $scope.standards = dataStore.standards;
+    $scope.standards;
     $scope.getAllStandards = function() {
       dataStore.getStandards(function(err, data) {
         if (err) {

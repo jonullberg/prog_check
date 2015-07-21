@@ -2,7 +2,8 @@
   data-ng-init="getStudent()">
   <header class="panel-heading">
     <h3 class="col-lg-9">Information for {{student.firstName}} {{student.lastName}}</h3>
-    <button type="button" class="btn btn-default">
+    <button type="button" class="btn btn-default"
+      data-ng-click="goBack()">
       Go Back
     </button>
     <div class="clearfix"></div>
@@ -10,7 +11,13 @@
   <div class="panel-body">
     <h4>Goals</h4>
     <ul>
-      <li data-ng-repeat="goal in student.goals">{{goal.name}}</li>
+      <li data-ng-repeat="goal in student.goals">
+        {{goal.name}}
+        <button class="btn btn-danger"
+          data-ng-click="removeGoal(goal)">
+          Remove Goal
+        </button>
+      </li>
     </ul>
   </div>
   <footer class="panel-footer">
