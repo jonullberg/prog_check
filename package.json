@@ -4,7 +4,6 @@
   "description": "An API for Prog-Check to connect to a server, save users and store progress",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
     "postinstall": "gulp build"
   },
   "repository": {
