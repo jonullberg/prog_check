@@ -6,8 +6,7 @@
   </header>
   <section class="panel-body">
     <p data-ng-if="tests">There are no tests for this standard, feel free to add some</p>
-    <table class="table table-striped"
-      data-ng-init="limit = 5">
+    <table class="table table-striped">
       <thead>
         <tr>
           <td>Name</td>
@@ -16,7 +15,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr data-ng-repeat="test in tests | filter: {standardId: standard._id} | limitTo: limit as results"
+        <tr data-ng-repeat="test in tests | filter: {standardId: standard._id}"
           data-ng-click="selectTest(test)">
           <td>{{test.testName}}</td>
           <td>{{test.testDirections}}</td>

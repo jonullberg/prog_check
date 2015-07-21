@@ -1,5 +1,6 @@
 <form class=""
-  data-ng-submit="addNewTest(test)">
+  data-ng-submit="addNewTest(test)"
+  data-ng-init="setData(test)">
   <header class="modal-header">
     <h3>{{test.testName || 'New Test'}} </h3>
   </header>
@@ -16,7 +17,6 @@
       <label for="testGoal">Choose a goal for this test: </label>
       <select name="testGoal" id="testGoal"
         class="form-control" required="required"
-        data-ng-init="setGoal(test)"
         data-ng-change="test.goalId = test._goal"
         data-ng-model="test._goal"
         data-ng-options="goal._id as goal.description for goal in standard.goals">
@@ -39,14 +39,14 @@
       data-test="test"
       data-ng-if="areWeAddingQuestions"
       data-save="addQuestion(question)"
-      data-cancel="cancelEdit(question)"
+      data-cancel="cancelQuestion(question)"
       data-button-text="'Add Question'"
       data-question="question">
     </pc-question-form>
     <pc-question-form
       data-ng-if="question.editing"
       data-save="saveQuestion(question)"
-      data-cancel="cancelEdit(question)"
+      data-cancel="cancelQuestion(question)"
       data-button-text="'Update Question'"
       data-question="question"
       data-test="test">
