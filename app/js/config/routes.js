@@ -67,7 +67,7 @@ module.exports = function(app) {
       })
       .when('/teacher/students', {
         templateUrl: 'templates/views/teacher/students_list.html',
-        controller: 'teacherCtrl',
+        controller: 'TeacherCtrl',
         access: {
           requiredLogin: true,
           requiredTeacher: true

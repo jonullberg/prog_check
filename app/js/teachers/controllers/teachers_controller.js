@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('teacherCtrl', ['$scope', '$location', '$modal', 'RESTResource', 'dataStore', function($scope, $location, $modal, resource, dataStore) {
+  app.controller('TeacherCtrl', ['$scope', '$location', '$modal', 'RESTResource', 'dataStore', function($scope, $location, $modal, resource, dataStore) {
 
     var Student = resource('students');
 
@@ -26,7 +26,7 @@ module.exports = function(app) {
       $modal.open({
         animation: true,
         templateUrl: '/templates/directives/teachers/add_student_form.html',
-        controller: 'studentsListCtrl',
+        controller: 'StandardsListCtrl',
         size: size
       });
     };
