@@ -34,6 +34,8 @@ require('./teachers/controllers/single_student_controller')(progCheck);
 //    Test Controllers
 require('./tests/controllers/test_controller')(progCheck);
 require('./tests/controllers/test_form_controller')(progCheck);
+require('./tests/controllers/add_test_form_controller')(progCheck);
+require('./tests/controllers/edit_test_form_controller')(progCheck);
 
 //  directives
 require('./auth/directives/sign_up_directive')(progCheck);

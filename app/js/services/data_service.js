@@ -65,6 +65,13 @@ module.exports = function(app) {
             return callback(err);
           }
 
+        });
+      },
+      saveTest: function(test, callback) {
+        Test.save(this.test, function(err, data) {
+          if (err) {
+            callback(err);
+          }
           callback(err, data);
         });
       },
