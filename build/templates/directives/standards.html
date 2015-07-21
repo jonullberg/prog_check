@@ -1,13 +1,20 @@
 <section
+<<<<<<< HEAD
   data-ng-controller="standardsCtrl"
   data-ng-init="getAllStandards()">
+=======
+  data-ng-controller="standardsController">
+>>>>>>> c5eba28b15f83ed3c604ebded7664f2b6d45b4b4
   <div class="col-lg-6">
     <pc-standards-list
       data-ng-if="!isStandardShowing"
       data-standards="standards"
       data-show="showStandard(standard)"
       data-get-all="getAllStandards()"
+<<<<<<< HEAD
       data-admin="true"
+=======
+>>>>>>> c5eba28b15f83ed3c604ebded7664f2b6d45b4b4
       data-add-standard="addStandard()">
     </pc-standards-list>
     <pc-single-standard
@@ -41,6 +48,7 @@
     data-ng-if="standard">
     <pc-tests-list
       data-ng-if="!isTestShowing"
+<<<<<<< HEAD
       data-toggle-single-test="toggleSingleTest()"
       data-toggle-test-form="toggleTestForm()">
     </pc-tests-list>
@@ -50,6 +58,20 @@
       data-is-test-form-showing="isTestFormShowing"
       data-toggle-single-test="toggleSingleTest()"
       data-toggle-test-form="toggleTestForm()">
+=======
+      data-ng-init="getAllTests()"
+      data-tests="tests"
+      data-standard="standard"
+      data-show="showTest(test)"
+      data-add-test="addTest()">
+    </pc-tests-list>
+    <pc-single-test
+      data-ng-if="isTestShowing"
+      data-test="test"
+      data-go-back="goBackTest()"
+      data-edit-test="editTest(test)"
+      data-remove="removeTest(test)">
+>>>>>>> c5eba28b15f83ed3c604ebded7664f2b6d45b4b4
     </pc-single-test>
   </div>
   <div class="col-lg-6"
@@ -58,8 +80,13 @@
       data-ng-if="isTestFormShowing"
       data-button-text="'Create Test'"
       data-save="createTest(test)"
+<<<<<<< HEAD
       data-standard="standard"
       data-toggle-single-test="toggleSingleTest()">
+=======
+      data-test="test"
+      data-standard="standard">
+>>>>>>> c5eba28b15f83ed3c604ebded7664f2b6d45b4b4
     </pc-test-form>
     <pc-test-form
       data-ng-if="test.editing"
@@ -67,7 +94,10 @@
       data-save="saveTest(test)"
       data-cancel="cancelEdit(test)"
       data-test="test"
+<<<<<<< HEAD
       data-toggle-single-test="toggleSingleTest()">
+=======
+>>>>>>> c5eba28b15f83ed3c604ebded7664f2b6d45b4b4
       data-standard="standard">
     </pc-test-form>
   </div>

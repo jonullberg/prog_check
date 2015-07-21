@@ -1,11 +1,20 @@
+<<<<<<< HEAD
 <section class="panel panel-primary"
   data-ng-init="getAll()">
   <header class="panel-heading">
     <h3 class="col-lg-9">List of Tests for {{standard.name}}</h3>
+=======
+<section class="panel panel-primary">
+  <header class="panel-heading">
+    <h3 class="col-lg-9">List of Tests</h3>
+    <button class="btn btn-default col-lg-3"
+      data-ng-click="">Cancel</button>
+>>>>>>> c5eba28b15f83ed3c604ebded7664f2b6d45b4b4
     <div class="clearfix"></div>
   </header>
   <section class="panel-body">
     <p data-ng-if="tests">There are no tests for this standard, feel free to add some</p>
+<<<<<<< HEAD
     <table class="table table-striped"
       data-ng-init="limit = 5">
       <thead>
@@ -25,11 +34,21 @@
       </tbody>
     </table>
 
+=======
+    <ul>
+      <li data-ng-repeat="test in tests | filter: {standardId: standard._id}"
+        data-ng-click="show({test: test})">{{test.testName}}</li>
+    </ul>
+>>>>>>> c5eba28b15f83ed3c604ebded7664f2b6d45b4b4
   </section>
   <footer class="panel-footer">
     <button type="button"
       class="btn btn-primary"
+<<<<<<< HEAD
       data-ng-click="newTest()">
+=======
+      data-ng-click="addTest()">
+>>>>>>> c5eba28b15f83ed3c604ebded7664f2b6d45b4b4
       Add A Test <span class="glyphicon glyphicon-plus"></span>
     </button>
   </footer>

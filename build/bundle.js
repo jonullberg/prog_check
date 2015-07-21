@@ -68,6 +68,7 @@
 	//  controllers
 	__webpack_require__(18)(progCheck);
 	__webpack_require__(19)(progCheck);
+<<<<<<< HEAD
 	__webpack_require__(20)(progCheck);
 	__webpack_require__(21)(progCheck);
 	__webpack_require__(22)(progCheck);
@@ -102,6 +103,32 @@
 
 	//  Configuration
 	__webpack_require__(40)(progCheck);
+=======
+	__webpack_require__(1)(progCheck);
+	__webpack_require__(20)(progCheck);
+
+	//  directives
+	__webpack_require__(21)(progCheck);
+	__webpack_require__(22)(progCheck);
+	__webpack_require__(23)(progCheck);
+	__webpack_require__(24)(progCheck);
+
+	  //  Standard directives
+	__webpack_require__(25)(progCheck);
+	__webpack_require__(26)(progCheck);
+	__webpack_require__(27)(progCheck);
+	__webpack_require__(28)(progCheck);
+	__webpack_require__(29)(progCheck);
+
+	  //  Test directives
+	__webpack_require__(30)(progCheck);  // Form for adding or editing tests
+	__webpack_require__(31)(progCheck);  // Ability to add questions
+	__webpack_require__(32)(progCheck); // Shows a list of all tests attached to standard
+	__webpack_require__(33)(progCheck); // Shows the information for a single test
+
+	//  Configuration
+	__webpack_require__(34)(progCheck);
+>>>>>>> c5eba28b15f83ed3c604ebded7664f2b6d45b4b4
 
 
 /***/ },
@@ -111,6 +138,7 @@
 	'use strict';
 
 	module.exports = function(app) {
+<<<<<<< HEAD
 	  app.controller('teacherCtrl', ['$scope', '$location', '$modal', 'RESTResource', 'dataStore', function($scope, $location, $modal, resource, dataStore) {
 
 	    var Student = resource('students');
@@ -141,6 +169,214 @@
 	      });
 	    };
 
+=======
+	  app.controller('standardsController', ['$scope', '$filter', 'RESTResource', 'copy', 'dataStore', 'pcGrades', function($scope, $filter, resource, copy, dataStore, pcGrades) {
+
+	    var Standard = resource('standards');
+	    var Test = resource('tests');
+
+	    $scope.standards = [];
+	    $scope.errors = [];
+	    $scope.tests = null;
+	    $scope.quantity = 5;
+	    $scope.formShowing = false;
+	    $scope.standard = null;
+	    $scope.isStandardShowing;
+	    $scope.isStandardFormShowing;
+	    $scope.master = {};
+	    $scope.isTestShowing;
+	    $scope.isTestFormShowing;
+	    $scope.test = null;
+	    $scope.isAlertShown = false;
+
+	    $scope.addStandard = function() {
+	      $scope.isStandardFormShowing = !$scope.isStandardFormShowing;
+	    };
+
+	    $scope.toggleEdit = function(standard) {
+	      if (standard.editing) {
+	        angular.copy($scope.master, standard);
+	        $scope.master = {};
+	        standard.editing = false;
+	      } else {
+	        $scope.master = angular.copy(standard);
+	        standard.editing = true;
+	      }
+	    };
+
+	    /**
+	     * Will set a standard to be displayed to the user
+	     * @param {Object} standard The specificed standard to be displayed
+	     */
+	    $scope.showStandard = function(standard) {
+	      $scope.standard = standard;
+	      $scope.isStandardShowing = true;
+	      $scope.isStandardFormShowing = false;
+	      $scope.isTestShowing = false;
+	    };
+
+	    /**
+	     * Will make a GET request to /api/standards and return an array of standards to be displayed
+	     */
+	    $scope.getAllStandards = function() {
+	      Standard.getAll(function(err, data) {
+	        if (err) {
+	          return $scope.errors.push({
+	            'msg': 'Error retrieving standards'
+	          });
+	        }
+	        dataStore.standards = data;
+	        $scope.standards = dataStore.standards;
+	      });
+	    };
+
+	    /**
+	     * Will add standard to display, hide the form for adding a standard, and make a POST request to the API to create a new standard
+	     * @param  {object} standard The specified standard to create
+	     */
+	    $scope.createNewStandard = function(standard) {
+	      var newStandard = angular.copy(standard);
+	      dataStore.standards.push(newStandard);
+	      $scope.standard = newStandard;
+	      Standard.create(newStandard, function(err, data) {
+	        if (err) {
+	          return $scope.errors.push({
+	            'msg': 'There was an error creating your standard'
+	          });
+	        }
+	        $scope.standards.splice($scope.standards.indexOf(newStandard), 1, data);
+	        $scope.standard = data;
+	        dataStore.standards.splice(dataStore.standards.indexOf(newStandard), 1, data);
+
+	        $scope.isStandardFormShowing = false;
+	      });
+	    };
+
+	    /**
+	     * Will update a standard on the client and make a PUT request to the server to update the standard
+	     * @param  {object} standard The specified standard to update
+	     */
+	    $scope.saveStandard = function(standard) {
+	      Standard.save(standard, function(err, data) {
+	        if (err) return $scope.errors.push({
+	          'msg': 'There was an error while updating this standard'
+	        });
+	        standard.editing = false;
+	        $scope.standard = standard;
+	      });
+	    };
+
+	    /**
+	     * Will remove standard from display and make delete request to API to remove from database
+	     * @param  {object} standard The specified standard to delete
+	     */
+	    $scope.removeStandard = function(standard) {
+	      $scope.standards.splice($scope.standards.indexOf(standard), 1);
+	      dataStore.standards.splice(dataStore.standards.indexOf(standard), 1);
+
+	      $scope.standard = null;
+	      $scope.isStandardShowing = false;
+	      Standard.remove(standard, function(err) {
+	        if(err) return $scope.errors.push({
+	          'msg': 'There was an error deleting this standard'
+	        });
+
+	      });
+	    };
+
+	    $scope.goBack = function() {
+	      $scope.standard = null;
+	      $scope.isStandardShowing = false;
+	    };
+
+
+
+	    // Tests Controller
+	    // TODO: refactor into its own controller
+	    $scope.getAllTests = function() {
+	      Test.getAll(function(err, data) {
+	        if (err) {
+	          return $scope.errors.push({
+	            'msg': 'Error retrieving tests'
+	          });
+	        }
+	        dataStore.tests = data;
+	        // Can we just use data store?
+	        $scope.tests = data;
+	      });
+	    };
+
+	    $scope.createTest = function(test) {
+	      var newTest = angular.copy(test);
+	      var numberOfTests = $filter('filter')($scope.tests, {standardId: $scope.standard._id});
+	      test = {};
+	      newTest.testName = 'Test ' + (numberOfTests.length + 1);
+	      dataStore.tests.push(newTest);
+	      $scope.test = newTest;
+	      Test.create(newTest, function(err, data) {
+	        if (err) {
+	          return $scope.errors.push({
+	            'msg': 'There was an error creating your test'
+	          });
+	        }
+	        $scope.standards.splice($scope.tests.indexOf(newTest), 1, data);
+	        $scope.test = null;
+	        dataStore.tests.splice(dataStore.tests.indexOf(newTest), 1, data);
+	        $scope.isTestFormShowing = false;
+	      });
+	    };
+
+	    $scope.saveTest = function(test) {
+	      Test.save(test, function(err, data) {
+	        if (err) return $scope.errors.push({
+	          'msg': 'There was an error updating your test'
+	        });
+	        test.editing = false;
+	      });
+	    };
+
+	    $scope.showTest = function(test) {
+	      $scope.test = test;
+	      $scope.isTestShowing = true;
+	    };
+
+
+	    $scope.editTest = function(test) {
+	      test.editing = true;
+	      $scope.test = test;
+	    };
+
+	    // TODO: put this into alert directive
+	    $scope.toggleAlert = function() {
+	      if ($scope.isAlertShown) {
+	        $scope.isAlertShown = false;
+	      } else {
+	        $scope.isAlertShown = true;
+	      }
+	    };
+
+	    $scope.addTest = function() {
+	      $scope.test = null;
+	      $scope.isTestFormShowing = true;
+	    };
+
+	    $scope.removeTest = function(test) {
+	      $scope.isTestShowing = false;
+	      dataStore.tests.splice(dataStore.tests.indexOf(test), 1);
+	      Test.remove(test, function(err) {
+	        if (err) return $scope.errors.push({
+	          'msg': 'There was an error deleting your test'
+	        });
+	      });
+	    };
+
+	    $scope.goBackTest = function() {
+	      $scope.test = {};
+	      $scope.isTestShowing = false;
+	    };
+	    $scope.cancelEdit = function(test) {
+	    };
+>>>>>>> c5eba28b15f83ed3c604ebded7664f2b6d45b4b4
 	  }]);
 	};
 
@@ -29991,7 +30227,10 @@
 	            $cookies.put('token', data.token);
 	            $cookies.put('fullName', data.fullName);
 	            $cookies.put('role', data.role);
+<<<<<<< HEAD
 	            $cookies.put('userId', data.userId);
+=======
+>>>>>>> c5eba28b15f83ed3c604ebded7664f2b6d45b4b4
 	            AuthenticationService.isLogged = true;
 	            callback(null);
 	          })
@@ -30007,7 +30246,10 @@
 	            $cookies.put('token', data.token);
 	            $cookies.put('fullName', data.fullName);
 	            $cookies.put('role', data.role);
+<<<<<<< HEAD
 	            $cookies.put('userId', data.userId);
+=======
+>>>>>>> c5eba28b15f83ed3c604ebded7664f2b6d45b4b4
 	            AuthenticationService.isLogged = true;
 	            callback(null);
 	          })
@@ -30072,8 +30314,15 @@
 
 	    return function(resourceName) {
 	      var token = $cookies.get('token');
+<<<<<<< HEAD
 
 	      $http.defaults.headers.common.token = token;
+=======
+	      var username = $cookies.get('username');
+
+	      $http.defaults.headers.common.token = token;
+	      $http.defaults.headers.common.username = username;
+>>>>>>> c5eba28b15f83ed3c604ebded7664f2b6d45b4b4
 	      return {
 
 	        /**
@@ -30086,6 +30335,7 @@
 	        },
 
 	        /**
+<<<<<<< HEAD
 	         * Will go to server and grab one item based on resourceData and process with callback
 	         * @param  {mixed}   resourceData  Usually a objectId to find a single item
 	         * @param  {Function} callback     A function to run on error or data
@@ -30097,6 +30347,8 @@
 	        },
 
 	        /**
+=======
+>>>>>>> c5eba28b15f83ed3c604ebded7664f2b6d45b4b4
 	         * A create() method for this service that performs an HTTP POST request for the given resource and uses a promise to handle success and error
 	         */
 	        create: function(resourceData, callback) {
@@ -30158,6 +30410,7 @@
 	'use strict';
 
 	module.exports = function(app) {
+<<<<<<< HEAD
 	  app.factory('dataStore',['$rootScope', 'RESTResource', function($rootScope, resource) {
 	    var Student = resource('students');
 	    var Standard = resource('standards');
@@ -30232,6 +30485,18 @@
 
 	    };
 	  }]);
+=======
+	  app.factory('dataStore', function() {
+	    return {
+	      standards: [],
+
+	      tests: [],
+
+	      questions: []
+
+	    };
+	  });
+>>>>>>> c5eba28b15f83ed3c604ebded7664f2b6d45b4b4
 	};
 
 
@@ -30645,7 +30910,10 @@
 	          $cookies.put('token', '');
 	          $cookies.put('fullName', '');
 	          $cookies.put('role', '');
+<<<<<<< HEAD
 	          $cookies.put('userId', '');
+=======
+>>>>>>> c5eba28b15f83ed3c604ebded7664f2b6d45b4b4
 	          AuthenticationService.isLogged = false;
 	          $location.path('/sign-in');
 
@@ -30731,6 +30999,7 @@
 	'use strict';
 
 	module.exports = function(app) {
+<<<<<<< HEAD
 	  app.controller('standardsCtrl', ['$scope', '$filter', 'RESTResource', 'copy', 'dataStore', 'pcGrades', function($scope, $filter, resource, copy, dataStore, pcGrades) {
 
 	    var Standard = resource('standards');
@@ -31240,12 +31509,48 @@
 	      }
 	    };
 
+=======
+	  app.controller('testController', ['$scope', 'RESTResource', 'dataStore', function($scope, resource, dataStore) {
+
+	    var Test = resource('tests');
+
+	    $scope.tests = [];
+
+	    $scope.errors = [];
+
+	    $scope.displayedTest = null;
+
+	    $scope.getAll = function() {
+	      Test.getAll(function(err, data) {
+	        if (err) {
+	          return $scope.errors.push({
+	            'msg': 'Error retrieving tests'
+	          });
+	        }
+	        dataStore.tests = data;
+	        $scope.tests = data;
+
+	      });
+	    };
+
+	    $scope.addQuestion = function() {
+
+	    };
+
+	    $scope.saveQuestion = function(question) {
+
+	    };
+>>>>>>> c5eba28b15f83ed3c604ebded7664f2b6d45b4b4
 	  }]);
 	};
 
 
 /***/ },
+<<<<<<< HEAD
 /* 27 */
+=======
+/* 21 */
+>>>>>>> c5eba28b15f83ed3c604ebded7664f2b6d45b4b4
 /***/ function(module, exports) {
 
 	'use strict';
@@ -31262,7 +31567,11 @@
 
 
 /***/ },
+<<<<<<< HEAD
 /* 28 */
+=======
+/* 22 */
+>>>>>>> c5eba28b15f83ed3c604ebded7664f2b6d45b4b4
 /***/ function(module, exports) {
 
 	'use strict';
@@ -31338,7 +31647,11 @@
 
 
 /***/ },
+<<<<<<< HEAD
 /* 29 */
+=======
+/* 23 */
+>>>>>>> c5eba28b15f83ed3c604ebded7664f2b6d45b4b4
 /***/ function(module, exports) {
 
 	'use strict';
@@ -31382,7 +31695,11 @@
 
 
 /***/ },
+<<<<<<< HEAD
 /* 30 */
+=======
+/* 24 */
+>>>>>>> c5eba28b15f83ed3c604ebded7664f2b6d45b4b4
 /***/ function(module, exports) {
 
 	'use strict';
@@ -31399,7 +31716,11 @@
 
 
 /***/ },
+<<<<<<< HEAD
 /* 31 */
+=======
+/* 25 */
+>>>>>>> c5eba28b15f83ed3c604ebded7664f2b6d45b4b4
 /***/ function(module, exports) {
 
 	'use strict';
@@ -31416,7 +31737,11 @@
 
 
 /***/ },
+<<<<<<< HEAD
 /* 32 */
+=======
+/* 26 */
+>>>>>>> c5eba28b15f83ed3c604ebded7664f2b6d45b4b4
 /***/ function(module, exports) {
 
 	'use strict';
@@ -31482,7 +31807,11 @@
 
 
 /***/ },
+<<<<<<< HEAD
 /* 33 */
+=======
+/* 27 */
+>>>>>>> c5eba28b15f83ed3c604ebded7664f2b6d45b4b4
 /***/ function(module, exports) {
 
 	'use strict';
@@ -31507,7 +31836,11 @@
 
 
 /***/ },
+<<<<<<< HEAD
 /* 34 */
+=======
+/* 28 */
+>>>>>>> c5eba28b15f83ed3c604ebded7664f2b6d45b4b4
 /***/ function(module, exports) {
 
 	'use strict';
@@ -31531,7 +31864,11 @@
 
 
 /***/ },
+<<<<<<< HEAD
 /* 35 */
+=======
+/* 29 */
+>>>>>>> c5eba28b15f83ed3c604ebded7664f2b6d45b4b4
 /***/ function(module, exports) {
 
 	'use strict';
@@ -31552,28 +31889,92 @@
 
 
 /***/ },
+<<<<<<< HEAD
 /* 36 */
+=======
+/* 30 */
+>>>>>>> c5eba28b15f83ed3c604ebded7664f2b6d45b4b4
 /***/ function(module, exports) {
 
 	'use strict';
 
 	module.exports = function(app) {
 	  app.directive('pcTestForm', function() {
+<<<<<<< HEAD
+=======
+	    var controller = ['$scope', function($scope) {
+	      $scope.question = {};
+	      $scope.master;
+	      $scope.areWeAddingQuestions = false;
+	      $scope.addQuestions = function(test) {
+	        $scope.areWeAddingQuestions = true;
+	        if (!$scope.test.questions) {
+	          $scope.test = {
+	            testDirections: test.testDirections,
+	            goalId: test.goalId,
+	            questions: []
+	          };
+	        }
+	      };
+	      $scope.addQuestion = function(question) {
+	        question.answers = Object.keys(question.answers)
+	          .map(function(key) {
+	            return question.answers[key];
+	          });
+	        $scope.test.questions.push(question);
+	        $scope.question = {};
+	        $scope.areWeAddingQuestions = false;
+	      };
+	      $scope.editQuestion = function(question) {
+	        question.editing = true;
+	        $scope.master = angular.copy(question);
+	        $scope.question = question;
+	      };
+	      $scope.saveQuestion = function(question) {
+	        question.editing = false;
+	        $scope.test.questions.splice($scope.test.questions.indexOf(question), 1, question);
+	        $scope.question = {};
+	      };
+	      $scope.cancelEdit = function(question) {
+	        angular.copy($scope.master, question);
+	        question.editing = false;
+	        $scope.areWeAddingQuestions = false;
+	        $scope.question = {};
+	      };
+	      $scope.prepareTest = function(test) {
+	        test.standardId = $scope.standard._id;
+	        $scope.save({test: test});
+	      };
+	    }];
+>>>>>>> c5eba28b15f83ed3c604ebded7664f2b6d45b4b4
 	    return {
 	      restrict: 'E',
 	      replace: true,
 	      templateUrl: '/templates/directives/test_form.html',
 	      scope: {
+<<<<<<< HEAD
 	        buttonText: '='
 	      },
 	      controller: 'testCtrl'
+=======
+	        test: '=',
+	        buttonText: '=',
+	        save: '&',
+	        standard: '='
+	      },
+	      controller: controller
+>>>>>>> c5eba28b15f83ed3c604ebded7664f2b6d45b4b4
 	    };
 	  });
 	};
 
 
 /***/ },
+<<<<<<< HEAD
 /* 37 */
+=======
+/* 31 */
+>>>>>>> c5eba28b15f83ed3c604ebded7664f2b6d45b4b4
 /***/ function(module, exports) {
 
 	'use strict';
@@ -31602,7 +32003,11 @@
 
 
 /***/ },
+<<<<<<< HEAD
 /* 38 */
+=======
+/* 32 */
+>>>>>>> c5eba28b15f83ed3c604ebded7664f2b6d45b4b4
 /***/ function(module, exports) {
 
 	'use strict';
@@ -31615,19 +32020,30 @@
 	      templateUrl: '/templates/directives/tests_list.html',
 	      scope: {
 	        tests: '=',
+<<<<<<< HEAD
 	        test: '=',
 	        standard: '=',
 	        toggleSingleTest: '&',
 	        toggleTestForm: '&'
 	      },
 	      controller: 'testCtrl'
+=======
+	        standard: '=',
+	        show: '&',
+	        addTest: '&'
+	      }
+>>>>>>> c5eba28b15f83ed3c604ebded7664f2b6d45b4b4
 	    };
 	  });
 	};
 
 
 /***/ },
+<<<<<<< HEAD
 /* 39 */
+=======
+/* 33 */
+>>>>>>> c5eba28b15f83ed3c604ebded7664f2b6d45b4b4
 /***/ function(module, exports) {
 
 	'use strict';
@@ -31649,19 +32065,32 @@
 	      replace: true,
 	      templateUrl: '/templates/directives/single_test.html',
 	      scope: {
+<<<<<<< HEAD
 	        toggleSingleTest: '&',
 	        toggleTestForm: '&',
 	        isTestShowing: '=',
 	        isTestFormShowing: '='
 	      },
 	      controller: 'testCtrl'
+=======
+	        test: '=',
+	        editTest: '&',
+	        remove: '&',
+	        goBack: '&'
+	      },
+	      controller: controller
+>>>>>>> c5eba28b15f83ed3c604ebded7664f2b6d45b4b4
 	    };
 	  });
 	};
 
 
 /***/ },
+<<<<<<< HEAD
 /* 40 */
+=======
+/* 34 */
+>>>>>>> c5eba28b15f83ed3c604ebded7664f2b6d45b4b4
 /***/ function(module, exports) {
 
 	'use strict';
@@ -31718,19 +32147,28 @@
 	      })
 	      .when('/admin/standards', {
 	        templateUrl: 'templates/directives/standards.html',
+<<<<<<< HEAD
+=======
+	        controller: 'standardsController',
+>>>>>>> c5eba28b15f83ed3c604ebded7664f2b6d45b4b4
 	        access: {
 	          requiredLogin: true,
 	          requiredAdmin: true
 	        }
 	      })
 	      .when('/admin/teachers', {
+<<<<<<< HEAD
 	        templateUrl: 'templates/directives/teachers.html',
+=======
+	        templateUrl: '/templates/directives/teachers.html',
+>>>>>>> c5eba28b15f83ed3c604ebded7664f2b6d45b4b4
 	        access: {
 	          requiredLogin: true,
 	          requiredAdmin: true
 	        }
 	        // No controller as of now
 	      })
+<<<<<<< HEAD
 	      .when('/teacher/students', {
 	        templateUrl: 'templates/views/teacher/students_list.html',
 	        controller: 'teacherCtrl',
@@ -31742,6 +32180,10 @@
 	      .when('/teacher/students/:studentId', {
 	        templateUrl: 'templates/views/teacher/single_student.html',
 	      controller: 'singleStudentCtrl',
+=======
+	      .when('/teacher/home', {
+	        templateUrl: 'templates/teachers/views/home.html',
+>>>>>>> c5eba28b15f83ed3c604ebded7664f2b6d45b4b4
 	        access: {
 	          requiredLogin: true,
 	          requiredTeacher: true
