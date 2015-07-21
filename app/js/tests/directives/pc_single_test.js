@@ -20,7 +20,8 @@ module.exports = function(app) {
         toggleSingleTest: '&',
         toggleTestForm: '&',
         isTestShowing: '=',
-        isTestFormShowing: '='
+        isTestFormShowing: '=',
+        editTest: '&'
       },
       controller: 'testCtrl'
     };
