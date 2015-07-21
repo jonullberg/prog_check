@@ -4,6 +4,7 @@ module.exports = function(app) {
   app.factory('dataStore',['$rootScope', 'RESTResource', function($rootScope, resource) {
     var Student = resource('students');
     var Standard = resource('standards');
+    var Test = resource('tests');
     var dataStore = {
       student: null,
       students: [],
@@ -41,7 +42,36 @@ module.exports = function(app) {
           if (err) {
             return callback(err);
           }
+          this.standards = data;
           callback(err, data);
+        });
+      },
+
+      test: null,
+      tests: [],
+      getTests: function(callback) {
+        Test.getAll(function(err, data) {
+          if (err) {
+            return callback(err);
+          }
+          this.tests = data;
+          callback(err, data);
+        });
+      },
+      createTest: function(test, callback) {
+
+        Test.create(test, function(err, data) {
+          if (err) {
+            return callback(err);
+          }
+
+          callback(err, data);
+        });
+      },
+      addQuestion: function(question, callback) {
+        this.test.questions.push(question);
+        $rootScope.$broadcast('test:changed', {
+          test: this.test
         });
       }
     };

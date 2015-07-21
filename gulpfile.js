@@ -28,6 +28,23 @@ gulp.task('webpack:client', function(callback) {
   });
 });
 
+gulp.task('webpack:heroku', ['copy:html'], function(callback) {
+  webpack({
+    entry: __dirname + '/app/js/client.js',
+    output: {
+      path: 'build/',
+      file: 'bundle.js'
+    }
+  }, function(err, stats) {
+    if(err) throw new gutil.PluginError('webpack', err);
+    gutil.log('[webpack]', stats.toString({
+
+    }));
+    callback();
+  });
+});
+
+
 gulp.task('webpack:karma_test', ['clean:karma'], function(callback) {
   webpack({
     entry: __dirname + '/test/karma_tests/test_entry.js',
@@ -85,4 +102,4 @@ gulp.task('jscs', function() {
 
 gulp.task('karmatest', ['karma:test']);
 gulp.task('build', ['webpack:client', 'copy:html']);
-gulp.task('default', ['lint', 'jscs']);
+gulp.task('default', ['webpack:client']);

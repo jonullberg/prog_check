@@ -12,7 +12,8 @@ module.exports = function(app) {
         goBack: '&',
         toggleAlert: '&',
         isAlertShown: '=',
-        removeStandard: '&'
+        removeStandard: '&',
+        buttonText: '='
       }
     };
   });
