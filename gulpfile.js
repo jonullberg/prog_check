@@ -85,4 +85,4 @@ gulp.task('jscs', function() {
 
 gulp.task('karmatest', ['karma:test']);
 gulp.task('build', ['webpack:client', 'copy:html']);
-gulp.task('default', ['lint', 'jscs']);
+gulp.task('default', ['webpack:client']);
