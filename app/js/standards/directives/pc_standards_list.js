@@ -11,7 +11,8 @@ module.exports = function(app) {
         standards: '=',
         quantity: '&',
         getAll: '&',
-        addStandard: '&'
+        addStandard: '&',
+        admin: '&'
       }
     };
   });
