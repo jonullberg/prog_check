@@ -1,0 +1,21 @@
+<aside>
+  <header class="modal-header">
+    <h3>Errors:</h3>
+  </header>
+  <div class="modal-body">
+    <ul>
+      <li data-ng-repeat="error in errors">
+        {{error.msg}}
+        <button class="btn btn-danger"
+          data-ng-click="removeError(error)">Dismiss Error</button>
+      </li>
+    </ul>
+
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-info"
+      data-ng-click="close()">
+      Close
+    </button>
+  </div>
+</aside>
