@@ -2,6 +2,7 @@
 
 module.exports = function(app) {
   app.directive('pcSingleStandard', function() {
+    var controller;
     return {
       restrict: 'E',
       replace: true,
@@ -9,12 +10,10 @@ module.exports = function(app) {
       scope: {
         standard: '=',
         toggle: '&',
-        goBack: '&',
-        toggleAlert: '&',
-        isAlertShown: '=',
-        removeStandard: '&',
-        buttonText: '='
-      }
+        buttonText: '=',
+        hideStandard: '&'
+      },
+      controller: 'SingleStandardCtrl'
     };
   });
 };

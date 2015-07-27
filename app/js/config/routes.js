@@ -75,7 +75,7 @@ module.exports = function(app) {
       })
       .when('/teacher/students/:studentId', {
         templateUrl: 'templates/views/teacher/single_student.html',
-      controller: 'singleStudentCtrl',
+      controller: 'SingleStudentCtrl',
         access: {
           requiredLogin: true,
           requiredTeacher: true

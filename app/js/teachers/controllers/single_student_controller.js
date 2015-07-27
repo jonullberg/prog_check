@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('singleStudentCtrl', ['$scope', '$routeParams', '$modal', '$location', 'dataStore', function($scope, $routeParams, $modal, $location, dataStore) {
+  app.controller('SingleStudentCtrl', ['$scope', '$routeParams', '$modal', '$location', 'dataStore', function($scope, $routeParams, $modal, $location, dataStore) {
     $scope.student;
     $scope.getStudent = function() {
       var id = $routeParams.studentId;

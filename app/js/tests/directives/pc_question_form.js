@@ -10,7 +10,7 @@ module.exports = function(app) {
     return {
       restrict: 'E',
       replace: true,
-      templateUrl: '/templates/directives/question_form.html',
+      templateUrl: '/templates/partials/question_form.html',
       scope: {
         question: '=',
         save: '&',

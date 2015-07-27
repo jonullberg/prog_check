@@ -20,22 +20,6 @@ module.exports = function(app) {
     $scope.isDeleteShown = false;
 
     /**
-     * Will make a GET request to /api/tests and return an array of tests to be displayed
-     */
-    $scope.getAll = function() {
-      Test.getAll(function(err, data) {
-        if (err) {
-          return dataStore.errors.push({
-            'msg': 'Error retrieving tests'
-          });
-        }
-        dataStore.tests = data;
-        $scope.tests = dataStore.tests;
-
-      });
-    };
-
-    /**
      * Will add test to display, hide the form for adding a test, and make a POST request to the API to create a new test
      * @param  {object} test The specified test to create
      */

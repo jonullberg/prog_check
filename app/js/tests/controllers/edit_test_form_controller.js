@@ -1,25 +1,18 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('EditTestCtrl', ['$scope', '$modalInstance', 'dataStore', 'test', function($scope, $modalInstance, dataStore, test) {
+  app.controller('EditTestCtrl', ['$scope', '$modalInstance', 'Tests', 'dataStore', function($scope, $modalInstance, Tests, dataStore) {
 
-    $scope.buttonText = 'Save Test';
-    $scope.test = test;
+    $scope.test = Tests.test;
     $scope.standard = dataStore.standard;
-    $scope.setData = function(test) {
-      if (!test.questions) {
-        test.questions = [];
-      }
-      setGoal(test);
 
-    };
-
-    var setGoal = function(test) {
+    $scope.setGoal = function(test) {
       test._goal = test.goalId;
     };
 
     $scope.save = function(test) {
-      dataStore.saveTest(test, function(err) {
+      test.questions = [];
+      Tests.saveTest(test, function(err) {
         if (err) {
           console.log(err);
         }
