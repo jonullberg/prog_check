@@ -1,6 +1,6 @@
-<form class=""
+  <form
   data-ng-submit="save(test)"
-  data-ng-init="setData(test)">
+  data-ng-init="setGoal(test)">
   <header class="modal-header">
     <h3>{{test.testName || 'New Test'}} </h3>
   </header>
@@ -28,33 +28,12 @@
         <li data-ng-repeat="question in test.questions"
           data-ng-click="editQuestion(question)">{{question.question}}</li>
       </ul>
-      <button type="button"
-        class="btn btn-default"
-        data-ng-if="!areWeAddingQuestions"
-        data-ng-click="newQuestions(test)">
-        Add Questions
-      </button>
     </div>
-    <pc-question-form
-      data-test="test"
-      data-ng-if="areWeAddingQuestions"
-      data-save="addQuestion(question)"
-      data-cancel="cancelQuestion(question)"
-      data-button-text="'Add Question'"
-      data-question="question">
-    </pc-question-form>
-    <pc-question-form
-      data-ng-if="question.editing"
-      data-save="saveQuestion(question)"
-      data-cancel="cancelQuestion(question)"
-      data-button-text="'Update Question'"
-      data-question="question"
-      data-test="test">
-    </pc-question-form>  </div>
+  </div>
   <footer class="modal-footer">
     <button type="submit"
       class="btn btn-primary">
-      {{buttonText}}
+      {{params.buttonText}}
     </button>
     <button type="button"
       class="btn btn-danger"

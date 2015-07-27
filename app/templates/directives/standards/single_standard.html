@@ -1,5 +1,5 @@
 <section class="panel panel-primary"
-  data-ng-init="testFn()">
+  data-ng-init="getStandard()">
   <header class="panel-heading">
     <h3 class="col-lg-9">
       {{standard.name}}
@@ -16,7 +16,7 @@
       <div class="btn-group col-lg-4">
         <button type="button"
           class="btn btn-danger"
-          data-ng-click="removeStandard({standard: standard})">Yes
+          data-ng-click="deleteStandard(standard)">Yes
         </button>
         <button type="button"
           class="btn btn-primary"
@@ -45,6 +45,11 @@
     <button type="button"
       class="btn btn-danger"
       data-ng-click="toggleAlert()">Delete Standard
+    </button>
+    <button class="btn btn-info"
+      data-ng-click="addGoals()">
+      Add Goals
+      <span class="glyphicon glyphicon-plus"></span>
     </button>
   </div>
 </section>
