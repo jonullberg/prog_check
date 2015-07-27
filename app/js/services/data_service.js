@@ -2,14 +2,14 @@
 
 module.exports = function(app) {
   app.factory('dataStore',['$rootScope', 'RESTResource', function($rootScope, resource) {
-    var Student = resource('students');
-    var Standard = resource('standards');
-    var Test = resource('tests');
+    var Students = resource('students');
+    var Standards = resource('standards');
+    var Tests = resource('tests');
     var dataStore = {
       student: null,
       students: [],
       getStudent: function(id, callback) {
-        Student.getOne(id, function(err, data) {
+        Students.getOne(id, function(err, data) {
           if (err) {
             return callback(err);
           }
@@ -17,14 +17,14 @@ module.exports = function(app) {
         });
       },
       saveStudent: function() {
-        Student.save(this.student, function(err) {
+        Students.save(this.student, function(err) {
           if (err) {
             console.log(err);
           }
         });
       },
       getStudents: function(callback) {
-        Student.getAll(function(err, data) {
+        Students.getAll(function(err, data) {
           if (err) {
             return callback(err);
           }
@@ -38,47 +38,57 @@ module.exports = function(app) {
       },
 
       standard: null,
-      standards: [],
-      getStandards: function(callback) {
-        var that = this;
-        Standard.getAll(function(err, data) {
-          if (err) {
-            return callback(err);
-          }
-          that.standards = data;
-
-          callback(err, data);
-        });
+      setStandard: function(standard, callback) {
+        this.standard = standard;
+        $rootScope.$broadcast('standard:changed');
       },
-
-      test: null,
-      tests: [],
-      getTests: function(callback) {
-        Test.getAll(function(err, data) {
-          if (err) {
-            return callback(err);
-          }
-          this.tests = data;
-          callback(err, data);
-        });
+      getStandard: function() {
+        return this.standard;
       },
-      createTest: function(test, callback) {
-
-        Test.create(test, function(err, data) {
-          if (err) {
-            return callback(err);
-          }
-
-        });
+      removeStandard: function() {
+        this.standard = null;
+        $rootScope.$broadcast('standard:changed');
       },
-      saveTest: function(test, callback) {
-        Test.save(this.test, function(err, data) {
+      deleteStandard: function(standard, callback) {
+        this.standards.splice(this.standards.indexOf(standard), 1);
+        $rootScope.$broadcast('standards:changed');
+        Standards.remove(standard, function(err, data) {
           if (err) {
             callback(err);
           }
-          callback(err, data);
+
         });
       },
+      addStandard: function(standard, callback) {
+        this.standard = standard;
+        this.standards.push(standard);
+        $rootScope.$broadcast('standard:changed');
+        $rootScope.$broadcast('standards:changed');
+      },
+      updateStandard: function(standard, callback) {
+        this.standard = standard;
+        this.standards.push(standard);
+        Standards.save(standard, function(err) {
+          if (err) {
+            callback(err);
+          }
+          $rootScope.$broadcast('standards:changed');
+          $rootScope.$broadcast('standard:changed');
+
+        });
+      },
+      standards: [],
+      getStandards: function(callback) {
+        Standards.getAll(function(err, data) {
+          if (err) {
+            return callback(err);
+          }
+          this.standards = data;
+          $rootScope.$broadcast('standards:change');
+          callback(err, data);
+        }.bind(this));
+      },
+
       addQuestion: function(question, callback) {
         this.test.questions.push(question);
         $rootScope.$broadcast('test:changed', {
@@ -86,34 +96,8 @@ module.exports = function(app) {
         });
       }
     };
-    var standards = [];
-    var saveStudent = function(student) {
-      students.push(student);
-      $rootScope.$broadcast('students:updated');
-    };
+
     return dataStore;
 
-    var moveThis = {
-
-      standards: standards,
-
-      tests: [],
-
-      questions: [],
-
-      errors: [],
-
-
-      standard: null,
-
-      test: null,
-
-      masterTest: null,
-
-      isTestShowing: false,
-
-      isTestFormShowing: false
-
-    };
   }]);
 };

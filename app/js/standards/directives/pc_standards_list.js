@@ -13,7 +13,8 @@ module.exports = function(app) {
         getAll: '&',
         addStandard: '&',
         admin: '&'
-      }
+      },
+      controller: 'StandardsListCtrl'
     };
   });
 };

@@ -7,13 +7,9 @@ module.exports = function(app) {
       replace: true,
       templateUrl: '/templates/directives/tests_list.html',
       scope: {
-        tests: '=',
-        test: '=',
-        standard: '=',
-        toggleSingleTest: '&',
-        toggleTestForm: '&'
+        toggleSingleTest: '&'
       },
-      controller: 'testCtrl'
+      controller: 'TestsListCtrl'
     };
   });
 };
