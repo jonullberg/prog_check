@@ -1,4 +1,5 @@
-<section class="panel panel-primary">
+<section class="panel panel-primary"
+  data-ng-init="getTest()">
   <header class="panel-heading">
     <h3 class="col-lg-9">{{test.testName}}</h3>
     <button class="btn btn-default col-lg-3"
@@ -12,7 +13,8 @@
       <div class="btn-group col-lg-4">
         <button type="button"
           class="btn btn-danger"
-          data-ng-click="removeTest(test)">Yes
+          data-ng-click="deleteTest(test)">
+          Yes
         </button>
         <button type="button"
           class="btn btn-primary"
@@ -45,6 +47,10 @@
       data-ng-click="toggleDelete()">
       Delete Test
     </button>
-
+    <button class="btn btn-info"
+      data-ng-click="addQuestions()">
+      Add Questions
+      <span class="glyphicon glyphicon-plus"></span>
+    </button>
   </footer>
 </section>

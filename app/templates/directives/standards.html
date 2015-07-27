@@ -1,40 +1,22 @@
 <section
   data-ng-controller="standardsCtrl"
-  data-ng-init="getAllStandards()">
-  <div class="col-lg-6">
+  data-ng-init="standardsInit()">
+  <div class="col-lg-8 col-lg-offset-2">
     <pc-standards-list
       data-ng-if="!isStandardShowing"
       data-standards="standards"
       data-show="showStandard(standard)"
-      data-get-all="getAllStandards()"
       data-admin="true"
       data-add-standard="addStandard()">
     </pc-standards-list>
     <pc-single-standard
       data-ng-if="isStandardShowing"
-      data-standard="standard"
-      data-toggle="toggleEdit(standard)"
-      data-go-back="goBack()"
-      data-toggle-alert="toggleAlert()"
-      data-is-alert-shown="isAlertShown"
-      data-remove-standard="removeStandard(standard)"
+      data-toggle="editStandard(standard)"
+      data-hide-standard="hideStandard()"
       data-button-text="'Edit Standard'">
     </pc-single-standard>
   </div>
   <div class="col-lg-6">
-    <pc-standard-form
-      data-save="createNewStandard(standard)"
-      data-toggle="cancelEdit()"
-      data-button-text="'Create Standard'"
-      data-ng-if="!standard.editing && isStandardFormShowing">
-    </pc-standard-form>
-    <pc-standard-form
-      data-ng-if="standard.editing"
-      data-save="saveStandard(standard)"
-      data-standard="standard"
-      data-toggle="toggleEdit(standard)"
-      data-button-text="'Update Standard'">
-    </pc-standard-form>
   </div>
   <div class="clearfix"></div>
 
@@ -42,8 +24,7 @@
     data-ng-if="standard">
     <pc-tests-list
       data-ng-if="!isTestShowing"
-      data-toggle-single-test="toggleSingleTest()"
-      data-toggle-test-form="toggleTestForm()">
+      data-toggle-single-test="toggleSingleTest()">
     </pc-tests-list>
     <pc-single-test
       data-ng-if="isTestShowing"
