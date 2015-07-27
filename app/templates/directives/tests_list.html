@@ -16,7 +16,7 @@
       </thead>
       <tbody>
         <tr data-ng-repeat="test in tests | filter: {standardId: standard._id}"
-          data-ng-click="selectTest(test)">
+          data-ng-click="select(test)">
           <td>{{test.testName}}</td>
           <td>{{test.testDirections}}</td>
           <td>{{test.goalId}}</td>
@@ -29,7 +29,8 @@
     <button type="button"
       class="btn btn-primary"
       data-ng-click="newTest()">
-      Add A Test <span class="glyphicon glyphicon-plus"></span>
+      Add A Test
+      <span class="glyphicon glyphicon-plus"></span>
     </button>
   </footer>
 </section>

@@ -1,0 +1,61 @@
+<form name="standardForm"
+  class="panel panel-primary"
+  data-ng-init="createStandard(standard)"
+  data-ng-submit="saveStandard(standard)">
+  <header class="panel-heading">
+    <h3>{{standard.name || 'New Standard'}}</h3>
+  </header>
+  <div class="panel-body">
+    <div class="form-group">
+      <label for="name">What is the name of the standard?</label>
+      <input type="text"
+        class="form-control"
+        name="name" id="name"
+        data-ng-model="standard.name" />
+    </div>
+    <div class="form-group">
+      <label for="grade">What grade is this standard for?</label>
+      <select class="form-control"
+        name="grade" id="grade"
+        data-ng-options="grade.name for grade in grades"
+        data-ng-model="standard.gradeName"
+        data-ng-change="changeGrade(standard.gradeName)">
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="code">What is the standard code?</label>
+      <input type="text"
+        class="form-control"
+        name="code" id="code"
+        data-ng-model="standard.code" />
+    </div>
+    <div class="form-group">
+      <label for="domain">What is the domain of the standard?</label>
+      <select class="form-control"
+        name="domain" id="domain"
+        data-ng-model="standard.domain">
+        <option value="{{domain}}"
+          data-ng-repeat="domain in thisGrade[0].domains">{{domain}}</option>
+        </select>
+    </div>
+    <div class="form-group">
+      <label for="language">What is the language of the standard?</label>
+      <textarea class="form-control"
+        name="language"
+        id="language"
+        data-ng-model="standard.language"></textarea>
+    </div>
+    <div>
+      <ul>
+        <li data-ng-repeat="goal in standard.goals">{{goal.name}} -  {{goal.description}}</li>
+      </ul>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  <div class="panel-footer">
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary"></button>
+      <button type="button" class="btn btn-danger">Cancel</button>
+    </div>
+  </div>
+</form>

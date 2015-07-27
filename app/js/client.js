@@ -20,26 +20,35 @@ require('./auth/services/authentication_service')(progCheck);
 require('./services/us_states')(progCheck);
 require('./auth/services/token_interceptor')(progCheck);
 
+//    Data Services
+require('./services/test_data')(progCheck); // Stores all test data for app
+
 //  controllers
 require('./controllers/errors_controller')(progCheck);
 require('./auth/controllers/auth_controller')(progCheck);
 require('./controllers/main_controller')(progCheck);
+
+//    Standard Controllers
 require('./standards/controllers/standards_controller')(progCheck);
 require('./standards/controllers/standards_list_controller')(progCheck);
 require('./standards/controllers/single_standard_controller')(progCheck);
+require('./standards/controllers/standard_form_controller')(progCheck);
 
 //    Teacher Controllers
 require('./teachers/controllers/teachers_controller')(progCheck);
 require('./teachers/controllers/student_form_controller')(progCheck);
 require('./teachers/controllers/single_student_controller')(progCheck);
+require('./teachers/controllers/add_student_goal_controller')(progCheck);
 
 //    Test Controllers
 require('./tests/controllers/test_controller')(progCheck);
+require('./tests/controllers/tests_list_controller')(progCheck);
 require('./tests/controllers/test_form_controller')(progCheck);
 require('./tests/controllers/add_test_form_controller')(progCheck);
 require('./tests/controllers/edit_test_form_controller')(progCheck);
 require('./tests/controllers/single_test_controller')(progCheck);
 require('./tests/controllers/question_controller')(progCheck);
+
 
 //  directives
 require('./directives/pc_errors_directive')(progCheck);
