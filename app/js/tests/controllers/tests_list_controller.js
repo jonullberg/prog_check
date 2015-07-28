@@ -1,13 +1,16 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('TestsListCtrl', ['$scope', '$modal', '$rootScope', 'Tests', 'dataStore', 'Errors',  function($scope, $modal, $rootScope, Tests, dataStore, Errors) {
-    $scope.standard = dataStore.standard;
-    $scope.tests = Tests.tests;
+  app.controller('TestsListCtrl', ['$scope', '$modal', '$filter', '$rootScope', 'Errors', 'Tests', 'Standards',  function($scope, $modal, $filter, $rootScope, Errors, Tests, Standards) {
+    $scope.standard = Standards.standard;
+
     var updateTests = function() {
-      $scope.tests = Tests.tests;
+      $scope.tests = $filter('filter')(Tests.tests, {standardId: $scope.standard._id});
     };
+
+    updateTests();
     $scope.$on('tests:changed', updateTests());
+
     /**
      * Will make a GET request to /api/tests and return an array of tests to be displayed
      */

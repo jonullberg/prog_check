@@ -1,25 +1,20 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('standardsCtrl', ['$scope', '$filter', '$modal', '$rootScope', 'copy', 'dataStore', 'pcGrades', function($scope, $filter, $modal, $rootScope, copy, dataStore, pcGrades) {
+  app.controller('standardsCtrl', ['$scope', '$filter', '$modal', '$rootScope', 'copy', 'Errors', 'Standards', 'dataStore', 'pcGrades', function($scope, $filter, $modal, $rootScope, copy, Errors, Standards, dataStore, pcGrades) {
 
-    $scope.errors = dataStore.errors;
-    $scope.quantity = 5;
     $scope.formShowing = false;
-    $scope.standard = dataStore.standard;
     $scope.isStandardShowing;
     $scope.isStandardFormShowing;
-    $scope.master = {};
     $scope.isTestShowing = false;
     $scope.isTestFormShowing = false;
-    $scope.test = dataStore.test;
     $scope.isAlertShown = false;
 
     /**
      * On event 'standard:changed' sets scope to model
      */
     $scope.$on('standard:changed', function() {
-      $scope.standard = dataStore.getStandard();
+      $scope.standard = Standards.getStandard();
     });
 
 
@@ -46,11 +41,6 @@ module.exports = function(app) {
       });
     };
 
-    $scope.testFn = function(standard) {
-      console.log(standard);
-      $scope.standard = standard;
-    };
-
     var toggleSingleStandard = function() {
       $scope.isStandardShowing = !$scope.isStandardShowing;
     };
@@ -71,42 +61,48 @@ module.exports = function(app) {
       }
     };
 
-
+    ////////////////////
+    // Delete this??? //
+    ////////////////////
     /**
      * Will add standard to display, hide the form for adding a standard, and make a POST request to the API to create a new standard
      * @param  {object} standard The specified standard to create
      */
-    $scope.createNewStandard = function(standard) {
-      var newStandard = angular.copy(standard);
-      dataStore.standards.push(newStandard);
-      $scope.standard = newStandard;
-      Standard.create(newStandard, function(err, data) {
-        if (err) {
-          return $scope.errors.push({
-            'msg': 'There was an error creating your standard'
-          });
-        }
-        $scope.standards.splice($scope.standards.indexOf(newStandard), 1, data);
-        $scope.standard = data;
-        dataStore.standards.splice(dataStore.standards.indexOf(newStandard), 1, data);
+    // $scope.createNewStandard = function(standard) {
+    //   var newStandard = angular.copy(standard);
+    //   Standards.standards.push(newStandard);
+    //   $scope.standard = newStandard;
+    //   Standard.create(newStandard, function(err, data) {
+    //     if (err) {
+    //       return Errors.addError({
+    //         'msg': 'There was an error creating your standard'
+    //       });
+    //     }
+    //     $scope.standards.splice($scope.standards.indexOf(newStandard), 1, data);
+    //     $scope.standard = data;
+    //     Standards.standards.splice(Standards.standards.indexOf(newStandard), 1, data);
 
-        $scope.isStandardFormShowing = false;
-      });
-    };
+    //     $scope.isStandardFormShowing = false;
+    //   });
+    // };
 
+
+    ////////////////////
+    // DELETE THIS??? //
+    ////////////////////
     /**
      * Will update a standard on the client and make a PUT request to the server to update the standard
      * @param  {object} standard The specified standard to update
      */
-    $scope.saveStandard = function(standard) {
-      Standard.save(standard, function(err, data) {
-        if (err) return $scope.errors.push({
-          'msg': 'There was an error while updating this standard'
-        });
-        standard.editing = false;
-        $scope.standard = standard;
-      });
-    };
+    // $scope.saveStandard = function(standard) {
+    //   Standard.save(standard, function(err, data) {
+    //     if (err) return Errors.addError({
+    //       'msg': 'There was an error while updating this standard'
+    //     });
+    //     standard.editing = false;
+    //     $scope.standard = standard;
+    //   });
+    // };
 
     // Tests Controller
     // TODO: refactor into its own controller

@@ -2,11 +2,6 @@
 
 module.exports = function(app) {
   app.directive('pcQuestionForm', function() {
-    var controller = ['$scope', function($scope) {
-      $scope.question = {
-        answers: []
-      };
-    }];
     return {
       restrict: 'E',
       replace: true,
