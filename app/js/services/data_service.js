@@ -87,13 +87,6 @@ module.exports = function(app) {
           $rootScope.$broadcast('standards:change');
           callback(err, data);
         }.bind(this));
-      },
-
-      addQuestion: function(question, callback) {
-        this.test.questions.push(question);
-        $rootScope.$broadcast('test:changed', {
-          test: this.test
-        });
       }
     };
 

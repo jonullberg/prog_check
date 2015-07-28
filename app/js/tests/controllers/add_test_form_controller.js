@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('AddTestCtrl', ['$scope', '$modalInstance', '$filter', 'dataStore', function($scope, $modalInstance, $filter, dataStore) {
+  app.controller('AddTestCtrl', ['$scope', '$modalInstance', '$filter', 'dataStore', 'Tests', function($scope, $modalInstance, $filter, dataStore, Tests) {
 
 
         $scope.buttonText = 'Add Test';
@@ -18,13 +18,13 @@ module.exports = function(app) {
 
         $scope.setData = function(test) {
           if (!test) {
-            if (!dataStore.test) {
+            if (!Tests.test) {
               test = {
                 questions: []
               };
-              dataStore.test = test;
+              Tests.test = test;
             } else {
-              if(!dataStore.test.questions) {
+              if(!Tests.test.questions) {
                 dataStore.test.quesions = [];
               }
               test = dataStore.test;
@@ -40,11 +40,11 @@ module.exports = function(app) {
 
         $scope.createTest = function(test) {
           var newTest = angular.copy(test);
-          var numberOfTests = $filter('filter')(dataStore.tests, {standardId: $scope.standard._id});
+          var numberOfTests = $filter('filter')(Tests.tests, {standardId: $scope.standard._id});
           test = {};
           newTest.testName = 'Test ' + (numberOfTests.length + 1);
-          dataStore.tests.push(newTest);
-          dataStore.createTest(newTest, function(err, data) {
+          Tests.tests.push(newTest);
+          Tests.createTest(newTest, function(err, data) {
             if (err) {
               return dataStore.errors.push({
                 'msg': 'There was an error creating your test'
@@ -52,7 +52,7 @@ module.exports = function(app) {
             }
 
             $scope.test = null;
-            dataStore.tests.splice(dataStore.tests.indexOf(newTest), 1, data);
+            Tests.tests.splice(dataStore.tests.indexOf(newTest), 1, data);
             $scope.tests = dataStore.tests;
 
           });
@@ -77,7 +77,7 @@ module.exports = function(app) {
         };
 
         $scope.cancel = function(test) {
-          dataStore.test = null;
+          Tests.test = null;
           $modalInstance.dismiss();
         };
 
@@ -86,8 +86,8 @@ module.exports = function(app) {
             .map(function(key) {
               return question.answers[key];
             });
-          dataStore.test = $scope.test;
-          dataStore.addQuestion(question);
+          Tests.test = $scope.test;
+          Tests.addQuestion(question);
           $scope.question = {};
           $scope.areWeAddingQuestions = false;
         };

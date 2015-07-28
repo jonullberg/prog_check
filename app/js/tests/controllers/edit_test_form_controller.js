@@ -21,7 +21,7 @@ module.exports = function(app) {
     };
 
     $scope.cancel = function(test) {
-      dataStore.test = null;
+      Tests.test = null;
       $modalInstance.dismiss();
     };
 
@@ -37,8 +37,8 @@ module.exports = function(app) {
         .map(function(key) {
           return question.answers[key];
         });
-      dataStore.test = $scope.test;
-      dataStore.addQuestion(question);
+      Tests.test = $scope.test;
+      Tests.addQuestion(question);
       $scope.question = {};
       $scope.areWeAddingQuestions = false;
     };
