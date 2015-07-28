@@ -5,8 +5,9 @@
     <div class="clearfix"></div>
   </header>
   <section class="panel-body">
-    <p data-ng-if="tests">There are no tests for this standard, feel free to add some</p>
-    <table class="table table-striped">
+    <p data-ng-if="!tests.length">There are no tests for this standard, feel free to add some</p>
+    <table class="table table-striped"
+      data-ng-if="tests.length">
       <thead>
         <tr>
           <td>Name</td>
@@ -15,7 +16,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr data-ng-repeat="test in tests | filter: {standardId: standard._id}"
+        <tr data-ng-repeat="test in tests"
           data-ng-click="select(test)">
           <td>{{test.testName}}</td>
           <td>{{test.testDirections}}</td>

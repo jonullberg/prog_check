@@ -1,7 +1,7 @@
 <form name="standardForm"
   class="panel panel-primary"
-  data-ng-init="createStandard(standard)"
-  data-ng-submit="saveStandard(standard)">
+  data-ng-init="setGrade(standard)"
+  data-ng-submit="save(standard)">
   <header class="panel-heading">
     <h3>{{standard.name || 'New Standard'}}</h3>
   </header>
@@ -17,9 +17,9 @@
       <label for="grade">What grade is this standard for?</label>
       <select class="form-control"
         name="grade" id="grade"
-        data-ng-options="grade.name for grade in grades"
-        data-ng-model="standard.gradeName"
-        data-ng-change="changeGrade(standard.gradeName)">
+        data-ng-change="changeGrade(standard)"
+        data-ng-model="standard._gradeName"
+        data-ng-options="grade.name as grade.name for grade in grades">
       </select>
     </div>
     <div class="form-group">
@@ -54,7 +54,9 @@
   </div>
   <div class="panel-footer">
     <div class="form-group">
-      <button type="submit" class="btn btn-primary"></button>
+      <button type="submit" class="btn btn-primary">
+        {{params.buttonText}}
+      </button>
       <button type="button" class="btn btn-danger">Cancel</button>
     </div>
   </div>
