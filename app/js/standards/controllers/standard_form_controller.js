@@ -47,8 +47,9 @@ module.exports = function(app) {
             'msg': 'Failed to create standard'
           });
         }
+        Standards.standard = data;
       });
-    };
+  };
 
     $scope.save = function(standard) {
       if ($scope.params.formType === 'creating') {
@@ -56,7 +57,9 @@ module.exports = function(app) {
           standard.shortGrade = $scope.thisGrade[0].shortName;
           standard.goals = [];
           createStandard(standard);
-          $modalInstance.close();
+          $modalInstance.close(function() {
+            $scope.showStandard();
+          });
         }
       } else if ($scope.params.formType === 'editing') {
         if ($scope.standardForm.$valid) {

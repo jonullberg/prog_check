@@ -33,7 +33,10 @@ module.exports = function(app) {
         });
       },
       saveTest: function(test, callback) {
-        this.test = test;
+        if (test) {
+          this.test = test;
+          $rootScope.$broadcast('test:changed');
+        }
         Tests.save(this.test, function(err, data) {
           if (err) {
             callback(err);

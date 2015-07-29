@@ -1,13 +1,12 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('SingleTestCtrl', ['$scope', '$modal', '$rootScope', 'Tests', 'dataStore', 'Errors', function($scope, $modal, $rootScope, Tests, dataStore, Errors) {
+  app.controller('SingleTestCtrl', ['$scope', '$modal', '$rootScope', 'Tests', 'Standards', 'Errors', function($scope, $modal, $rootScope, Tests, Standards, Errors) {
     $scope.isDeleteShown = false;
 
     $scope.getTest = function() {
       $scope.test = Tests.test;
     };
-
     $scope.$on('test:changed', $scope.getTest);
 
     /**
@@ -25,12 +24,13 @@ module.exports = function(app) {
     $scope.editTest = function(test) {
       var scope = $rootScope.$new();
       scope.params = {
+        formType: 'editing',
         buttonText: 'Save Test'
       };
       $modal.open({
         animation: true,
         templateUrl: '/templates/directives/test_form.html',
-        controller: 'EditTestCtrl',
+        controller: 'TestFormCtrl',
         size: 'lg',
         scope: scope
       });

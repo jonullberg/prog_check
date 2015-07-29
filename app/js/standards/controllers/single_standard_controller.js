@@ -2,13 +2,12 @@
 
 module.exports = function(app) {
   app.controller('SingleStandardCtrl', ['$scope', '$modal', '$rootScope', 'dataStore', 'Errors', 'Standards', function($scope, $modal, $rootScope, dataStore, Errors, Standards) {
-    $scope.standard;
-
+    $scope.standard = Standards.standard;
     var getStandard = function() {
       $scope.standard = Standards.standard;
     };
 
-    $scope.$on('standard:changed', getStandard());
+    $scope.$on('standard:changed', getStandard);
 
 
     $scope.getStandard = function() {
@@ -33,7 +32,6 @@ module.exports = function(app) {
     };
 
     $scope.edit = function(standard) {
-      // console.log($scope.standard);
       Standards.standard = standard;
       var scope = $rootScope.$new();
       scope.params = {

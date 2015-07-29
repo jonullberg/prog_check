@@ -9,7 +9,7 @@ module.exports = function(app) {
     };
 
     updateTests();
-    $scope.$on('tests:changed', updateTests());
+    $scope.$on('tests:changed', updateTests);
 
     /**
      * Will make a GET request to /api/tests and return an array of tests to be displayed
@@ -33,6 +33,7 @@ module.exports = function(app) {
     $scope.newTest = function() {
       var scope = $rootScope.$new();
       scope.params = {
+        formType: 'creating',
         buttonText: 'Create Test'
       };
       $modal.open({
