@@ -26,5 +26,6 @@ module.exports = function(app) {
     $scope.cancel = function() {
       $modalInstance.dismiss();
     };
+
   }]);
 };

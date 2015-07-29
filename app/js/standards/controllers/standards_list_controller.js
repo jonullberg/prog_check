@@ -35,6 +35,9 @@ module.exports = function(app) {
         formType: 'creating',
         buttonText: 'Create Standard'
       };
+      scope.showStandard = function() {
+        $scope.show();
+      };
       $modal.open({
         animation:true,
         templateUrl: '/templates/directives/standards/standard_form.html',
@@ -46,7 +49,7 @@ module.exports = function(app) {
 
     $scope.select = function(standard) {
       Standards.setStandard(standard);
-      $scope.show({standard: standard});
+      $scope.show();
     };
   }]);
 };

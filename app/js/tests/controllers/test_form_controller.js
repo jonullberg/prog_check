@@ -1,10 +1,10 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('TestFormCtrl', ['$scope', '$modalInstance', 'Tests', 'dataStore', 'Errors', function($scope, $modalInstance, Tests, dataStore, Errors) {
+  app.controller('TestFormCtrl', ['$scope', '$modalInstance', 'Tests', 'Standards', 'Errors', function($scope, $modalInstance, Tests, Standards, Errors) {
 
-    $scope.standard = dataStore.standard;
-
+    $scope.standard = Standards.standard;
+    $scope.test = Tests.test;
     $scope.setGoal = function(test) {
       test._goal = test.goalId;
       if (!test) {
@@ -20,17 +20,36 @@ module.exports = function(app) {
       }
     };
 
-    $scope.save = function(test) {
-      test.standardId = dataStore.standard._id;
-      Tests.setTest(test);
-      $modalInstance.close();
+    var saveTest = function(test) {
+      Tests.saveTest(test, function(err) {
+        if (err) {
+          return Errors.addError({
+            'msg': 'There was an error updating your test'
+          });
+        }
+      });
+    };
+
+    var createTest = function(test) {
       Tests.createTest(test, function(err, data) {
         if (err) {
           return Errors.addError({
             'msg': 'Failed to create test'
           });
         }
-      })
+      });
+    }
+
+    $scope.save = function(test) {
+      if (!test.standardId && Standards.standard) {
+        test.standardId = Standards.standard._id;
+      }
+      if ($scope.params.formType === 'editing') {
+        saveTest(test);
+      } else if ($scope.params.formType === 'creating') {
+        createTest(test);
+      }
+      $modalInstance.close();
     };
   }]);
 };
