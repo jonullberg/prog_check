@@ -34,7 +34,16 @@
     <h3>Goals</h3>
     <ul>
       <li data-ng-click="select(goal)"
-        data-ng-repeat="goal in standard.goals">{{goal.description}}</li>
+        data-ng-repeat="goal in standard.goals">
+        {{goal.description}}
+        <button class="btn btn-info" type="button"
+          data-ng-click="editGoal(goal)">
+          Edit Goal
+        </button>
+        <button class="btn btn-danger" type="button">
+          Delete Goal
+        </button>
+      </li>
     </ul>
   </div>
   <div class="panel-footer">

@@ -59,7 +59,8 @@ module.exports = function(app) {
     $scope.addGoals = function() {
       var scope = $rootScope.$new();
       scope.params = {
-        buttonText: 'Add Goal'
+        buttonText: 'Add Goal',
+        formType: 'creating'
       };
       $modal.open({
         animation:true,
@@ -70,5 +71,20 @@ module.exports = function(app) {
       });
     };
 
+    $scope.editGoal = function(goal) {
+      var scope = $rootScope.$new();
+      scope.params = {
+        buttonText: 'Save Goal',
+        formType: 'editing'
+      };
+      scope.goal = goal;
+      $modal.open({
+        animation:true,
+        templateUrl: '/templates/partials/goal_form.html',
+        controller: 'GoalCtrl',
+        size:'lg',
+        scope: scope
+      });
+    };
   }]);
 };

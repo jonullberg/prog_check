@@ -75,6 +75,18 @@ module.exports = function(app) {
             return callback(err);
           }
         });
+      },
+
+      saveGoal: function(goal, callback) {
+        this.standard.goals.splice(this.standard.goals.indexOf(goal), 1, goal);
+        $rootScope.$broadcast('standard:changed');
+        this.standards.push(this.standard);
+        $rootScope.$broadcast('standard:changed');
+        Standards.save(this.standard, function(err) {
+          if (err) {
+            return callback(err);
+          }
+        });
       }
     };
     return standardData;
