@@ -86,5 +86,15 @@ module.exports = function(app) {
         scope: scope
       });
     };
+
+    $scope.deleteGoal = function(goal) {
+      Standards.deleteGoal(goal, function(err) {
+        if (err) {
+          return Errors.addError({
+            'msg': 'Failed to delete that goal'
+          });
+        }
+      });
+    };
   }]);
 };
