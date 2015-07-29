@@ -2,7 +2,6 @@
 
 module.exports = function(app) {
   app.directive('pcSingleStandard', function() {
-    var controller;
     return {
       restrict: 'E',
       replace: true,
