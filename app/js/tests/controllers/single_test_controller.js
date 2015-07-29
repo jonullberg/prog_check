@@ -3,7 +3,6 @@
 module.exports = function(app) {
   app.controller('SingleTestCtrl', ['$scope', '$modal', '$rootScope', 'Tests', 'Standards', 'Errors', function($scope, $modal, $rootScope, Tests, Standards, Errors) {
     $scope.isDeleteShown = false;
-
     $scope.getTest = function() {
       $scope.test = Tests.test;
     };
@@ -64,5 +63,16 @@ module.exports = function(app) {
       });
     };
 
+    var showAnswers = function(question) {
+      question.showing = true;
+    };
+
+    var hideAnswers = function(question) {
+      question.showing = false;
+    };
+
+    $scope.showAnswers = function(question) {
+      question.showing = !question.showing;
+    };
   }]);
 };

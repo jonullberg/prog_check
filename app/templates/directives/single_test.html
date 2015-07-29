@@ -27,13 +27,17 @@
 
     <h4>Directions:</h4>
     <p>{{test.testDirections}}</p>
-    <p>{{test.goal}}
+    <p>{{test.goal}}</p>
     <h4>Questions: </h4>
     <p data-ng-if="!test.questions.length">You have no questions, please add some</p>
     <ul data-ng-if="test.questions.length">
-      <li data-ng-repeat="question in test.questions">{{question.question}}
-        <ul data-ng-if="areAnswersShowing">
-          <li data-ng-repeat="answer in question.answers">{{answer}}</li>
+      <li data-ng-repeat="question in test.questions"
+        data-ng-click="showAnswers(question)">
+        {{question.question}}
+        <ul data-ng-if="question.showing">
+          <li data-ng-repeat="answer in question.answers">
+            {{answer}}
+          </li>
         </ul>
       </li>
     </ul>
