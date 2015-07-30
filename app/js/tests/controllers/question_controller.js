@@ -8,11 +8,7 @@ module.exports = function(app) {
     }
     $scope.$on('test:changed', getTest());
 
-    $scope.save = function(question) {
-      question.answers = Object.keys(question.answers)
-        .map(function(key) {
-          return question.answers[key];
-        });
+    var addQuestion = function(question) {
       Tests.addQuestion(question, function(err) {
         if (err) {
           return Errors.addError({
@@ -20,6 +16,29 @@ module.exports = function(app) {
           });
         }
       });
+    };
+
+    var saveQuestion = function(question) {
+      Tests.saveQuestion(question, function(err) {
+        if (err) {
+          return Errors.addError({
+            'msg': 'Failed to save question'
+          });
+        }
+      });
+    };
+
+    $scope.save = function(question) {
+      if ($scope.params.formType === 'creating') {
+        question.answers = Object.keys(question.answers)
+          .map(function(key) {
+            return question.answers[key];
+          });
+        addQuestion(question);
+      } else if ($scope.params.formType === 'editing') {
+        saveQuestion(question);
+        $modalInstance.close();
+      }
       $scope.question = null;
     };
 

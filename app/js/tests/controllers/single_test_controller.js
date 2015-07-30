@@ -52,6 +52,7 @@ module.exports = function(app) {
     $scope.addQuestions = function() {
       var scope = $rootScope.$new();
       scope.params = {
+        formType: 'creating',
         buttonText: 'Add Question'
       };
       $modal.open({
@@ -73,6 +74,32 @@ module.exports = function(app) {
 
     $scope.showAnswers = function(question) {
       question.showing = !question.showing;
+    };
+
+    $scope.editQuestion = function(question) {
+      var scope = $rootScope.$new();
+      scope.params = {
+        formType: 'editing',
+        buttonText: 'Save Question'
+      };
+      scope.question = question;
+      $modal.open({
+        animation:true,
+        templateUrl: '/templates/partials/question_form.html',
+        controller:'QuestionCtrl',
+        size: 'lg',
+        scope: scope
+      });
+    };
+
+    $scope.deleteQuestion = function(question) {
+      Test.deleteQuestion(question, function(err) {
+        if (err) {
+          return Errors.addError({
+            'msg': 'Failed to delete question'
+          });
+        }
+      });
     };
   }]);
 };
