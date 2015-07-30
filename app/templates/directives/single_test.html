@@ -34,7 +34,18 @@
       <li data-ng-repeat="question in test.questions"
         data-ng-click="showAnswers(question)">
         {{question.question}}
+        <button class="btn btn-primary" type="button"
+          data-ng-if="question.showing"
+          data-ng-click="editQuestion(question)">
+          Edit Question
+        </button>
+        <button class="btn btn-danger" type="button"
+          data-ng-if="question.showing"
+          data-ng-click="deleteQuestion(question)">
+          Delete Question
+        </button>
         <ul data-ng-if="question.showing">
+
           <li data-ng-repeat="answer in question.answers">
             {{answer}}
           </li>
