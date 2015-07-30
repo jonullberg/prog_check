@@ -65,6 +65,29 @@ module.exports = function(app) {
             callback(err);
           }
         });
+      },
+
+      saveQuestion: function(question, callback) {
+        this.test.questions.splice(this.test.questions.indexOf(question), 1, question);
+        this.tests.push(this.test);
+        $rootScope.$broadcast('test:changed');
+        $rootScope.$broadcast('tests:changed');
+        Tests.save(this.test, function(err) {
+          if (err) {
+            return callback(err);
+          }
+        });
+      },
+      deleteQuestion: function(question, callback) {
+        this.test.questions.splice(this.test.questions.indexOf(question), 1);
+        this.tests.push(this.test);
+        $rootScope.$broadcast('test:changed');
+        $rootScope.$broadcast('tests:changed');
+        Tests.save(this.test, function(err) {
+          if (err) {
+            return callback(err);
+          }
+        });
       }
     };
 
