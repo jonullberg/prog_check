@@ -70,7 +70,9 @@ module.exports = function(app) {
         scope:scope
       });
     };
-
+    $scope.showButtons = function(goal) {
+      goal.buttons = !goal.buttons;
+    };
     $scope.editGoal = function(goal) {
       var scope = $rootScope.$new();
       scope.params = {
@@ -96,5 +98,6 @@ module.exports = function(app) {
         }
       });
     };
+
   }]);
 };
