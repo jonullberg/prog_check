@@ -93,7 +93,7 @@ module.exports = function(app) {
       Standards.deleteGoal(goal, function(err) {
         if (err) {
           return Errors.addError({
-            'msg': 'Failed to delete that goal'
+            'msg': 'Failed to delete goal'
           });
         }
       });
