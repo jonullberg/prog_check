@@ -38,28 +38,27 @@
         {{goal.description}}
         <button class="btn btn-info" type="button"
           data-ng-if="goal.buttons"
-          data-ng-click="editGoal(goal)">
-          Edit Goal
+          data-ng-click="selectGoal(goal)">
+          {{params.goalButtonText}}
         </button>
         <button class="btn btn-danger" type="button"
           data-ng-click="deleteGoal(goal)"
-          data-ng-if="goal.buttons">
+          data-ng-if="goal.buttons && isAdmin()">
           Delete Goal
         </button>
       </li>
     </ul>
   </div>
-  <div class="panel-footer">
-    <button type="button"
-      class="btn btn-primary"
+  <div class="panel-footer"
+    data-ng-if="isAdmin()">
+    <button type="button" class="btn btn-primary"
       data-ng-click="edit(standard)">
-      {{buttonText}}
+      Edit Standard
     </button>
-    <button type="button"
-      class="btn btn-danger"
+    <button type="button" class="btn btn-danger"
       data-ng-click="toggleAlert()">Delete Standard
     </button>
-    <button class="btn btn-info"
+    <button type="button" class="btn btn-info"
       data-ng-click="addGoals()">
       Add Goals
       <span class="glyphicon glyphicon-plus"></span>

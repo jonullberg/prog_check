@@ -38,9 +38,27 @@ module.exports = function(app) {
           }
           this.student = data;
           this.students.push(this.student);
-          $rootScope.$broadcast('student:changed');
-          $rootScope.$broadcast('students:changed');
         }.bind(this));
+      },
+      addGoal: function(goal, callback) {
+        this.student.goals.push(goal);
+        this.students.splice(this.students.indexOf(this.student), 1, this.student);
+        $rootScope.$broadcast('student:changed');
+        $rootScope.$broadcast('students:changed');
+        Students.save(this.student, function(err) {
+          if (err) {
+            callback(err);
+          }
+        });
+      },
+      removeGoal: function(goal, callback) {
+        this.student.goals.splice(this.student.goals.indexOf(goal), 1);
+        this.students.splice(this.students.indexOf(this.student), 1, this.student);
+        Students.save(this.student, function(err) {
+          if (err) {
+            callback(err);
+          }
+        });
       }
     };
 

@@ -3,15 +3,15 @@
 module.exports = function(app) {
   app.controller('SingleStudentCtrl', ['$scope', '$routeParams', '$modal', '$location', 'Errors', 'Students', function($scope, $routeParams, $modal, $location, Errors, Students) {
     $scope.student;
+
+    var getStudent = function() {
+      $scope.student = Students.student;
+    };
+
+    $scope.$on('student:changed', getStudent);
+
     $scope.getStudent = function() {
-      var id = $routeParams.studentId;
-      Students.getStudent(id, function(err, data) {
-        if (err) {
-          return Errors.addError({
-            'msg': 'There was an error getting student'
-          });
-        }
-      });
+      getStudent();
     };
 
     $scope.goBack = function() {
@@ -27,10 +27,14 @@ module.exports = function(app) {
       $modal.open({
         animation: true,
         templateUrl: '/templates/directives/standards/standards_list.html',
-        controller: 'StandardsListCtrl',
-        size: 'lg'
+        size: 'lg',
+        controller: 'StandardsListCtrl'
       });
     };
+
+    $scope.showButtons = function(goal) {
+      goal.buttonsShowing = !goal.buttonsShowing;
+    }
 
   }]);
 };
