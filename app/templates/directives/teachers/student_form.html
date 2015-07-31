@@ -1,5 +1,5 @@
-<form name="AddStudent"
-  data-ng-submit="saveStudent(student, AddStudent.$valid)">
+<form name="studentForm"
+  data-ng-submit="saveStudent(student)">
   <header class="modal-header">
     <h3>Add A Student</h3>
   </header>
@@ -34,7 +34,7 @@
   <footer class="modal-footer">
     <button type="submit"
       class="btn btn-primary">
-      Create Student
+      {{params.buttonText}}
     </button>
     <button type="button"
       class="btn btn-danger"

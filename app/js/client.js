@@ -23,6 +23,7 @@ require('./auth/services/token_interceptor')(progCheck);
 //    Data Services
 require('./services/test_data')(progCheck); // Stores all test data for app
 require('./services/standards_data')(progCheck); // Stores all standard data for app
+require('./teachers/services/students_data')(progCheck); // Stores all student data on client for teacher user
 
 //  controllers
 require('./controllers/errors_controller')(progCheck);
@@ -41,6 +42,8 @@ require('./teachers/controllers/teachers_controller')(progCheck);
 require('./teachers/controllers/student_form_controller')(progCheck);
 require('./teachers/controllers/single_student_controller')(progCheck);
 require('./teachers/controllers/add_student_goal_controller')(progCheck);
+require('./teachers/controllers/students_list_controller')(progCheck);
+
 
 //    Test Controllers
 require('./tests/controllers/test_controller')(progCheck);

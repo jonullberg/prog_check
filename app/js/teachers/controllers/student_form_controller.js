@@ -1,25 +1,21 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('studentsListCtrl', ['$scope', '$modalInstance', '$cookies', 'RESTResource', 'dataStore', function($scope, $modalInstance, $cookies, resource, dataStore) {
+  app.controller('StudentFormCtrl', ['$scope', '$modalInstance', '$cookies', 'Errors', 'Students', function($scope, $modalInstance, $cookies, Errors, Students) {
 
-    var Student = resource('students');
 
-    $scope.saveStudent = function(student, valid) {
+    $scope.saveStudent = function(student) {
       student.teacherId = $cookies.get('userId');
-      if (valid) {
-        Student.create(student, function(err, data) {
+      if ($scope.studentForm.$valid) {
+        Students.addStudent(student, function(err, data) {
           if (err) {
-            console.log(err);
+            return Errors.addError({
+              'msg': 'Failed to create student'
+            });
           }
-          $modalInstance.close(function() {
-            dataStore.students.push(data);
-            student = null;
-            console.log('saved successfully');
-
-          });
         });
 
+        $modalInstance.close();
       }
     };
 
