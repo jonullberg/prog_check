@@ -11,13 +11,17 @@
   </header>
   <div class="panel-body">
     <h4>Goals</h4>
-    <ul>
-      <li data-ng-repeat="goal in student.goals">
-        {{goal.name}}
+    <ul class="list-group">
+      <li class="list-group-item"
+        data-ng-repeat="goal in student.goals"
+        data-ng-click="showButtons(goal)">
+        <span class="col-lg-4">{{goal.description}}</span>
         <button class="btn btn-danger"
+          data-ng-if="goal.buttonsShowing"
           data-ng-click="removeGoal(goal)">
           Remove Goal
         </button>
+        <div class="clearfix"></div>
       </li>
     </ul>
   </div>

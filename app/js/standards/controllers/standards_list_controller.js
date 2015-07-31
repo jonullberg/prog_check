@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('StandardsListCtrl', ['$scope', '$modal', '$rootScope', 'Errors', 'Standards', function($scope, $modal, $rootScope, Errors, Standards) {
+  app.controller('StandardsListCtrl', ['$scope', '$modal', '$modalInstance', '$rootScope', '$cookies', 'Errors', 'Standards', 'Students', function($scope, $modal, $modalInstance, $rootScope, $cookies, Errors, Standards, Students) {
     $scope.standards;
     var updateStandards = function() {
       $scope.standards = Standards.standards;
@@ -24,11 +24,17 @@ module.exports = function(app) {
     }
     };
 
-
+    $scope.isAdmin = function() {
+      if ($cookies.get('role') === 'admin') {
+        return true;
+      }
+      return false;
+    };
 
     /**
      * Opens modal with ability to add a new standard
      */
+
     $scope.newStandard = function() {
       var scope = $rootScope.$new();
       scope.params = {
@@ -49,7 +55,23 @@ module.exports = function(app) {
 
     $scope.select = function(standard) {
       Standards.setStandard(standard);
-      $scope.show();
+      if ($scope.isAdmin()) {
+        return $scope.show();
+      } else {
+        var scope = $rootScope.$new();
+        scope.params = {
+          goalButtonText: 'Add Goal'
+        };
+        $modalInstance.close();
+        $modal.open({
+          animation:true,
+          templateUrl:'/templates/directives/standards/single_standard.html',
+          size:'lg',
+          controller:'SingleStandardCtrl',
+          scope:scope
+        });
+
+      }
     };
   }]);
 };
