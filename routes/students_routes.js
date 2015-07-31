@@ -1,13 +1,14 @@
 'use strict';
 
-var Student = require('../models/Student');
+var Students = require('../models/Student');
 var bodyparser = require('body-parser');
+var eatAuth = require('../lib/eat_auth')(process.env.APP_SECRET);
 
 module.exports = function(router) {
   router.use(bodyparser.json());
 
-  router.post('/students', function(req, res) {
-    var newStudent = new Student(req.body);
+  router.post('/students', eatAuth, function(req, res) {
+    var newStudent = new Students(req.body);
     newStudent.save(function(err, data) {
       if (err) {
         console.log(err);
@@ -20,8 +21,8 @@ module.exports = function(router) {
     });
   });
 
-  router.get('/students/:id', function(req, res) {
-    Student.find({_id: req.params.id}, function(err, data) {
+  router.get('/students/:id', eatAuth, function(req, res) {
+    Students.find({_id: req.params.id}, function(err, data) {
       if (err) {
         console.log(err);
         return res.status(500).json({
@@ -32,23 +33,22 @@ module.exports = function(router) {
     });
   });
 
-  router.get('/students', function(req, res) {
-    Student.find({}, function(err, data) {
+  router.get('/students', eatAuth, function(req, res) {
+    Students.find({'teacherId': req.user._id}, function(err, data) {
       if (err) {
         console.log(err);
         return res.status(500).json({
           'msg': 'Internal Server Error'
         });
       }
-
       res.json(data);
     });
   });
 
-  router.put('/students/:id', function(req, res) {
+  router.put('/students/:id', eatAuth, function(req, res) {
     var updatedStudent = req.body;
     delete updatedStudent._id;
-    Student.update({_id: req.params.id},
+    Students.update({_id: req.params.id},
       updatedStudent, function(err) {
         if (err) {
           console.log(err);
