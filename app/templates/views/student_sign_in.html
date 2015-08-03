@@ -1,0 +1,23 @@
+<section>
+  <form data-ng-submit="authSubmit(student)">
+    <fieldset>
+      <legend>Student Sign In</legend>
+
+      <div class="form-group">
+        <label for="username">User Name</label>
+        <input class="form-control" type="username" id="username" name="username" placeholder="User Name" data-ng-model="student.username" />
+      </div>
+
+      <div class="form-group">
+        <label for="pin">Password</label>
+        <input class="form-control" type="password" id="pin" name="pin" placeholder="PIN" data-ng-model="student.pin" />
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">
+          Sign In
+        </button>
+      </div>
+
+    </fieldset>
+  </form>
+</section>

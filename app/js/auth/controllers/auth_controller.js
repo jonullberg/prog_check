@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('authController', ['$scope', '$location', 'UserService', 'USStates', 'AuthenticationService', function($scope, $location, UserService, USStates, AuthenticationService) {
+  app.controller('AuthCtrl', ['$scope', '$location', 'UserService', 'USStates', 'AuthenticationService', 'Errors', function($scope, $location, UserService, USStates, AuthenticationService, Errors) {
 
     $scope.errors = [];
 
@@ -14,25 +14,23 @@ module.exports = function(app) {
     $scope.authSubmit = function(user) {
       if(user.passwordConfirmation) {
         if(user.password !== user.passwordConfirmation) {
-
-          console.log('Your password and confirmation do not match');
-          return;
+          return Errors.addError({
+            'msg': 'Your password and confirmation do not match'
+          });
         }
         UserService.create(user, function(err) {
-          if(err)  {
-            console.log(err);
-            return $scope.errors.push({
-              msg: 'Could not sign in'
+          if (err)  {
+            return Errors.addError({
+              'msg': 'Could not sign in'
             });
           }
           $location.path('/home');
         });
       } else {
         UserService.signIn(user, function(err) {
-          if(err) {
-            console.log(err);
-            return $scope.errors.push({
-              msg: 'Could not sign in'
+          if (err) {
+            return Errors.addError({
+              'msg': 'Could not sign in'
             });
           }
           $location.path('/home');

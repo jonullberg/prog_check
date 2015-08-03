@@ -23,11 +23,12 @@ mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/progcheck_dev'
 app.use(passport.initialize());
 
 require('./lib/passport_strat')(passport);
+require('./lib/student_passport_strat')(passport);
 
 require('./routes/user_routes.js')(usersRoutes, passport);
 require('./routes/standard_routes.js')(standardsRoutes);
 require('./routes/test_routes.js')(testsRoutes)
-require('./routes/students_routes.js')(studentsRoutes)
+require('./routes/students_routes.js')(studentsRoutes, passport)
 
 app.use('/api', usersRoutes);
 app.use('/api', standardsRoutes);

@@ -29,18 +29,24 @@ module.exports = function(app) {
       })
       .when('/sign-in', {
         templateUrl: 'templates/views/sign_in.html',
-        controller: 'authController',
+        controller: 'AuthCtrl',
         access: {
           requiredLogin: false
         }
       })
       .when('/sign-up', {
         templateUrl: 'templates/views/sign_up.html',
-        controller: 'authController',
+        controller: 'AuthCtrl',
         access: {
           requiredLogin: false
         }
-        // No controller as of now
+      })
+      .when('/student-sign-in', {
+        templateUrl: 'templates/views/student_sign_in.html',
+        controller: 'StudentAuthCtrl',
+        access: {
+          requiredLogin: false
+        }
       })
       .when('/admin/home', {
         templateUrl: 'templates/views/home.html',
@@ -82,7 +88,7 @@ module.exports = function(app) {
         }
       })
       .when('/students/home', {
-        templateUrl: 'templates/students/views/home.html',
+        templateUrl: 'templates/views/student/home.html',
         access: {
           requiredLogin: true
         }

@@ -9,26 +9,31 @@ require('angular-bootstrap');
 var progCheck = angular.module('progCheck', ['ngRoute', 'ngCookies', 'base64', 'ui.bootstrap']);
 
 //  services
-require('./services/errors_service')(progCheck); // Service for holding errors of application
-require('./auth/services/user_service')(progCheck);
 require('./services/rest_resource')(progCheck);
 require('./services/copy')(progCheck);
-require('./services/data_service')(progCheck);
 require('./standards/services/pc_grades_service')(progCheck);
 require('./services/lodash')(progCheck);
-require('./auth/services/authentication_service')(progCheck);
 require('./services/us_states')(progCheck);
+
+//    Auth Services
 require('./auth/services/token_interceptor')(progCheck);
+require('./auth/services/user_service')(progCheck);
+require('./auth/services/authentication_service')(progCheck);
+require('./auth/services/student_auth_service')(progCheck);
 
 //    Data Services
+require('./services/errors_service')(progCheck); // Service for holding errors of application
 require('./services/test_data')(progCheck); // Stores all test data for app
 require('./services/standards_data')(progCheck); // Stores all standard data for app
 require('./teachers/services/students_data')(progCheck); // Stores all student data on client for teacher user
 
 //  controllers
 require('./controllers/errors_controller')(progCheck);
-require('./auth/controllers/auth_controller')(progCheck);
 require('./controllers/main_controller')(progCheck);
+
+//    Auth Controllers
+require('./auth/controllers/student_auth_controller.js')(progCheck);
+require('./auth/controllers/auth_controller')(progCheck);
 
 //    Standard Controllers
 require('./standards/controllers/standards_controller')(progCheck);
@@ -36,6 +41,8 @@ require('./standards/controllers/standards_list_controller')(progCheck);
 require('./standards/controllers/single_standard_controller')(progCheck);
 require('./standards/controllers/standard_form_controller')(progCheck);
 require('./standards/controllers/goal_controller')(progCheck);
+require('./standards/modals/controllers/standards_list_modal_controller')(progCheck);
+require('./standards/modals/controllers/single_standard_modal_controller')(progCheck);
 
 //    Teacher Controllers
 require('./teachers/controllers/teachers_controller')(progCheck);
