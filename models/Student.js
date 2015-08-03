@@ -1,6 +1,8 @@
 'use strict';
 
 var mongoose = require('mongoose');
+var bcrypt = require('bcrypt-nodejs');
+var eat = require('eat');
 
 var studentSchema = mongoose.Schema({
   'firstName': {
@@ -11,13 +13,14 @@ var studentSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  'username': {
-    type: String,
-    required: true
-  },
-  'pin': {
-    type: String,
-    required: true
+  'basic': {
+    'username': {
+      type: String
+    },
+    'pin': {
+      type: String,
+      required: true
+    }
   },
   'teacherId': {
     type: String,
@@ -28,13 +31,51 @@ var studentSchema = mongoose.Schema({
   }
 });
 
-studentSchema.pre('validate', function(next) {
+studentSchema.pre('save', function(next) {
   var doc = this;
-  if (doc.userName === undefined) {
-    var username = doc.firstName.slice(0, 1).toLowerCase() + doc.lastName.toLowerCase();
-    doc.username = username;
-    next();
-  }
-})
+  var userName = doc.firstName.slice(0,1).toLowerCase() + doc.lastName.slice(0, 5).toLowerCase();
+  var num = 1;
+  var uniqueSearch = function(username) {
+    mongoose.models['Student'].findOne({
+      'basic.username': username + num
+    }, function(err, results) {
+      if (err) {
+        console.log('There was an error');
+        next();
+      } else if (results) {
+        console.log(results.basic.username);
+        num++;
+        return uniqueSearch(username);
+      } else {
+        doc.basic.username = username + num;
+        next();
+      }
+    });
+  };
+  uniqueSearch(userName);
+});
+
+studentSchema.methods.generateHash = function(password, callback) {
+  bcrypt.genSalt(8, function(err, salt) {
+    bcrypt.hash(password, salt, null, function(err, hash) {
+      return callback(err, hash);
+    });
+  });
+};
+
+studentSchema.methods.generateToken = function(secret, callback) {
+  eat.encode({id: this._id}, secret, callback);
+};
+
+studentSchema.methods.checkPin = function(pin, callback) {
+  bcrypt.compare(pin, this.basic.pin, function(err, result) {
+    if (err) {
+      console.log(err);
+      return console.log('Could not authenticate PIN');
+    }
+
+    callback(null, result);
+  });
+};
 
 module.exports = mongoose.model('Student', studentSchema);

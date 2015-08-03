@@ -28,7 +28,7 @@ module.exports = function(app) {
         animation: true,
         templateUrl: '/templates/directives/standards/standards_list.html',
         size: 'lg',
-        controller: 'StandardsListCtrl'
+        controller: 'StandardsListModalCtrl'
       });
     };
 

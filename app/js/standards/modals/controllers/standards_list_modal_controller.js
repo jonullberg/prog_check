@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('StandardsListCtrl', ['$scope', '$modal', '$rootScope', '$cookies', 'Errors', 'Standards', function($scope, $modal, $rootScope, $cookies, Errors, Standards) {
+  app.controller('StandardsListModalCtrl', ['$scope', '$modal', '$modalInstance', '$rootScope', '$cookies', 'Errors', 'Standards', 'Students', function($scope, $modal, $modalInstance, $rootScope, $cookies, Errors, Standards, Students) {
     $scope.standards;
     var updateStandards = function() {
       $scope.standards = Standards.standards;
@@ -55,7 +55,23 @@ module.exports = function(app) {
 
     $scope.select = function(standard) {
       Standards.setStandard(standard);
-      return $scope.show();
+      if ($scope.isAdmin()) {
+        return $scope.show();
+      } else {
+        var scope = $rootScope.$new();
+        scope.params = {
+          goalButtonText: 'Add Goal'
+        };
+        $modalInstance.close();
+        $modal.open({
+          animation:true,
+          templateUrl:'/templates/directives/standards/single_standard.html',
+          size:'lg',
+          controller:'SingleStandardModalCtrl',
+          scope:scope
+        });
+
+      }
     };
   }]);
 };

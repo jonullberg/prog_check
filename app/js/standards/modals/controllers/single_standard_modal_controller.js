@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('SingleStandardCtrl', ['$scope', '$modal', '$cookies', '$rootScope', 'Errors', 'Standards', 'Students', function($scope, $modal, $cookies, $rootScope, Errors, Standards, Students) {
+  app.controller('SingleStandardModalCtrl', ['$scope', '$modal', '$modalInstance', '$cookies', '$rootScope', 'Errors', 'Standards', 'Students', function($scope, $modal, $modalInstance, $cookies, $rootScope, Errors, Standards, Students) {
     $scope.standard = Standards.standard;
     var getStandard = function() {
       $scope.standard = Standards.standard;
