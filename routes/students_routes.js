@@ -38,7 +38,6 @@ module.exports = function(router, passport) {
             'msg': 'Internal Server Error'
           });
         }
-        console.log(student);
         student.generateToken(process.env.APP_SECRET, function(err, token) {
           if (err) {
             console.log(err);
@@ -78,6 +77,7 @@ module.exports = function(router, passport) {
         });
       }
 
+      req.user.role = 'student';
       res.json({
         'user': req.user,
         'token': token

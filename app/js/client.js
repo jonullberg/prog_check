@@ -19,13 +19,13 @@ require('./services/us_states')(progCheck);
 require('./auth/services/token_interceptor')(progCheck);
 require('./auth/services/user_service')(progCheck);
 require('./auth/services/authentication_service')(progCheck);
-require('./auth/services/student_auth_service')(progCheck);
 
 //    Data Services
 require('./services/errors_service')(progCheck); // Service for holding errors of application
 require('./services/test_data')(progCheck); // Stores all test data for app
 require('./services/standards_data')(progCheck); // Stores all standard data for app
 require('./teachers/services/students_data')(progCheck); // Stores all student data on client for teacher user
+require('./students/services/student_data')(progCheck); // Stores all data for a single student
 
 //  controllers
 require('./controllers/errors_controller')(progCheck);
@@ -44,13 +44,16 @@ require('./standards/controllers/goal_controller')(progCheck);
 require('./standards/modals/controllers/standards_list_modal_controller')(progCheck);
 require('./standards/modals/controllers/single_standard_modal_controller')(progCheck);
 
+//    Student Controllers
+require('./students/controllers/student_home_controller')(progCheck);
+require('./students/controllers/student_tests_controller')(progCheck);
+
 //    Teacher Controllers
 require('./teachers/controllers/teachers_controller')(progCheck);
 require('./teachers/controllers/student_form_controller')(progCheck);
 require('./teachers/controllers/single_student_controller')(progCheck);
 require('./teachers/controllers/add_student_goal_controller')(progCheck);
 require('./teachers/controllers/students_list_controller')(progCheck);
-
 
 //    Test Controllers
 require('./tests/controllers/test_controller')(progCheck);

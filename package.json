@@ -19,6 +19,7 @@
     "angular-cookies": "^1.4.1",
     "angular-mocks": "^1.4.1",
     "angular-route": "^1.4.1",
+    "angular-ui-grid": "^3.0.1",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.12.4",
     "bootstrap": "^3.3.5",

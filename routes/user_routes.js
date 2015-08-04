@@ -42,11 +42,11 @@ module.exports = function(router, passport) {
 							'msg': 'Internal Server Error'
 						});
 					}
+					user.basic.password = null;
+					user.fullName = user.firstName + ' ' + user.lastName;
 					res.json({
-						'role': user.role,
-						'fullName': user.firstName + ' ' + user.lastName,
-						'token': token,
-						'userId': user._id
+						'user': user,
+						'token': token
 					}); // end res.json
 				}); // end generate Token
 			}); // end user save
@@ -59,10 +59,10 @@ module.exports = function(router, passport) {
 	      console.log(err);
 	      return res.status(500).json({msg: 'error generating token'});
 	    }
+	    req.user.basic.password = null;
+	    req.user.fullName = req.user.firstName + ' ' + req.user.lastName;
 	    res.json({
-	    	'role': req.user.role,
-	    	'fullName': req.user.firstName + ' ' + req.user.lastName,
-	    	'userId': req.user._id,
+	    	'user':req.user,
 	    	'token': token
 	    });
 	  });//end generateToken

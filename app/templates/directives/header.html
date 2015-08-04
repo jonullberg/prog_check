@@ -7,7 +7,6 @@
   </div>
   <nav>
     <tabset class="nav navbar-nav" type="pills" vertical="false" justified="true">
-      <tab heading="Home" data-ng-click="changeView({url: 'home'})"></tab>
       <tab data-ng-repeat="tab in tabs"
         heading="{{tab.header}}"
         data-ng-click="changeView({url: tab.url})"></tab>

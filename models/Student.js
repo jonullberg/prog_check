@@ -28,6 +28,9 @@ var studentSchema = mongoose.Schema({
   },
   'goals': {
     type: Array
+  },
+  'role': {
+    type: String
   }
 });
 
@@ -53,6 +56,12 @@ studentSchema.pre('save', function(next) {
     });
   };
   uniqueSearch(userName);
+});
+
+studentSchema.pre('save', function(next) {
+  var doc = this;
+  doc.role = 'student';
+  next();
 });
 
 studentSchema.methods.generateHash = function(password, callback) {

@@ -30,6 +30,12 @@ var testSchema = mongoose.Schema({
   'goalId': {
     type: String
   },
+  'questionType': {
+    type: String
+  },
+  'answerType': {
+    type: String
+  },
   'questions': [questionSchema]
 });
 
