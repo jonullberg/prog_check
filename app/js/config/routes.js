@@ -49,7 +49,7 @@ module.exports = function(app) {
         }
       })
       .when('/admin/home', {
-        templateUrl: 'templates/views/home.html',
+        templateUrl: 'templates/views/admin/home.html',
         access: {
           requiredLogin: true,
           requiredAdmin: true
@@ -71,6 +71,13 @@ module.exports = function(app) {
         }
         // No controller as of now
       })
+      .when('/teacher/home', {
+        templateUrl: 'templates/views/teacher/home.html',
+        access: {
+          requiredLogin: true,
+          requiredTeacher: true
+        }
+      })
       .when('/teacher/students', {
         templateUrl: 'templates/views/teacher/students_list.html',
         controller: 'StudentsListCtrl',
@@ -87,8 +94,29 @@ module.exports = function(app) {
           requiredTeacher: true
         }
       })
-      .when('/students/home', {
+      .when('/teacher/tests', {
+        templateUrl: 'templates/views/teacher/tests.html',
+        access: {
+          requiredLogin: true,
+          requiredTeacher: true
+        }
+      })
+      .when('/student/home', {
         templateUrl: 'templates/views/student/home.html',
+        controller: 'StudentHomeCtrl',
+        access: {
+          requiredLogin: true
+        }
+      })
+      .when('/student/tests', {
+        templateUrl: 'templates/views/student/tests.html',
+        controller: 'StudentTestsCtrl',
+        access: {
+          requiredLogin: true
+        }
+      })
+      .when('/student/scores', {
+        templateUrl: 'templates/views/student/scores.html',
         access: {
           requiredLogin: true
         }

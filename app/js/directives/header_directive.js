@@ -3,7 +3,68 @@
 module.exports = function(app) {
   app.directive('pcHeader', ['$location', '$cookies', function($location, $cookies) {
     var controller = ['$scope', 'AuthenticationService', function($scope,AuthenticationService) {
-      $scope.tabs = [
+      $scope.tabs = [{
+        header: 'Home',
+        url: 'home'
+      },
+      {
+        header: 'About Us',
+        url: 'about'
+      },
+      {
+        header: 'Pricing',
+        url: 'pricing'
+      }];
+
+      $scope.$watch(function() {
+        return AuthenticationService.isLogged;
+      }, function(newVal, oldVal, scope) {
+        if (newVal) {
+          if ($cookies.getObject('user').role === 'admin') {
+            scope.tabs = [{
+              header: 'Home',
+              url: 'admin/home'
+            },
+            {
+              header: 'Standards',
+              url: 'admin/standards'
+            },
+            {
+              header: 'Teachers',
+              url: 'admin/teachers'
+            }];
+          } else if ($cookies.getObject('user').role === 'teacher') {
+            scope.tabs = [{
+              header: 'Home',
+              url: 'teacher/home'
+            },
+            {
+              header: 'Students',
+              url: 'teacher/students'
+            },
+            {
+              header: 'Tests',
+              url: 'teacher/tests'
+            }];
+          } else if ($cookies.getObject('user').role === 'student') {
+            scope.tabs = [{
+              header: 'Home',
+              url: 'student/home'
+            },
+            {
+              header: 'Tests',
+              url: 'student/tests'
+            },
+            {
+              header: 'Scores',
+              url: 'student/scores'
+            }];
+          }
+        } else {
+          scope.tabs = [{
+            header: 'Home',
+            url: 'home'
+          },
           {
             header: 'About Us',
             url: 'about'
@@ -11,48 +72,7 @@ module.exports = function(app) {
           {
             header: 'Pricing',
             url: 'pricing'
-          }
-        ];
-
-      $scope.$watch(function() {
-        return AuthenticationService.isLogged;
-      }, function(newVal, oldVal, scope) {
-        if (newVal === true) {
-          if ($cookies.get('role') === 'admin') {
-            scope.tabs = [
-              {
-                header: 'Standards',
-                url: 'admin/standards'
-              },
-              {
-                header: 'Teachers',
-                url: 'admin/teachers'
-              }
-            ];
-          }
-          if ($cookies.get('role') === 'teacher') {
-            scope.tabs = [
-              {
-                header: 'Students',
-                url: 'teacher/students'
-              },
-              {
-                header: 'Tests',
-                url: 'teacher/tests'
-              }
-            ];
-          }
-        } else {
-          scope.tabs = [
-            {
-              header: 'About Us',
-              url: 'about'
-            },
-            {
-              header: 'Pricing',
-              url: 'pricing'
-            }
-          ];
+          }];
         }
       });
 

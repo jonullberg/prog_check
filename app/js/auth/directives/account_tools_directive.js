@@ -9,7 +9,8 @@ module.exports = function(app) {
       };
 
       $scope.displayUsername = function() {
-        return $cookies.get('fullName');
+        var fullName = $cookies.getObject('user').firstName + ' ' + $cookies.getObject('user').lastName;
+        return fullName;
       };
 
       $scope.logOut = function() {

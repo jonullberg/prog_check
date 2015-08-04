@@ -1,14 +1,15 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('StudentAuthCtrl', ['$scope', '$cookies', '$location', 'StudentAuthService', 'Errors', function($scope, $cookies, $location, StudentAuth, Errors) {
+  app.controller('StudentAuthCtrl', ['$scope', '$cookies', '$location', 'UserService', 'Errors', function($scope, $cookies, $location, UserService, Errors) {
     $scope.authSubmit = function(student) {
-      StudentAuth.signIn(student, function(err) {
+      UserService.studentSignIn(student, function(err) {
         if (err) {
-          console.log(err);
+          return Errors.addError({
+            'msg': 'There was an error signing in'
+          });
         }
-        var user = $cookies.getObject('user')
-        $location.path('/students/home');
+        $location.path('/student/home');
       });
     };
 

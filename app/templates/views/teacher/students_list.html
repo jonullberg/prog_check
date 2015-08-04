@@ -22,7 +22,6 @@
             <td>First Name</td>
             <td>Last Name</td>
             <td>Username</td>
-            <td>PIN</td>
           </tr>
         </thead>
         <tbody>
@@ -30,8 +29,7 @@
             data-ng-click="showStudent(student)">
             <td>{{student.firstName}}</td>
             <td>{{student.lastName}}</td>
-            <td>{{student.username}}</td>
-            <td>{{student.pin}}</td>
+            <td>{{student.basic.username}}</td>
           </tr>
         </tbody>
       </table>

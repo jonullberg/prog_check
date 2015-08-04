@@ -1,10 +1,9 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('mainController', ['$scope', '$location', '$modal', 'AuthenticationService', function($scope, $location, $modal, AuthenticationService) {
+  app.controller('IndexCtrl', ['$scope', '$location', '$modal', function($scope, $location, $modal) {
     $scope.changeView = function(url) {
       $location.path(url);
-
     };
 
     $scope.$on('errors:changed', function() {
