@@ -6,18 +6,14 @@ module.exports = function(app) {
     $scope.standard = Standards.standard;
     $scope.test = Tests.test;
     $scope.setGoal = function(test) {
-      test._goal = test.goalId;
       if (!test) {
         test = {};
       }
+      test._goal = test.goalId;
     };
 
     $scope.cancel = function(test) {
-      angular.copy(dataStore.masterTest, test);
-      $scope.setGoal(test);
-      if ($scope.isTestFormShowing) {
-        $scope.toggleTestForm();
-      }
+      $modalInstance.dismiss();
     };
 
     var saveTest = function(test) {
