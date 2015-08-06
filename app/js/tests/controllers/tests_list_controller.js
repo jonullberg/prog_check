@@ -2,10 +2,20 @@
 
 module.exports = function(app) {
   app.controller('TestsListCtrl', ['$scope', '$modal', '$filter', '$rootScope', 'Errors', 'Tests', 'Standards',  function($scope, $modal, $filter, $rootScope, Errors, Tests, Standards) {
+
     $scope.standard = Standards.standard;
+
+    var numberTests = function(tests) {
+      for (var i = 0; i < tests.length; i++) {
+        tests[i].testName = "Test #" + (i + 1);
+      }
+
+      return tests;
+    };
 
     var updateTests = function() {
       $scope.tests = $filter('filter')(Tests.tests, {standardId: $scope.standard._id});
+      $scope.tests = numberTests($scope.tests);
     };
 
     updateTests();

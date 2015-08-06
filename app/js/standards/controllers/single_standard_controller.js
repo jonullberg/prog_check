@@ -6,11 +6,12 @@ module.exports = function(app) {
     var getStandard = function() {
       $scope.standard = Standards.standard;
     };
-
+    $scope.params = {
+      goalButtonText: 'Edit Goal'
+    };
     $scope.$on('standard:changed', getStandard);
-
     $scope.isAdmin = function() {
-      if ($cookies.get('role') === 'admin') {
+      if ($cookies.getObject('user').role === 'admin') {
         return true;
       }
       return false;
@@ -20,20 +21,8 @@ module.exports = function(app) {
     };
 
     $scope.goBack = function() {
-      if ($scope.isAdmin()) {
-        Standards.removeStandard();
-        $scope.hideStandard();
-      } else {
-        var scope = $rootScope.$new();
-        $modalInstance.close();
-        $modal.open({
-          animation:true,
-          templateUrl:'/templates/directives/standards/standards_list.html',
-          size:'lg',
-          controller:'StandardsListCtrl',
-          scope:scope
-        });
-      }
+      Standards.removeStandard();
+      $scope.hideStandard();
     };
     $scope.deleteStandard = function(standard) {
       Standards.removeStandard();
@@ -119,9 +108,9 @@ module.exports = function(app) {
     };
 
     $scope.selectGoal = function(goal) {
-      if ($cookies.get('role') === 'admin') {
+      if ($cookies.getObject('user').role === 'admin') {
         editGoal(goal);
-      } else if ($cookies.get('role') === 'teacher') {
+      } else if ($cookies.getObject('user').role === 'teacher') {
         addGoal(goal);
       }
     };
