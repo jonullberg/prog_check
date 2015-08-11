@@ -1,4 +1,4 @@
-<form
+<form data-ng-init="showTest(test)"
   data-ng-submit="save(question)">
   <div class="modal-header">
     <h3>Add Questions</h3>
@@ -7,25 +7,21 @@
     <ul>
       <li data-ng-repeat="question in test.questions">{{question.question}}</li>
     </ul>
-    <div class="form-group">
+    <div class="form-group" data-ng-if="test.questionType === 'text'">
       <label for="question">Question: </label>
-      <input type="text"
-        class="form-control"
-        name="question"
-        id="question"
+      <input type="text" class="form-control"
+        name="question" id="question"
         data-ng-model="question.question" />
     </div>
 
-    <div class="form-group">
+    <div class="form-group" data-ng-if="test.answerType === 'text'">
       <label for="correctAnswer">Correct answer: </label>
-      <input type="text"
-        class="form-control"
-        name="correctAnswer"
-        id="correctAnswer"
+      <input type="text" class="form-control"
+        name="correctAnswer" id="correctAnswer"
         data-ng-model="question.correct"
         data-ng-change="question.answers[0] = question.correct">
     </div>
-    <div class="form-group">
+    <div class="form-group" data-ng-if="test.answerType === 'text'">
       <label for="answers">Additional (Wrong) Answers: </label>
       <input type="text"
         name="wrongAnswer1"
@@ -38,6 +34,42 @@
         data-ng-model="question.answers[2]"
         class="form-control" />
       <input type="text"
+        name="wrongAnswer3"
+        id="wrongAnswer3"
+        data-ng-model="question.answers[3]"
+        class="form-control" />
+    </div>
+    <div class="form-group" data-ng-if="test.questionType === 'image'">
+      <label for="question">Question: </label>
+      <input type="file"
+        class="form-control"
+        name="question"
+        id="question"
+        data-ng-model="question.question" />
+    </div>
+
+    <div class="form-group" data-ng-if="test.answerType === 'image'">
+      <label for="correctAnswer">Correct answer: </label>
+      <input type="file"
+        class="form-control"
+        name="correctAnswer"
+        id="correctAnswer"
+        data-ng-model="question.correct"
+        data-ng-change="question.answers[0] = question.correct">
+    </div>
+    <div class="form-group" data-ng-if="test.answerType === 'image'">
+      <label for="answers">Additional (Wrong) Answers: </label>
+      <input type="file"
+        name="wrongAnswer1"
+        id="wrongAnswer1"
+        data-ng-model="question.answers[1]"
+        class="form-control" />
+      <input type="file"
+        name="wrongAnswer2"
+        id="wrongAnswer2"
+        data-ng-model="question.answers[2]"
+        class="form-control" />
+      <input type="file"
         name="wrongAnswer3"
         id="wrongAnswer3"
         data-ng-model="question.answers[3]"

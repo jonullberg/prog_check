@@ -66,4 +66,8 @@ module.exports = function(router) {
       });
   });
 
+  router.post('/tests/:id/questions', function(req, res) {
+    console.log(req)
+  })
+
 };
