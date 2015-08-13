@@ -12,7 +12,6 @@ module.exports = function(app) {
             }
           })
           .success(function(data) {
-            console.log(data);
             $cookies.put('token', data.token);
             $cookies.putObject('user', data.user);
             AuthenticationService.isLogged = true;
@@ -33,7 +32,6 @@ module.exports = function(app) {
           .success(function(data) {
             $cookies.put('token', data.token);
             $cookies.putObject('user', data.user);
-            console.log(data);
             AuthenticationService.isLogged = true;
             callback(null);
           })
@@ -45,7 +43,6 @@ module.exports = function(app) {
         $http
           .post('/api/create_user', user)
           .success(function(data) {
-            console.log(data);
             $cookies.put('token', data.token);
             $cookies.putObject('user', data.user);
             AuthenticationService.isLogged = true;
