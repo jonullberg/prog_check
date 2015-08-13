@@ -5,9 +5,9 @@ require('angular-route');
 require('angular-cookies');
 require('angular-base64');
 require('angular-bootstrap');
-require('ng-file-upload');
+// require('ng-file-upload');
 
-var progCheck = angular.module('progCheck', ['ngRoute', 'ngCookies', 'base64', 'ui.bootstrap', 'ngFileUpload']);
+var progCheck = angular.module('progCheck', ['ngRoute', 'ngCookies', 'base64', 'ui.bootstrap']);
 
 //  services
 require('./services/rest_resource')(progCheck);
@@ -53,7 +53,6 @@ require('./students/controllers/student_tests_controller')(progCheck);
 require('./teachers/controllers/teachers_controller')(progCheck);
 require('./teachers/controllers/student_form_controller')(progCheck);
 require('./teachers/controllers/single_student_controller')(progCheck);
-require('./teachers/controllers/add_student_goal_controller')(progCheck);
 require('./teachers/controllers/students_list_controller')(progCheck);
 
 //    Test Controllers

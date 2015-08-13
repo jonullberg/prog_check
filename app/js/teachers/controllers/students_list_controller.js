@@ -38,6 +38,6 @@ module.exports = function(app) {
         controller: 'StudentFormCtrl',
         scope: scope
       });
-    }
+    };
   }]);
 };

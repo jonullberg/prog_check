@@ -15,5 +15,5 @@ module.exports = function(app) {
         this.errors.splice(this.errors.indexOf(error), 1);
       }
     };
-  }])
-}
+  }]);
+};

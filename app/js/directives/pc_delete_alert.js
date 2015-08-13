@@ -6,6 +6,6 @@ module.exports = function(app) {
       restrict: 'E',
       replace: true,
       templateUrl: '/templates/directives/delete_alert.html'
-    }
-  })
-}
+    };
+  });
+};

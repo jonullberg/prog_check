@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('QuestionCtrl', ['$scope', '$modalInstance', 'Tests', 'Upload', function($scope, $modalInstance, Tests, Upload) {
+  app.controller('QuestionCtrl', ['$scope', '$modalInstance', 'Errors', 'Tests', 'Upload', function($scope, $modalInstance, Errors, Tests, Upload) {
 
     $scope.initQuestion = function() {
       console.log($scope.test);
