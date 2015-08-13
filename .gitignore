@@ -5,3 +5,4 @@
 **/build/
 .env
 prog-check.todo
+**/uploads/

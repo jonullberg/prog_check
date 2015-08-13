@@ -76,6 +76,10 @@ module.exports = function(app) {
       question.showing = !question.showing;
     };
 
+    $scope.showAnswerImages = function(question) {
+      question.imageButtonsShowing = !question.imageButtonsShowing;
+    };
+
     $scope.editQuestion = function(question) {
       var scope = $rootScope.$new();
       scope.params = {
@@ -93,7 +97,7 @@ module.exports = function(app) {
     };
 
     $scope.deleteQuestion = function(question) {
-      Test.deleteQuestion(question, function(err) {
+      Tests.deleteQuestion(question, function(err) {
         if (err) {
           return Errors.addError({
             'msg': 'Failed to delete question'

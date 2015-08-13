@@ -32,7 +32,24 @@
     <p data-ng-if="!test.questions.length">You have no questions, please add some</p>
     <ul data-ng-if="test.questions.length">
       <li data-ng-repeat="question in test.questions"
-        data-ng-click="showAnswers(question)">
+        data-ng-click="showAnswerImages(question)"
+        data-ng-if="test.questionType === 'image'">
+        <img data-ng-src="{{question.question}}" height="80" width="80">
+        <button class="btn btn-primary" type="button"
+          data-ng-if="question.imageButtonsShowing"
+          data-ng-click="editQuestion(question)">
+          Edit Question
+        </button>
+        <button class="btn btn-danger" type="button"
+          data-ng-if="question.imageButtonsShowing"
+          data-ng-click="deleteQuestion(question)">
+          Delete Question
+        </button>
+
+      </li>
+      <li data-ng-repeat="question in test.questions"
+        data-ng-click="showAnswers(question)"
+        data-ng-if="test.questionType === 'text'">
         {{question.question}}
         <button class="btn btn-primary" type="button"
           data-ng-if="question.showing"

@@ -1,31 +1,95 @@
-<form
+<form data-ng-init="initQuestion(test)"
   data-ng-submit="save(question)">
   <div class="modal-header">
     <h3>Add Questions</h3>
   </div>
   <div class="modal-body">
-    <ul>
-      <li data-ng-repeat="question in test.questions">{{question.question}}</li>
+    <ul data-ng-if="test.questionType === 'text'">
+      <li data-ng-repeat="question in test.questions">
+        {{question.question}}
+      </li>
     </ul>
-    <div class="form-group">
+    <ul data-ng-if="test.questionType === 'image'">
+      <li data-ng-repeat="question in test.questions">
+        <img
+          data-ng-src="{{question.question}}" height="80" width="80">
+      </li>
+    </ul>
+    <div class="row" data-ng-if="test.questionType === 'image'">
+      <div class="form-group col-lg-4 col-lg-offset-4">
+        <label for="question" class="col-lg-12">Question: </label>
+        <img data-ng-src="{{$parent.question.question}}" class="col-lg-12">
+        <button class="btn btn-primary col-lg-12"
+          name="question" id="question"
+          data-ngf-select data-ng-model="$parent.questionImage">
+          Select File
+        </button>
+      </div>
+
+
+    </div>
+    <div class="row" data-ng-if="test.answerType === 'image'">
+      <div class="form-group col-lg-3">
+        <label for="correctAnswer" class="col-lg-12">Correct answer: </label>
+        <img data-ng-src="{{$parent.question.correct}}" class="col-lg-12">
+        <button class="btn btn-primary col-lg-12"
+          name="correctAnswer" id="correctAnswer"
+          data-ngf-select data-ng-model="$parent.correctImage">
+          Select File
+        </button>
+      </div>
+
+      <div class="form-group col-lg-9">
+        <label for="answers" class="col-lg-12">
+          Additional (Wrong) Answers:
+        </label>
+        <div class="col-lg-12">
+          <img data-ng-src="{{$parent.question.answers[1]}}" class="col-lg-4">
+          <img data-ng-src="{{$parent.question.answers[2]}}" class="col-lg-4">
+          <img data-ng-src="{{$parent.question.answers[3]}}" class="col-lg-4">
+        </div>
+
+
+        <div class="col-lg-12">
+          <button class="btn btn-primary col-lg-4"
+            name="wrongAnswer1" id="wrongAnswer1"
+            data-ngf-select
+            data-ng-model="$parent.answersImage1">
+            Select File
+          </button>
+
+          <button class="btn btn-primary col-lg-4"
+            name="wrongAnswer2" id="wrongAnswer2"
+            data-ngf-select
+            data-ng-model="$parent.answersImage2">
+            Select File
+          </button>
+
+          <button class="btn btn-primary col-lg-4"
+            name="wrongAnswer3" id="wrongAnswer3"
+            data-ngf-select
+            data-ng-model="$parent.answersImage3">
+            Select File
+          </button>
+
+        </div>
+      </div>
+    </div>
+    <div class="form-group" data-ng-if="test.questionType === 'text'">
       <label for="question">Question: </label>
-      <input type="text"
-        class="form-control"
-        name="question"
-        id="question"
+      <input type="text" class="form-control"
+        name="question" id="question"
         data-ng-model="question.question" />
     </div>
 
-    <div class="form-group">
+    <div class="form-group" data-ng-if="test.answerType === 'text'">
       <label for="correctAnswer">Correct answer: </label>
-      <input type="text"
-        class="form-control"
-        name="correctAnswer"
-        id="correctAnswer"
+      <input type="text" class="form-control"
+        name="correctAnswer" id="correctAnswer"
         data-ng-model="question.correct"
         data-ng-change="question.answers[0] = question.correct">
     </div>
-    <div class="form-group">
+    <div class="form-group" data-ng-if="test.answerType === 'text'">
       <label for="answers">Additional (Wrong) Answers: </label>
       <input type="text"
         name="wrongAnswer1"
