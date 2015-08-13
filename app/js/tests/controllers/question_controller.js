@@ -3,24 +3,61 @@
 module.exports = function(app) {
   app.controller('QuestionCtrl', ['$scope', '$modalInstance', 'Tests', 'Upload', function($scope, $modalInstance, Tests, Upload) {
 
+    $scope.initQuestion = function() {
+      console.log($scope.test);
+      $scope.question = {
+        question: null,
+        correct: null,
+        answers: []
+
+      };
+    };
+
     var getTest = function() {
       $scope.test = Tests.test;
-    }
+    };
     $scope.$on('test:changed', getTest());
 
-    var upload = function(file) {
-      Upload.upload({
-        url: 'api/questions/images'
+    $scope.$watch('questionImage', function(file) {
+      if (file.type === 'image/png' || 'image/jpg') {
+        $scope.upload(file, function(filePath) {
+          $scope.question.question = filePath;
+        });
+      }
+    });
+    $scope.$watch('correctImage', function(file) {
+      $scope.upload(file, function(filePath) {
+        $scope.question.correct = filePath;
+        $scope.question.answers[0] = filePath;
       });
-    }
-
-    $scope.$watch('question.question', function(file) {
-      upload($scope.question.question);
-    })
-
-    $scope.showTest = function(test) {
-      console.log(test);
+    });
+    $scope.$watch('answersImage1', function(file) {
+      $scope.upload(file, function(filePath) {
+        $scope.question.answers[1] = filePath;
+      });
+    });
+    $scope.$watch('answersImage2', function(file) {
+      $scope.upload(file, function(filePath) {
+        $scope.question.answers[2] = filePath;
+      });
+    });
+    $scope.$watch('answersImage3', function(file) {
+      $scope.upload(file, function(filePath) {
+        $scope.question.answers[3] = filePath;
+      });
+    });
+    $scope.upload = function(file, cb) {
+      Upload.upload({
+        url: 'api/tests/' + $scope.test._id + '/questions/image',
+        fields: {
+          'testField': 'This is a test'
+        },
+        file: file
+      }).success(function(data, status, headers, config) {
+        cb(data.filePath);
+      });
     };
+
     var addQuestion = function(question) {
       Tests.addQuestion(question, function(err) {
         if (err) {
@@ -42,9 +79,6 @@ module.exports = function(app) {
     };
 
     $scope.save = function(question) {
-      if ($scope.test.questionType === 'image') {
-        console.log('You are trying to save an image');
-      }
       if ($scope.params.formType === 'creating') {
         question.answers = Object.keys(question.answers)
           .map(function(key) {

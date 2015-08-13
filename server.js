@@ -5,9 +5,12 @@ var express = require('express');
 var passport = require('passport');
 var	app = express();
 var port = process.env.PORT || 3000;
+var busboy = require('connect-busboy');
 
 //  Serve up static pages from our build
 app.use(express.static(__dirname + '/build'));
+app.use(busboy({immediate:true}));
+
 
 //  Set the application secret to be checked on token confirmation
 process.env.APP_SECRET = process.env.APP_SECRET || 'changethischangethischangethis!';
