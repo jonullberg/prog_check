@@ -28,7 +28,7 @@ gulp.task('webpack:client', function(callback) {
   });
 });
 
-gulp.task('webpack:heroku', ['copy:html'], function(callback) {
+gulp.task('webpack:heroku', ['clean:build', 'copy:html'], function(callback) {
   webpack({
     entry: __dirname + '/app/js/client.js',
     output: {
