@@ -9,7 +9,7 @@ var busboy = require('connect-busboy');
 
 //  Serve up static pages from our build
 app.use(express.static(__dirname + '/build'));
-// app.use(busboy({immediate:true}));
+app.use(busboy({immediate:true}));
 
 
 //  Set the application secret to be checked on token confirmation
