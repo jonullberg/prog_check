@@ -120,7 +120,7 @@ module.exports = function(app) {
       //   }
       // })
       .otherwise({
-        redirectTo: '/home'
+        redirectTo: '/'
       });
   }]);
 
