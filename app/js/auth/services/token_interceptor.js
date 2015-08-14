@@ -14,9 +14,7 @@ module.exports = function(app) {
       responseError: function(rejection) {
         if (rejection !== null && rejection.status === 401 && ($cookies.get('token') || AuthenticationService.isLogged)) {
           $cookies.put('token', '');
-          $cookies.put('fullName', '');
-          $cookies.put('role', '');
-          $cookies.put('userId', '');
+          $cookies.putObject('user', {});
           AuthenticationService.isLogged = false;
           $location.path('/sign-in');
 

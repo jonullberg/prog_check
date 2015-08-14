@@ -24,7 +24,7 @@ module.exports = function(app) {
     };
 
     $scope.isAdmin = function() {
-      if ($cookies.get('role') === 'admin') {
+      if ($cookies.getObject('user').role === 'admin') {
         return true;
       }
       return false;
