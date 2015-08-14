@@ -12,3 +12,29 @@
   margin: 0 auto;
 }
 
+
+/**==================
+ * Fraction Styling
+ ====================*/
+
+span.frac {
+  display:inline-block;
+  font-size:75%;
+  text-align:center;
+}
+
+span.frac > sup {
+  display:block;
+  border-bottom: 1px solid;
+  font:inherit;
+}
+
+span.frac > span {
+  display:none;
+}
+
+span.frac > sub {
+  display:block;
+  font:inherit;
+}
+

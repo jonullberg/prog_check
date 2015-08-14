@@ -5,7 +5,7 @@ module.exports = function(app) {
 
 
     $scope.saveStudent = function(student) {
-      student.teacherId = $cookies.get('userId');
+      student.teacherId = $cookies.getObject('user')._id;
       if ($scope.studentForm.$valid) {
         Students.addStudent(student, function(err, data) {
           if (err) {
