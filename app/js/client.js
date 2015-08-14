@@ -9,6 +9,10 @@ require('ng-file-upload');
 
 var progCheck = angular.module('progCheck', ['ngRoute', 'ngCookies', 'base64', 'ui.bootstrap', 'ngFileUpload']);
 
+//
+//  Configuration
+require('./config/routes')(progCheck);
+
 //  services
 require('./services/rest_resource')(progCheck);
 require('./services/copy')(progCheck);
@@ -86,5 +90,3 @@ require('./tests/directives/pc_question_form')(progCheck);  // Ability to add qu
 require('./tests/directives/pc_tests_list')(progCheck); // Shows a list of all tests attached to standard
 require('./tests/directives/pc_single_test')(progCheck); // Shows the information for a single test
 
-//  Configuration
-require('./config/routes')(progCheck);

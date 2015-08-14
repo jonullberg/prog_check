@@ -3,9 +3,7 @@
   "version": "0.1.0",
   "description": "An API for Prog-Check to connect to a server, save users and store progress",
   "main": "server.js",
-  "scripts": {
-    "postinstall": "gulp webpack:heroku"
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jonullberg/prog_check.git"
@@ -13,17 +11,15 @@
   "author": "jonathan.ullberg@gmail.com",
   "license": "MIT",
   "dependencies": {
-    "angular": "^1.4.1",
+    "angular": "^1.4.4",
     "angular-base64": "^2.0.5",
-    "angular-bootstrap": "^0.12.0",
-    "angular-cookies": "^1.4.1",
+    "angular-bootstrap": "^0.12.2",
+    "angular-cookies": "^1.4.4",
     "angular-mocks": "^1.4.1",
-    "angular-route": "^1.4.1",
-    "angular-ui-grid": "^3.0.1",
+    "angular-route": "^1.4.4",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.12.4",
     "bootstrap": "^3.3.5",
-    "connect-busboy": "0.0.2",
     "eat": "^0.1.1",
     "express": "^4.12.3",
     "gulp": "^3.8.11",
@@ -35,7 +31,6 @@
     "gulp-mocha": "^2.1.0",
     "gulp-util": "^3.0.6",
     "jshint-stylish": "^2.0.1",
-    "lodash": "^3.10.0",
     "mongoose": "^4.0.3",
     "ng-file-upload": "^6.0.4",
     "passport": "^0.2.2",

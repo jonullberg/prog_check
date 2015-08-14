@@ -10,7 +10,7 @@ module.exports = function(app) {
     $scope.$on('standard:changed', getStandard);
 
     $scope.isAdmin = function() {
-      if ($cookies.get('role') === 'admin') {
+      if ($cookies.getObject('user').role === 'admin') {
         return true;
       }
       return false;
@@ -114,9 +114,9 @@ module.exports = function(app) {
     };
 
     $scope.selectGoal = function(goal) {
-      if ($cookies.get('role') === 'admin') {
+      if ($cookies.getObject('user').role === 'admin') {
         editGoal(goal);
-      } else if ($cookies.get('role') === 'teacher') {
+      } else if ($cookies.getObject('user').role === 'teacher') {
         addGoal(goal);
       }
     };
