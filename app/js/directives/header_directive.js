@@ -3,7 +3,6 @@
 module.exports = function(app) {
   app.directive('pcHeader', ['$location', '$cookies', function($location, $cookies) {
     var controller = ['$scope', 'AuthenticationService', function($scope, AuthenticationService) {
-      console.log($cookies.getObject('user'));
       $scope.tabs = [{
         header: 'Home',
         url: 'home'
