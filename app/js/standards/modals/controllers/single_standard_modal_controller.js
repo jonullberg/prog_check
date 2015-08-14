@@ -20,15 +20,20 @@ module.exports = function(app) {
     };
 
     $scope.goBack = function() {
-      var scope = $rootScope.$new();
-      $modalInstance.close();
-      $modal.open({
-        animation:true,
-        templateUrl:'/templates/directives/standards/standards_list.html',
-        size:'lg',
-        controller:'StandardsListCtrl',
-        scope:scope
-      });
+      if ($scope.isAdmin()) {
+        Standards.removeStandard();
+        $scope.hideStandard();
+      } else {
+        var scope = $rootScope.$new();
+        $modalInstance.close();
+        $modal.open({
+          animation:true,
+          templateUrl:'/templates/directives/standards/standards_list.html',
+          size:'lg',
+          controller:'StandardsListCtrl',
+          scope:scope
+        });
+      }
     };
     $scope.deleteStandard = function(standard) {
       Standards.removeStandard();

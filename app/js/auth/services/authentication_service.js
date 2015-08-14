@@ -5,7 +5,8 @@ module.exports = function(app) {
     var auth = {
       isLogged: false
     };
-    if ($cookies.getObject('user') === null) {
+    console.log($cookies.getObject('user'));
+    if ($cookies.getObject('user') === undefined || null) {
       auth.role = null;
     } else {
       auth.role = $cookies.getObject('user').role;

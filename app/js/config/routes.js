@@ -129,13 +129,13 @@ module.exports = function(app) {
   app.run(['$rootScope', '$location', 'AuthenticationService', function($rootScope, $location, AuthenticationService) {
     $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
       if (nextRoute.access.requiredLogin && !AuthenticationService.isLogged) {
-        $location.path('/sign-in');
+        $location.path('/home');
       }
       if (nextRoute.access.requiredAdmin && AuthenticationService.role !== "admin") {
-        $location.path('/sign-in');
+        $location.path('/home');
       }
       if (nextRoute.access.requiredTeacher && AuthenticationService.role !== 'teacher') {
-        $location.path('/sign-in');
+        $location.path('/home');
       }
     });
   }]);
