@@ -16,7 +16,7 @@ gulp.task('webpack:client', function(callback) {
   webpack({
     entry: __dirname + '/app/js/client.js',
     output: {
-      path: 'build/js/',
+      path: 'build/',
       file: 'bundle.js'
     }
   }, function(err, stats) {
