@@ -2,7 +2,8 @@
   "name": "prog_check",
   "version": "0.1.0",
   "engines": {
-    "node": "0.10.x"
+    "node": "0.10.x",
+    "npm": "2.10.x"
   },
   "description": "An API for Prog-Check to connect to a server, save users and store progress",
   "main": "server.js",
