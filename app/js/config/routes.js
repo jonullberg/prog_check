@@ -130,10 +130,10 @@ module.exports = function(app) {
         $location.path('/sign-in');
       }
       if (nextRoute.access.requiredAdmin && AuthenticationService.role !== "admin") {
-        $location.path('/sign-in');
+        $location.path('/home');
       }
       if (nextRoute.access.requiredTeacher && AuthenticationService.role !== 'teacher') {
-        $location.path('/sign-in');
+        $location.path('/home');
       }
     });
   }]);
