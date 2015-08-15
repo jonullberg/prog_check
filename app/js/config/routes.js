@@ -39,88 +39,88 @@ module.exports = function(app) {
           requiredLogin: false
         }
       })
-      // .when('/student-sign-in', {
-      //   templateUrl: 'templates/views/student_sign_in.html',
-      //   controller: 'StudentAuthCtrl',
-      //   access: {
-      //     requiredLogin: false
-      //   }
-      // })
-      // .when('/admin/home', {
-      //   templateUrl: 'templates/views/admin/home.html',
-      //   access: {
-      //     requiredLogin: true,
-      //     requiredAdmin: true
-      //   }
-      //   // No controller needed as of now
-      // })
-      // .when('/admin/standards', {
-      //   templateUrl: 'templates/directives/standards.html',
-      //   access: {
-      //     requiredLogin: true,
-      //     requiredAdmin: true
-      //   }
-      // })
-      // .when('/admin/teachers', {
-      //   templateUrl: 'templates/directives/teachers.html',
-      //   access: {
-      //     requiredLogin: true,
-      //     requiredAdmin: true
-      //   }
-      //   // No controller as of now
-      // })
-      // .when('/teacher/home', {
-      //   templateUrl: 'templates/views/teacher/home.html',
-      //   access: {
-      //     requiredLogin: true,
-      //     requiredTeacher: true
-      //   }
-      // })
-      // .when('/teacher/students', {
-      //   templateUrl: 'templates/views/teacher/students_list.html',
-      //   controller: 'StudentsListCtrl',
-      //   access: {
-      //     requiredLogin: true,
-      //     requiredTeacher: true
-      //   }
-      // })
-      // .when('/teacher/students/:studentId', {
-      //   templateUrl: 'templates/views/teacher/single_student.html',
-      //   controller: 'SingleStudentCtrl',
-      //   access: {
-      //     requiredLogin: true,
-      //     requiredTeacher: true
-      //   }
-      // })
-      // .when('/teacher/tests', {
-      //   templateUrl: 'templates/views/teacher/tests.html',
-      //   access: {
-      //     requiredLogin: true,
-      //     requiredTeacher: true
-      //   }
-      // })
-      // .when('/student/home', {
-      //   templateUrl: 'templates/views/student/home.html',
-      //   controller: 'StudentHomeCtrl',
-      //   access: {
-      //     requiredLogin: true
-      //   }
-      // })
-      // .when('/student/tests', {
-      //   templateUrl: 'templates/views/student/tests.html',
-      //   controller: 'StudentTestsCtrl',
-      //   access: {
-      //     requiredLogin: true
-      //   }
-      // })
-      // .when('/student/scores', {
-      //   templateUrl: 'templates/views/student/scores.html',
-      //   access: {
-      //     requiredLogin: true
-      //   }
-      // })
+      .when('/student-sign-in', {
+        templateUrl: 'templates/views/student_sign_in.html',
+        controller: 'StudentAuthCtrl',
+        access: {
+          requiredLogin: false
+        }
+      })
+      .when('/admin/home', {
+        templateUrl: 'templates/views/admin/home.html',
+        access: {
+          requiredLogin: true,
+          requiredAdmin: true
+        }
+        // No controller needed as of now
+      })
+      .when('/admin/standards', {
+        templateUrl: 'templates/directives/standards.html',
+        access: {
+          requiredLogin: true,
+          requiredAdmin: true
+        }
+      })
+      .when('/admin/teachers', {
+        templateUrl: 'templates/directives/teachers.html',
+        access: {
+          requiredLogin: true,
+          requiredAdmin: true
+        }
+        // No controller as of now
+      })
+      .when('/teacher/home', {
+        templateUrl: 'templates/views/teacher/home.html',
+        access: {
+          requiredLogin: true,
+          requiredTeacher: true
+        }
+      })
+      .when('/teacher/students', {
+        templateUrl: 'templates/views/teacher/students_list.html',
+        controller: 'StudentsListCtrl',
+        access: {
+          requiredLogin: true,
+          requiredTeacher: true
+        }
+      })
+      .when('/teacher/students/:studentId', {
+        templateUrl: 'templates/views/teacher/single_student.html',
+        controller: 'SingleStudentCtrl',
+        access: {
+          requiredLogin: true,
+          requiredTeacher: true
+        }
+      })
+      .when('/teacher/tests', {
+        templateUrl: 'templates/views/teacher/tests.html',
+        access: {
+          requiredLogin: true,
+          requiredTeacher: true
+        }
+      })
+      .when('/student/home', {
+        templateUrl: 'templates/views/student/home.html',
+        controller: 'StudentHomeCtrl',
+        access: {
+          requiredLogin: true
+        }
+      })
+      .when('/student/tests', {
+        templateUrl: 'templates/views/student/tests.html',
+        controller: 'StudentTestsCtrl',
+        access: {
+          requiredLogin: true
+        }
+      })
+      .when('/student/scores', {
+        templateUrl: 'templates/views/student/scores.html',
+        access: {
+          requiredLogin: true
+        }
+      })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/home'
       });
   }]);
 
