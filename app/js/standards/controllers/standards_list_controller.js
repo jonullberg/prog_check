@@ -2,7 +2,6 @@
 
 module.exports = function(app) {
   app.controller('StandardsListCtrl', ['$scope', '$modal', '$rootScope', '$cookies', 'Errors', 'Standards', function($scope, $modal, $rootScope, $cookies, Errors, Standards) {
-    $scope.standards;
     var updateStandards = function() {
       $scope.standards = Standards.standards;
     };

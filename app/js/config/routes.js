@@ -12,14 +12,12 @@ module.exports = function(app) {
         access: {
           requiredLogin: false
         }
-        // No controller needed as of now
       })
       .when('/pricing', {
         templateUrl: 'templates/views/pricing.html',
         access: {
           requiredLogin: false
         }
-        // No controller needed as of now
       })
       .when('/home', {
         templateUrl: 'templates/views/home.html',
@@ -88,7 +86,7 @@ module.exports = function(app) {
       })
       .when('/teacher/students/:studentId', {
         templateUrl: 'templates/views/teacher/single_student.html',
-      controller: 'SingleStudentCtrl',
+        controller: 'SingleStudentCtrl',
         access: {
           requiredLogin: true,
           requiredTeacher: true
@@ -132,10 +130,10 @@ module.exports = function(app) {
         $location.path('/home');
       }
       if (nextRoute.access.requiredAdmin && AuthenticationService.role !== "admin") {
-        $location.path('/home');
+        $location.path('/sign-in');
       }
       if (nextRoute.access.requiredTeacher && AuthenticationService.role !== 'teacher') {
-        $location.path('/home');
+        $location.path('/sign-in');
       }
     });
   }]);

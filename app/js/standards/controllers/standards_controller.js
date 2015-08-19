@@ -4,8 +4,8 @@ module.exports = function(app) {
   app.controller('standardsCtrl', ['$scope', '$filter', '$modal', '$rootScope', 'copy', 'Errors', 'Standards', 'pcGrades', function($scope, $filter, $modal, $rootScope, copy, Errors, Standards, pcGrades) {
 
     $scope.formShowing = false;
-    $scope.isStandardShowing;
-    $scope.isStandardFormShowing;
+    $scope.isStandardShowing = false;
+    $scope.isStandardFormShowing = false;
     $scope.isTestShowing = false;
     $scope.isTestFormShowing = false;
     $scope.isAlertShown = false;

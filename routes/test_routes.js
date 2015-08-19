@@ -3,7 +3,6 @@
 var Test = require('../models/Test');
 var bodyparser = require('body-parser');
 var eatAuth = require('../lib/eat_auth')(process.env.APP_SECRET);
-// var multiparty = require('multiparty');
 var path = require('path');
 var fs = require('fs');
 
@@ -72,7 +71,7 @@ module.exports = function(router) {
   });
 
   router.post('/tests/:id/questions/image', function(req, res) {
-    var uploadPath
+    var uploadPath = null;
     req.busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
 
       var tmpUploadPath = path.join(__dirname, "../build/uploads/", filename);
