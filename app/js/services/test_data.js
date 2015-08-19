@@ -64,7 +64,6 @@ module.exports = function(app) {
         if (this.test.fractions === true) {
           question = SanitizeFractions.sanitize(question);
         }
-        console.log(question);
         this.test.questions.push(question);
         $rootScope.$broadcast('test:changed');
         Tests.save(this.test, function(err) {
