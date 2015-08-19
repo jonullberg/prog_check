@@ -1,9 +1,15 @@
 {
   "name": "prog_check",
   "version": "0.1.0",
+  "engines": {
+    "node": "0.10.x",
+    "npm": "2.10.x"
+  },
   "description": "An API for Prog-Check to connect to a server, save users and store progress",
   "main": "server.js",
-  "scripts": {},
+  "scripts": {
+    "postinstall": "gulp webpack:heroku"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jonullberg/prog_check.git"

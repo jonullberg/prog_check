@@ -1,8 +1,6 @@
 **/node_modules/
 **/db/
 **/app/img/
-**/test/karma_tests/
+**/test/
 **/build/
-.env
-prog-check.todo
-**/uploads/
+karma.conf.js

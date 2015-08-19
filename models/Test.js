@@ -39,6 +39,10 @@ var testSchema = mongoose.Schema({
   'fractions': {
     type: Boolean
   },
+  'dateCreated': {
+    type: Date,
+    default: Date.now()
+  },
   'questions': [questionSchema]
 });
 

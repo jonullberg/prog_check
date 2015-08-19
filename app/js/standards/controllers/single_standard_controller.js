@@ -96,23 +96,8 @@ module.exports = function(app) {
       });
     };
 
-    var addGoal = function(goal) {
-      Students.addGoal(goal, function(err, data) {
-        if (err) {
-          return Errors.addError({
-            'msg': 'There was an error adding goal'
-          });
-        }
-      });
-      $modalInstance.close();
-    };
-
     $scope.selectGoal = function(goal) {
-      if ($cookies.getObject('user').role === 'admin') {
-        editGoal(goal);
-      } else if ($cookies.getObject('user').role === 'teacher') {
-        addGoal(goal);
-      }
+      editGoal(goal);
     };
 
     $scope.deleteGoal = function(goal) {

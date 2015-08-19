@@ -2,7 +2,6 @@
 
 module.exports = function(app) {
   app.controller('SingleStudentCtrl', ['$scope', '$routeParams', '$modal', '$location', 'Errors', 'Students', function($scope, $routeParams, $modal, $location, Errors, Students) {
-    $scope.student;
 
     var getStudent = function() {
       $scope.student = Students.student;
@@ -34,7 +33,7 @@ module.exports = function(app) {
 
     $scope.showButtons = function(goal) {
       goal.buttonsShowing = !goal.buttonsShowing;
-    }
+    };
 
   }]);
 };

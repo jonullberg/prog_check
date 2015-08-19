@@ -16,7 +16,7 @@ gulp.task('webpack:client', function(callback) {
   webpack({
     entry: __dirname + '/app/js/client.js',
     output: {
-      path: 'build/js/',
+      path: 'build/',
       file: 'bundle.js'
     }
   }, function(err, stats) {
@@ -83,7 +83,7 @@ gulp.task('clean:karma', function(done) {
     .pipe(clean());
 });
 
-gulp.task('copy:html', function() {
+gulp.task('copy:html', ['clean:build'], function() {
   var srcFiles = ['app/**/*.html', 'app/**/*.css'];
   return gulp.src(srcFiles)
     .pipe(gulp.dest('build/'));

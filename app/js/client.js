@@ -54,7 +54,6 @@ require('./students/controllers/student_tests_controller')(progCheck);
 require('./teachers/controllers/teachers_controller')(progCheck);
 require('./teachers/controllers/student_form_controller')(progCheck);
 require('./teachers/controllers/single_student_controller')(progCheck);
-require('./teachers/controllers/add_student_goal_controller')(progCheck);
 require('./teachers/controllers/students_list_controller')(progCheck);
 
 //    Test Controllers

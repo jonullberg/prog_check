@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('QuestionCtrl', ['$scope', '$modalInstance', '$sce', 'Tests', 'Upload', function($scope, $modalInstance, $sce, Tests, Upload) {
+  app.controller('QuestionCtrl', ['$scope', '$modalInstance', '$sce', 'Errors', 'Tests', 'Upload', function($scope, $modalInstance, $sce, Errors, Tests, Upload) {
 
     $scope.initQuestion = function() {
       $scope.question = {
@@ -89,7 +89,6 @@ module.exports = function(app) {
         saveQuestion(question);
       }
       $modalInstance.close();
-      $scope.question = null;
     };
 
     $scope.cancel = function() {

@@ -34,7 +34,7 @@ module.exports = function(app) {
           });
         }
       });
-    }
+    };
 
     $scope.save = function(test) {
       if (!test.standardId && Standards.standard) {

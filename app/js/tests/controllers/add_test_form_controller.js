@@ -5,8 +5,8 @@ module.exports = function(app) {
 
 
         $scope.buttonText = 'Add Test';
-        $scope.question;
-        $scope.areWeAddingQuestions;
+        $scope.question = null;
+        $scope.areWeAddingQuestions = false;
         $scope.standard = dataStore.standard;
         $scope.$on('test:changed', function(event, data) {
           $scope.test = data.test;

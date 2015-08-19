@@ -30,6 +30,8 @@ module.exports = function(app) {
         for (var i = 0; i < question.answers.length; i++) {
           question.answers[i] = createFracHTML(question.answers[i]);
         }
+
+        return question;
       }
     };
   });
