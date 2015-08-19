@@ -1,10 +1,9 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('QuestionCtrl', ['$scope', '$modalInstance', 'Tests', 'Upload', function($scope, $modalInstance, Tests, Upload) {
+  app.controller('QuestionCtrl', ['$scope', '$modalInstance', '$sce', 'Tests', 'Upload', function($scope, $modalInstance, $sce, Tests, Upload) {
 
     $scope.initQuestion = function() {
-      console.log($scope.test);
       $scope.question = {
         question: null,
         correct: null,
@@ -13,17 +12,18 @@ module.exports = function(app) {
       };
     };
 
+    $scope.trustAsHtml = $sce.trustAsHtml;
+
     var getTest = function() {
       $scope.test = Tests.test;
     };
+
     $scope.$on('test:changed', getTest());
 
     $scope.$watch('questionImage', function(file) {
-      if (file.type === 'image/png' || 'image/jpg') {
-        $scope.upload(file, function(filePath) {
-          $scope.question.question = filePath;
-        });
-      }
+      $scope.upload(file, function(filePath) {
+        $scope.question.question = filePath;
+      });
     });
     $scope.$watch('correctImage', function(file) {
       $scope.upload(file, function(filePath) {
@@ -87,8 +87,8 @@ module.exports = function(app) {
         addQuestion(question);
       } else if ($scope.params.formType === 'editing') {
         saveQuestion(question);
-        $modalInstance.close();
       }
+      $modalInstance.close();
       $scope.question = null;
     };
 

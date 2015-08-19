@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.factory('Tests', ['$rootScope', 'RESTResource', function($rootScope, resource) {
+  app.factory('Tests', ['$rootScope', 'RESTResource', 'SanitizeFractions', function($rootScope, resource, SanitizeFractions) {
     var Tests = resource('tests');
 
     var testData = {
@@ -58,6 +58,12 @@ module.exports = function(app) {
         $rootScope.$broadcast('test:changed');
       },
       addQuestion: function(question, callback) {
+        if (!this.test.questions) {
+          this.test.questions = [];
+        }
+        if (this.test.fractions === true) {
+          question = SanitizeFractions.sanitize(question);
+        }
         this.test.questions.push(question);
         $rootScope.$broadcast('test:changed');
         Tests.save(this.test, function(err) {

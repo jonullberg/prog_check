@@ -50,7 +50,9 @@
       <li data-ng-repeat="question in test.questions"
         data-ng-click="showAnswers(question)"
         data-ng-if="test.questionType === 'text'">
+        <span class="fraction" data-ng-bind-html="trustAsHtml(question.question)">
         {{question.question}}
+        </span>
         <button class="btn btn-primary" type="button"
           data-ng-if="question.showing"
           data-ng-click="editQuestion(question)">
@@ -64,7 +66,9 @@
         <ul data-ng-if="question.showing">
 
           <li data-ng-repeat="answer in question.answers">
-            {{answer}}
+            <span class="fraction" data-ng-bind-html="trustAsHtml(answer)">
+              {{answer}}
+            </span>
           </li>
         </ul>
       </li>
