@@ -17,6 +17,14 @@
  * Fraction Styling
  ====================*/
 
+div.fraction {
+  display:inline-block;
+  padding:5px 10px;
+}
+span.frac-whole {
+  font-size:1.5em;
+}
+
 span.frac {
   display:inline-block;
   font-size:75%;

@@ -1,11 +1,13 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('SingleTestCtrl', ['$scope', '$modal', '$rootScope', 'Tests', 'Standards', 'Errors', function($scope, $modal, $rootScope, Tests, Standards, Errors) {
+  app.controller('SingleTestCtrl', ['$scope', '$modal', '$rootScope', '$sce', 'Tests', 'Standards', 'Errors', 'SanitizeFractions', function($scope, $modal, $rootScope, $sce, Tests, Standards, Errors, SanitizeFractions) {
     $scope.isDeleteShown = false;
     $scope.getTest = function() {
       $scope.test = Tests.test;
     };
+
+    $scope.trustAsHtml = $sce.trustAsHtml;
     $scope.$on('test:changed', $scope.getTest);
 
     /**

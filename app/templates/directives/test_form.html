@@ -42,12 +42,15 @@
         <option value="image">Pictures</options>
       </select>
     </div>
-    <div>
-      <ul>
-        <p data-ng-if="!test.questions.length">You have no questions, feel free to add some.</p>
-        <li data-ng-repeat="question in test.questions"
-          data-ng-click="editQuestion(question)">{{question.question}}</li>
-      </ul>
+    <div class="form-group">
+      <label for="fractions">Will there be fractions in this question?</label>
+      <select name="fractions" id="fractions"
+        class="form-control" required="required"
+        data-ng-model="test.fractions">
+        <option value="" disabled selected="true">Please choose an option</option>
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+      </select>
     </div>
   </div>
   <footer class="modal-footer">

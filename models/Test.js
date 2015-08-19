@@ -36,6 +36,9 @@ var testSchema = mongoose.Schema({
   'answerType': {
     type: String
   },
+  'fractions': {
+    type: Boolean
+  },
   'questions': [questionSchema]
 });
 

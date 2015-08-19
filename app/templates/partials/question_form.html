@@ -6,7 +6,9 @@
   <div class="modal-body">
     <ul data-ng-if="test.questionType === 'text'">
       <li data-ng-repeat="question in test.questions">
-        {{question.question}}
+        <span class="fraction" data-ng-bind-html="trustAsHtml(question.question)">
+          {{question.question}}
+        </span>
       </li>
     </ul>
     <ul data-ng-if="test.questionType === 'image'">

@@ -15,6 +15,7 @@ require('./services/copy')(progCheck);
 require('./standards/services/pc_grades_service')(progCheck);
 require('./services/lodash')(progCheck);
 require('./services/us_states')(progCheck);
+require('./services/sanitize_fractions')(progCheck);
 
 //    Auth Services
 require('./auth/services/token_interceptor')(progCheck);
