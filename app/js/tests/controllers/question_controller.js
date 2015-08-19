@@ -89,7 +89,6 @@ module.exports = function(app) {
         saveQuestion(question);
       }
       $modalInstance.close();
-      $scope.question = null;
     };
 
     $scope.cancel = function() {
