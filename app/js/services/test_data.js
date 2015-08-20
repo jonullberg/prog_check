@@ -30,7 +30,11 @@ module.exports = function(app) {
           if (err) {
             return callback(err);
           }
-        });
+          this.test = data;
+          this.tests.splice(this.tests.indexOf(data), 1, data);
+          $rootScope.$broadcast('test:changed');
+          $rootScope.$broadcast('tests:changed');
+        }.bind(this));
       },
       saveTest: function(test, callback) {
         if (test) {
