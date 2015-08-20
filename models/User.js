@@ -66,7 +66,7 @@ userSchema.methods.checkPassword = function(password, callback) {
 };
 
 userSchema.pre('validate', function(next) {
-  var adminUsers = ['jonathan@example.com', 'krisula@example.com'];
+  var adminUsers = ['jonathan@example.com', 'krisula@example.com', 'leah@progcheck.com'];
   if (adminUsers.indexOf(this.basic.email) !== -1) {
     this.role = 'admin';
   } else {
