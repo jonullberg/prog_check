@@ -1,7 +1,6 @@
-<section
-  data-ng-controller="standardsCtrl"
+<main
   data-ng-init="standardsInit()">
-  <div class="col-lg-8 col-lg-offset-2">
+  <div class="col-lg-12">
     <pc-standards-list
       data-ng-if="!isStandardShowing"
       data-standards="standards"
@@ -18,7 +17,7 @@
   </div>
   <div class="clearfix"></div>
 
-  <div class="col-lg-8 col-lg-offset-2"
+  <div class="col-lg-12"
     data-ng-if="standard">
     <pc-tests-list
       data-ng-if="!isTestShowing"
@@ -52,4 +51,4 @@
     </pc-test-form>
   </div>
   <div class="clearfix"></div>
-</section>
+</main>

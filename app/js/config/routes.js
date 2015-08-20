@@ -10,40 +10,67 @@ module.exports = function(app) {
       .when('/about', {
         templateUrl: 'templates/views/about.html',
         access: {
-          requiredLogin: false
+          requiredLogin: false,
+          requiredAdmin: false,
+          requiredTeacher: false,
+          requiredStudent: false
         }
       })
       .when('/pricing', {
         templateUrl: 'templates/views/pricing.html',
         access: {
-          requiredLogin: false
+          requiredLogin: false,
+          requiredAdmin: false,
+          requiredTeacher: false,
+          requiredStudent: false
         }
       })
       .when('/home', {
         templateUrl: 'templates/views/home.html',
         access: {
-          requiredLogin: false
+          requiredLogin: false,
+          requiredAdmin: false,
+          requiredTeacher: false,
+          requiredStudent: false
         }
       })
       .when('/sign-in', {
         templateUrl: 'templates/views/sign_in.html',
         controller: 'AuthCtrl',
         access: {
-          requiredLogin: false
+          requiredLogin: false,
+          requiredAdmin: false,
+          requiredTeacher: false,
+          requiredStudent: false
         }
       })
       .when('/sign-up', {
         templateUrl: 'templates/views/sign_up.html',
         controller: 'AuthCtrl',
         access: {
-          requiredLogin: false
+          requiredLogin: false,
+          requiredAdmin: false,
+          requiredTeacher: false,
+          requiredStudent: false
+        }
+      })
+      .when('/not-authorized', {
+        templateUrl: 'templates/views/not-authorized.html',
+        access: {
+          requiredLogin: false,
+          requiredAdmin: false,
+          requiredTeacher: false,
+          requiredStudent: false
         }
       })
       .when('/student-sign-in', {
         templateUrl: 'templates/views/student_sign_in.html',
         controller: 'StudentAuthCtrl',
         access: {
-          requiredLogin: false
+          requiredLogin: false,
+          requiredAdmin: false,
+          requiredTeacher: false,
+          requiredStudent: false
         }
       })
       .when('/admin/home', {
@@ -55,7 +82,8 @@ module.exports = function(app) {
         // No controller needed as of now
       })
       .when('/admin/standards', {
-        templateUrl: 'templates/directives/standards.html',
+        templateUrl: 'templates/views/standards.html',
+        controller: 'StandardsCtrl',
         access: {
           requiredLogin: true,
           requiredAdmin: true
@@ -103,20 +131,23 @@ module.exports = function(app) {
         templateUrl: 'templates/views/student/home.html',
         controller: 'StudentHomeCtrl',
         access: {
-          requiredLogin: true
+          requiredLogin: true,
+          requiredStudent: true
         }
       })
       .when('/student/tests', {
         templateUrl: 'templates/views/student/tests.html',
         controller: 'StudentTestsCtrl',
         access: {
-          requiredLogin: true
+          requiredLogin: true,
+          requiredStudent: true
         }
       })
       .when('/student/scores', {
         templateUrl: 'templates/views/student/scores.html',
         access: {
-          requiredLogin: true
+          requiredLogin: true,
+          requiredStudent: true
         }
       })
       .otherwise({
@@ -127,13 +158,13 @@ module.exports = function(app) {
   app.run(['$rootScope', '$location', 'AuthenticationService', function($rootScope, $location, AuthenticationService) {
     $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
       if (nextRoute.access.requiredLogin && !AuthenticationService.isLogged) {
-        $location.path('/home');
+        $location.path('/not-authorized');
       }
       if (nextRoute.access.requiredAdmin && AuthenticationService.role !== "admin") {
-        $location.path('/sign-in');
+        $location.path('/not-authorized');
       }
       if (nextRoute.access.requiredTeacher && AuthenticationService.role !== 'teacher') {
-        $location.path('/sign-in');
+        $location.path('/not-authorized');
       }
     });
   }]);

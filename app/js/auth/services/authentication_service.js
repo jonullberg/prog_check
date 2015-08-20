@@ -3,7 +3,7 @@
 module.exports = function(app) {
   app.factory('AuthenticationService', ['$cookies', function($cookies) {
     var auth = {
-      isLogged: false
+      isLogged: false,
     };
     if ($cookies.getObject('user') === undefined || null) {
       auth.role = null;
