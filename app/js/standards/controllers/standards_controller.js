@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('standardsCtrl', ['$scope', '$filter', '$modal', '$rootScope', 'copy', 'Errors', 'Standards', 'pcGrades', function($scope, $filter, $modal, $rootScope, copy, Errors, Standards, pcGrades) {
+  app.controller('StandardsCtrl', ['$scope', '$filter', '$modal', '$rootScope', 'copy', 'Errors', 'Standards', 'pcGrades', function($scope, $filter, $modal, $rootScope, copy, Errors, Standards, pcGrades) {
 
     $scope.formShowing = false;
     $scope.isStandardShowing = false;
@@ -60,57 +60,6 @@ module.exports = function(app) {
         toggleSingleStandard();
       }
     };
-
-    ////////////////////
-    // Delete this??? //
-    ////////////////////
-    /**
-     * Will add standard to display, hide the form for adding a standard, and make a POST request to the API to create a new standard
-     * @param  {object} standard The specified standard to create
-     */
-    // $scope.createNewStandard = function(standard) {
-    //   var newStandard = angular.copy(standard);
-    //   Standards.standards.push(newStandard);
-    //   $scope.standard = newStandard;
-    //   Standard.create(newStandard, function(err, data) {
-    //     if (err) {
-    //       return Errors.addError({
-    //         'msg': 'There was an error creating your standard'
-    //       });
-    //     }
-    //     $scope.standards.splice($scope.standards.indexOf(newStandard), 1, data);
-    //     $scope.standard = data;
-    //     Standards.standards.splice(Standards.standards.indexOf(newStandard), 1, data);
-
-    //     $scope.isStandardFormShowing = false;
-    //   });
-    // };
-
-
-    ////////////////////
-    // DELETE THIS??? //
-    ////////////////////
-    /**
-     * Will update a standard on the client and make a PUT request to the server to update the standard
-     * @param  {object} standard The specified standard to update
-     */
-    // $scope.saveStandard = function(standard) {
-    //   Standard.save(standard, function(err, data) {
-    //     if (err) return Errors.addError({
-    //       'msg': 'There was an error while updating this standard'
-    //     });
-    //     standard.editing = false;
-    //     $scope.standard = standard;
-    //   });
-    // };
-
-    // Tests Controller
-    // TODO: refactor into its own controller
-
-
-
-
-
 
     $scope.toggleSingleTest = function() {
       $scope.isTestShowing = !$scope.isTestShowing;

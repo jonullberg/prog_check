@@ -14,6 +14,7 @@ module.exports = function(app) {
           .success(function(data) {
             $cookies.put('token', data.token);
             $cookies.putObject('user', data.user);
+            AuthenticationService.role = $cookies.getObject('user').role;
             AuthenticationService.isLogged = true;
             callback(null);
           })
@@ -32,6 +33,7 @@ module.exports = function(app) {
           .success(function(data) {
             $cookies.put('token', data.token);
             $cookies.putObject('user', data.user);
+            AuthenticationService.role = $cookies.getObject('user').role;
             AuthenticationService.isLogged = true;
             callback(null);
           })
@@ -45,6 +47,7 @@ module.exports = function(app) {
           .success(function(data) {
             $cookies.put('token', data.token);
             $cookies.putObject('user', data.user);
+            AuthenticationService.role = $cookies.getObject('user').role;
             AuthenticationService.isLogged = true;
             callback(null);
           })
@@ -56,11 +59,12 @@ module.exports = function(app) {
       logout: function() {
         $cookies.put('token', '');
         $cookies.putObject('user', {});
+        AuthenticationService.role = null;
         AuthenticationService.isLogged = false;
       },
 
       isSignedIn: function() {
-        return !!($cookies.get('token') && $cookies.get('token').length);
+        return AuthenticationService.isLogged;
       }
     };
   }]);

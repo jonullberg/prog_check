@@ -6,6 +6,7 @@ require('angular-cookies');
 require('angular-base64');
 require('angular-bootstrap');
 require('ng-file-upload');
+require('angular-ui-router');
 
 var progCheck = angular.module('progCheck', ['ngRoute', 'ngCookies', 'base64', 'ui.bootstrap', 'ngFileUpload']);
 
@@ -39,12 +40,6 @@ require('./auth/controllers/auth_controller')(progCheck);
 
 //    Standard Controllers
 require('./standards/controllers/standards_controller')(progCheck);
-require('./standards/controllers/standards_list_controller')(progCheck);
-require('./standards/controllers/single_standard_controller')(progCheck);
-require('./standards/controllers/standard_form_controller')(progCheck);
-require('./standards/controllers/goal_controller')(progCheck);
-require('./standards/modals/controllers/standards_list_modal_controller')(progCheck);
-require('./standards/modals/controllers/single_standard_modal_controller')(progCheck);
 
 //    Student Controllers
 require('./students/controllers/student_home_controller')(progCheck);
@@ -75,16 +70,58 @@ require('./teachers/directives/pc_teachers_directive')(progCheck);
 
   //  Standard directives
 require('./standards/directives/pc_standards_directive')(progCheck);
-require('./standards/directives/pc_standard_form_directive')(progCheck);
-require('./standards/directives/pc_single_standard')(progCheck);
-require('./standards/directives/pc_standards_list')(progCheck);
-require('./standards/directives/pc_goal_form_directive')(progCheck);
 
   //  Test directives
 require('./tests/directives/pc_test_form')(progCheck);  // Form for adding or editing tests
 require('./tests/directives/pc_question_form')(progCheck);  // Ability to add questions
 require('./tests/directives/pc_tests_list')(progCheck); // Shows a list of all tests attached to standard
 require('./tests/directives/pc_single_test')(progCheck); // Shows the information for a single test
+
+//  Anonymous
+
+  //  Controllers
+
+  //  Directives
+
+
+//  Admin
+
+  //  Controllers
+
+  //  Standards
+
+    //  Standards List
+    require('./standards/directives/pc_standards_list')(progCheck); // Directive
+    require('./standards/controllers/standards_list_controller')(progCheck); // Controller
+    require('./standards/modals/controllers/standards_list_modal_controller')(progCheck); //  Modal Controller
+
+    //  Single Standards
+    require('./standards/directives/pc_single_standard')(progCheck);  //  Directive
+    require('./standards/controllers/single_standard_controller')(progCheck); //  Controller
+    require('./standards/modals/controllers/single_standard_modal_controller')(progCheck);  //  Modal Controller
+
+    //  Standard Form
+    require('./standards/directives/pc_standard_form_directive')(progCheck);  //  Directive
+    require('./standards/controllers/standard_form_controller')(progCheck); //  Controller
+
+    //  Goal Form
+    require('./standards/directives/pc_goal_form_directive')(progCheck);  //  Directive
+    require('./standards/controllers/goal_form_controller')(progCheck); //  Controller
+
+
+
+
+//  Teacher
+
+  //  Controllers
+
+  //  Directives
+
+//  Students
+
+  //  Controllers
+
+  //  Directives
 
 //  Configuration
 require('./config/routes')(progCheck);
