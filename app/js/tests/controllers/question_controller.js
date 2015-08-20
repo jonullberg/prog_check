@@ -3,7 +3,12 @@
 module.exports = function(app) {
   app.controller('QuestionCtrl', ['$scope', '$modalInstance', '$sce', 'Errors', 'Tests', 'Upload', function($scope, $modalInstance, $sce, Errors, Tests, Upload) {
 
+    var getTest = function() {
+      $scope.test = Tests.test;
+    };
+
     $scope.initQuestion = function() {
+      getTest();
       $scope.question = {
         question: null,
         correct: null,
@@ -14,11 +19,7 @@ module.exports = function(app) {
 
     $scope.trustAsHtml = $sce.trustAsHtml;
 
-    var getTest = function() {
-      $scope.test = Tests.test;
-    };
-
-    $scope.$on('test:changed', getTest());
+    $scope.$on('test:changed', getTest);
 
     $scope.$watch('questionImage', function(file) {
       $scope.upload(file, function(filePath) {

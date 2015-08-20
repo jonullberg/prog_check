@@ -46,6 +46,7 @@ module.exports = function(app) {
           });
         }
       });
+      $scope.toggleSingleTest();
     };
 
     $scope.toggleDelete = function() {
