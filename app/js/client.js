@@ -68,9 +68,6 @@ require('./directives/header_directive')(progCheck);
 require('./auth/directives/account_tools_directive')(progCheck);
 require('./teachers/directives/pc_teachers_directive')(progCheck);
 
-  //  Standard directives
-require('./standards/directives/pc_standards_directive')(progCheck);
-
   //  Test directives
 require('./tests/directives/pc_test_form')(progCheck);  // Form for adding or editing tests
 require('./tests/directives/pc_question_form')(progCheck);  // Ability to add questions
