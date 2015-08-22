@@ -4,3 +4,5 @@
 **/test/
 **/build/
 karma.conf.js
+**/bower_components/
+**/bower.json
