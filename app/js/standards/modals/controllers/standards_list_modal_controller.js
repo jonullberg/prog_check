@@ -24,54 +24,21 @@ module.exports = function(app) {
       }
     };
 
-    $scope.isAdmin = function() {
-      if ($cookies.getObject('user').role === 'admin') {
-        return true;
-      }
-      return false;
-    };
-
-    /**
-     * Opens modal with ability to add a new standard
-     */
-
-    $scope.newStandard = function() {
-      var scope = $rootScope.$new();
-      scope.params = {
-        formType: 'creating',
-        buttonText: 'Create Standard'
-      };
-      scope.showStandard = function() {
-        $scope.show();
-      };
-      $modal.open({
-        animation:true,
-        templateUrl: '/templates/directives/standards/standard_form.html',
-        size: 'lg',
-        controller: 'StandardFormCtrl',
-        scope: scope
-      });
-    };
-
     $scope.select = function(standard) {
       Standards.setStandard(standard);
-      if ($scope.isAdmin()) {
-        return $scope.show();
-      } else {
-        var scope = $rootScope.$new();
-        scope.params = {
-          goalButtonText: 'Add Goal'
-        };
-        $modalInstance.close();
-        $modal.open({
-          animation:true,
-          templateUrl:'/templates/directives/standards/single_standard.html',
-          size:'lg',
-          controller:'SingleStandardModalCtrl',
-          scope:scope
-        });
+      var scope = $rootScope.$new();
+      scope.params = {
+        goalButtonText: 'Add Goal'
+      };
+      $modalInstance.close();
+      $modal.open({
+        animation:true,
+        templateUrl:'/templates/directives/standards/single_standard.html',
+        size:'lg',
+        controller:'SingleStandardModalCtrl',
+        scope:scope
+      });
 
-      }
     };
   }]);
 };
