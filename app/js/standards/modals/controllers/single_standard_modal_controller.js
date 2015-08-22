@@ -9,31 +9,20 @@ module.exports = function(app) {
 
     $scope.$on('standard:changed', getStandard);
 
-    $scope.isAdmin = function() {
-      if ($cookies.getObject('user').role === 'admin') {
-        return true;
-      }
-      return false;
-    };
     $scope.getStandard = function() {
       getStandard();
     };
 
     $scope.goBack = function() {
-      if ($scope.isAdmin()) {
-        Standards.removeStandard();
-        $scope.hideStandard();
-      } else {
-        var scope = $rootScope.$new();
-        $modalInstance.close();
-        $modal.open({
-          animation:true,
-          templateUrl:'/templates/directives/standards/standards_list.html',
-          size:'lg',
-          controller:'StandardsListCtrl',
-          scope:scope
-        });
-      }
+      var scope = $rootScope.$new();
+      $modalInstance.close();
+      $modal.open({
+        animation:true,
+        templateUrl:'/templates/directives/standards/standards_list.html',
+        size:'lg',
+        controller:'StandardsListModalCtrl',
+        scope:scope
+      });
     };
     $scope.deleteStandard = function(standard) {
       Standards.removeStandard();
