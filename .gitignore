@@ -1,6 +1,5 @@
 **/node_modules/
 **/db/
-**/app/img/
 **/test/
 **/build/
 karma.conf.js
