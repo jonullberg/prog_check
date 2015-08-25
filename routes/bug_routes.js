@@ -24,8 +24,8 @@ module.exports = function(router) {
       var transport = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
-          user: config.BUG_EMAIL,
-          pass: config.BUG_PW
+          user: process.env.BUG_EMAIL || config.BUG_EMAIL,
+          pass: process.env.BUG_PW || config.BUG_PW
         }
       });
 
@@ -39,7 +39,7 @@ module.exports = function(router) {
 
       var mailOptions = {
         from: 'bug-reports@progcheck.com',
-        to: 'jonathan.ullberg@gmail.com',
+        to: process.env.BUG_EMAIL || config.BUG_EMAIL,
         subject: 'You have a new bug from ' + req.body.userName,
         html: emailText
       };
