@@ -99,7 +99,6 @@ module.exports = function(app) {
     };
 
     $scope.addGoal = function(goal) {
-      // console.log(goal);
       addGoal(goal);
     };
 
