@@ -6,7 +6,6 @@
 karma.conf.js
 **/bower_components/
 **/bower.json
-config.js
 server.crt
 server.csr
 server.key
