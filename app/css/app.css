@@ -1,3 +1,11 @@
+* {
+  font-family: 'Calibri Light', 'Open Sans', 'Helvetica', 'Arial', 'Lato', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Happy Monkey', cursive;
+}
+
 .logo {
   text-indent: -9999px;
   background-image: url('../img/assets/transparent-bg-logo.png');

@@ -16,11 +16,10 @@ var forceSsl = function(req, res, next) {
   return next();
 };
 
-app.configure(function() {
-  if (env === 'production') {
-    app.use(forceSsl);
-  }
-});
+
+if (env === 'production') {
+  app.use(forceSsl);
+}
 //  Serve up static pages from our build
 app.use(express.static(__dirname + '/build'));
 app.use(busboy({immediate:true}));
