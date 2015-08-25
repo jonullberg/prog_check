@@ -84,7 +84,7 @@ gulp.task('clean:karma', function(done) {
 });
 
 gulp.task('copy:html', ['clean:build'], function() {
-  var srcFiles = ['app/**/*.html', 'app/**/*.css'];
+  var srcFiles = ['app/**/*.html', 'app/**/*.css', 'app/**/*.png'];
   return gulp.src(srcFiles)
     .pipe(gulp.dest('build/'));
 });

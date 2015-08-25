@@ -31,11 +31,14 @@ require('./students/services/student_data')(progCheck); // Stores all data for a
 
 //  controllers
 require('./controllers/errors_controller')(progCheck);
+require('./controllers/footer_controller')(progCheck);
+require('./controllers/bug_form_controller')(progCheck);
 require('./controllers/main_controller')(progCheck);
 
 //    Auth Controllers
 require('./auth/controllers/student_auth_controller.js')(progCheck);
 require('./auth/controllers/auth_controller')(progCheck);
+require('./auth/controllers/account_tools_controller')(progCheck);
 
 //    Standard Controllers
 require('./standards/controllers/standards_controller')(progCheck);
@@ -64,6 +67,7 @@ require('./tests/controllers/question_controller')(progCheck);
 require('./directives/pc_errors_directive')(progCheck);
 require('./auth/directives/sign_up_directive')(progCheck);
 require('./directives/header_directive')(progCheck);
+require('./directives/pc_footer_directive')(progCheck);
 require('./auth/directives/account_tools_directive')(progCheck);
 require('./teachers/directives/pc_teachers_directive')(progCheck);
 
