@@ -1,10 +1,25 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('SingleStandardModalCtrl', ['$scope', '$modal', '$modalInstance', '$cookies', '$rootScope', 'Errors', 'Standards', 'Students', function($scope, $modal, $modalInstance, $cookies, $rootScope, Errors, Standards, Students) {
+  app.controller('SingleStandardModalCtrl', ['$scope', '$modal', '$modalInstance', '$cookies', '$rootScope', 'Errors', 'Standards', 'Students', 'Tests', function($scope, $modal, $modalInstance, $cookies, $rootScope, Errors, Standards, Students, Tests) {
     $scope.standard = Standards.standard;
     var getStandard = function() {
       $scope.standard = Standards.standard;
+    };
+
+    var addGoal = function(goal) {
+      Students.addGoal(goal, function(err, data) {
+        if (err) {
+          return Errors.addError({
+            'msg': 'There was an error adding goal'
+          });
+        }
+      });
+      $modalInstance.close();
+    };
+
+    var showSample = function(goal) {
+      goal.sampleShowing = !goal.sampleShowing;
     };
 
     $scope.$on('standard:changed', getStandard);
@@ -24,6 +39,28 @@ module.exports = function(app) {
         scope:scope
       });
     };
+
+    $scope.showGoal = function(goal) {
+      $scope.goal = goal;
+      console.log(goal);
+      Tests.getTestByGoalId(goal, function(err, data) {
+        if (err) {
+          return Errors.addError({
+            'msg': 'There was an error getting that test'
+          });
+        }
+        if (data[0].questions[0].question) {
+          $scope.sampleQuestion = data[0].questions[0].question;
+
+        } else {
+          $scope.sampleQuestion = 'Unfortunately we do not have any questions for this goal.'
+        }
+
+      });
+      showSample(goal);
+
+    };
+
     $scope.deleteStandard = function(standard) {
       Standards.removeStandard();
       Standards.deleteStandard(standard, function(err) {
@@ -61,58 +98,9 @@ module.exports = function(app) {
       }
     };
 
-    $scope.addGoals = function() {
-      var scope = $rootScope.$new();
-      scope.params = {
-        buttonText: 'Add Goal',
-        formType: 'creating'
-      };
-      $modal.open({
-        animation:true,
-        templateUrl: '/templates/partials/goal_form.html',
-        controller: 'GoalCtrl',
-        size:'lg',
-        scope:scope
-      });
-    };
-
-    $scope.showButtons = function(goal) {
-      goal.buttons = !goal.buttons;
-    };
-
-    var editGoal = function(goal) {
-      var scope = $rootScope.$new();
-      scope.params = {
-        buttonText: 'Save Goal',
-        formType: 'editing'
-      };
-      scope.goal = goal;
-      $modal.open({
-        animation:true,
-        templateUrl: '/templates/partials/goal_form.html',
-        controller: 'GoalCtrl',
-        size:'lg',
-        scope: scope
-      });
-    };
-
-    var addGoal = function(goal) {
-      Students.addGoal(goal, function(err, data) {
-        if (err) {
-          return Errors.addError({
-            'msg': 'There was an error adding goal'
-          });
-        }
-      });
-      $modalInstance.close();
-    };
-
-    $scope.selectGoal = function(goal) {
-      if ($cookies.getObject('user').role === 'admin') {
-        editGoal(goal);
-      } else if ($cookies.getObject('user').role === 'teacher') {
-        addGoal(goal);
-      }
+    $scope.addGoal = function(goal) {
+      // console.log(goal);
+      addGoal(goal);
     };
 
     $scope.deleteGoal = function(goal) {

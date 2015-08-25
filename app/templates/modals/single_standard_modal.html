@@ -1,6 +1,6 @@
-<section class="panel panel-primary"
+<section
   data-ng-init="getStandard()">
-  <header class="panel-heading">
+  <header class="modal-header">
     <h3 class="col-lg-9">
       {{standard.name}}
     </h3>
@@ -9,7 +9,7 @@
       data-ng-click="goBack()">Go Back</button>
     <div class="clearfix"></div>
   </header>
-  <div class="panel-body">
+  <div class="modal-body">
     <div class="alert alert-danger"
       data-ng-if="isAlertShown">
       <p class="col-lg-8">Are you sure? Deleting can't be undone</p>
@@ -37,32 +37,19 @@
         data-ng-repeat="goal in standard.goals">
         {{goal.description}}
         <button class="btn btn-info" type="button"
-          data-ng-if="goal.buttons"
-          data-ng-click="selectGoal(goal)">
-          Edit Goal
+          data-ng-click="showGoal(goal)">
+          View Goal
         </button>
-        <button class="btn btn-danger" type="button"
-          data-ng-click="deleteGoal(goal)"
-          data-ng-if="goal.buttons && isAdmin()">
-          Delete Goal
-        </button>
+        <p data-ng-if="goal.sampleShowing">
+          Example: {{sampleQuestion}}
+        </p>
       </li>
     </ul>
   </div>
-  <div class="panel-footer">
-    <button type="button" class="btn btn-primary"
-      data-ng-click="edit(standard)"
-      data-ng-if="isAdmin()">
-      Edit Standard
-    </button>
-    <button type="button" class="btn btn-danger"
-      data-ng-click="toggleAlert()"
-      data-ng-if="isAdmin()">
-      Delete Standard
-    </button>
+  <div class="modal-footer">
     <button type="button" class="btn btn-info"
-      data-ng-click="addGoals()">
-      Add Goals
+      data-ng-click="addGoal(goal)">
+      Add Goal
       <span class="glyphicon glyphicon-plus"></span>
     </button>
   </div>

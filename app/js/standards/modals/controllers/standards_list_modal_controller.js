@@ -33,7 +33,7 @@ module.exports = function(app) {
       $modalInstance.close();
       $modal.open({
         animation:true,
-        templateUrl:'/templates/directives/standards/single_standard.html',
+        templateUrl:'/templates/modals/single_standard_modal.html',
         size:'lg',
         controller:'SingleStandardModalCtrl',
         scope:scope
