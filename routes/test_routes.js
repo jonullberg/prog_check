@@ -36,6 +36,18 @@ module.exports = function(router) {
       res.json(data);
     });
   });
+  router.get('/tests/goal/:goalId', eatAuth, function(req, res) {
+    Test.find({goalId: req.params.goalId}, function(err, data) {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          'msg': 'Internal Server Error'
+        });
+      }
+      console.log(data);
+      res.json(data);
+    });
+  });
 
   router.put('/tests/:id', eatAuth, function(req, res) {
     var updatedTest = req.body;

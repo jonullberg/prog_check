@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.factory('Tests', ['$rootScope', 'RESTResource', 'SanitizeFractions', function($rootScope, resource, SanitizeFractions) {
+  app.factory('Tests', ['$rootScope', '$http', 'RESTResource', 'SanitizeFractions', function($rootScope, $http, resource, SanitizeFractions) {
     var Tests = resource('tests');
 
     var testData = {
@@ -16,6 +16,18 @@ module.exports = function(app) {
           $rootScope.$broadcast('tests:changed');
           callback(err, data);
         }.bind(this));
+      },
+      getTestByGoalId: function(goal, callback) {
+        $http.get('/api/tests/goal/' + goal._id)
+          .success(
+            function(data) {
+              callback(null, data);
+            })
+          .error(
+            function(data) {
+              console.log(data);
+              callback(data);
+            });
       },
       setTest: function(test, callback) {
         this.test = test;

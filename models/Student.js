@@ -46,7 +46,6 @@ studentSchema.pre('save', function(next) {
         console.log('There was an error');
         next();
       } else if (results) {
-        console.log(results.basic.username);
         num++;
         return uniqueSearch(username);
       } else {

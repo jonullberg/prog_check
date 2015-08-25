@@ -5,7 +5,6 @@ var bodyparser = require('body-parser');
 var eatAuth = require('../lib/eat_auth')(process.env.APP_SECRET);
 var adminAuth = require('../lib/admin_auth.js')();
 var nodemailer = require('nodemailer');
-var config = require('../config.js');
 
 
 module.exports = function(router) {
@@ -24,8 +23,8 @@ module.exports = function(router) {
       var transport = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
-          user: process.env.BUG_EMAIL || config.BUG_EMAIL,
-          pass: process.env.BUG_PW || config.BUG_PW
+          user: process.env.BUG_EMAIL,
+          pass: process.env.BUG_PW
         }
       });
 
@@ -39,7 +38,7 @@ module.exports = function(router) {
 
       var mailOptions = {
         from: 'bug-reports@progcheck.com',
-        to: process.env.BUG_EMAIL || config.BUG_EMAIL,
+        to: process.env.BUG_EMAIL,
         subject: 'You have a new bug from ' + req.body.userName,
         html: emailText
       };

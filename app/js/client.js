@@ -36,7 +36,7 @@ require('./controllers/bug_form_controller')(progCheck);
 require('./controllers/main_controller')(progCheck);
 
 //    Auth Controllers
-require('./auth/controllers/student_auth_controller.js')(progCheck);
+require('./auth/controllers/student_auth_controller')(progCheck);
 require('./auth/controllers/auth_controller')(progCheck);
 require('./auth/controllers/account_tools_controller')(progCheck);
 
