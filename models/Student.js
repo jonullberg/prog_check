@@ -76,14 +76,11 @@ studentSchema.methods.generateToken = function(secret, callback) {
 };
 
 studentSchema.methods.checkPin = function(pin, callback) {
-  bcrypt.compare(pin, this.basic.pin, function(err, result) {
-    if (err) {
-      console.log(err);
-      return console.log('Could not authenticate PIN');
-    }
-
-    callback(null, result);
-  });
+  if (pin !== this.basic.pin) {
+    var err = new Error('That pin does not match');
+    return callback(err);
+  }
+  return callback(null, pin);
 };
 
 module.exports = mongoose.model('Student', studentSchema);

@@ -12,7 +12,8 @@ module.exports = function(router, passport) {
     newStudentData.basic.userName = newStudentData.userName;
     newStudentData.basic.pin = newStudentData.pin;
     newStudentData.basic = {
-      userName: newStudentData.userName
+      userName: newStudentData.userName,
+      pin: newStudentData.pin
     };
     delete newStudentData.userName;
     delete newStudentData.pin;
@@ -26,39 +27,29 @@ module.exports = function(router, passport) {
       });
     }
 
-    newStudent.generateHash(req.body.pin, function(err, hash) {
+
+    newStudent.save(function(err, student) {
       if (err) {
         console.log(err);
         return res.status(500).json({
           'msg': 'Internal Server Error'
         });
       }
-
-      newStudent.basic.pin = hash;
-
-      newStudent.save(function(err, student) {
+      student.generateToken(process.env.APP_SECRET, function(err, token) {
         if (err) {
           console.log(err);
           return res.status(500).json({
             'msg': 'Internal Server Error'
           });
         }
-        student.generateToken(process.env.APP_SECRET, function(err, token) {
-          if (err) {
-            console.log(err);
-            return res.status(500).json({
-              'msg': 'Internal Server Error'
-            });
-          }
 
-          res.json({
-            student: student,
-            token: token
-          });
-        });
-      });
+        res.json({
+          student: student,
+          token: token
+        }); // end res.json
+      }); //end generate token
+    }); // end save
 
-    });
   });
 
   router.get('/students/:id', function(req, res) {
