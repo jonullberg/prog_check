@@ -42,7 +42,6 @@ module.exports = function(app) {
 
     $scope.showGoal = function(goal) {
       $scope.goal = goal;
-      console.log(goal);
       Tests.getTestByGoalId(goal, function(err, data) {
         if (err) {
           return Errors.addError({

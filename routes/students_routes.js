@@ -9,6 +9,11 @@ module.exports = function(router, passport) {
 
   router.post('/students', function(req, res) {
     var newStudentData = JSON.parse(JSON.stringify(req.body));
+    newStudentData.basic.userName = newStudentData.userName;
+    newStudentData.basic.pin = newStudentData.pin;
+    newStudentData.basic = {
+      userName: newStudentData.userName
+    };
     delete newStudentData.userName;
     delete newStudentData.pin;
 
