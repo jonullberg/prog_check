@@ -3,6 +3,8 @@
   <accordion close-others="true">
     <accordion-group data-ng-repeat="goal in student.goals" heading="{{goal.description}}">
       <p>{{goal.description}}</p>
+      <button class="btn btn-primary btn-lg"
+        data-ng-click="takeTest(goal)">Take Test</button>
     </accordion-group>
   </accordion>
 </main>
