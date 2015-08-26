@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('AuthCtrl', ['$scope', '$location', 'UserService', 'USStates', 'AuthenticationService', 'Errors', function($scope, $location, UserService, USStates, AuthenticationService, Errors) {
+  app.controller('AuthCtrl', ['$scope', '$location', '$modal', 'UserService', 'USStates', 'AuthenticationService', 'Errors', function($scope, $location, $modal, UserService, USStates, AuthenticationService, Errors) {
 
     $scope.errors = [];
 
@@ -9,6 +9,15 @@ module.exports = function(app) {
 
     $scope.changeView = function(url) {
       $location.path(url);
+    };
+
+    $scope.termsModal = function() {
+      $modal.open({
+        animation:true,
+        templateUrl: '/templates/modals/terms_and_conditions.html',
+        size:'lg',
+        controller: 'TermsCtrl'
+      });
     };
 
     $scope.authSubmit = function(user) {
