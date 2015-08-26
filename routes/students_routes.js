@@ -110,4 +110,19 @@ module.exports = function(router, passport) {
         });
       });
   });
+
+  router.delete('/students/:id', eatAuth, function(req, res) {
+    Students.remove({'_id': req.params.id}, function(err, data) {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          'msg': 'Internal Server Error'
+        });
+      }
+
+      res.json({
+        'msg': 'Success'
+      });
+    });
+  });
 };

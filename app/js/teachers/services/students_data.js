@@ -40,6 +40,15 @@ module.exports = function(app) {
           this.students.push(this.student);
         }.bind(this));
       },
+      deleteStudent: function(student, callback) {
+        Students.remove(student, function(err, data) {
+          if (err) {
+            return callback(err);
+          }
+
+          return callback(err, data);
+        });
+      },
       addGoal: function(goal, callback) {
         this.student.goals.push(goal);
         this.students.splice(this.students.indexOf(this.student), 1, this.student);
