@@ -9,17 +9,19 @@ var busboy = require('connect-busboy');
 
 var env = process.env.NODE_ENV || 'development';
 
-var forceSsl = function(req, res, next) {
-  if (req.headers['x-forwarded-proto'] !== 'https') {
-    return res.redirect(['https://', req.get('Host'), req.url].join(''));
-  }
-  return next();
-};
+// var forceSsl = function(req, res, next) {
+//   if (req.headers['x-forwarded-proto'] !== 'https') {
+//     return res.redirect(['https://', req.get('Host'), req.url].join(''));
+//   }
+//   return next();
+// };
 
 
-if (env === 'production') {
-  app.use(forceSsl);
-}
+// if (env === 'production') {
+//   app.use(forceSsl);
+// }
+
+
 //  Serve up static pages from our build
 app.use(express.static(__dirname + '/build'));
 app.use(busboy({immediate:true}));
