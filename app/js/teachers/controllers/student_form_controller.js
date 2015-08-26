@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('StudentFormCtrl', ['$scope', '$modalInstance', '$cookies', 'Errors', 'Students', function($scope, $modalInstance, $cookies, Errors, Students) {
+  app.controller('StudentFormCtrl', ['$scope', '$modalInstance', '$cookies', '$location', 'Errors', 'Students', function($scope, $modalInstance, $cookies, $location, Errors, Students) {
 
     var getStudent = function() {
       $scope.student = Students.student;
@@ -42,10 +42,12 @@ module.exports = function(app) {
       if ($scope.studentForm.$valid) {
         if ($scope.params.formType === 'editing') {
           saveStudent(student);
+          $modalInstance.close();
         } else if ($scope.params.formType === 'creating') {
           createStudent(student);
+          $modalInstance.close();
+          $location.path('/teacher/students')
         }
-        $modalInstance.close();
       }
     };
 
@@ -55,6 +57,20 @@ module.exports = function(app) {
 
     $scope.toggleDelete = function() {
       $scope.isDeleteShown = !$scope.isDeleteShown;
-    }
+    };
+
+    $scope.deleteStudent = function(student) {
+      Students.deleteStudent(student, function(err) {
+        if (err) {
+          return Errors.addError({
+            'msg': 'There was an error deleting that student'
+          });
+        }
+        $modalInstance.close();
+        $location.path('/teacher/students');
+      });
+    };
+
+
   }]);
 };
