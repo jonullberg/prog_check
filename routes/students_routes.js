@@ -9,8 +9,6 @@ module.exports = function(router, passport) {
 
   router.post('/students', function(req, res) {
     var newStudentData = JSON.parse(JSON.stringify(req.body));
-    newStudentData.basic.userName = newStudentData.userName;
-    newStudentData.basic.pin = newStudentData.pin;
     newStudentData.basic = {
       userName: newStudentData.userName,
       pin: newStudentData.pin
@@ -35,19 +33,7 @@ module.exports = function(router, passport) {
           'msg': 'Internal Server Error'
         });
       }
-      student.generateToken(process.env.APP_SECRET, function(err, token) {
-        if (err) {
-          console.log(err);
-          return res.status(500).json({
-            'msg': 'Internal Server Error'
-          });
-        }
-
-        res.json({
-          student: student,
-          token: token
-        }); // end res.json
-      }); //end generate token
+      res.json(student); // end res.json
     }); // end save
 
   });
