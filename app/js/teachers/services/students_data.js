@@ -58,6 +58,9 @@ module.exports = function(app) {
         }.bind(this));
       },
       deleteStudent: function(student, callback) {
+        this.student = null;
+        $rootScope.$broadcast('student:changed');
+        this.students.splice(this.students.indexOf(student), 1);
         Students.remove(student, function(err, data) {
           if (err) {
             return callback(err);
