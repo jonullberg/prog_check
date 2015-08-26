@@ -12,7 +12,9 @@ h1, h2, h3, h4, h5, h6 {
   background-size:contain;
   background-repeat:no-repeat;
 }
-
+#header .navbar-nav {
+  margin-bottom:20px;
+}
 #header-logo {
   height:125px;
 }

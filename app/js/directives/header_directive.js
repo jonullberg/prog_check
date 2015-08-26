@@ -8,7 +8,7 @@ module.exports = function(app) {
         url: 'home'
       },
       {
-        header: 'About Us',
+        header: 'How It Works',
         url: 'about'
       },
       {
