@@ -32,12 +32,16 @@ module.exports = function(app) {
         $rootScope.$broadcast('student:changed');
       },
       addStudent: function(student, callback) {
+        this.student = student;
+        this.students.push(student)
         Students.create(student, function(err, data) {
           if (err) {
             callback(err);
           }
           this.student = data;
-          this.students.push(this.student);
+          this.students.splice(this.students.indexOf(data), 1, data);
+          $rootScope.$broadcast('students:changed');
+          $rootScope.$broadcast('student:changed');
         }.bind(this));
       },
       deleteStudent: function(student, callback) {
