@@ -9,16 +9,10 @@ module.exports = function(router, passport) {
 
   router.post('/students', function(req, res) {
     var newStudentData = JSON.parse(JSON.stringify(req.body));
-    newStudentData.basic = {
-      userName: newStudentData.userName,
-      pin: newStudentData.pin
-    };
-    delete newStudentData.userName;
-    delete newStudentData.pin;
 
     var newStudent = new Students(newStudentData);
 
-    if (req.body.pin === undefined) {
+    if (req.body.basic.pin === undefined) {
       console.log('No PIN submitted');
       return res.status(401).json({
         'msg': 'No PIN submitted'

@@ -44,7 +44,6 @@ module.exports = function(router) {
           'msg': 'Internal Server Error'
         });
       }
-      console.log(data);
       res.json(data);
     });
   });

@@ -9,25 +9,9 @@
     <div class="clearfix"></div>
   </header>
   <div class="panel-body">
-    <div class="alert alert-danger"
-      data-ng-if="isDeleteShown">
-      <p class="col-lg-8">Are you sure? Deleting can't be undone. You will lose all data for this student.</p>
-      <div class="btn-group col-lg-4">
-        <button type="button"
-          class="btn btn-danger"
-          data-ng-click="deleteStudent(student)">
-          Yes
-        </button>
-        <button type="button"
-          class="btn btn-primary"
-          data-ng-click="toggleDelete()">
-          No
-        </button>
-      </div>
-      <div class="clearfix"></div>
-    </div>
-
+    <h4>Number of Questions Per Test: {{student.numberOfQuestions}}</h4>
     <h4>Goals</h4>
+    <p data-ng-if="!student.goals.length">You have no goals for your student. Feel free to add some below.</p>
     <ul class="list-group">
       <li class="list-group-item"
         data-ng-repeat="goal in student.goals"
@@ -41,8 +25,13 @@
         <div class="clearfix"></div>
       </li>
     </ul>
+
   </div>
   <footer class="panel-footer">
+    <button type="button" class="btn btn-default"
+      data-ng-click="editStudentModal(student)">
+      Edit/Delete Student
+    </button>
     <button type="button" class="btn btn-primary"
       data-ng-click="openGoalForm()">
       Add Goals For {{student.firstName}}

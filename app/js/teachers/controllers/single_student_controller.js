@@ -1,13 +1,12 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('SingleStudentCtrl', ['$scope', '$routeParams', '$modal', '$location', 'Errors', 'Students', function($scope, $routeParams, $modal, $location, Errors, Students) {
+  app.controller('SingleStudentCtrl', ['$scope', '$routeParams', '$modal', '$location', '$rootScope', 'Errors', 'Students', function($scope, $routeParams, $modal, $location, $rootScope, Errors, Students) {
 
     var getStudent = function() {
       $scope.student = Students.student;
     };
 
-    $scope.isDeleteShown = false;
 
     $scope.toggleDelete = function() {
       $scope.isDeleteShown = !$scope.isDeleteShown;
@@ -53,5 +52,32 @@ module.exports = function(app) {
       goal.buttonsShowing = !goal.buttonsShowing;
     };
 
+    $scope.saveStudent = function(student) {
+      student.numberOfQuestions = $scope.selectedNumber;
+      Students.saveStudent(student, function(err, data) {
+        if (err) {
+          return Errors.addError({
+            'msg': 'There was an error updating that student'
+          });
+        }
+      });
+      $location.path('/teacher/students');
+    };
+
+    $scope.editStudentModal = function(student) {
+      Students.student = student;
+      var scope = $rootScope.$new();
+      scope.params = {
+        formType: 'editing',
+        buttonText: 'Save Student'
+      };
+      $modal.open({
+        animation:true,
+        templateUrl: '/templates/directives/teachers/student_form.html',
+        size:'lg',
+        controller: 'StudentFormCtrl',
+        scope: scope
+      })
+    };
   }]);
 };
