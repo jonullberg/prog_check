@@ -29,6 +29,9 @@ var studentSchema = mongoose.Schema({
   'goals': {
     type: Array
   },
+  'numberOfQuestions': {
+    type: Number
+  },
   'role': {
     type: String
   }

@@ -44,6 +44,19 @@ module.exports = function(app) {
           $rootScope.$broadcast('student:changed');
         }.bind(this));
       },
+      saveStudent: function(student, callback) {
+        this.student = student;
+        this.students.splice(this.students.indexOf(student), 1, student);
+        Students.save(student, function(err, data) {
+          if (err) {
+            callback(err);
+          }
+
+          this.student = data;
+
+          this.students.splice(this.students.indexOf(student), 1, data);
+        }.bind(this));
+      },
       deleteStudent: function(student, callback) {
         Students.remove(student, function(err, data) {
           if (err) {
