@@ -28,9 +28,7 @@ module.exports = function(app) {
     };
 
     $scope.getStudent = function() {
-      if (Students.student) {
-        getStudent();
-      }
+      getStudent();
     };
 
     $scope.questionOptions = [5, 10];
@@ -66,6 +64,7 @@ module.exports = function(app) {
             'msg': 'There was an error deleting that student'
           });
         }
+        Students.student = null;
         $modalInstance.close();
         $location.path('/teacher/students');
       });
