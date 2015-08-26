@@ -143,7 +143,7 @@ module.exports = function(app) {
           requiredStudent: true
         }
       })
-      .when('/students/tests/:testId', {
+      .when('/student/tests/:testId', {
         templateUrl: 'templates/views/student/test.html',
         controller: 'TestCtrl',
         access: {

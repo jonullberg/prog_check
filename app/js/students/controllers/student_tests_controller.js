@@ -1,9 +1,8 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('StudentTestsCtrl', ['$scope', 'Errors', 'Student', function($scope, Errors, Student) {
+  app.controller('StudentTestsCtrl', ['$scope', '$location', 'Errors', 'Student', function($scope, $location, Errors, Student) {
     $scope.student = Student.student;
-    console.log($scope.student);
 
     $scope.takeTest = function(goal) {
       Student.getTestByGoalId(goal, function(err, data) {
@@ -12,7 +11,7 @@ module.exports = function(app) {
             'msg': 'There was an error getting your test'
           })
         }
-        console.log(data);
+        $location.path('/student/tests/' + data[0]._id);
       });
     };
   }]);
