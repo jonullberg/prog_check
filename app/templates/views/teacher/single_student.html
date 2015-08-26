@@ -28,17 +28,14 @@
 
   </div>
   <footer class="panel-footer">
-    <button type="button" class="btn btn-default"
+    <button type="button" class="btn btn-primary"
       data-ng-click="editStudentModal(student)">
       Edit/Delete Student
     </button>
-    <button type="button" class="btn btn-primary"
+    <button type="button" class="btn btn-info"
       data-ng-click="openGoalForm()">
       Add Goals For {{student.firstName}}
-    </button>
-    <button type="button" class="btn btn-danger"
-      data-ng-click="toggleDelete()">
-      Delete Student
+      <span class="glyphicon glyphicon-plus"></span>
     </button>
   </footer>
 </main>
