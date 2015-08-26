@@ -7,6 +7,24 @@ module.exports = function(app) {
       $scope.student = Students.student;
     };
 
+    $scope.isDeleteShown = false;
+
+    $scope.toggleDelete = function() {
+      $scope.isDeleteShown = !$scope.isDeleteShown;
+    };
+
+    $scope.deleteStudent = function(student) {
+      Students.deleteStudent(student, function(err) {
+        if (err) {
+          return Errors.addError({
+            'msg': 'There was an error deleting that student'
+          });
+        }
+
+        $location.path('/teacher/students');
+      });
+    };
+
     $scope.$on('student:changed', getStudent);
 
     $scope.getStudent = function() {
