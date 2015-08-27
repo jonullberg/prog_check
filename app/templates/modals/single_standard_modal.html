@@ -33,24 +33,23 @@
     </p>
     <h3>Goals</h3>
     <ul>
-      <li data-ng-click="showButtons(goal)"
-        data-ng-repeat="goal in standard.goals">
+      <li data-ng-repeat="goal in standard.goals">
         {{goal.description}}
-        <button class="btn btn-info" type="button"
-          data-ng-click="showGoal(goal)">
-          View Goal
-        </button>
-        <p data-ng-if="goal.sampleShowing">
-          Example: {{sampleQuestion}}
-        </p>
+        <div>
+          <button class="btn btn-primary text-right" type="button"
+            data-ng-click="addGoal(goal)">
+            Add Goal
+            <span class="glyphicon glyphicon-plus"></span>
+          </button>
+          <button class="btn btn-info text-right" type="button"
+            data-ng-click="showExampleQuestion(goal)">
+            View Example Question
+          </button>
+
+        </div>
+        <p data-ng-if="goal.enableExample">Example: {{goal.sampleQuestion}}</p>
       </li>
     </ul>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-info"
-      data-ng-click="addGoal(goal)">
-      Add Goal
-      <span class="glyphicon glyphicon-plus"></span>
-    </button>
+    <div class="clearfix"></div>
   </div>
 </section>

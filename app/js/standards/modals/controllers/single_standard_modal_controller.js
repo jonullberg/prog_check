@@ -5,6 +5,19 @@ module.exports = function(app) {
     $scope.standard = Standards.standard;
     var getStandard = function() {
       $scope.standard = Standards.standard;
+      $scope.standard.goals.forEach(function(goal) {
+        Tests.getTestByGoalId(goal, function(err, data) {
+          var test = data[0];
+          if (!test) {
+            return goal.sampleQuestion = 'There was no example questions for this goal.';
+          }
+          var question = data[0].questions[0];
+          if (!question) {
+            return goal.sampleQuestion = 'There was no example questions for this goal.';
+          }
+          goal.sampleQuestion = question.question;
+        });
+      })
     };
 
     var addGoal = function(goal) {
@@ -19,7 +32,7 @@ module.exports = function(app) {
     };
 
     var showSample = function(goal) {
-      goal.sampleShowing = !goal.sampleShowing;
+      goal.enableExample = !goal.enableExample;
     };
 
     $scope.$on('standard:changed', getStandard);
@@ -40,8 +53,15 @@ module.exports = function(app) {
       });
     };
 
+    $scope.showExampleQuestion = function(selectedGoal) {
+      $scope.standard.goals.forEach(function(goal) {
+        goal.enableExample = false;
+
+      });
+      selectedGoal.enableExample = true;
+    };
+
     $scope.showGoal = function(goal) {
-      $scope.goal = goal;
       Tests.getTestByGoalId(goal, function(err, data) {
         if (err) {
           return Errors.addError({
