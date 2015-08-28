@@ -32,10 +32,11 @@
       {{standard.language}}
     </p>
     <h3>Goals</h3>
+    <p data-ng-if="!standard.goals">You have no goals. Add some below.</p>
     <ul>
       <li data-ng-click="showButtons(goal)"
         data-ng-repeat="goal in standard.goals">
-        {{goal.description}}
+        {{goal.name}}: {{goal.description}}
         <button class="btn btn-info" type="button"
           data-ng-if="goal.buttons"
           data-ng-click="selectGoal(goal)">

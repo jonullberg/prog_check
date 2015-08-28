@@ -1,0 +1,10 @@
+<div class="panel-body">
+  <h3>Question: </h3>
+  <p>{{question.question}}</p>
+  <h3>Answers: </h3>
+
+  <button class="btn btn-lg btn-default"
+    data-ng-repeat="answer in question.answers">
+    {{answer}}
+  </button>
+</div>

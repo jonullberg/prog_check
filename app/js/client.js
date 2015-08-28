@@ -16,6 +16,7 @@ require('./standards/services/pc_grades_service')(progCheck);
 require('./services/lodash')(progCheck);
 require('./services/us_states')(progCheck);
 require('./services/sanitize_fractions')(progCheck);
+require('./services/shuffle')(progCheck);
 
 //    Auth Services
 require('./auth/services/token_interceptor')(progCheck);
@@ -120,7 +121,12 @@ require('./tests/directives/pc_single_test')(progCheck); // Shows the informatio
 
 //  Students
 
-  //  Controllers
+  //  Test
+  require('./students/controllers/test_controller')(progCheck);
+
+  //  Questions
+  require('./students/controllers/question_controller')(progCheck);
+  require('./students/directives/pc_question_directive')(progCheck);
 
   //  Directives
 

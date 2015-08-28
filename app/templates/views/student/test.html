@@ -1,0 +1,18 @@
+<main>
+  <header class="panel-heading">
+    <h3>Progress</h3>
+    <progressbar value="current" max="max"><span style="color:white; white-space:no-wrap;">{{current}} / {{max}}</span></progressbar>
+
+  </header>
+  <pc-question></pc-question>
+  <footer class="panel-footer">
+    <button class="btn btn-lg btn-primary"
+      data-ng-click="previousQuestion()">
+      <span class="glyphicon glyphicon-chevron-left"></span> Previous
+    </button>
+    <button class="btn btn-lg btn-primary pull-right"
+      data-ng-click="nextQuestion()">
+      {{nextText}} <span class="glyphicon glyphicon-chevron-right" data-ng-if="current !== max"></span>
+    </button>
+  </footer>
+</main>

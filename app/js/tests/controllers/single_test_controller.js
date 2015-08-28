@@ -61,7 +61,7 @@ module.exports = function(app) {
       $modal.open({
         animation:true,
         templateUrl: '/templates/partials/question_form.html',
-        controller:'QuestionCtrl',
+        controller:'QuestionFormCtrl',
         size: 'lg',
         scope: scope
       });

@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('QuestionCtrl', ['$scope', '$modalInstance', '$sce', 'Errors', 'Tests', 'Upload', function($scope, $modalInstance, $sce, Errors, Tests, Upload) {
+  app.controller('QuestionFormCtrl', ['$scope', '$modalInstance', '$sce', 'Errors', 'Tests', 'Upload', function($scope, $modalInstance, $sce, Errors, Tests, Upload) {
 
     var getTest = function() {
       $scope.test = Tests.test;
