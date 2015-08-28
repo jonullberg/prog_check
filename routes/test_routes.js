@@ -36,6 +36,19 @@ module.exports = function(router) {
       res.json(data);
     });
   });
+
+  router.get('/tests/:testId', function(req, res) {
+    Test.find({_id: req.params.testId}, function(err, data) {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          'msg': 'Internal Server Error'
+        });
+      }
+      res.json(data);
+    });
+  });
+
   router.get('/tests/goal/:goalId', function(req, res) {
     Test.find({goalId: req.params.goalId}, function(err, data) {
       if (err) {

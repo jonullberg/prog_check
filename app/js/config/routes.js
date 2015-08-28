@@ -136,7 +136,7 @@ module.exports = function(app) {
         }
       })
       .when('/student/tests', {
-        templateUrl: 'templates/views/student/tests.html',
+        templateUrl: 'templates/views/student/student_tests.html',
         controller: 'StudentTestsCtrl',
         access: {
           requiredLogin: true,

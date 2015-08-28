@@ -7,12 +7,12 @@ var stylish = require('jshint-stylish');
 var jshint = require('gulp-jshint');
 var jscs = require('gulp-jscs');
 var copy = require('gulp-copy');
-var clean = require('gulp-clean');
+var del = require('del');
 var karma = require('gulp-karma');
 
 var workingFiles = ['gulpfile.js', './lib/**/*.js', './routes/**/*.js', './app/**/*.js', './test/**/*.js', './models/**/*.js'];
 
-gulp.task('webpack:client', function(callback) {
+gulp.task('webpack:client', ['copy:html'], function(callback) {
   webpack({
     entry: __dirname + '/app/js/client.js',
     output: {
@@ -73,14 +73,23 @@ gulp.task('karma:test', ['webpack:karma_test'], function() {
     });
 });
 
-gulp.task('clean:build', function () {
-  return gulp.src('build/')
-    .pipe(clean());
+gulp.task('clean:build', function (cb) {
+  del.sync([
+    'build/css/**/*',
+    'build/templates/**/*',
+    'build/index.html',
+    'build/bundle.js',
+    '!build/img/**/*',
+    '!build/uploads/**/*'
+    ]);
+  cb();
 });
 
-gulp.task('clean:karma', function(done) {
-  return gulp.src('test/karma_tests/build.js')
-    .pipe(clean());
+gulp.task('clean:karma', function(cb) {
+  del.sync([
+    'test/karma_tests/build.js'
+    ]);
+  cb();
 });
 
 gulp.task('copy:html', ['clean:build'], function() {
@@ -101,5 +110,5 @@ gulp.task('jscs', function() {
 });
 
 gulp.task('karmatest', ['karma:test']);
-gulp.task('build', ['webpack:client', 'copy:html']);
+gulp.task('build', ['webpack:client']);
 gulp.task('default', ['webpack:client']);

@@ -10,7 +10,14 @@
       </li>
     </ul>
     <div class="form-group">
-      <label for="description" class="">What is the goal?</label>
+      <label for="name">What is a short name for the goal?</label>
+      <input type="text" class="form-control" required
+        name="name" id="name"
+        data-ng-model="goal.name" />
+    </div>
+
+    <div class="form-group">
+      <label for="description" class="">What is a description for the goal?</label>
       <textarea class="form-control" required
         name="description" id="description"
         data-ng-model="goal.description">
