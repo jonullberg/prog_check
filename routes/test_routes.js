@@ -1,6 +1,7 @@
 'use strict';
 
 var Test = require('../models/Test');
+var Attempt = require('../models/Attempt');
 var bodyparser = require('body-parser');
 var eatAuth = require('../lib/eat_auth')(process.env.APP_SECRET);
 var path = require('path');
@@ -8,8 +9,6 @@ var fs = require('fs');
 
 module.exports = function(router) {
   router.use(bodyparser.json());
-
-
 
   router.post('/tests', eatAuth, function(req, res) {
     var newTest = new Test(req.body);
@@ -21,6 +20,23 @@ module.exports = function(router) {
         });
       }
       res.json(data);
+    });
+  });
+
+  router.post('/tests/attempt', function(req, res) {
+    var newAttempt = new Attempt(req.body);
+    newAttempt.dateTaken = Date.now();
+    newAttempt.save(function(err, data) {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          'msg': 'Internal Server Error'
+        });
+      }
+
+      res.json({
+        'msg': 'Success'
+      });
     });
   });
 

@@ -23,7 +23,7 @@
         <img data-ng-src="{{$parent.question.question}}" class="col-lg-12">
         <button class="btn btn-primary col-lg-12"
           name="question" id="question"
-          data-ngf-select data-ng-model="$parent.questionImage">
+          data-ngf-select data-ng-model="$parent.questionImage" accept="image/*">
           Select File
         </button>
       </div>
@@ -36,7 +36,7 @@
         <img data-ng-src="{{$parent.question.correct}}" class="col-lg-12">
         <button class="btn btn-primary col-lg-12"
           name="correctAnswer" id="correctAnswer"
-          data-ngf-select data-ng-model="$parent.correctImage">
+          data-ngf-select data-ng-model="$parent.correctImage" accept="image/*">
           Select File
         </button>
       </div>
@@ -56,21 +56,24 @@
           <button class="btn btn-primary col-lg-4"
             name="wrongAnswer1" id="wrongAnswer1"
             data-ngf-select
-            data-ng-model="$parent.answersImage1">
+            data-ng-model="$parent.answersImage1"
+            accept="image/*">
             Select File
           </button>
 
           <button class="btn btn-primary col-lg-4"
             name="wrongAnswer2" id="wrongAnswer2"
             data-ngf-select
-            data-ng-model="$parent.answersImage2">
+            data-ng-model="$parent.answersImage2"
+            accept="image/*">
             Select File
           </button>
 
           <button class="btn btn-primary col-lg-4"
             name="wrongAnswer3" id="wrongAnswer3"
             data-ngf-select
-            data-ng-model="$parent.answersImage3">
+            data-ng-model="$parent.answersImage3"
+            accept="image/*">
             Select File
           </button>
 

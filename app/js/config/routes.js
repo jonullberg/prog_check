@@ -158,6 +158,14 @@ module.exports = function(app) {
           requiredStudent: true
         }
       })
+      .when('/student/attempt', {
+        templateUrl: 'templates/views/student/attempt_review.html',
+        controller: 'AttemptReviewCtrl',
+        access: {
+          requiredLogin: true,
+          requiredStudent: true
+        }
+      })
       .otherwise({
         redirectTo: '/home'
       });

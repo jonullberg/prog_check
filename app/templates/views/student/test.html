@@ -1,12 +1,13 @@
 <main>
   <header class="panel-heading">
     <h3>Progress</h3>
-    <progressbar value="current" max="max"><span style="color:white; white-space:no-wrap;">{{current}} / {{max}}</span></progressbar>
+    <progress><bar data-ng-repeat="question in attempt.questions" value="max" type="{{question.type}}"><span style="color:white; white-space:no-wrap;">{{$index + 1}}</span></bar></progress>
 
   </header>
-  <pc-question></pc-question>
+  <pc-question data-question="question"
+    data-select-answer="selectAnswer(answer)"></pc-question>
   <footer class="panel-footer">
-    <button class="btn btn-lg btn-primary"
+    <button class="btn btn-lg btn-primary" data-ng-if="nope"
       data-ng-click="previousQuestion()">
       <span class="glyphicon glyphicon-chevron-left"></span> Previous
     </button>
