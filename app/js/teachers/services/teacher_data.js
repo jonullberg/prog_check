@@ -1,11 +1,11 @@
 'use strict';
 
 module.exports = function(app) {
-  app.factory('TeacherData', ['$rootScope', 'Students', function ($rootScope, Students) {
+  app.factory('TeacherData', ['$rootScope', 'Students', 'Attempts', function($rootScope, Students, Attempts) {
 
     return {
-      students: Students,
-
+      Students: Students,
+      Attempts: Attempts
     };
   }])
 }

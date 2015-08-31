@@ -23,7 +23,19 @@ module.exports = function(router) {
     });
   });
 
-  router.post('/tests/attempt', function(req, res) {
+  router.get('/tests/attempts/:studentId', eatAuth, function(req, res) {
+    Attempt.find({'studentId': req.params.studentId}, function(err, data) {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          'msg': 'Internal Server Error'
+        })
+      }
+      res.json(data);
+    });
+  });
+
+  router.post('/tests/attempts', function(req, res) {
     var newAttempt = new Attempt(req.body);
     newAttempt.dateTaken = Date.now();
     newAttempt.save(function(err, data) {

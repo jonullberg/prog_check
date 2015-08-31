@@ -4,6 +4,8 @@ module.exports = function(app) {
   app.factory('Students', ['$rootScope', 'RESTResource', function($rootScope, resource) {
 
     var Students = resource('students');
+    var Attempts = resource('attempts');
+
     var studentData = {
       student: null,
       students: [],

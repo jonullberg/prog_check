@@ -1,12 +1,18 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('SingleStudentCtrl', ['$scope', '$routeParams', '$modal', '$location', '$rootScope', 'Errors', 'Students', function($scope, $routeParams, $modal, $location, $rootScope, Errors, Students) {
+  app.controller('SingleStudentCtrl', ['$scope', '$routeParams', '$modal', '$location', '$rootScope', 'Errors', 'Students', 'TeacherData', function($scope, $routeParams, $modal, $location, $rootScope, Errors, Students, TeacherData) {
 
+    $scope.attempts = TeacherData.Attempts.attempts;
     var getStudent = function() {
-      $scope.student = Students.student;
+      $scope.student = TeacherData.Students.student;
     };
 
+    var getAttempts = function() {
+      TeacherData.Attempts.getAttempts(TeacherData.Students.student, function(data) {
+        $scope.attempts = TeacherData.Attempts.attempts;
+      });
+    };
 
     $scope.toggleDelete = function() {
       $scope.isDeleteShown = !$scope.isDeleteShown;
@@ -14,17 +20,18 @@ module.exports = function(app) {
 
     $scope.$on('student:changed', getStudent);
 
-    $scope.getStudent = function() {
+    $scope.init = function() {
       getStudent();
+      getAttempts();
     };
 
     $scope.goBack = function() {
-      Students.student = null;
+      TeacherData.Students.student = null;
       $location.path('teacher/students');
     };
 
     $scope.removeGoal = function(goal) {
-      Students.removeGoal(goal);
+      TeacherData.Students.removeGoal(goal);
     };
 
     $scope.openGoalForm = function() {
@@ -42,7 +49,7 @@ module.exports = function(app) {
 
     $scope.saveStudent = function(student) {
       student.numberOfQuestions = $scope.selectedNumber;
-      Students.saveStudent(student, function(err, data) {
+      TeacherData.Students.saveStudent(student, function(err, data) {
         if (err) {
           return Errors.addError({
             'msg': 'There was an error updating that student'
@@ -53,7 +60,7 @@ module.exports = function(app) {
     };
 
     $scope.editStudentModal = function(student) {
-      Students.student = student;
+      TeacherData.Students.student = student;
       var scope = $rootScope.$new();
       scope.params = {
         formType: 'editing',
@@ -65,7 +72,8 @@ module.exports = function(app) {
         size:'lg',
         controller: 'StudentFormCtrl',
         scope: scope
-      })
+      });
     };
+
   }]);
 };

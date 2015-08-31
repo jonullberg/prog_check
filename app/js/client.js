@@ -24,6 +24,11 @@ require('./auth/services/user_service')(progCheck);
 require('./auth/services/authentication_service')(progCheck);
 
 //    Data Services
+
+  //  Teacher Data
+  require('./teachers/services/teacher_data')(progCheck);
+  require('./teachers/services/attempt_data')(progCheck);
+
 require('./services/errors_service')(progCheck); // Service for holding errors of application
 require('./services/test_data')(progCheck); // Stores all test data for app
 require('./services/standards_data')(progCheck); // Stores all standard data for app
