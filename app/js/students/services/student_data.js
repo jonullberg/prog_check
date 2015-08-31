@@ -42,7 +42,7 @@ module.exports = function(app) {
       },
       saveAttempt: function(attempt, callback) {
         this.attempt = attempt;
-        $http.post('/api/tests/attempt', attempt)
+        $http.post('/api/tests/attempts', attempt)
           .success(function(res) {
             callback(res.data);
           })

@@ -127,6 +127,20 @@ module.exports = function(app) {
           requiredTeacher: true
         }
       })
+      .when('/teacher/attempts', {
+        templateUrl: 'templates/views/teacher/attempts.html',
+        access: {
+          requiredLogin: true,
+          requiredTeacher: true
+        }
+      })
+      .when('/teacher/attempts/:attemptId', {
+        templateUrl: 'templates/views/teacher/attempt.html',
+        access: {
+          requiredLogin: true,
+          requiredTeacher: true
+        }
+      })
       .when('/student/home', {
         templateUrl: 'templates/views/student/home.html',
         controller: 'StudentHomeCtrl',

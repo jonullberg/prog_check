@@ -1,5 +1,5 @@
 <main class="panel panel-primary"
-  data-ng-init="getStudent()">
+  data-ng-init="init()">
   <header class="panel-heading">
     <h3 class="col-lg-9">Information for {{student.firstName}} {{student.lastName}}</h3>
     <button type="button" class="btn btn-default"
@@ -10,21 +10,32 @@
   </header>
   <div class="panel-body">
     <h4>Number of Questions Per Test: {{student.numberOfQuestions}}</h4>
-    <h4>Goals</h4>
-    <p data-ng-if="!student.goals.length">You have no goals for your student. Feel free to add some below.</p>
-    <ul class="list-group">
-      <li class="list-group-item"
-        data-ng-repeat="goal in student.goals"
-        data-ng-click="showButtons(goal)">
-        <span class="col-lg-4">{{goal.description}}</span>
-        <button class="btn btn-danger"
-          data-ng-if="goal.buttonsShowing"
-          data-ng-click="removeGoal(goal)">
-          Remove Goal
-        </button>
-        <div class="clearfix"></div>
-      </li>
-    </ul>
+    <div class="col-lg-6">
+      <h4>Recent Tests</h4>
+      <p data-ng-if="!attempts.length">{{student.firstName}} has not taken any tests yet.</p>
+      <ul>
+        <li data-ng-repeat="attempt in attempts | limitTo: 6">
+          {{attempt.correctAnswers}}/{{attempt.questions.length}} - {{attempt.dateTaken | date}}
+        </li>
+      </ul>
+    </div>
+    <div class="col-lg-6">
+      <h4>Goals</h4>
+      <p data-ng-if="!student.goals.length">You have no goals for your student. Feel free to add some below.</p>
+      <ul class="list-group">
+        <li class="list-group-item"
+          data-ng-repeat="goal in student.goals"
+          data-ng-click="showButtons(goal)">
+          <span>{{goal.name || goal.description}}</span>
+          <button class="btn btn-danger pull-right"
+            data-ng-if="goal.buttonsShowing"
+            data-ng-click="removeGoal(goal)">
+            Remove Goal
+          </button>
+          <div class="clearfix"></div>
+        </li>
+      </ul>
+    </div>
 
   </div>
   <footer class="panel-footer">
