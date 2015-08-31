@@ -10,7 +10,6 @@ module.exports = function(app) {
         $http.get('/api/tests/attempts/' + student._id)
           .then(function(res) {
             this.attempts = res.data;
-            console.log(this.attempts);
             cb(res.data);
           }.bind(this))
           .catch(function(e) {
@@ -21,8 +20,6 @@ module.exports = function(app) {
             }
           })
           .finally(function(res, e) {
-            console.log(res);
-            console.log(e);
           });
       }
     }

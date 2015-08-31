@@ -35,8 +35,10 @@ module.exports = function(app) {
 
     return function(resourceName) {
       var token = $cookies.get('token');
+      var role = $cookies.getObject('user').role;
 
       $http.defaults.headers.common.token = token;
+      $http.defaults.headers.common.role = role;
       return {
 
         /**
