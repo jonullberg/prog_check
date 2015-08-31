@@ -1,10 +1,11 @@
-<div class="panel-body">
+<div class="panel-body" data-ng-init="initQuestion()">
   <h3>Question: </h3>
   <p>{{question.question}}</p>
   <h3>Answers: </h3>
-
   <button class="btn btn-lg btn-default"
-    data-ng-repeat="answer in question.answers">
+    data-ng-class="{ 'btn-primary': $index == question.selectedIndex }"
+    data-ng-repeat="answer in question.answers"
+    data-ng-click="select(answer, $index)">
     {{answer}}
   </button>
 </div>
