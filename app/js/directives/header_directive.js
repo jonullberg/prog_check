@@ -42,10 +42,11 @@ module.exports = function(app) {
               header: 'Students',
               url: 'teacher/students'
             },
-            {
-              header: 'Tests',
-              url: 'teacher/tests'
-            }];
+            // {
+            //   header: 'Tests',
+            //   url: 'teacher/tests'
+            // }
+            ];
           } else if ($cookies.getObject('user').role === 'student') {
             scope.tabs = [{
               header: 'Home',
@@ -55,10 +56,11 @@ module.exports = function(app) {
               header: 'Tests',
               url: 'student/tests'
             },
-            {
-              header: 'Scores',
-              url: 'student/scores'
-            }];
+            // {
+            //   header: 'Scores',
+            //   url: 'student/scores'
+            // }
+            ];
           }
         } else {
           scope.tabs = [{

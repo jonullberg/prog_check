@@ -1,6 +1,6 @@
 'use strict';
 
-var Test = require('../models/Test');
+var Tests = require('../models/Test');
 var Attempt = require('../models/Attempt');
 var bodyparser = require('body-parser');
 var eatAuth = require('../lib/eat_auth')(process.env.APP_SECRET);
@@ -11,7 +11,7 @@ module.exports = function(router) {
   router.use(bodyparser.json());
 
   router.post('/tests', eatAuth, function(req, res) {
-    var newTest = new Test(req.body);
+    var newTest = new Tests(req.body);
     newTest.save(function(err, data) {
       if (err) {
         console.log(err);
@@ -35,7 +35,7 @@ module.exports = function(router) {
     });
   });
 
-  router.post('/tests/attempts', function(req, res) {
+  router.post('/tests/attempts', eatAuth, function(req, res) {
     var newAttempt = new Attempt(req.body);
     newAttempt.dateTaken = Date.now();
     newAttempt.save(function(err, data) {
@@ -53,7 +53,7 @@ module.exports = function(router) {
   });
 
   router.get('/tests', eatAuth, function(req, res) {
-    Test.find({}, function(err, data) {
+    Tests.find({}, function(err, data) {
       if (err) {
         console.log(err);
         return res.status(500).json({
@@ -65,8 +65,8 @@ module.exports = function(router) {
     });
   });
 
-  router.get('/tests/:testId', function(req, res) {
-    Test.find({_id: req.params.testId}, function(err, data) {
+  router.get('/tests/:testId', eatAuth, function(req, res) {
+    Tests.find({_id: req.params.testId}, function(err, data) {
       if (err) {
         console.log(err);
         return res.status(500).json({
@@ -77,8 +77,8 @@ module.exports = function(router) {
     });
   });
 
-  router.get('/tests/goal/:goalId', function(req, res) {
-    Test.find({goalId: req.params.goalId}, function(err, data) {
+  router.get('/tests/goal/:goalId', eatAuth, function(req, res) {
+    Tests.find({goalId: req.params.goalId}, function(err, data) {
       if (err) {
         console.log(err);
         return res.status(500).json({
@@ -91,7 +91,7 @@ module.exports = function(router) {
 
   router.put('/tests/:id', eatAuth, function(req, res) {
     var updatedTest = req.body;
-    Test.update({_id: req.params.id},
+    Tests.update({_id: req.params.id},
       updatedTest, function(err) {
         if (err) {
           console.log(err);
@@ -107,7 +107,7 @@ module.exports = function(router) {
   });
 
   router.delete('/tests/:id', eatAuth, function(req, res) {
-    Test.remove({'_id': req.params.id},
+    Tests.remove({'_id': req.params.id},
       function(err, data) {
         if (err) {
           console.log(err);
@@ -122,7 +122,7 @@ module.exports = function(router) {
       });
   });
 
-  router.post('/tests/:id/questions/image', function(req, res) {
+  router.post('/tests/:id/questions/image', eatAuth, function(req, res) {
     var uploadPath = null;
     req.busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
 
