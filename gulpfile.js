@@ -9,7 +9,6 @@ var jscs = require('gulp-jscs');
 var copy = require('gulp-copy');
 var del = require('del');
 var karma = require('gulp-karma');
-var watching = require('gulp-watch');
 var batch = require('gulp-batch');
 
 var paths = {
@@ -22,6 +21,12 @@ var paths = {
   dataModels: './models/**/*.js',
   gulpfile: './gulpfile.js'
 };
+
+gulp.task('watch', function() {
+  var client = ['build', 'lint'];
+  gulp.watch(paths.scripts, client);
+  gulp.watch(paths.html, client);
+});
 
 var workingFiles = ['gulpfile.js', './lib/**/*.js', './routes/**/*.js', './app/**/*.js', './test/**/*.js', './models/**/*.js'];
 
@@ -120,13 +125,6 @@ gulp.task('lint', function() {
 gulp.task('jscs', function() {
   return gulp.src(workingFiles)
     .pipe(jscs());
-});
-
-gulp.task('watch', function() {
-  var watchFiles = [paths.scripts, paths.html];
-  watching(watchFiles, batch(function(events, done) {
-    gulp.start('build', done);
-  }));
 });
 
 gulp.task('karmatest', ['karma:test']);
