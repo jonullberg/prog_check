@@ -1,8 +1,10 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('SingleStandardModalCtrl', ['$scope', '$modal', '$modalInstance', '$cookies', '$rootScope', 'Errors', 'Standards', 'Students', 'Tests', function($scope, $modal, $modalInstance, $cookies, $rootScope, Errors, Standards, Students, Tests) {
+  app.controller('SingleStandardModalCtrl', ['$scope', '$modal', '$modalInstance', '$cookies', '$rootScope', '$sce', 'Errors', 'Standards', 'Students', 'Tests', function($scope, $modal, $modalInstance, $cookies, $rootScope, $sce, Errors, Standards, Students, Tests) {
+
     $scope.standard = Standards.standard;
+
     var getStandard = function() {
       $scope.standard = Standards.standard;
       $scope.standard.goals.forEach(function(goal) {
@@ -34,6 +36,8 @@ module.exports = function(app) {
     var showSample = function(goal) {
       goal.enableExample = !goal.enableExample;
     };
+
+    $scope.trustAsHtml = $sce.trustAsHtml;
 
     $scope.$on('standard:changed', getStandard);
 

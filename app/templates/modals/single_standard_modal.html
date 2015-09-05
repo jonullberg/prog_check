@@ -47,7 +47,7 @@
           </button>
 
         </div>
-        <p data-ng-if="goal.enableExample">Example: {{goal.sampleQuestion}}</p>
+        <p data-ng-if="goal.enableExample" data-ng-bind-html="trustAsHtml(goal.sampleQuestion)">Example: {{goal.sampleQuestion}}</p>
       </li>
     </ul>
     <div class="clearfix"></div>
