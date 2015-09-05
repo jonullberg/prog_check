@@ -9,7 +9,7 @@ module.exports = function(app) {
         if (err) {
           return Errors.addError({
             'msg': 'There was an error getting your test'
-          })
+          });
         }
         $location.path('/student/tests/' + data[0]._id);
       });

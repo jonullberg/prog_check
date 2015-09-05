@@ -19,7 +19,7 @@ module.exports = function(app) {
           }
           goal.sampleQuestion = question.question;
         });
-      })
+      });
     };
 
     var addGoal = function(goal) {
@@ -76,7 +76,7 @@ module.exports = function(app) {
           $scope.sampleQuestion = data[0].questions[0].question;
 
         } else {
-          $scope.sampleQuestion = 'Unfortunately we do not have any questions for this goal.'
+          $scope.sampleQuestion = 'Unfortunately we do not have any questions for this goal.';
         }
 
       });

@@ -44,7 +44,7 @@ module.exports = function(app) {
         } else if ($scope.params.formType === 'creating') {
           createStudent(student);
           $modalInstance.close();
-          $location.path('/teacher/students')
+          $location.path('/teacher/students');
         }
       }
     };

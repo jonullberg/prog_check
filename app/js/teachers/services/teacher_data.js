@@ -7,5 +7,5 @@ module.exports = function(app) {
       Students: Students,
       Attempts: Attempts
     };
-  }])
-}
+  }]);
+};

@@ -9,7 +9,6 @@ var jscs = require('gulp-jscs');
 var copy = require('gulp-copy');
 var del = require('del');
 var karma = require('gulp-karma');
-var batch = require('gulp-batch');
 
 var paths = {
   scripts: './app/**/*.js',

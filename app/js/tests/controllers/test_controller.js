@@ -11,7 +11,7 @@ module.exports = function(app) {
 
     $scope.test = dataStore.test;
 
-    $scope.masterTest;
+    $scope.masterTest = null;
 
     $scope.standard = dataStore.standard;
 
@@ -125,7 +125,7 @@ module.exports = function(app) {
 
 
 
-    $scope.master;
+    $scope.master = null;
     $scope.areWeAddingQuestions = false;
     $scope.getGoalId = function(test) {
       console.log($scope.standard);
