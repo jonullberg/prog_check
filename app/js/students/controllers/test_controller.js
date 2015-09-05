@@ -110,7 +110,7 @@ module.exports = function(app) {
             'msg': 'There was an error saving your'
           });
         }
-        $location.path('/student/attempt')
+        $location.path('/student/attempt');
       });
     }
 

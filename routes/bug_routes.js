@@ -45,7 +45,7 @@ module.exports = function(router) {
 
       transport.sendMail(mailOptions, function(err, info) {
         if (err) {
-          return console.log(err)
+          return console.log(err);
         }
       });
 
