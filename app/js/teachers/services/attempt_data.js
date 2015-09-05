@@ -2,7 +2,9 @@
 
 module.exports = function(app) {
   app.factory('Attempts', ['$rootScope', '$http', 'RESTResource', 'Errors', function($rootScope, $http, resource, Errors) {
-    var Attempts = resource('tests/attempts')
+
+    var Attempts = resource('tests/attempts');
+
     var attemptData = {
       attempt: null,
       attempts: [],
@@ -22,8 +24,8 @@ module.exports = function(app) {
           .finally(function(res, e) {
           });
       }
-    }
+    };
 
     return attemptData;
-  }])
-}
+  }]);
+};

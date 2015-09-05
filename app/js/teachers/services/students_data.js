@@ -35,7 +35,7 @@ module.exports = function(app) {
       },
       addStudent: function(student, callback) {
         this.student = student;
-        this.students.push(student)
+        this.students.push(student);
         Students.create(student, function(err, data) {
           if (err) {
             callback(err);
