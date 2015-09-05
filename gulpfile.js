@@ -23,10 +23,9 @@ var paths = {
 };
 
 gulp.task('watch', function() {
-  var clientjs = ['build', 'lint'];
-  var clientHtml = ['build'];
-  gulp.watch(paths.scripts, clientjs);
-  gulp.watch(paths.html, clientHtml);
+  var client = ['build', 'lint'];
+  gulp.watch(paths.scripts, client);
+  gulp.watch(paths.html, client);
 });
 
 var workingFiles = ['gulpfile.js', './lib/**/*.js', './routes/**/*.js', './app/**/*.js', './test/**/*.js', './models/**/*.js'];
