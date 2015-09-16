@@ -77,3 +77,11 @@ span.frac > sub {
   height:80px;
   bacgkround-color:#sesese; !important
 }
+
+.green {
+  color: green;
+}
+
+.red {
+  color:red;
+}

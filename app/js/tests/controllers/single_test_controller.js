@@ -76,6 +76,9 @@ module.exports = function(app) {
     };
 
     $scope.showAnswers = function(question) {
+      $scope.test.questions.forEach(function(question) {
+        question.showing = false;
+      });
       question.showing = !question.showing;
     };
 
