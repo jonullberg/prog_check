@@ -85,3 +85,7 @@ span.frac > sub {
 .red {
   color:red;
 }
+
+.angular-with-newlines {
+  white-space: pre-wrap;
+}
