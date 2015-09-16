@@ -16,6 +16,7 @@ module.exports = function(app) {
       }
       var attempt = prepareAttempt(data[0], student);
       $scope.attempt = attempt;
+      console.log($scope.attempt);
       $scope.question = attempt.questions[($scope.current - 1)];
       $scope.attempt.questions[$scope.current - 1].type = '';
       return attempt;
@@ -76,12 +77,13 @@ module.exports = function(app) {
     function prepareAttempt(test, student) {
 
       var questions = getQuestions(test.questions, student.numberOfQuestions);
-
+      console.log(test);
       return {
         testId: testId,
         studentId: student._id,
         correctAnswers: 0,
-        questions: questions
+        questions: questions,
+        directions: test.testDirections
       };
     }
 
