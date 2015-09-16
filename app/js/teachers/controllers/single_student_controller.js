@@ -11,6 +11,18 @@ module.exports = function(app) {
     var getAttempts = function() {
       TeacherData.Attempts.getAttempts(TeacherData.Students.student, function(data) {
         $scope.attempts = TeacherData.Attempts.attempts;
+        $scope.attempts.forEach(function(attempt) {
+          attempt.questions.forEach(function(question) {
+            if (question.result === 'correct') {
+              question.icon = 'glyphicon glyphicon-ok green';
+              question.color = 'green';
+            } else {
+              question.icon = 'glyphicon glyphicon-remove red';
+              question.color = 'red';
+            }
+          });
+          return attempt;
+        });
       });
     };
 
@@ -74,6 +86,14 @@ module.exports = function(app) {
         scope: scope
       });
     };
-
+    $scope.showAttempt = function(attempt) {
+      $scope.attempts.forEach(function(attempt) {
+        attempt.questionsShowing = false;
+      });
+      attempt.questionsShowing = true;
+    };
+    $scope.showAnswers = function(question) {
+      question.answersShowing = !question.answersShowing;
+    };
   }]);
 };
