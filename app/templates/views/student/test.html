@@ -1,5 +1,7 @@
 <main>
   <header class="panel-heading">
+    <h3>Instructions: </h3>
+    <p>{{attempt.directions}}</p>
     <h3>Progress</h3>
     <progress><bar data-ng-repeat="question in attempt.questions" value="max" type="{{question.type}}"><span style="color:white; white-space:no-wrap;">{{$index + 1}}</span></bar></progress>
 
