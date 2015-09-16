@@ -14,9 +14,10 @@
       <h4>Recent Tests</h4>
       <p data-ng-if="!attempts.length">{{student.firstName}} has not taken any tests yet.</p>
       <ul>
-        <li data-ng-repeat="attempt in attempts | limitTo: 6"
+        <li data-ng-repeat="attempt in attempts"
           data-ng-click="showAttempt(attempt)">
           {{attempt.correctAnswers}}/{{attempt.questions.length}} - {{attempt.dateTaken | date}}
+          {{attempt.directions}}
           <ul data-ng-if="attempt.questionsShowing">
             <li data-ng-repeat="question in attempt.questions"
               data-ng-click="showAnswers(question)">
