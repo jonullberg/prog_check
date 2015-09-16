@@ -17,6 +17,9 @@ var attemptSchema = mongoose.Schema({
   'lastUpdated': {
     type: Date,
     default: Date.now
+  },
+  'directions': {
+    type: String
   }
 });
 
