@@ -82,35 +82,35 @@
     </div>
     <div class="form-group" data-ng-if="test.questionType === 'text'">
       <label for="question">Question: </label>
-      <input type="text" class="form-control"
+      <textarea class="form-control"
         name="question" id="question"
-        data-ng-model="question.question" />
+        data-ng-model="question.question"></textarea>
     </div>
 
     <div class="form-group" data-ng-if="test.answerType === 'text'">
       <label for="correctAnswer">Correct answer: </label>
-      <input type="text" class="form-control"
+      <textarea class="form-control"
         name="correctAnswer" id="correctAnswer"
         data-ng-model="question.correct"
-        data-ng-change="question.answers[0] = question.correct">
+        data-ng-change="question.answers[0] = question.correct"></textarea>
     </div>
     <div class="form-group" data-ng-if="test.answerType === 'text'">
       <label for="answers">Additional (Wrong) Answers: </label>
-      <input type="text"
+      <textarea
         name="wrongAnswer1"
         id="wrongAnswer1"
         data-ng-model="question.answers[1]"
-        class="form-control" />
-      <input type="text"
+        class="form-control"></textarea>
+      <textarea
         name="wrongAnswer2"
         id="wrongAnswer2"
         data-ng-model="question.answers[2]"
-        class="form-control" />
-      <input type="text"
+        class="form-control"></textarea>
+      <textarea
         name="wrongAnswer3"
         id="wrongAnswer3"
         data-ng-model="question.answers[3]"
-        class="form-control" />
+        class="form-control"></textarea>
     </div>
   </div>
   <div class="modal-footer">
