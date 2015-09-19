@@ -6,16 +6,19 @@ module.exports = function(app) {
       $scope.user = {
         type: 'student',
         usernameText: 'Username',
-        passwordText: 'PIN'
+        passwordText: 'PIN',
+        usernameType: 'text'
       };
     };
     $scope.userChange = function(user) {
       if (user.type === 'student') {
         user.usernameText = 'Username';
         user.passwordText = 'PIN';
+        user.usernameType = 'text'
       } else if (user.type === 'teacher') {
         user.usernameText = 'Email';
         user.passwordText = 'Password';
+        user.usernameType = 'email';
       }
     };
     $scope.states = USStates;
@@ -56,13 +59,10 @@ module.exports = function(app) {
       }
     };
     $scope.authSubmit = function(user) {
-      if ($scope.signUpForm.$valid) {
-        if(user.passwordConfirmation) {
-          if(user.password !== user.passwordConfirmation) {
-            return Errors.addError({
-              'msg': 'Your password and confirmation do not match'
-            });
-          }
+      // Is this is a sign-up?
+      if(user.passwordConfirmation) {
+        // Is the form valid?
+        if ($scope.signUpForm.$valid) {
           UserService.create(user, function(err) {
             if (err)  {
               return Errors.addError({
@@ -72,6 +72,12 @@ module.exports = function(app) {
             $location.path('/home');
           });
         } else {
+          alert('You\'re form is invalid');
+        }
+
+      } else {
+        // Is the user a teacher or student?
+        if (user.type === 'teacher') {
           UserService.signIn(user, function(err) {
             if (err) {
               return Errors.addError({
@@ -80,10 +86,18 @@ module.exports = function(app) {
             }
             $location.path('/home');
           });
+        } else if (user.type === 'student') {
+          user.pin = user.password;
+          user.username = user.email;
+          UserService.studentSignIn(user, function(err) {
+            if (err) {
+              return Errors.addError({
+                'msg': 'Could not sign in'
+              });
+            }
+            $location.path('/student/home')
+          })
         }
-
-      } else {
-        alert('You\'re form is invalid');
       }
     };
 
