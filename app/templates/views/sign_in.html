@@ -1,23 +1,81 @@
-<section>
-  <form data-ng-submit="authSubmit(user)">
+<section data-ng-init="initUser()">
+  <form
+    class="form-horizontal"
+    data-ng-submit="authSubmit(user)">
     <fieldset>
       <legend>Sign In</legend>
-
       <div class="form-group">
-        <label for="email">Email</label>
-        <input class="form-control" type="email" id="email" name="email" placeholder="Email" data-ng-model="user.email" />
+        <label
+          for="user-type"
+          class="col-lg-2 col-lg-offset-2 control-label">
+          User
+        </label>
+        <div class="col-lg-6">
+          <select class="form-control"
+            data-ng-change="userChange(user)"
+            data-ng-model="user.type">
+            <option value="student" selected="selected">
+              Student
+            </option>
+            <option value="teacher">
+              Teacher
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label
+          for="email"
+          class="col-lg-2 col-lg-offset-2 control-label">
+          {{user.usernameText}}
+        </label>
+        <div class="col-lg-6">
+          <input
+            class="form-control"
+            type="email"
+            id="email"
+            name="email"
+            data-ng-placeholder="user.usernameText"
+            data-ng-model="user.email" />
+        </div>
       </div>
 
       <div class="form-group">
-        <label for="password">Password</label>
-        <input class="form-control" type="password" id="password" name="password" placeholder="Password" data-ng-model="user.password" />
+        <label
+          for="password"
+          class="col-lg-2 col-lg-offset-2 control-label">
+          {{user.passwordText}}
+        </label>
+        <div class="col-lg-6">
+        <input
+          id="password"
+          class="form-control"
+          type="password"
+          name="password"
+          data-ng-placeholder="user.passwordText"
+          data-ng-model="user.password" />
+
+        </div>
       </div>
       <div class="form-group">
-        <button type="submit" class="btn btn-primary">
-          Sign In
+        <button
+          type="submit"
+          class="btn btn-lg btn-primary col-lg-2 col-lg-offset-4">
+          Sign-In
         </button>
-        <span>Don't have an account? <a data-ng-click="changeView('sign-up')">Sign-Up</a></span><br>
-        <span>Are you a student? <a data-ng-click="changeView('student-sign-in')">Log in here</a></span>
+        <button
+          type="button"
+          class="btn btn-lg btn-success col-lg-2 col-lg-offset-2"
+          data-ng-click="changeView('sign-up')"
+          data-ng-if="user.type === 'teacher'">
+          Sign-Up
+        </button>
+        <div class="clearfix"></div>
+        <span class="col-lg-2 col-lg-offset-8"
+          data-ng-if="user.type === 'teacher'">
+          Don't have an account?
+        </span>
+
       </div>
 
     </fieldset>
