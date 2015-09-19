@@ -1,7 +1,9 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('SingleStudentCtrl', ['$scope', '$routeParams', '$modal', '$location', '$rootScope', 'Errors', 'Students', 'TeacherData', function($scope, $routeParams, $modal, $location, $rootScope, Errors, Students, TeacherData) {
+  app.controller('SingleStudentCtrl', ['$scope', '$routeParams', '$modal', '$location', '$rootScope', '$sce', 'Errors', 'Students', 'TeacherData', function($scope, $routeParams, $modal, $location, $rootScope, $sce, Errors, Students, TeacherData) {
+
+    $scope.trustAsHtml = $sce.trustAsHtml;
 
     $scope.attempts = TeacherData.Attempts.attempts;
     var getStudent = function() {
