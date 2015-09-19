@@ -40,28 +40,37 @@ h1, h2, h3, h4, h5, h6 {
 div.fraction {
   display:inline-block;
   padding:5px 10px;
+  box-sizing:border-box;
+  margin-top:5px;
+  margin-bottom:5px;
 }
 span.frac-whole {
-  font-size:1.5em;
+  font-size:2em;
 }
 
 span.frac {
+  box-sizing:border-box;
   display:inline-block;
-  font-size:75%;
+  font-size:100%;
   text-align:center;
+  padding:5px;
 }
 
 span.frac > sup {
   display:block;
   border-bottom: 1px solid;
+  margin-top:10px;
   font:inherit;
+  top:0;
 }
 
 span.frac > span {
   display:none;
+  bottom:0;
 }
 
 span.frac > sub {
+  padding-top:0;
   display:block;
   font:inherit;
 }
