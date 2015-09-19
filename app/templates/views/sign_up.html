@@ -1,4 +1,5 @@
 <form class="panel panel-primary"
+  name="signUpForm"
   data-ng-submit="authSubmit(user)">
   <header class="panel-heading">
     <h3>Sign Up for Prog-Check</h3>
@@ -6,42 +7,63 @@
   <div class="panel-body">
     <fieldset>
       <legend>Your Information</legend>
-      <div class="form-group">
+      <div class="form-group col-lg-6">
         <label for="firstName">First Name</label>
         <input type="text"
           class="form-control" placeholder="First Name"
           id="firstName" name="firstName"
           data-ng-model="user.firstName" />
       </div>
-      <div class="form-group">
+      <div class="clearfix"></div>
+      <div class="form-group col-lg-6">
         <label for="lastName">Last Name</label>
         <input type="text"
-          class="form-control" placeholder="Last Name"
-          id="lastName" name="lastName"
+          id="lastName"
+          class="form-control"
+          placeholder="Last Name"
+          name="lastName"
           data-ng-model="user.lastName" />
       </div>
-      <div class="form-group">
+      <div class="clearfix"></div>
+      <div class="form-group col-lg-6">
         <label for="email">Email</label>
         <input type="email"
-          id="email" name="email"
-          class="form-control" placeholder="Email"
+          name="email"
+          id="email"
+          class="form-control"
+          required
+          placeholder="Email"
           data-ng-model="user.email" />
       </div>
-
-      <div class="form-group">
-        <label for="password">Password</label>
+      <div class="clearfix"></div>
+      <div class="form-group col-lg-6" data-ng-class="{ 'has-error': signUpForm.password.$invalid, 'has-success': signUpForm.password.$valid}">
+        <label for="password">Password: </label>
         <input type="password"
-          class="form-control" placeholder="Password"
-          id="password" name="password"
-          data-ng-model="user.password" />
+          class="form-control"
+          placeholder="Password"
+          id="password"
+          name="password"
+          required
+          data-valid-pwd
+          data-ng-model="user.password"
+          data-compare-password="{{user.passwordConfirmation}}" />
       </div>
-
-      <div class="form-group">
-        <label for="passwordConfirmation">Confirm Your Password</label>
+      <div class="form-group col-lg-6" data-ng-class="{ 'has-error': signUpForm.passwordConfirmation.$invalid, 'has-success': signUpForm.passwordConfirmation.$valid}">
+        <label for="passwordConfirmation">Confirm Your Password: </label>
         <input type="password"
-          class="form-control" placeholder="Password Confirmation"
-          id="passwordConfirmation" name="passwordConfirmation"
-          data-ng-model="user.passwordConfirmation" />
+          class="form-control"
+          placeholder="Password Confirmation"
+          id="passwordConfirmation"
+          name="passwordConfirmation"
+          required
+          data-ng-model="user.passwordConfirmation"
+          data-compare-password="{{user.password}}" />
+      </div>
+      <div class="col-lg-6">
+        <span>{{pwdValidationText}}</span>
+        <ul>
+          <li data-ng-repeat="warning in pwdValidationWarnings" data-ng-class="warning.className">{{warning.warning}}</li>
+        </ul>
       </div>
 
     </fieldset>

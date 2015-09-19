@@ -22,7 +22,7 @@ var paths = {
 };
 
 gulp.task('watch', function() {
-  var client = ['build', 'lint'];
+  var client = ['build'];
   gulp.watch(paths.scripts, client);
   gulp.watch(paths.html, client);
 });

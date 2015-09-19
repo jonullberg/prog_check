@@ -78,6 +78,7 @@ require('./directives/pc_footer_directive')(progCheck);
 require('./auth/directives/account_tools_directive')(progCheck);
 require('./teachers/directives/pc_teachers_directive')(progCheck);
 require('./directives/valid_password')(progCheck);
+require('./directives/compare_password')(progCheck);
 
   //  Test directives
 require('./tests/directives/pc_test_form')(progCheck);  // Form for adding or editing tests
