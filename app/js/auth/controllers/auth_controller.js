@@ -2,10 +2,22 @@
 
 module.exports = function(app) {
   app.controller('AuthCtrl', ['$scope', '$location', '$modal', 'UserService', 'USStates', 'AuthenticationService', 'Errors', function($scope, $location, $modal, UserService, USStates, AuthenticationService, Errors) {
-
-    console.log($scope.user);
-    $scope.errors = [];
-
+    $scope.initUser = function() {
+      $scope.user = {
+        type: 'student',
+        usernameText: 'Username',
+        passwordText: 'PIN'
+      };
+    };
+    $scope.userChange = function(user) {
+      if (user.type === 'student') {
+        user.usernameText = 'Username';
+        user.passwordText = 'PIN';
+      } else if (user.type === 'teacher') {
+        user.usernameText = 'Email';
+        user.passwordText = 'Password';
+      }
+    };
     $scope.states = USStates;
 
     $scope.changeView = function(url) {
