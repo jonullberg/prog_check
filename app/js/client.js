@@ -17,6 +17,7 @@ require('./services/lodash')(progCheck);
 require('./services/us_states')(progCheck);
 require('./services/sanitize_fractions')(progCheck);
 require('./services/shuffle')(progCheck);
+require('./services/to_trusted')(progCheck);
 
 //    Auth Services
 require('./auth/services/token_interceptor')(progCheck);
