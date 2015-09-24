@@ -2,7 +2,7 @@
   <h2>Congratulations! You got {{attempt.correctAnswers}} out of {{attempt.questions.length}}</h2>
   <accordion data-class-others="oneAtATime">
     <accordion-group data-ng-repeat="question in attempt.questions">
-      <accordion-heading data-ng-bind-html="trustAsHtml(question.question)">
+      <accordion-heading data-ng-bind-html="trustAsHtml(attempt.questions)">
         {{question.question}} <span class="pull-right">{{question.result}}</span>
       </accordion-heading>
       <h3>{{responseText}}</h3>
