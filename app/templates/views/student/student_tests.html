@@ -1,8 +1,8 @@
 <main>
   <h2>Here are the tests you should take next</h2>
   <accordion close-others="true">
-    <accordion-group data-ng-repeat="goal in student.goals" heading="{{goal.description}}">
-      <p>{{goal.name || goal.description}}</p>
+    <accordion-group data-ng-repeat="goal in student.goals" heading="{{goal.name || goal.description}}">
+      <p data-ng-if="goal.name">{{goal.description}}</p>
       <button class="btn btn-primary btn-lg"
         data-ng-click="takeTest(goal)">Take Test</button>
     </accordion-group>

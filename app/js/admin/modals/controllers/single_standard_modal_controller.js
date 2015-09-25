@@ -134,6 +134,11 @@ module.exports = function(app) {
         }
       });
     };
-
+    $scope.showDescription = function(goal) {
+      $scope.standard.goals.forEach(function(goal) {
+        goal.descriptionShowing = false;
+      });
+      goal.descriptionShowing = true;
+    };
   }]);
 };

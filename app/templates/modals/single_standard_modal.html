@@ -32,9 +32,17 @@
       {{standard.language}}
     </p>
     <h3>Goals</h3>
+    <p data-ng-if="!standard.goals || !standard.goals.length">
+      There are no goals for this standard. Please send a request to the administrator.
+    </p>
     <ul>
-      <li data-ng-repeat="goal in standard.goals">
-        {{goal.description}}
+      <li
+        data-ng-repeat="goal in standard.goals"
+        data-ng-click="showDescription(goal)">
+        {{goal.name || goal.description}}
+        <p data-ng-if="goal.descriptionShowing && goal.name">
+          {{goal.description}}
+        </p>
         <div>
           <button class="btn btn-primary text-right" type="button"
             data-ng-click="addGoal(goal)">
