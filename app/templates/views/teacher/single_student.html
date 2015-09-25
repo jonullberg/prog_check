@@ -56,6 +56,7 @@
           data-ng-repeat="goal in student.goals"
           data-ng-click="showButtons(goal)">
           <span>{{goal.name || goal.description}}</span>
+          <p data-ng-if="goal.buttonsShowing && goal.name">{{goal.description}}</p>
           <button class="btn btn-danger pull-right"
             data-ng-if="goal.buttonsShowing"
             data-ng-click="removeGoal(goal)">
