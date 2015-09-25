@@ -9,6 +9,7 @@ var jscs = require('gulp-jscs');
 var copy = require('gulp-copy');
 var del = require('del');
 var karma = require('gulp-karma');
+var livereload = require('gulp-livereload');
 
 var paths = {
   scripts: './app/**/*.js',
@@ -23,8 +24,10 @@ var paths = {
 
 gulp.task('watch', function() {
   var client = ['build'];
+  livereload.listen();
   gulp.watch(paths.scripts, client);
   gulp.watch(paths.html, client);
+  gulp.watch(paths.styles, client);
 });
 
 var workingFiles = ['gulpfile.js', './lib/**/*.js', './routes/**/*.js', './app/**/*.js', './test/**/*.js', './models/**/*.js'];
@@ -43,6 +46,7 @@ gulp.task('webpack:client', ['copy:html'], function(callback) {
     }));
     callback();
   });
+
 });
 
 gulp.task('webpack:heroku', ['copy:html'], function(callback) {
@@ -112,7 +116,8 @@ gulp.task('clean:karma', function(cb) {
 gulp.task('copy:html', ['clean:build'], function() {
   var srcFiles = ['app/**/*.html', 'app/**/*.css', 'app/**/*.png'];
   return gulp.src(srcFiles)
-    .pipe(gulp.dest('build/'));
+    .pipe(gulp.dest('build/'))
+    .pipe(livereload());
 });
 
 gulp.task('lint', function() {
