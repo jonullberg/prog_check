@@ -52,6 +52,7 @@
       <label for="numberOfQuestions">How many questions would you like to have them answer per test?</label>
       <select name="numberOfQuestions" id="numberOfQuestions"
         class="form-control col-lg-6"
+        required="required"
         data-ng-options="number for number in questionOptions"
         data-ng-model="student.numberOfQuestions">
       </select>
