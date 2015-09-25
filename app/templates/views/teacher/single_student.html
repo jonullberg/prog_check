@@ -20,15 +20,28 @@
           {{attempt.directions}}
           <ul data-ng-if="attempt.questionsShowing">
             <li data-ng-repeat="question in attempt.questions"
-              data-ng-click="showAnswers(question)"
-              data-ng-bind-html="trustAsHtml(question.question)">
-              {{question.question}}
+              data-ng-click="showAnswers(question)">
+              <span data-ng-bind-html="question.question | to_trusted">{{question.question}}</span>
               <span data-ng-class="question.icon"></span>
               <ul data-ng-if="question.answersShowing">
-                <li data-ng-bind-html="trustAsHtml(question.submitted)">Their Answer: {{question.submitted}}</li>
-                <li data-ng-repeat="answer in question.answers"
-                  data-ng-bind-html="trustAsHtml(answer)">{{answer}}</li>
-                <li>Result: <span data-ng-class="question.color"><strong>{{question.result}}</strong></span></li>
+                <li>Their Answer:
+                  <span
+                    data-ng-bind-html="question.submitted | to_trusted">
+                    {{question.submitted}}
+                  </span>
+                </li>
+                <li
+                  data-ng-repeat="answer in question.answers"
+                  data-ng-bind-html="answer | to_trusted">
+                  {{answer}}
+                </li>
+                <li>
+                  Result:
+                  <span
+                    data-ng-class="question.color">
+                    <strong>{{question.result}}</strong>
+                  </span>
+                </li>
               </ul>
             </li>
           </ul>

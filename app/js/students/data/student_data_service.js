@@ -1,5 +1,5 @@
 'use strict';
-
+//  TODO: Refactor this data into other external modules
 module.exports = function(app) {
   app.factory('Student', ['$rootScope', '$http', '$cookies', 'RESTResource', 'Errors', function($rootScope, $http, $cookies, resource, Errors) {
     var Student = resource('student');
