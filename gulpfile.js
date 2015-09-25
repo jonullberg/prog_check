@@ -1,13 +1,13 @@
 'use strict';
 
 var gulp = require('gulp');
+var del = require('del');
 var gutil = require('gulp-util');
 var webpack = require('webpack');
 var stylish = require('jshint-stylish');
 var jshint = require('gulp-jshint');
 var jscs = require('gulp-jscs');
 var copy = require('gulp-copy');
-var del = require('del');
 var karma = require('gulp-karma');
 var livereload = require('gulp-livereload');
 
@@ -21,6 +21,8 @@ var paths = {
   dataModels: './models/**/*.js',
   gulpfile: './gulpfile.js'
 };
+
+var pipes = {};
 
 gulp.task('watch', function() {
   var client = ['build'];
