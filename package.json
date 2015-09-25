@@ -51,8 +51,10 @@
   "devDependencies": {
     "chai": "^2.3.0",
     "chai-http": "^1.0.0",
+    "event-stream": "^3.3.1",
     "file-loader": "^0.8.4",
     "gulp-livereload": "^3.8.0",
+    "gulp-load-plugins": "^1.0.0-rc.1",
     "html-loader": "^0.3.0",
     "jasmine-core": "^2.3.4",
     "karma": "^0.12.37",

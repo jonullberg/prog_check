@@ -1,23 +1,31 @@
-<main>
-  <h2>Congratulations! You got {{attempt.correctAnswers}} out of {{attempt.questions.length}}</h2>
-  <accordion data-class-others="oneAtATime">
-    <accordion-group data-ng-repeat="question in attempt.questions">
-      <accordion-heading>
-        <span data-ng-bind-html="question.question | to_trusted">{{question.question}}</span> <span class="pull-right">{{question.result}}</span>
-      </accordion-heading>
-      <h3>{{responseText}}</h3>
-      <p>The answers were: </p>
+<main class="panel panel-primary">
+  <header class="panel-heading">
+    <h2 class="col-lg-8">Congratulations! You got {{attempt.correctAnswers}} out of {{attempt.questions.length}}</h2>
+    <button class="btn btn-default col-lg-offset-2 col-lg-2"
+      data-ng-click="backToTests()">Back To Tests</button>
+    <div class="clearfix"></div>
+  </header>
+  <div class="panel-body">
+    <accordion data-class-others="oneAtATime">
+      <accordion-group data-ng-repeat="question in attempt.questions">
+        <accordion-heading>
+          <span data-ng-bind-html="question.question | to_trusted">{{question.question}}</span> <span class="pull-right">{{question.result}}</span>
+        </accordion-heading>
+        <h3>{{responseText}}</h3>
+        <p>The answers were: </p>
 
-      <ul>
+        <ul>
 
-        <li data-ng-repeat="answer in question.answers"
-          data-ng-bind-html="answer | to_trusted">
-          {{answer}}
-        </li>
+          <li data-ng-repeat="answer in question.answers"
+            data-ng-bind-html="answer | to_trusted">
+            {{answer}}
+          </li>
 
-      </ul>
-      <p>You answered: <span data-ng-bind-html="question.submitted | to_trusted">{{question.submitted}}</span></p>
-      <p>The correct answer was: <span data-ng-bind-html="question.correct | to_trusted">{{question.correct}}</span></p>
-    </accordion-group>
-  </accordion>
+        </ul>
+        <p>You answered: <span data-ng-bind-html="question.submitted | to_trusted">{{question.submitted}}</span></p>
+        <p>The correct answer was: <span data-ng-bind-html="question.correct | to_trusted">{{question.correct}}</span></p>
+      </accordion-group>
+    </accordion>
+  </div>
+
 </main>
