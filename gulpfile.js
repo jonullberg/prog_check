@@ -118,8 +118,7 @@ gulp.task('clean:karma', function(cb) {
 gulp.task('copy:html', ['clean:build'], function() {
   var srcFiles = ['app/**/*.html', 'app/**/*.css', 'app/**/*.png'];
   return gulp.src(srcFiles)
-    .pipe(gulp.dest('build/'))
-    .pipe(livereload());
+    .pipe(gulp.dest('build/'));
 });
 
 gulp.task('lint', function() {
