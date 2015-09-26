@@ -5,6 +5,7 @@
     "node": "0.10.x",
     "npm": "2.10.x"
   },
+  "private": true,
   "description": "An API for Prog-Check to connect to a server, save users and store progress",
   "main": "server.js",
   "scripts": {
