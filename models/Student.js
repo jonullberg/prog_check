@@ -4,10 +4,6 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
 var eat = require('eat');
 
-var attemptSchema = mongoose.Schema({
-
-});
-
 var studentSchema = mongoose.Schema({
   'firstName': {
     type: String,
@@ -38,8 +34,7 @@ var studentSchema = mongoose.Schema({
   },
   'role': {
     type: String
-  },
-  'attempts': [attemptSchema]
+  }
 });
 
 studentSchema.pre('save', function(next) {
