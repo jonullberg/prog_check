@@ -9,7 +9,6 @@ var jshint = require('gulp-jshint');
 var jscs = require('gulp-jscs');
 var copy = require('gulp-copy');
 var karma = require('gulp-karma');
-var livereload = require('gulp-livereload');
 
 var paths = {
   scripts: './app/**/*.js',
@@ -22,11 +21,9 @@ var paths = {
   gulpfile: './gulpfile.js'
 };
 
-var pipes = {};
 
 gulp.task('watch', function() {
   var client = ['build'];
-  livereload.listen();
   gulp.watch(paths.scripts, client);
   gulp.watch(paths.html, client);
   gulp.watch(paths.styles, client);
