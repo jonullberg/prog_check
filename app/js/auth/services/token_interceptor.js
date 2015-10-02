@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.factory('TokenInterceptor', ['$q', '$cookies', '$location', 'AuthenticationService', function($q, $cookies, $location, AuthenticationService){
+  app.factory('TokenInterceptor', ['$q', '$cookies', 'AuthenticationService', function($q, $cookies, AuthenticationService){
     return {
       response: function(response) {
         if (response !== null && response.status === 200 && $cookies.get('token') && !AuthenticationService.isLogged) {
@@ -13,9 +13,8 @@ module.exports = function(app) {
       responseError: function(rejection) {
         if (rejection !== null && rejection.status === 401 && ($cookies.get('token') || AuthenticationService.isLogged)) {
           $cookies.put('token', '');
-          $cookies.putObject('user', {});
+          $cookies.putObject('user', null);
           AuthenticationService.isLogged = false;
-          $location.path('/sign-in');
 
           return $q.reject(rejection);
         }

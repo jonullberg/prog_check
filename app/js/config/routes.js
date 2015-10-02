@@ -188,15 +188,14 @@ module.exports = function(app) {
   }]);
 
   app.run(['$rootScope', '$location', 'AuthenticationService', function($rootScope, $location, AuthenticationService) {
-    $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
-      if (nextRoute.access.requiredLogin && !AuthenticationService.isLogged) {
+    $rootScope.$on('$routeChangeStart', function(event, next, current) {
+      if (next.access.requiredLogin && !AuthenticationService.isLogged) {
         $location.path('/not-authorized');
       }
-      if (nextRoute.access.requiredAdmin && AuthenticationService.user.role !== 'admin') {
-        console.log(AuthenticationService);
+      if (next.access.requiredAdmin && AuthenticationService.user.role !== 'admin') {
         $location.path('/not-authorized');
       }
-      if (nextRoute.access.requiredTeacher && AuthenticationService.user.role !== 'teacher') {
+      if (next.access.requiredTeacher && AuthenticationService.user.role !== 'teacher') {
         $location.path('/not-authorized');
       }
     });
