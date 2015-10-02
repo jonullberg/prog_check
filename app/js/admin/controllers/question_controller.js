@@ -11,14 +11,18 @@ module.exports = function(app) {
       $scope.test = Tests.test;
     };
 
+    /**
+     * Checks if there is a question attached to scope. If not it will init a question with null values.
+     */
     $scope.initQuestion = function() {
       getTest();
-      $scope.question = {
-        question: null,
-        correct: null,
-        answers: []
-
-      };
+      if (!$scope.question) {
+        $scope.question = {
+          question: null,
+          correct: null,
+          answers: []
+        };
+      }
     };
 
     $scope.trustAsHtml = $sce.trustAsHtml;
