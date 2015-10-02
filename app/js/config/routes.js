@@ -86,7 +86,9 @@ module.exports = function(app) {
         controller: 'StandardsCtrl',
         access: {
           requiredLogin: true,
-          requiredAdmin: true
+          requiredAdmin: true,
+          requiredTeacher:false,
+          requiredStudent:false
         }
       })
       .when('/admin/teachers', {
@@ -190,10 +192,11 @@ module.exports = function(app) {
       if (nextRoute.access.requiredLogin && !AuthenticationService.isLogged) {
         $location.path('/not-authorized');
       }
-      if (nextRoute.access.requiredAdmin && AuthenticationService.role !== "admin") {
+      if (nextRoute.access.requiredAdmin && AuthenticationService.user.role !== 'admin') {
+        console.log(AuthenticationService);
         $location.path('/not-authorized');
       }
-      if (nextRoute.access.requiredTeacher && AuthenticationService.role !== 'teacher') {
+      if (nextRoute.access.requiredTeacher && AuthenticationService.user.role !== 'teacher') {
         $location.path('/not-authorized');
       }
     });

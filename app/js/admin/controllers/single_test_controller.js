@@ -60,7 +60,7 @@ module.exports = function(app) {
       };
       $modal.open({
         animation:true,
-        templateUrl: '/templates/partials/question_form.html',
+        templateUrl: '/templates/admin/modals/question_form_modal.html',
         controller:'QuestionFormCtrl',
         size: 'lg',
         scope: scope
@@ -95,8 +95,8 @@ module.exports = function(app) {
       scope.question = question;
       $modal.open({
         animation:true,
-        templateUrl: '/templates/partials/question_form.html',
-        controller:'QuestionCtrl',
+        templateUrl: '/templates/admin/modals/question_form_modal.html',
+        controller:'QuestionFormCtrl',
         size: 'lg',
         scope: scope
       });

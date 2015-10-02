@@ -1,3 +1,7 @@
+/**
+ * ~/js/admin/controllers/question_controller.js
+ * A controller to deal with editing and adding questions
+ */
 'use strict';
 
 module.exports = function(app) {
