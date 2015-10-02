@@ -3,7 +3,6 @@
 module.exports = function(app) {
   app.factory('TokenInterceptor', ['$q', '$cookies', '$location', 'AuthenticationService', function($q, $cookies, $location, AuthenticationService){
     return {
-
       response: function(response) {
         if (response !== null && response.status === 200 && $cookies.get('token') && !AuthenticationService.isLogged) {
           AuthenticationService.isLogged = true;

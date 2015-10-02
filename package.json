@@ -9,7 +9,8 @@
   "description": "An API for Prog-Check to connect to a server, save users and store progress",
   "main": "server.js",
   "scripts": {
-    "postinstall": "gulp webpack:heroku"
+    "postinstall": "gulp webpack:heroku",
+    "start": "gulp build && gulp watch"
   },
   "repository": {
     "type": "git",
