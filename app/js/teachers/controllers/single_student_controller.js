@@ -6,25 +6,42 @@ module.exports = function(app) {
     $scope.trustAsHtml = $sce.trustAsHtml;
 
     $scope.attempts = TeacherData.Attempts.attempts;
-    var getStudent = function() {
-      $scope.student = TeacherData.Students.student;
+    function getStudent() {
+      if (!!TeacherData.Students.student) {
+        $scope.student = TeacherData.Students.student;
+      } else {
+        TeacherData.Students.getStudent($routeParams.studentId, function(err, data) {
+          if (err) {
+            return Errors.addError({
+              'msg': 'Failed to get that student'
+            });
+          }
+          TeacherData.Students.student = data[0];
+          $scope.student = TeacherData.Students.student;
+          getAttempts();
+        });
+      }
     };
 
-    var getAttempts = function() {
-      TeacherData.Attempts.getAttempts(TeacherData.Students.student, function(data) {
-        $scope.attempts = TeacherData.Attempts.attempts;
-        $scope.attempts.forEach(function(attempt) {
-          attempt.questions.forEach(function(question) {
-            if (question.result === 'correct') {
-              question.icon = 'glyphicon glyphicon-ok green';
-              question.color = 'green';
-            } else {
-              question.icon = 'glyphicon glyphicon-remove red';
-              question.color = 'red';
-            }
-          });
-          return attempt;
+    function getAttempts() {
+      if (TeacherData.Attempts.attempts && TeacherData.Attempts.attempts.length) {
+        $scope.attempts = TeacherData.Attempts.attemps;
+      } else {
+        TeacherData.Attempts.getAttempts(TeacherData.Students.student, function(data) {
+          $scope.attempts = TeacherData.Attempts.attempts;
         });
+      }
+      $scope.attempts.forEach(function(attempt) {
+        attempt.questions.forEach(function(question) {
+          if (question.result === 'correct') {
+            question.icon = 'glyphicon glyphicon-ok green';
+            question.color = 'green';
+          } else {
+            question.icon = 'glyphicon glyphicon-remove red';
+            question.color = 'red';
+          }
+        });
+        return attempt;
       });
     };
 
@@ -97,5 +114,21 @@ module.exports = function(app) {
     $scope.showAnswers = function(question) {
       question.answersShowing = !question.answersShowing;
     };
+    $scope.editStudentGoal = editStudentGoal;
+
+    function editStudentGoal(goal) {
+      var scope = $rootScope.$new();
+      scope.student = $scope.student;
+      scope.goal = goal;
+      $modal.open({
+        animation:true,
+        templateUrl: '/templates/teacher/student_goal_settings.html',
+        size:'lg',
+        controller: 'StudentGoalSettingsCtrl',
+        scope: scope
+
+      })
+    }
   }]);
 };
+

@@ -1,0 +1,26 @@
+<section class="col-lg-6">
+  <h4>Goals</h4>
+  <p data-ng-if="!student.goals.length">You have no goals for your student. Feel free to add some below.</p>
+  <ul class="list-group">
+    <li class="list-group-item"
+      data-ng-repeat="goal in student.goals"
+      data-ng-click="showButtons(goal)">
+      <span>{{goal.name || goal.description}}</span>
+      <p data-ng-if="goal.buttonsShowing && goal.name">{{goal.description}}</p>
+      <div class="">
+      <button class="btn btn-primary"
+        data-ng-if="goal.buttonsShowing"
+        data-ng-click="editStudentGoal(goal)">
+        Edit Goal
+      </button>
+      <button class="btn btn-danger"
+        data-ng-if="goal.buttonsShowing"
+        data-ng-click="removeGoal(goal)">
+        Remove Goal
+      </button>
+
+      </div>
+      <div class="clearfix"></div>
+    </li>
+  </ul>
+</section>

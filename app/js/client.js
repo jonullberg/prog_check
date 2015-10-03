@@ -131,9 +131,12 @@ require('./teachers/directives/pc_teachers_directive')(progCheck);
   require('./teachers/controllers/single_student_controller')(progCheck);
   require('./teachers/controllers/students_list_controller')(progCheck);
 
-  //  Controllers
+  //  Student Goals List Directive
+  require('./teachers/controllers/student_goals_list_controller')(progCheck);
+  require('./teachers/directives/pc_student_goals_list')(progCheck);
 
-  //  Directives
+  //  Student Goal Settings
+  require('./teachers/controllers/student_goal_settings_controller')(progCheck);
 
 
 

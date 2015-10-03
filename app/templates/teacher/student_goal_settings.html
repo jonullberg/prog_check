@@ -1,0 +1,39 @@
+<section>
+  <header class="modal-header">
+    <h3 class="col-lg-9">
+      Edit the Settings For This Goal
+    </h3>
+    <button type="button"
+      class="btn btn-primary"
+      data-ng-click="goBack()">
+      Go Back
+    </button>
+  </header>
+  <div class="modal-body">
+    <label for="priority"></label>
+    <div class="form-group">
+      <label for="numberOfQuestions">How many questions would you like your student to answer for these tests?</label>
+      <select
+        name="numberOfQuestions"
+        id="numberOfQuestions"
+        class="form-control">
+        <option value="" disabled selected="selected">Please Select An Option</option>
+        <option value="5">Five</option>
+        <option value="10">Ten</option>
+      </select>
+
+    </div>
+  </div>
+  <footer class="modal-footer">
+    <button type="button"
+      class="btn btn-primary"
+      data-ng-click="updateGoal(goal)">
+      Update Goal
+    </button>
+    <button type="button"
+      class="btn btn-danger"
+      data-ng-click="cancelUpdate()">
+      Cancel
+    </button>
+  </footer>
+</section>

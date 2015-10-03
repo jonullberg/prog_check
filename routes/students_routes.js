@@ -105,4 +105,19 @@ module.exports = function(router, passport) {
       });
     });
   });
+
+  router.put('/students/:studentId/goals/:goalId', eatAuth, function(req, res) {
+    Students.find({'_id': req.params.studentId}, function(err, data) {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          'msg': 'Internal Server Error'
+        });
+      }
+      res.json({
+        'data': data
+      });
+
+    });
+  });
 };

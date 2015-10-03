@@ -20,12 +20,11 @@ module.exports = function(app) {
         }.bind(this));
       },
       getStudent: function(id, callback) {
+        console.log(id);
         Students.getOne(id, function(err, data) {
           if (err) {
             callback(err);
           }
-          this.student = data;
-          $rootScope.$broadcast('student:changed');
           callback(err, data);
         }.bind(this));
       },

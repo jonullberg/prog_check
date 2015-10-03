@@ -4,7 +4,7 @@ module.exports = function(app) {
   app.controller('TestCtrl', ['$scope', '$routeParams', '$location', 'Errors', 'Student', 'shuffle', function($scope, $routeParams, $location, Errors, Student, shuffle) {
     var student = Student.student;
     var testId = $routeParams.testId;
-
+    console.log(Student);
 
     $scope.current = 1;
 
@@ -22,7 +22,12 @@ module.exports = function(app) {
     });
 
 
-    $scope.max = Student.student.numberOfQuestions;
+    $scope.max = function() {
+      var maxQuestions;
+      if (Student){
+        Student.student.numberOfQuestions;
+      }
+    };
 
 
     $scope.nextText = 'Next';

@@ -1,8 +1,27 @@
+/**
+ * The data structure for a student
+ */
 'use strict';
 
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
 var eat = require('eat');
+
+var goalSchema = mongoose.Schema({
+  'goalId': {
+    type: String,
+    required: true
+  },
+  'numberOfQuestions': {
+    type: Number
+  },
+  'priority': {
+    type: Number
+  },
+  'dateLastTaken': {
+    type: Date
+  }
+});
 
 var studentSchema = mongoose.Schema({
   'firstName': {
@@ -22,13 +41,14 @@ var studentSchema = mongoose.Schema({
       required: true
     }
   },
+  'groupId': {
+    type: String
+  },
   'teacherId': {
     type: String,
     required: true
   },
-  'goals': {
-    type: Array
-  },
+  'goals': [goalSchema],
   'numberOfQuestions': {
     type: Number
   },
