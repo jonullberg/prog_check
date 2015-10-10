@@ -29,7 +29,6 @@ require('./services/to_trusted')(progCheck);
 require('./services/errors_service')(progCheck); // Service for holding errors of application
 require('./services/test_data')(progCheck); // Stores all test data for app
 require('./services/standards_data')(progCheck); // Stores all standard data for app
-require('./teachers/services/students_data')(progCheck); // Stores all student data on client for teacher user
 
 //  controllers
 require('./controllers/errors_controller')(progCheck);
@@ -60,6 +59,7 @@ require('./directives/header_directive')(progCheck);
 require('./directives/pc_footer_directive')(progCheck);
 require('./auth/directives/account_tools_directive')(progCheck);
 require('./teachers/directives/pc_teachers_directive')(progCheck);
+require('./directives/convert_to_number')(progCheck);
 
   //  Test directives
 
@@ -124,6 +124,7 @@ require('./teachers/directives/pc_teachers_directive')(progCheck);
 
 //  Teacher
   require('./teachers/services/teacher_data')(progCheck);
+  require('./teachers/services/students_data')(progCheck);
   require('./teachers/services/attempt_data')(progCheck);
 
   require('./teachers/controllers/teachers_controller')(progCheck);

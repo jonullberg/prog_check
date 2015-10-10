@@ -20,6 +20,13 @@ var goalSchema = mongoose.Schema({
   },
   'dateLastTaken': {
     type: Date
+  },
+  'description': {
+    type: String
+  },
+  'active': {
+    type: Boolean,
+    required: true
   }
 });
 
@@ -53,6 +60,9 @@ var studentSchema = mongoose.Schema({
     type: Number
   },
   'role': {
+    type: String
+  },
+  'goalPriority': {
     type: String
   }
 });
