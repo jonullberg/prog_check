@@ -6,44 +6,6 @@ module.exports = function(app) {
     $scope.trustAsHtml = $sce.trustAsHtml;
 
     $scope.attempts = TeacherData.Attempts.attempts;
-    function getStudent() {
-      if (!!TeacherData.Students.student) {
-        $scope.student = TeacherData.Students.student;
-      } else {
-        TeacherData.Students.getStudent($routeParams.studentId, function(err, data) {
-          if (err) {
-            return Errors.addError({
-              'msg': 'Failed to get that student'
-            });
-          }
-          TeacherData.Students.student = data[0];
-          $scope.student = TeacherData.Students.student;
-          getAttempts();
-        });
-      }
-    };
-
-    function getAttempts() {
-      if (TeacherData.Attempts.attempts && TeacherData.Attempts.attempts.length) {
-        $scope.attempts = TeacherData.Attempts.attemps;
-      } else {
-        TeacherData.Attempts.getAttempts(TeacherData.Students.student, function(data) {
-          $scope.attempts = TeacherData.Attempts.attempts;
-        });
-      }
-      $scope.attempts.forEach(function(attempt) {
-        attempt.questions.forEach(function(question) {
-          if (question.result === 'correct') {
-            question.icon = 'glyphicon glyphicon-ok green';
-            question.color = 'green';
-          } else {
-            question.icon = 'glyphicon glyphicon-remove red';
-            question.color = 'red';
-          }
-        });
-        return attempt;
-      });
-    };
 
     $scope.toggleDelete = function() {
       $scope.isDeleteShown = !$scope.isDeleteShown;
@@ -58,7 +20,7 @@ module.exports = function(app) {
 
     $scope.goBack = function() {
       TeacherData.Students.student = null;
-      $location.path('teacher/students');
+      $location.path('teacher/'+ $routeParams.teacherId + '/students');
     };
 
     $scope.removeGoal = function(goal) {
@@ -86,17 +48,21 @@ module.exports = function(app) {
             'msg': 'There was an error updating that student'
           });
         }
+        $location.path('/teacher/' + $routeParams.teacherId + '/students/' + data._id);
       });
-      $location.path('/teacher/students');
     };
 
     $scope.editStudentModal = function(student) {
+      if (!student.goalPriority) {
+        student.goalPriority = null;
+      }
       TeacherData.Students.student = student;
       var scope = $rootScope.$new();
       scope.params = {
         formType: 'editing',
         buttonText: 'Save Student'
       };
+      scope.student = student;
       $modal.open({
         animation:true,
         templateUrl: '/templates/directives/teachers/student_form.html',
@@ -109,7 +75,9 @@ module.exports = function(app) {
       $scope.attempts.forEach(function(attempt) {
         attempt.questionsShowing = false;
       });
+      attempt = setAttemptStyling(attempt);
       attempt.questionsShowing = true;
+
     };
     $scope.showAnswers = function(question) {
       question.answersShowing = !question.answersShowing;
@@ -118,6 +86,10 @@ module.exports = function(app) {
 
     function editStudentGoal(goal) {
       var scope = $rootScope.$new();
+      scope.params = {
+        buttonText: 'Update Goal',
+        formType: 'editing'
+      };
       scope.student = $scope.student;
       scope.goal = goal;
       $modal.open({
@@ -128,6 +100,44 @@ module.exports = function(app) {
         scope: scope
 
       })
+    }
+    function getStudent() {
+      if (!!TeacherData.Students.student) {
+        $scope.student = TeacherData.Students.student;
+      } else {
+        TeacherData.Students.getStudent($routeParams.studentId, function(err, data) {
+          if (err) {
+            return Errors.addError({
+              'msg': 'Failed to get that student'
+            });
+          }
+          TeacherData.Students.student = data[0];
+          $scope.student = TeacherData.Students.student;
+          getAttempts();
+        });
+      }
+    };
+
+    function getAttempts() {
+      if (TeacherData.Attempts.attempts && TeacherData.Attempts.attempts.length) {
+        $scope.attempts = TeacherData.Attempts.attemps;
+      } else {
+        TeacherData.Attempts.getAttempts($routeParams.studentId, function(data) {
+          $scope.attempts = TeacherData.Attempts.attempts;
+        });
+      }
+    };
+    function setAttemptStyling(attempt) {
+      attempt.questions.forEach(function(question) {
+        if (question.result === 'correct') {
+          question.icon = 'glyphicon glyphicon-ok green';
+          question.color = 'green';
+        } else {
+          question.icon = 'glyphicon glyphicon-remove red';
+          question.color = 'red';
+        }
+      });
+      return attempt;
     }
   }]);
 };

@@ -188,4 +188,26 @@ module.exports = function(router, passport) {
     });
   });
 
+  router.put('/students/:studentId/goals/:goalId/', eatAuth, function(req, res) {
+    var goal = req.body;
+    Standards.find().elemMatch('goals', { _id: { $in: [goal.goalId]}} ).exec(function(err, data) {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          'msg': 'Internal Server Error'
+        });
+      }
+      var returnedGoal = data[0].goals.id(goal.goalId);
+      if (returnedGoal.name) {
+        goal.description = returnedGoal.name;
+      } else if (returnedGoal.description) {
+        goal.description = returnedGoal.description;
+      } else {
+        goal.description = null;
+      }
+      goal.active = true;
+
+    });
+  });
+
 };

@@ -10,6 +10,7 @@
   </header>
   <div class="panel-body">
     <h4>Default Number of Questions Per Test: {{student.numberOfQuestions}}</h4>
+    <h4 data-ng-if="student.goalPriority">Sort Goal Priority By: {{student.goalPriority}}</h4>
     <div class="col-lg-6">
       <h4>Recent Tests</h4>
       <p data-ng-if="!attempts.length">{{student.firstName}} has not taken any tests yet.</p>
