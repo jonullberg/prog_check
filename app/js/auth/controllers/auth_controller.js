@@ -101,5 +101,12 @@ module.exports = function(app) {
       }
     };
 
+    $scope.resetPassword = function() {
+      $modal.open({
+        animation:true,
+        templateUrl: ''
+      })
+    };
+
   }]);
 };

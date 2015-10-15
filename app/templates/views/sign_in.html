@@ -70,10 +70,10 @@
           Sign-Up
         </button>
         <div class="clearfix"></div>
-        <span class="col-lg-2 col-lg-offset-8">
-          Don't have an account?
+        <span class="col-lg-2 col-lg-offset-4"
+          data-ng-if="user.type === 'teacher'">
+          <a data-ng-click="resetPassword()">I forgot my password</a>
         </span>
-
       </div>
 
     </fieldset>
