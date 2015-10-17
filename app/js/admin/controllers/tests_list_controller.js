@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('TestsListCtrl', ['$scope', '$modal', '$filter', '$rootScope', 'Errors', 'Tests', 'Standards',  function($scope, $modal, $filter, $rootScope, Errors, Tests, Standards) {
+  app.controller('TestsListCtrl', ['$scope', '$uibModal', '$filter', '$rootScope', 'Errors', 'Tests', 'Standards',  function($scope, $uibModal, $filter, $rootScope, Errors, Tests, Standards) {
 
     $scope.standard = Standards.standard;
 
@@ -46,7 +46,7 @@ module.exports = function(app) {
         formType: 'creating',
         buttonText: 'Create Test'
       };
-      $modal.open({
+      $uibModal.open({
         animation:true,
         templateUrl: '/templates/directives/test_form.html',
         size: 'lg',

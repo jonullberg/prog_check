@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('SingleStandardCtrl', ['$scope', '$modal', '$cookies', '$rootScope', 'Errors', 'Standards', 'Students', function($scope, $modal, $cookies, $rootScope, Errors, Standards, Students) {
+  app.controller('SingleStandardCtrl', ['$scope', '$uibModal', '$cookies', '$rootScope', 'Errors', 'Standards', 'Students', function($scope, $uibModal, $cookies, $rootScope, Errors, Standards, Students) {
     $scope.standard = Standards.standard;
     var getStandard = function() {
       $scope.standard = Standards.standard;
@@ -43,7 +43,7 @@ module.exports = function(app) {
         formType: 'editing',
         buttonText: 'Save Standard'
       };
-      $modal.open({
+      $uibModal.open({
         animation:true,
         templateUrl: '/templates/directives/standards/standard_form.html',
         size:'lg',
@@ -67,7 +67,7 @@ module.exports = function(app) {
         buttonText: 'Add Goal',
         formType: 'creating'
       };
-      $modal.open({
+      $uibModal.open({
         animation:true,
         templateUrl: '/templates/partials/goal_form.html',
         controller: 'GoalCtrl',
@@ -87,7 +87,7 @@ module.exports = function(app) {
         formType: 'editing'
       };
       scope.goal = goal;
-      $modal.open({
+      $uibModal.open({
         animation:true,
         templateUrl: '/templates/partials/goal_form.html',
         controller: 'GoalCtrl',

@@ -4,7 +4,7 @@ require('angular/angular');
 require('angular-route');
 require('angular-cookies');
 require('angular-base64');
-require('angular-bootstrap');
+require('angular-ui-bootstrap');
 require('ng-file-upload');
 
 var progCheck = angular.module('progCheck', ['ngRoute', 'ngCookies', 'base64', 'ui.bootstrap', 'ngFileUpload']);

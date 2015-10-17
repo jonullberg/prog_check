@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('StandardsCtrl', ['$scope', '$filter', '$modal', '$rootScope', 'copy', 'Errors', 'Standards', 'pcGrades', function($scope, $filter, $modal, $rootScope, copy, Errors, Standards, pcGrades) {
+  app.controller('StandardsCtrl', ['$scope', '$filter', '$uibModal', '$rootScope', 'copy', 'Errors', 'Standards', 'pcGrades', function($scope, $filter, $uibModal, $rootScope, copy, Errors, Standards, pcGrades) {
 
     $scope.formShowing = false;
     $scope.isStandardShowing = false;
@@ -32,7 +32,7 @@ module.exports = function(app) {
         buttonText: 'Save Standard',
         standard: standard
       };
-      $modal.open({
+      $uibModal.open({
         animation:true,
         templateUrl:'/templates/directives/standard_form.html',
         size: 'lg',

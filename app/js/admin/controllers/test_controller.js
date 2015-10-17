@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('testCtrl', ['$scope', '$filter', '$modal', 'RESTResource', 'dataStore', function($scope, $filter, $modal, resource, dataStore) {
+  app.controller('testCtrl', ['$scope', '$filter', '$uibModal', 'RESTResource', 'dataStore', function($scope, $filter, $uibModal, resource, dataStore) {
 
     var Test = resource('tests');
 
@@ -62,7 +62,7 @@ module.exports = function(app) {
     };
 
     $scope.newTest = function() {
-      $modal.open({
+      $uibModal.open({
         animation: $scope.animationsEnabled,
         templateUrl: '/templates/directives/test_form.html',
         controller: 'AddTestCtrl',
@@ -88,7 +88,7 @@ module.exports = function(app) {
     };
 
     $scope.editTest = function(test) {
-      $modal.open({
+      $uibModal.open({
         animation: $scope.animationsEnabled,
         templateUrl: '/templates/directives/test_form.html',
         controller: 'EditTestCtrl',

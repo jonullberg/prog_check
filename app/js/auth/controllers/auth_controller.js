@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('AuthCtrl', ['$scope', '$location', '$modal', 'UserService', 'USStates', 'AuthenticationService', 'Errors', function($scope, $location, $modal, UserService, USStates, AuthenticationService, Errors) {
+  app.controller('AuthCtrl', ['$scope', '$location', '$uibModal', 'UserService', 'USStates', 'AuthenticationService', 'Errors', function($scope, $location, $uibModal, UserService, USStates, AuthenticationService, Errors) {
     $scope.initUser = function() {
       $scope.user = {
         type: 'student',
@@ -28,7 +28,7 @@ module.exports = function(app) {
     };
 
     $scope.termsModal = function() {
-      $modal.open({
+      $uibModal.open({
         animation:true,
         templateUrl: '/templates/modals/terms_and_conditions.html',
         size:'lg',
@@ -63,7 +63,9 @@ module.exports = function(app) {
       if(user.passwordConfirmation) {
         // Is the form valid?
         if ($scope.signUpForm.$valid) {
-          UserService.create(user, function(err) {
+          UserService.create(user, function(err, data) {
+            console.log(err);
+            console.log(data);
             if (err)  {
               return Errors.addError({
                 'msg': 'Could not sign in'
@@ -78,11 +80,10 @@ module.exports = function(app) {
       } else {
         // Is the user a teacher or student?
         if (user.type === 'teacher') {
-          UserService.signIn(user, function(err) {
+          UserService.signIn(user, function(err, data) {
             if (err) {
-              return Errors.addError({
-                'msg': 'Could not sign in'
-              });
+              $scope.errorMessage = 'Wrong Password or Email';
+              return;
             }
             $location.path('/home');
           });
@@ -91,9 +92,8 @@ module.exports = function(app) {
           user.username = user.email;
           UserService.studentSignIn(user, function(err) {
             if (err) {
-              return Errors.addError({
-                'msg': 'Could not sign in'
-              });
+              $scope.errorMessage = 'Wrong Username or PIN';
+              return;
             }
             $location.path('/student/home')
           })
@@ -101,8 +101,12 @@ module.exports = function(app) {
       }
     };
 
+    $scope.closeAlert = function() {
+      $scope.errorMessage = null;
+    };
+
     $scope.resetPassword = function() {
-      $modal.open({
+      $uibModal.open({
         animation: true,
         templateUrl: '/templates/auth/forgot_password.html',
         controller: 'ForgotPasswordCtrl',
