@@ -103,9 +103,11 @@ module.exports = function(app) {
 
     $scope.resetPassword = function() {
       $modal.open({
-        animation:true,
-        templateUrl: ''
-      })
+        animation: true,
+        templateUrl: '/templates/auth/forgot_password.html',
+        controller: 'ForgotPasswordCtrl',
+        size: 'lg'
+      });
     };
 
   }]);

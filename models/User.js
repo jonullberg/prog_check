@@ -43,7 +43,7 @@ var userSchema = mongoose.Schema({
     'resetToken': {
       type: String
     },
-    'expires': {
+    'expiration': {
       type: Date
     }
   }

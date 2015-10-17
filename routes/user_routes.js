@@ -77,10 +77,9 @@ module.exports = function(router, passport) {
 		    pass: 'jabsimfyrbfjorws'
 		  }
 		});
-		console.log(process.env.BUG_EMAIL);
-		console.log(process.env.BUG_PW);
 
-		var token = generateToken()
+		var token = generateToken();
+		var expiration = generateExpiration();
 
 		function generateToken() {
 			var buf = new Buffer(16);
@@ -91,18 +90,26 @@ module.exports = function(router, passport) {
 			return id;
 		}
 
-		var resetEmail;
-		User.find({'basic.email': req.body.email}, function(err, user) {
-			resetEmail = user[0].basic.email;
+		function generateExpiration() {
+			var now = new Date();
+			var time = now.getTime();
+			var expireTime = time + 1000*36000;
+			return expireTime;
+		}
+
+		User.update({'basic.email': req.body.email}, {
+			'reset.resetToken': token,
+			'reset.expiration': expiration
+		}, function(err, user) {
 			var emailText = '<h1>Prog Check Password Reset Request</h2>';
 			emailText += '<p>Someone has requested a password reset for this email account on progcheck.com</p>';
 			emailText += '<p>If this was not you, do not worry. Simply ignore this email and your email and password are secure.</p>';
 			emailText += '<p>If this was you, simply follow this link to reset your password</p>';
-			emailText += '<p><a href=\"https://progcheck.com/reset/' + token + '\">Reset Password</a></p>';
+			emailText += '<p><a href=\"http://localhost:3000/#/reset/' + encodeURIComponent(token) + '\">Reset Password</a></p>';
 			emailText += '<p>Thank you for using Prog Check</p>';
 			var mailOptions = {
 			  from: 'reset.password@progcheck.com',
-			  to: resetEmail,
+			  to: req.body.email,
 			  subject: 'Password Reset',
 			  html: emailText
 			};
@@ -112,10 +119,43 @@ module.exports = function(router, passport) {
 			  }
 			});
 
-			res.end();
+			res.json({
+				'msg': 'Hello world'
+			});
 		});
 	});
 
 	router.get('/reset/:idToken', function(req, res) {
+		res.send('<div><h2>Reset Your Password</h2><p>Please type in a new password</p><form action="/api/reset/' + req.params.idToken + '" method="POST"><label>New Password<input type="password" placeholder="Password" /></label></form></div>');
+	});
+
+	router.post('/reset/:idToken', function(req, res) {
+		User.findOne({'basic.email': req.body.email}, function(err, user) {
+			var currentTime = new Date();
+			var resetData = user.reset;
+			if (resetData && resetData.resetToken === req.params.idToken && currentTime <= resetData.expiration) {
+				user.generateHash(req.body.newPassword, function(err, hash) {
+					if (err) {
+						console.log(err);
+						return res.status(500).json({
+							'msg': 'Internal Server Error'
+						});
+					}
+					user.basic.password = hash;
+					user.reset.resetToken = null;
+					user.reset.resetToken = null;
+					user.save(function(err, data) {
+						if (err) {
+							console.log('There was an error', err);
+							return res.status(500).json({
+								'msg': 'Internal Server Error'
+							});
+						}
+					});
+
+					return res.end();
+				});
+			}
+		});
 	});
 };
