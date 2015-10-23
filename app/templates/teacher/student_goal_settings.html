@@ -16,7 +16,9 @@
       <select
         name="numberOfQuestions"
         id="numberOfQuestions"
-        class="form-control">
+        class="form-control"
+        data-ng-model="goal.numberOfQuestions"
+        data-convert-to-number>
         <option value="" disabled selected="selected">Please Select An Option</option>
         <option value="5">Five</option>
         <option value="10">Ten</option>
@@ -27,12 +29,12 @@
   <footer class="modal-footer">
     <button type="button"
       class="btn btn-primary"
-      data-ng-click="updateGoal(goal)">
-      Update Goal
+      data-ng-click="save(goal)">
+      {{params.buttonText}}
     </button>
     <button type="button"
       class="btn btn-danger"
-      data-ng-click="cancelUpdate()">
+      data-ng-click="cancel()">
       Cancel
     </button>
   </footer>

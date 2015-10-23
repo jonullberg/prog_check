@@ -72,6 +72,17 @@
         <option></option>
       </select>
     </div>
+    <div class="form-group">
+      <label for="goalPriority">How would you like to set a goal priority?</label>
+      <span data-ng-if="student.goalPriority">{{priorityMessage}}</span>
+      <select name="goalPriority" id="goalPriority"
+        class="form-control col-lg-6"
+        data-ng-model="student.goalPriority">
+        <option value="" disabled>Select an Option</option>
+        <option value="date">Prioritize By Date</option>
+        <option value="manual">Prioritize Manually</option>
+      </select>
+    </div>
 
 
   </div>

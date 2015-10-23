@@ -1,15 +1,14 @@
 'use strict';
 
 module.exports = function(app) {
-  app.factory('Students', ['$rootScope', 'RESTResource', function($rootScope, resource) {
-
+  app.factory('Students', ['$http', '$rootScope', 'RESTResource', function($http, $rootScope, resource) {
     var Students = resource('students');
     var Attempts = resource('attempts');
 
     var studentData = {
       student: null,
-      students: [],
-      getStudents: function(callback) {
+      students: []
+,      getStudents: function(callback) {
         Students.getAll(function(err, data) {
           if (err) {
             return callback(err);
@@ -20,7 +19,6 @@ module.exports = function(app) {
         }.bind(this));
       },
       getStudent: function(id, callback) {
-        console.log(id);
         Students.getOne(id, function(err, data) {
           if (err) {
             callback(err);
@@ -32,7 +30,7 @@ module.exports = function(app) {
         this.student = student;
         $rootScope.$broadcast('student:changed');
       },
-      addStudent: function(student, callback) {
+      createStudent: function(student, callback) {
         this.student = student;
         this.students.push(student);
         Students.create(student, function(err, data) {
@@ -41,21 +39,15 @@ module.exports = function(app) {
           }
           this.student = data;
           this.students.splice(this.students.indexOf(data), 1, data);
-          $rootScope.$broadcast('students:changed');
-          $rootScope.$broadcast('student:changed');
+          callback(err, data);
         }.bind(this));
       },
       saveStudent: function(student, callback) {
-        this.student = student;
-        this.students.splice(this.students.indexOf(student), 1, student);
         Students.save(student, function(err, data) {
           if (err) {
             callback(err);
           }
-
-          this.student = data;
-
-          this.students.splice(this.students.indexOf(student), 1, data);
+          callback(err, data);
         }.bind(this));
       },
       deleteStudent: function(student, callback) {
@@ -67,16 +59,33 @@ module.exports = function(app) {
           return callback(err, data);
         });
       },
-      addGoal: function(goal, callback) {
-        this.student.goals.push(goal);
-        this.students.splice(this.students.indexOf(this.student), 1, this.student);
-        $rootScope.$broadcast('student:changed');
-        $rootScope.$broadcast('students:changed');
-        Students.save(this.student, function(err) {
-          if (err) {
-            callback(err);
-          }
-        });
+      createGoal: function(goal, studentId, callback) {
+        var submitted = {
+          numberOfQuestions: goal.numberOfQuestions,
+          goalId: goal._id,
+          priority:null,
+
+        };
+        $http.post('/api/students/' + studentId + '/goals/', submitted)
+          .then(function(response) {
+            var student = response.data.user;
+            this.student = student;
+            $rootScope.$broadcast('student:changed', student);
+            callback(null, student);
+
+          }.bind(this))
+          .catch(function(response) {
+            callback(response.data)
+          });
+      },
+      updateGoal: function(goal, studentId, callback) {
+        $http.put('/api/students/' + studentId + '/goals/' + goal._id, submitted)
+          .then(function(response) {
+            callback(null, response.data);
+          })
+          .catch(function(rejection) {
+            callback(rejection.data);
+          });
       },
       removeGoal: function(goal, callback) {
         this.student.goals.splice(this.student.goals.indexOf(goal), 1);
