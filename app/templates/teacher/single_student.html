@@ -11,48 +11,11 @@
   <div class="panel-body">
     <h4>Default Number of Questions Per Test: {{student.numberOfQuestions}}</h4>
     <h4 data-ng-if="student.goalPriority">Sort Goal Priority By: {{student.goalPriority}}</h4>
-    <div class="col-lg-6">
-      <h4>Recent Tests</h4>
-      <p data-ng-if="!attempts.length">{{student.firstName}} has not taken any tests yet.</p>
-      <ul>
-        <li data-ng-repeat="attempt in attempts"
-          data-ng-click="showAttempt(attempt)">
-          {{attempt.correctAnswers}}/{{attempt.questions.length}} - {{attempt.dateTaken | date}}
-          {{attempt.directions}}
-          <ul data-ng-if="attempt.questionsShowing">
-            <li data-ng-repeat="question in attempt.questions"
-              data-ng-click="showAnswers(question)">
-              <span data-ng-bind-html="question.question | to_trusted">{{question.question}}</span>
-              <span data-ng-class="question.icon"></span>
-              <ul data-ng-if="question.answersShowing">
-                <li>Their Answer:
-                  <span
-                    data-ng-bind-html="question.submitted | to_trusted">
-                    {{question.submitted}}
-                  </span>
-                </li>
-                <li
-                  data-ng-repeat="answer in question.answers"
-                  data-ng-bind-html="answer | to_trusted">
-                  {{answer}}
-                </li>
-                <li>
-                  Result:
-                  <span
-                    data-ng-class="question.color">
-                    <strong>{{question.result}}</strong>
-                  </span>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </div>
+    <pc-student-attempts></pc-student-attempts>
     <div class="col-lg-6">
     </div>
-
-  <pc-student-goals-list></pc-student-goals-list>
+    <pc-student-goals-list
+      student="student"></pc-student-goals-list>
   </div>
   <footer class="panel-footer">
     <button type="button" class="btn btn-primary"

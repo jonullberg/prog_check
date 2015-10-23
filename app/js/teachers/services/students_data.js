@@ -7,8 +7,8 @@ module.exports = function(app) {
 
     var studentData = {
       student: null,
-      students: [],
-      getStudents: function(callback) {
+      students: []
+,      getStudents: function(callback) {
         Students.getAll(function(err, data) {
           if (err) {
             return callback(err);
@@ -66,20 +66,26 @@ module.exports = function(app) {
           priority:null,
 
         };
-        $http.post('/api/students/' + studentId + '/goals/', submitted, function(err, data) {
-          if (err) {
-            return callback(err);
-          }
-          callback(err, data);
-        });
+        $http.post('/api/students/' + studentId + '/goals/', submitted)
+          .then(function(response) {
+            var student = response.data.user;
+            this.student = student;
+            $rootScope.$broadcast('student:changed', student);
+            callback(null, student);
+
+          }.bind(this))
+          .catch(function(response) {
+            callback(response.data)
+          });
       },
       updateGoal: function(goal, studentId, callback) {
-        $http.put('/api/students/' + studentId + '/goals/' + goal._id, submitted, function(err, data) {
-          if (err) {
-            return callback(err);
-          }
-          callback(err, data);
-        });
+        $http.put('/api/students/' + studentId + '/goals/' + goal._id, submitted)
+          .then(function(response) {
+            callback(null, response.data);
+          })
+          .catch(function(rejection) {
+            callback(rejection.data);
+          });
       },
       removeGoal: function(goal, callback) {
         this.student.goals.splice(this.student.goals.indexOf(goal), 1);

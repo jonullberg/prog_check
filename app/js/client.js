@@ -139,6 +139,9 @@ require('./directives/convert_to_number')(progCheck);
   //  Student Goal Settings
   require('./teachers/controllers/student_goal_settings_controller')(progCheck);
 
+  //  Student Attempts
+  require('./teachers/directives/pc_student_attempts_directive')(progCheck);
+  require('./teachers/controllers/student_attempts_controller')(progCheck);
 
 
 //  Students

@@ -11,7 +11,9 @@ module.exports = function(app) {
       $scope.isDeleteShown = !$scope.isDeleteShown;
     };
 
-    $scope.$on('student:changed', getStudent);
+    $scope.$on('student:changed', function(event, student) {
+      $scope.student = student;
+    });
 
     $scope.init = function() {
       getStudent();
@@ -23,9 +25,6 @@ module.exports = function(app) {
       $location.path('teacher/'+ $routeParams.teacherId + '/students');
     };
 
-    $scope.removeGoal = function(goal) {
-      TeacherData.Students.removeGoal(goal);
-    };
 
     $scope.openGoalForm = function() {
       $modal.open({
@@ -36,9 +35,6 @@ module.exports = function(app) {
       });
     };
 
-    $scope.showButtons = function(goal) {
-      goal.buttonsShowing = !goal.buttonsShowing;
-    };
 
     $scope.saveStudent = function(student) {
       student.numberOfQuestions = $scope.selectedNumber;
@@ -82,25 +78,7 @@ module.exports = function(app) {
     $scope.showAnswers = function(question) {
       question.answersShowing = !question.answersShowing;
     };
-    $scope.editStudentGoal = editStudentGoal;
 
-    function editStudentGoal(goal) {
-      var scope = $rootScope.$new();
-      scope.params = {
-        buttonText: 'Update Goal',
-        formType: 'editing'
-      };
-      scope.student = $scope.student;
-      scope.goal = goal;
-      $modal.open({
-        animation:true,
-        templateUrl: '/templates/teacher/student_goal_settings.html',
-        size:'lg',
-        controller: 'StudentGoalSettingsCtrl',
-        scope: scope
-
-      })
-    }
     function getStudent() {
       if (!!TeacherData.Students.student) {
         $scope.student = TeacherData.Students.student;

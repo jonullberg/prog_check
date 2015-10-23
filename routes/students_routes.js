@@ -174,20 +174,35 @@ module.exports = function(router, passport) {
         goal.description = null;
       }
       goal.active = true;
-      Students.update({'_id': req.params.studentId}, { $push: {'goals': goal}}, function(err, data) {
+      Students.findById(req.params.studentId, function(err, user) {
         if (err) {
           console.log(err);
           return res.status(500).json({
             'msg': 'Internal Server Error'
           });
         }
-        res.json({
-          'msg': 'Success'
+        user.goals.push(goal);
+        user.save(function(err, updatedUser) {
+          if (err) {
+            console.log('Found user but could not save new variables');
+            console.log(err);
+            return res.status(500).json({
+              'msg': 'Internal Server Error'
+            });
+          }
+          res.json({
+            'user': updatedUser
+          });
         });
       });
     });
   });
 
+  /**
+   * An endpoint to update a specific goal of a student
+   * @param  {Object} req  The request object
+   * @param  {Object} res  The response object
+   */
   router.put('/students/:studentId/goals/:goalId/', eatAuth, function(req, res) {
     var goal = req.body;
     Standards.find().elemMatch('goals', { _id: { $in: [goal.goalId]}} ).exec(function(err, data) {
