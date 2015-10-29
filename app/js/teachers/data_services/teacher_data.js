@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.factory('TeacherData', ['$rootScope', 'Students', 'Attempts', function($rootScope, Students, Attempts) {
+  app.factory('TeacherData', ['Students', 'Attempts', function(Students, Attempts) {
     return {
       Students: Students,
       Attempts: Attempts

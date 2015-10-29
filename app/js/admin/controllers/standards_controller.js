@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('StandardsCtrl', ['$scope', '$filter', '$modal', '$rootScope', 'copy', 'Errors', 'Standards', 'pcGrades', function($scope, $filter, $modal, $rootScope, copy, Errors, Standards, pcGrades) {
+  app.controller('StandardsCtrl', ['$scope', '$filter', '$modal', '$rootScope', 'copy', 'AdminData', 'pcGrades', function($scope, $filter, $modal, $rootScope, copy, AdminData, pcGrades) {
 
     $scope.formShowing = false;
     $scope.isStandardShowing = false;
@@ -14,7 +14,7 @@ module.exports = function(app) {
      * On event 'standard:changed' sets scope to model
      */
     $scope.$on('standard:changed', function() {
-      $scope.standard = Standards.getStandard();
+      $scope.standard = AdminData.Standards.getStandard();
     });
 
 

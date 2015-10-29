@@ -79,6 +79,7 @@ module.exports = function(router) {
 
   router.get('/tests/goal/:goalId', eatAuth, function(req, res) {
     Tests.find({goalId: req.params.goalId}, function(err, data) {
+      console.log(data);
       if (err) {
         console.log(err);
         return res.status(500).json({

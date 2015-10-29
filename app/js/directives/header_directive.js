@@ -24,15 +24,15 @@ module.exports = function(app) {
           if (user.role === 'admin') {
             scope.tabs = [{
               header: 'Home',
-              url: 'admin/' + user._id + '/home'
+              url: 'admin/home'
             },
             {
               header: 'Standards',
-              url: 'admin/' + user._id + '/standards'
+              url: 'admin/standards'
             },
             {
               header: 'Teachers',
-              url: 'admin/' + user._id + '/teachers'
+              url: 'admin/teachers'
             }];
           } else if (user.role === 'teacher') {
             scope.tabs = [{

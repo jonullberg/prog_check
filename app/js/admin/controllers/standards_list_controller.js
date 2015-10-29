@@ -1,27 +1,12 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('StandardsListCtrl', ['$scope', '$modal', '$rootScope', '$cookies', 'Errors', 'Standards', function($scope, $modal, $rootScope, $cookies, Errors, Standards) {
-    var updateStandards = function() {
-      $scope.standards = Standards.standards;
-    };
-    $scope.$on('standards:changed', updateStandards());
+  app.controller('StandardsListCtrl', ['$scope', '$modal', '$rootScope', '$cookies', '$location', 'Errors', 'AdminData', function($scope, $modal, $rootScope, $cookies, $location, Errors, AdminData) {
+    $scope.$on('standards:changed', function(e, standards) {
+      $scope.standards = standards;
+    });
 
-    $scope.getAllStandards = function() {
-      if (Standards.standards.length) {
-        updateStandards();
-      } else {
-        Standards.getStandards(function(err, data) {
-          if (err) {
-            Errors.addError({
-              'msg': 'Failed to get any standards'
-            });
-          }
-          updateStandards();
-
-        });
-      }
-    };
+    $scope.getStandards = getStandards;
 
     $scope.isAdmin = function() {
       if ($cookies.getObject('user').role === 'admin') {
@@ -36,6 +21,7 @@ module.exports = function(app) {
 
     $scope.newStandard = function() {
       var scope = $rootScope.$new();
+      AdminData.Standards.setStandard(null);
       scope.params = {
         formType: 'creating',
         buttonText: 'Create Standard'
@@ -53,8 +39,23 @@ module.exports = function(app) {
     };
 
     $scope.select = function(standard) {
-      Standards.setStandard(standard);
+      AdminData.Standards.setStandard(standard);
+      $location.path('/admin/standards/' + standard._id)
       return $scope.show();
     };
+
+    function updateStandards() {
+      $scope.standards = AdminData.Standards.getStandards();
+    }
+    function getStandards() {
+      var standards = AdminData.Standards.getStandards();
+      if (standards && standards.length) {
+        updateStandards();
+      } else {
+        AdminData.Standards.fetchStandards(function(err, data) {
+          updateStandards();
+        });
+      }
+    }
   }]);
 };

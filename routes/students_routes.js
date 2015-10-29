@@ -64,14 +64,16 @@ module.exports = function(router, passport) {
   });
 
   router.get('/students', eatAuth, function(req, res) {
-    Students.find({'teacherId': req.user._id}, function(err, data) {
+    Students.find({'teacherId': req.user._id}, function(err, students) {
       if (err) {
         console.log(err);
         return res.status(500).json({
           'msg': 'Internal Server Error'
         });
       }
-      res.json(data);
+      res.json({
+        students: students
+      });
     });
   });
 

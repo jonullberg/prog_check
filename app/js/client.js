@@ -78,7 +78,10 @@ require('./directives/convert_to_number')(progCheck);
 
 //  Admin
   //  Data
-  //  TODO: Import Data service for admin user
+  require('./admin/data_services/admin_data_service')(progCheck);
+  require('./admin/data_services/admin_standards_data')(progCheck);
+  require('./admin/data_services/admin_tests_data')(progCheck);
+  require('./admin/data_services/admin_teachers_data')(progCheck);
 
   //  Standards
     //  Standards List
@@ -123,9 +126,10 @@ require('./directives/convert_to_number')(progCheck);
     require('./admin/controllers/edit_test_form_controller')(progCheck);
 
 //  Teacher
-  require('./teachers/services/teacher_data')(progCheck);
-  require('./teachers/services/students_data')(progCheck);
-  require('./teachers/services/attempt_data')(progCheck);
+  //  Data Services
+  require('./teachers/data_services/teacher_data')(progCheck);
+  require('./teachers/data_services/students_data')(progCheck);
+  require('./teachers/data_services/attempt_data')(progCheck);
 
   require('./teachers/controllers/teachers_controller')(progCheck);
   require('./teachers/controllers/student_form_controller')(progCheck);
@@ -146,7 +150,9 @@ require('./directives/convert_to_number')(progCheck);
 
 //  Students
   //  Data
-  require('./students/data/student_data_service')(progCheck);
+  require('./students/data_services/student_data_service')(progCheck);
+  require('./students/data_services/student_user_data')(progCheck);
+  require('./students/data_services/student_test_data')(progCheck);
 
   //  Test
   require('./students/controllers/test_controller')(progCheck);

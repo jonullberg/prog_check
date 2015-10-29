@@ -4,10 +4,7 @@ module.exports = function(app) {
   app.controller('TestCtrl', ['$scope', '$routeParams', '$location', 'Errors', 'Student', 'shuffle', function($scope, $routeParams, $location, Errors, Student, shuffle) {
     var student = Student.student;
     var testId = $routeParams.testId;
-    console.log(Student);
-
-    $scope.current = 1;
-
+    $scope.initTest = initTest;
     Student.getTest(testId, function(err, data) {
       if (err) {
         return Errors.addError({
@@ -24,9 +21,9 @@ module.exports = function(app) {
 
     $scope.max = function() {
       var maxQuestions;
-      if (Student){
-        Student.student.numberOfQuestions;
-      }
+      // if (){
+      //   Student.student.numberOfQuestions;
+      // }
     };
 
 
@@ -78,6 +75,14 @@ module.exports = function(app) {
       $scope.attempt.questions[($scope.current - 1)].submitted = answer;
     };
 
+    function initTest() {
+      $scope.current = 1;
+      $scope.max = getMax();
+      function getMax() {
+        var max = 0;
+        return max;
+      }
+    }
     function prepareAttempt(test, student) {
 
       var questions = getQuestions(test.questions, student.numberOfQuestions);

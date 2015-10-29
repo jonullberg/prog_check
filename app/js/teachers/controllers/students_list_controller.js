@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('StudentsListCtrl', ['$scope', '$location', '$modal', '$rootScope', '$routeParams', 'Errors', 'Students', function($scope, $location, $modal, $rootScope, $routeParams, Errors, Students) {
+  app.controller('StudentsListCtrl', ['$scope', '$location', '$modal', '$rootScope', '$routeParams', 'Errors', 'AdminData', function($scope, $location, $modal, $rootScope, $routeParams, AdminData) {
 
     var getStudents = function() {
       $scope.students = Students.students;
@@ -10,7 +10,7 @@ module.exports = function(app) {
     $scope.$on('students:changed', getStudents);
 
     $scope.getStudents = function() {
-      Students.getStudents(function(err, data) {
+      AdminData.Students.getStudents(function(err, data) {
         if (err) {
           return Errors.addError({
             'msg': 'Failed to get students from server'

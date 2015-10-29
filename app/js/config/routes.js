@@ -73,7 +73,7 @@ module.exports = function(app) {
           requiredStudent: false
         }
       })
-      .when('/admin/:adminId/home', {
+      .when('/admin/home', {
         templateUrl: 'templates/views/admin/home.html',
         access: {
           requiredLogin: true,
@@ -81,7 +81,7 @@ module.exports = function(app) {
         }
         // No controller needed as of now
       })
-      .when('/admin/:adminId/standards', {
+      .when('/admin/standards', {
         templateUrl: 'templates/views/standards.html',
         controller: 'StandardsCtrl',
         access: {
@@ -91,7 +91,18 @@ module.exports = function(app) {
           requiredStudent:false
         }
       })
-      .when('/admin/:adminId/teachers', {
+      .when('/admin/standards/:standardId', {
+        templateUrl: 'templates/admin/single_standard.html',
+        controller: 'SingleStandardCtrl',
+        access: {
+          requiredLogin: true,
+          requiredAdmin: true,
+          requiredTeacher:false,
+          requiredStudent:false
+        }
+      })
+
+      .when('/admin/teachers', {
         templateUrl: 'templates/directives/teachers.html',
         access: {
           requiredLogin: true,
@@ -135,7 +146,7 @@ module.exports = function(app) {
       })
       // A student looking at all of their tests available
       .when('/student/:studentId/tests', {
-        templateUrl: 'templates/views/student/student_tests.html',
+        templateUrl: 'templates/student/student_tests.html',
         controller: 'StudentTestsCtrl',
         access: {
           requiredLogin: true,
@@ -144,7 +155,7 @@ module.exports = function(app) {
       })
       // A student looking at a singular test/goal
       .when('/student/:studentId/tests/:testId', {
-        templateUrl: 'templates/views/student/test.html',
+        templateUrl: 'templates/student/test.html',
         controller: 'TestCtrl',
         access: {
           requiredLogin: true,

@@ -1,14 +1,29 @@
 'use strict';
 
 module.exports = function(app) {
-  app.factory('Students', ['$http', '$rootScope', 'RESTResource', function($http, $rootScope, resource) {
+  app.factory('TeacherStudentsData', ['$http', '$rootScope', 'RESTResource', function($http, $rootScope, resource) {
     var Students = resource('students');
     var Attempts = resource('attempts');
 
     var studentData = {
       student: null,
-      students: []
-,      getStudents: function(callback) {
+      students: [],
+      getStudents: function(callback) {
+        var that = this;
+        $http.get('/api/students')
+          .then(function(response) {
+            if (response.data && response.data.students && response.data.students.length) {
+              var students = response.data.students;
+              that.students = students;
+              $rootScope.$broadcast('students:changed', students);
+              if (callback && typeof callback === 'function') {
+                callback(null, response.data);
+              }
+            }
+          })
+          .catch(function(rejection) {
+
+          });
         Students.getAll(function(err, data) {
           if (err) {
             return callback(err);
