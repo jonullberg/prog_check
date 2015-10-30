@@ -11,6 +11,9 @@ var questionSchema = mongoose.Schema({
   },
   'answers': {
     type: Array
+  },
+  'dateCreated': {
+    type: Date
   }
 });
 

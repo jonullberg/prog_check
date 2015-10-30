@@ -117,7 +117,8 @@ require('./directives/convert_to_number')(progCheck);
 
     //  Question Form
     require('./admin/directives/pc_question_form')(progCheck);
-    require('./admin/controllers/question_controller')(progCheck);
+    require('./admin/controllers/question_form_controller')(progCheck);
+    require('./admin/controllers/image_question_form_controller')(progCheck);
 
     // Miscellaneous
     // TODO: Refactor these controllers

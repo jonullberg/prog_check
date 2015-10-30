@@ -51,14 +51,10 @@ module.exports = function(app) {
         .then(function(response) {
           this.tests = response.data.tests;
           $rootScope.$broadcast('tests:changed', this.tests);
-          if (cb && typeof cb === 'function') {
-            cb(null, response.data);
-          }
+          handleCallback(cb, response);
         }.bind(this))
         .catch(function(rejection) {
-          if (cb && typeof cb === 'function') {
-            cb(rejection);
-          }
+          handleCallback(cb, null, rejection);
           return Errors.addError({
             'msg': 'There was an error fetching the tests from the server. Please log out, refresh and try again. If it persists, please create a bug report so we can fix it.'
           })
@@ -70,14 +66,10 @@ module.exports = function(app) {
         .then(function(response) {
           this.test = response.data.test;
           $rootScope.$broadcast('test:changed', this.test);
-          if (cb && typeof cb === 'function') {
-            cb(null, response.data);
-          }
+          handleCallback(cb, response);
         }.bind(this))
         .catch(function(rejection) {
-          if (cb && typeof cb === 'function') {
-            cb(rejection);
-          }
+          handleCallback(cb, null, rejection);
           return Errors.addError({
             'msg': 'There was an error fetching that test from the server. Please log out, refresh and try again. If it persists, please create a bug report so we can fix it.'
           });
@@ -91,27 +83,60 @@ module.exports = function(app) {
     function deleteTest() {}
 
     function fetchQuestion() {}
-    function createQuestion() {}
-    function updateQuestion() {}
+
+    function createQuestion(testId, question, cb) {
+      $http.post('/api/tests/' + testId + '/questions/', question)
+        .then(function(response) {
+          this.test = response.data.test;
+          $rootScope.$broadcast('test:changed', this.test);
+          handleCallback(cb, response);
+        }.bind(this))
+        .catch(function(rejection) {
+          handleCallback(cb, null, rejection);
+          return Errors.addError({
+            'msg': 'There was an error creating that question on the server. Please log out, refresh and try again. If it persists, please create a bug report so we can fix it.'
+          });
+        });
+    }
+
+    function updateQuestion(testId, question, cb) {
+      $http.put('/api/tests/' + testId + '/questions/' + question._id, question)
+        .then(function(response) {
+          this.test = response.data.test;
+          $rootScope.$broadcast('test:changed', this.test);
+          handleCallback(cb, response);
+        }.bind(this))
+        .catch(function(rejection) {
+          handleCallback(cb, null, rejection);
+          return Errors.addError({
+            'msg': 'There was an error updating that question on the server. Please log out, refresh and try again. If it persists, please create a bug report so we can fix it.'
+          });
+        });
+
+    }
+
     function deleteQuestion(testId, questionId, cb) {
       $http.delete('/api/tests/' + testId + '/questions/' + questionId)
         .then(function(response) {
           this.test = response.data.test;
           $rootScope.$broadcast('test:changed', this.test);
-          if (cb && typeof cb === 'function') {
-            cb (null, response.data);
-          }
+          handleCallback(cb, response);
         }.bind(this))
         .catch(function(rejection) {
-          if (cb && typeof cb === 'function') {
-            cb(rejection);
-          }
+          handleCallback(cb, null, rejection);
           return Errors.addError({
-            'msg': 'There was an error deleting that test from the server. Please log out, refresh and try again. If it persists, please create a bug report so we can fix it.'
+            'msg': 'There was an error deleting that question from the server. Please log out, refresh and try again. If it persists, please create a bug report so we can fix it.'
           });
         });
     }
-
+    function handleCallback(cb, response, rejection) {
+      if (cb && typeof cb === 'function') {
+        if (response) {
+          return cb(null, response.data);
+        }
+        cb(rejection);
+      }
+    }
     return adminTestsData;
   }]);
 };

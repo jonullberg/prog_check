@@ -156,7 +156,45 @@ module.exports = function(router) {
       });
   });
 
-  router.post('/tests/:id/questions/image', eatAuth, function(req, res) {
+  /**
+   * Adds a new text question to a test
+   * @param  {Object} req  The request object
+   * @param  {Object} res  The response object
+   */
+  router.post('/tests/:testId/questions', eatAuth, function(req,res) {
+    if (req.query.type === 'image') {
+
+    } else {
+      var newQuestion = req.body;
+      Tests.findById(req.params.testId, function(err, test) {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({
+            'msg': 'Internal Server Error'
+          });
+        }
+        newQuestion.dateCreated = new Date.now();
+        test.questions.push(newQuestion);
+        test.save(function(err, data) {
+          if (err) {
+            console.log(err);
+            return res.status(500).json({
+              'msg': 'Internal Server Error'
+            });
+          }
+          res.json({
+            'test': data
+          });
+        });
+      });
+    }
+  });
+  /**
+   * Adds a new image question to a test
+   * @param  {Object} req  The request object
+   * @param  {Object} res  The response object
+   */
+  router.post('/tests/:id/questions', eatAuth, function(req, res) {
     var uploadPath = null;
     req.busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
 
@@ -171,6 +209,31 @@ module.exports = function(router) {
       });
     });
 
+  });
+
+  /**
+   * Updates a specific text question
+   * @param  {Object} req  The request object
+   * @param  {Object} res  The response object
+   */
+  router.put('/tests/:testId/questions/:questionId', eatAuth, function(req, res) {
+    var updatedQuestion = req.body;
+    delete updatedQuestion._id;
+    Tests.update({
+      '_id': req.params.testId,
+      'questions._id': req.params.questionId},
+      {$set: {'questions.$': updatedQuestion}},
+      function(err, test) {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({
+            'msg': 'Internal Server Error'
+          });
+        }
+        res.json({
+          'msg': 'Success'
+        });
+    });
   });
 
   /**
@@ -205,5 +268,10 @@ module.exports = function(router) {
       });
     });
   });
-
+  function handleError(err) {
+    console.log(err);
+    return res.status(500).json({
+      'msg': 'Internal Server Error'
+    });
+  }
 };

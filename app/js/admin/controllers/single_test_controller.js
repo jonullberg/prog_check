@@ -13,7 +13,7 @@ module.exports = function(app) {
      */
     $scope.goBack = function() {
       AdminData.Tests.setTest(null);
-      $location.path('/admin/standards/' + $scope.standard._id);
+      $location.path('/admin/standards/' + $routeParams.standardId);
     };
 
     /**
@@ -34,7 +34,55 @@ module.exports = function(app) {
         scope: scope
       });
     };
+    $scope.addQuestion = function() {
+      AdminData.Tests.setQuestion(null);
+      var scope = $rootScope.$new();
+      scope.params = {
+        formType: 'creating',
+        buttonText: 'Add Question'
+      };
+      var templateUrl;
+      var controller;
+      if ($scope.test.questionType === 'text') {
+        templateUrl = '/templates/admin/modals/question_form_modal.html';
+        controller = 'QuestionFormCtrl'
+      } else if ($scope.test.questionType === 'image') {
+        templateUrl = '/templates/admin/modals/image_question_form_modal.html';
+        controller = 'ImageQuestionFormCtrl'
+      }
+      $modal.open({
+        animation:true,
+        templateUrl: templateUrl,
+        controller: controller,
+        size: 'lg',
+        scope: scope
+      });
 
+    };
+    $scope.editQuestion = function(question) {
+      AdminData.Tests.setQuestion(question);
+      var scope = $rootScope.$new();
+      scope.params = {
+        formType: 'editing',
+        buttonText: 'Save Question'
+      };
+      var templateUrl;
+      var controller;
+      if ($scope.test.questionType === 'text') {
+        templateUrl = '/templates/admin/modals/question_form_modal.html';
+        controller = 'QuestionFormCtrl'
+      } else if ($scope.test.questionType === 'image') {
+        templateUrl = '/templates/admin/modals/image_question_form_modal.html';
+        controller = 'ImageQuestionFormCtrl'
+      }
+      $modal.open({
+        animation:true,
+        templateUrl: templateUrl,
+        controller: controller,
+        size: 'lg',
+        scope: scope
+      });
+    };
     $scope.deleteTest = function(test) {
       AdminData.Tests.deleteTest(test._id);
       $location.path('/admin/standards/' + $scope.standard._id);
@@ -43,20 +91,7 @@ module.exports = function(app) {
     $scope.toggleDelete = function() {
       $scope.isDeleteShown = !$scope.isDeleteShown;
     };
-    $scope.addQuestions = function() {
-      var scope = $rootScope.$new();
-      scope.params = {
-        formType: 'creating',
-        buttonText: 'Add Question'
-      };
-      $modal.open({
-        animation:true,
-        templateUrl: '/templates/admin/modals/question_form_modal.html',
-        controller:'QuestionFormCtrl',
-        size: 'lg',
-        scope: scope
-      });
-    };
+
 
     function showAnswers(question) {
       question.showing = true;
@@ -77,21 +112,7 @@ module.exports = function(app) {
       question.imageButtonsShowing = !question.imageButtonsShowing;
     };
 
-    $scope.editQuestion = function(question) {
-      AdminData.Tests.setQuestion(question);
-      var scope = $rootScope.$new();
-      scope.params = {
-        formType: 'editing',
-        buttonText: 'Save Question'
-      };
-      $modal.open({
-        animation:true,
-        templateUrl: '/templates/admin/modals/question_form_modal.html',
-        controller:'QuestionFormCtrl',
-        size: 'lg',
-        scope: scope
-      });
-    };
+
 
     $scope.deleteQuestion = function(question) {
       AdminData.Tests.deleteQuestion($scope.test._id, question._id, function(err) {

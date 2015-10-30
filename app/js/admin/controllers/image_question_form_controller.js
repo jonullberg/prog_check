@@ -5,29 +5,15 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('QuestionFormCtrl', ['$scope', '$modalInstance', '$sce', 'Errors', 'Tests', 'Upload', function($scope, $modalInstance, $sce, Errors, Tests, Upload) {
+  app.controller('ImageQuestionFormCtrl', ['$scope', '$modalInstance', '$sce', 'Errors', 'AdminData', 'Upload', function($scope, $modalInstance, $sce, Errors, AdminData, Upload) {
 
-    var getTest = function() {
-      $scope.test = Tests.test;
-    };
-
-    /**
-     * Checks if there is a question attached to scope. If not it will init a question with null values.
-     */
-    $scope.initQuestion = function() {
-      getTest();
-      if (!$scope.question) {
-        $scope.question = {
-          question: null,
-          correct: null,
-          answers: []
-        };
-      }
-    };
-
+    $scope.init = init;
     $scope.trustAsHtml = $sce.trustAsHtml;
-
     $scope.$on('test:changed', getTest);
+
+    if ($scope.params.formType === 'creating') {
+
+    }
 
     $scope.$watch('questionImage', function(file) {
       $scope.upload(file, function(filePath) {
@@ -58,32 +44,16 @@ module.exports = function(app) {
     $scope.upload = function(file, cb) {
       Upload.upload({
         url: 'api/tests/' + $scope.test._id + '/questions/image',
+        method: 'POST',
+        data: {
+
+        },
         fields: {
           'testField': 'This is a test'
         },
         file: file
       }).success(function(data, status, headers, config) {
         cb(data.filePath);
-      });
-    };
-
-    var addQuestion = function(question) {
-      Tests.addQuestion(question, function(err) {
-        if (err) {
-          return Errors.addError({
-            'msg': 'Failed to save question'
-          });
-        }
-      });
-    };
-
-    var saveQuestion = function(question) {
-      Tests.saveQuestion(question, function(err) {
-        if (err) {
-          return Errors.addError({
-            'msg': 'Failed to save question'
-          });
-        }
       });
     };
 
@@ -103,6 +73,35 @@ module.exports = function(app) {
     $scope.cancel = function() {
       $modalInstance.dismiss();
     };
+    function init() {
+      getTest();
+      getQuestion();
+    }
+    function getQuestion() {
+      $scope.question = AdminData.Tests.getQuestion();
+    }
+    function getTest() {
+      $scope.test = AdminData.Tests.getTest();
+    }
+    function createQuestion(question) {
+      AdminData.Tests.createQuestion(question, function(err) {
+        if (err) {
+          return Errors.addError({
+            'msg': 'Failed to save question'
+          });
+        }
+      });
+    };
+
+    function updateQuestion(question) {
+      AdminData.Tests.updateQuestion(question, function(err) {
+        if (err) {
+          return Errors.addError({
+            'msg': 'Failed to save question'
+          });
+        }
+      });
+    }
 
   }]);
 };
