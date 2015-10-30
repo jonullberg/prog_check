@@ -6,9 +6,6 @@ module.exports = function(app) {
       restrict: 'E',
       replace: true,
       templateUrl: '/templates/directives/tests_list.html',
-      scope: {
-        toggleSingleTest: '&'
-      },
       controller: 'TestsListCtrl'
     };
   });

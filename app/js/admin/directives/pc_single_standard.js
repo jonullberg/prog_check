@@ -6,12 +6,6 @@ module.exports = function(app) {
       restrict: 'E',
       replace: true,
       templateUrl: '/templates/admin/single_standard.html',
-      scope: {
-        standard: '=',
-        toggle: '&',
-        buttonText: '=',
-        hideStandard: '&'
-      },
       controller: 'SingleStandardCtrl'
     };
   });

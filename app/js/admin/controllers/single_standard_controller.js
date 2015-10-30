@@ -69,6 +69,8 @@ module.exports = function(app) {
 
     function goBack() {
       AdminData.Standards.setStandard(null);
+      AdminData.Tests.setTest(null);
+      AdminData.Tests.setTests(null);
       $location.path('admin/standards');
     }
     function showButtons(goal) {

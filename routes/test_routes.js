@@ -53,33 +53,55 @@ module.exports = function(router) {
   });
 
   router.get('/tests', eatAuth, function(req, res) {
-    Tests.find({}, function(err, data) {
-      if (err) {
-        console.log(err);
-        return res.status(500).json({
-          'msg': 'Internal Server Error'
+    if (req.query.standardId) {
+      Tests.find({standardId: req.query.standardId}, function (err, tests) {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({
+            'msg': 'Internal Server Error'
+          });
+        }
+        res.json({
+          'tests': tests
         });
-      }
-
-      res.json(data);
-    });
+      });
+    } else {
+      Tests.find({}, function(err, tests) {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({
+            'msg': 'Internal Server Error'
+          });
+        }
+        res.json({
+          'tests': tests
+        });
+      });
+    }
   });
 
+  /**
+   * Gets a single test from the database
+   * @param  {Object} req  The request object
+   * @param  {Object} res  The response object
+   * @return {Object}      An object with the test attached to it
+   */
   router.get('/tests/:testId', eatAuth, function(req, res) {
-    Tests.find({_id: req.params.testId}, function(err, data) {
+    Tests.findById(req.params.testId, function(err, test) {
       if (err) {
         console.log(err);
         return res.status(500).json({
           'msg': 'Internal Server Error'
         });
       }
-      res.json(data);
+      res.json({
+        'test': test
+      });
     });
   });
 
   router.get('/tests/goal/:goalId', eatAuth, function(req, res) {
     Tests.find({goalId: req.params.goalId}, function(err, data) {
-      console.log(data);
       if (err) {
         console.log(err);
         return res.status(500).json({
@@ -90,6 +112,12 @@ module.exports = function(router) {
     });
   });
 
+  /**
+   * Updates a test in the database
+   * @param  {Object} req           The request object
+   * @param  {Object} res           The response object
+   * @return {Object}               Sends back a success message
+   */
   router.put('/tests/:id', eatAuth, function(req, res) {
     var updatedTest = req.body;
     Tests.update({_id: req.params.id},
@@ -107,6 +135,12 @@ module.exports = function(router) {
       });
   });
 
+  /**
+   * Deletes a test from the database
+   * @param  {Object} req           The request object
+   * @param  {Object} res)          The response object
+   * @return {Object}               Sends back a success message
+   */
   router.delete('/tests/:id', eatAuth, function(req, res) {
     Tests.remove({'_id': req.params.id},
       function(err, data) {
@@ -116,7 +150,6 @@ module.exports = function(router) {
             'msg': 'Internal Server Error'
           });
         }
-
         res.json({
           'msg': 'Success'
         });
@@ -138,6 +171,39 @@ module.exports = function(router) {
       });
     });
 
+  });
+
+  /**
+   * Deletes a specific question from a test
+   * @param  {Object} req  The request object
+   * @param  {Object} res) The response object
+   * @return {Object}      Returns the new test
+   */
+  router.delete('/tests/:testId/questions/:questionId', eatAuth, function(req, res) {
+    Tests.findById(req.params.testId, function(err, test) {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          'msg': 'Internal Server Error'
+        });
+      }
+      test.questions = test.questions.filter(function(question) {
+        if (question._id != req.params.questionId) {
+          return question;
+        }
+      });
+      test.save(function(err, data) {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({
+            'msg': 'Internal Server Error'
+          });
+        }
+        res.json({
+          'test': data
+        });
+      });
+    });
   });
 
 };

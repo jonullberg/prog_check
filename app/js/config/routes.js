@@ -92,8 +92,7 @@ module.exports = function(app) {
         }
       })
       .when('/admin/standards/:standardId', {
-        templateUrl: 'templates/admin/single_standard.html',
-        controller: 'SingleStandardCtrl',
+        templateUrl: 'templates/admin/single_standard_container.html',
         access: {
           requiredLogin: true,
           requiredAdmin: true,
@@ -101,7 +100,16 @@ module.exports = function(app) {
           requiredStudent:false
         }
       })
-
+      .when('/admin/standards/:standardId/tests/:testId', {
+        templateUrl: 'templates/admin/single_test.html',
+        controller: 'SingleTestCtrl',
+        access: {
+          requiredLogin: true,
+          requiredAdmin: true,
+          requiredTeacher:false,
+          requiredStudent: false
+        }
+      })
       .when('/admin/teachers', {
         templateUrl: 'templates/directives/teachers.html',
         access: {

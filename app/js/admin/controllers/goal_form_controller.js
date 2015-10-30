@@ -1,9 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('GoalCtrl', ['$scope', '$modalInstance', '$routeParams', 'Errors', 'AdminData', function($scope, $modalInstance, $routeParams, Errors, AdminData) {
-
-    $scope.init = initForm;
+  app.controller('GoalCtrl', ['$scope', '$modalInstance', '$routeParams', 'AdminData', function($scope, $modalInstance, $routeParams, AdminData) {
 
     $scope.save = function(goal) {
       if ($scope.goalForm.$valid) {
@@ -14,13 +12,15 @@ module.exports = function(app) {
           updateGoal(goal);
           $modalInstance.close();
         }
-
       }
     };
 
     $scope.cancel = function() {
+      AmdinData.Standards.setGoal(null);
       $modalInstance.dismiss();
     };
+
+    $scope.init = initForm;
 
     function initForm() {
       getGoal();
@@ -31,22 +31,13 @@ module.exports = function(app) {
     }
     function createGoal(goal) {
       AdminData.Standards.createGoal($routeParams.standardId, goal, function(err, data) {
-        if (err) {
-          return Errors.addError({
-            'msg': 'There was an error creating that goal'
-          });
-        }
+        AdminData.Standards.setGoal(null);
       });
-      $scope.goal = null;
     }
 
     function updateGoal(goal) {
       AdminData.Standards.updateGoal($routeParams.standardId, goal, function(err) {
-        if (err) {
-          return Errors.addError({
-            'msg': 'There was an error updating that goal'
-          });
-        }
+        AdminData.Standards.setGoal(null);
       });
     }
   }]);

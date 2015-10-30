@@ -1,21 +1,19 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('SingleTestCtrl', ['$scope', '$modal', '$rootScope', '$sce', 'Tests', 'Standards', 'Errors', 'SanitizeFractions', function($scope, $modal, $rootScope, $sce, Tests, Standards, Errors, SanitizeFractions) {
+  app.controller('SingleTestCtrl', ['$scope', '$modal', '$rootScope', '$location', '$routeParams', '$sce', 'AdminData', 'SanitizeFractions', function($scope, $modal, $rootScope, $location, $routeParams, $sce, AdminData, SanitizeFractions) {
     $scope.isDeleteShown = false;
-    $scope.getTest = function() {
-      $scope.test = Tests.test;
-    };
+    $scope.init = init;
 
     $scope.trustAsHtml = $sce.trustAsHtml;
-    $scope.$on('test:changed', $scope.getTest);
+    $scope.$on('test:changed', getTest);
 
     /**
      * Will set selected test to null and send us back to test list
      */
     $scope.goBack = function() {
-      Tests.removeTest();
-      $scope.toggleSingleTest();
+      AdminData.Tests.setTest(null);
+      $location.path('/admin/standards/' + $scope.standard._id);
     };
 
     /**
@@ -38,15 +36,8 @@ module.exports = function(app) {
     };
 
     $scope.deleteTest = function(test) {
-      Tests.removeTest();
-      Tests.deleteTest(test, function(err) {
-        if (err) {
-          return Errors.addError({
-            'msg': 'Failed to delete test'
-          });
-        }
-      });
-      $scope.toggleSingleTest();
+      AdminData.Tests.deleteTest(test._id);
+      $location.path('/admin/standards/' + $scope.standard._id);
     };
 
     $scope.toggleDelete = function() {
@@ -67,13 +58,13 @@ module.exports = function(app) {
       });
     };
 
-    var showAnswers = function(question) {
+    function showAnswers(question) {
       question.showing = true;
-    };
+    }
 
-    var hideAnswers = function(question) {
+    function hideAnswers(question) {
       question.showing = false;
-    };
+    }
 
     $scope.showAnswers = function(question) {
       $scope.test.questions.forEach(function(question) {
@@ -87,12 +78,12 @@ module.exports = function(app) {
     };
 
     $scope.editQuestion = function(question) {
+      AdminData.Tests.setQuestion(question);
       var scope = $rootScope.$new();
       scope.params = {
         formType: 'editing',
         buttonText: 'Save Question'
       };
-      scope.question = question;
       $modal.open({
         animation:true,
         templateUrl: '/templates/admin/modals/question_form_modal.html',
@@ -103,13 +94,32 @@ module.exports = function(app) {
     };
 
     $scope.deleteQuestion = function(question) {
-      Tests.deleteQuestion(question, function(err) {
-        if (err) {
-          return Errors.addError({
-            'msg': 'Failed to delete question'
-          });
-        }
+      AdminData.Tests.deleteQuestion($scope.test._id, question._id, function(err) {
       });
     };
+    function init() {
+      getStandard();
+      getTest();
+    }
+    function getStandard() {
+      var standard = AdminData.Standards.getStandard();
+      if (standard) {
+        $scope.standard = standard;
+      } else {
+        AdminData.Standards.fetchStandard($routeParams.standardId, function(err, data) {
+          $scope.standard = data.standard;
+        });
+      }
+    }
+    function getTest() {
+      var test = AdminData.Tests.getTest();
+      if (test) {
+        $scope.test = AdminData.Tests.getTest();
+      } else {
+        AdminData.Tests.fetchTest($routeParams.testId, function(err, data) {
+          $scope.test = data.test;
+        });
+      }
+    }
   }]);
 };
