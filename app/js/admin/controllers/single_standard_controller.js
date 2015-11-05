@@ -1,43 +1,27 @@
+/**
+ * A controller for viewing a single standard as an admin
+ * Created by Jonathan on 07/14/2015
+ */
 'use strict';
 
 module.exports = function(app) {
-  app.controller('SingleStandardCtrl', ['$scope', '$modal', '$cookies', '$rootScope', 'Errors', 'Standards', 'Students', function($scope, $modal, $cookies, $rootScope, Errors, Standards, Students) {
-    $scope.standard = Standards.standard;
-    var getStandard = function() {
-      $scope.standard = Standards.standard;
-    };
+  app.controller('SingleStandardCtrl', ['$scope', '$modal', '$cookies', '$rootScope', '$routeParams', '$location', 'AdminData', function($scope, $modal, $cookies, $rootScope, $routeParams, $location, AdminData) {
     $scope.params = {
       goalButtonText: 'Edit Goal'
     };
-    $scope.$on('standard:changed', getStandard);
+    $scope.$on('standard:changed', function() {
+      getStandard();
+    });
+
     $scope.isAdmin = function() {
       if ($cookies.getObject('user').role === 'admin') {
         return true;
       }
       return false;
     };
-    $scope.getStandard = function() {
-      getStandard();
-    };
 
-    $scope.goBack = function() {
-      Standards.removeStandard();
-      $scope.hideStandard();
-    };
-    $scope.deleteStandard = function(standard) {
-      Standards.removeStandard();
-      Standards.deleteStandard(standard, function(err) {
-        if (err) {
-          return Errors.addError({
-            'msg': 'There was an error deleting this standard'
-          });
-        }
-      });
-      $scope.hideStandard();
-    };
 
     $scope.edit = function(standard) {
-      Standards.standard = standard;
       var scope = $rootScope.$new();
       scope.params = {
         formType: 'editing',
@@ -52,7 +36,6 @@ module.exports = function(app) {
       });
     };
 
-    // TODO: put this into alert directive
     $scope.toggleAlert = function() {
       if ($scope.isAlertShown) {
         $scope.isAlertShown = false;
@@ -76,17 +59,46 @@ module.exports = function(app) {
       });
     };
 
-    $scope.showButtons = function(goal) {
-      goal.buttons = !goal.buttons;
-    };
+    $scope.showButtons = showButtons;
+    $scope.init = init;
+    $scope.getStandard = getStandard;
+    $scope.selectGoal = editGoal;
+    $scope.goBack = goBack;
+    $scope.deleteGoal = deleteGoal;
+    $scope.deleteStandard = deleteStandard;
 
-    var editGoal = function(goal) {
+    function goBack() {
+      AdminData.Standards.setStandard(null);
+      $location.path('admin/standards');
+    }
+    function showButtons(goal) {
+      $scope.standard.goals.forEach(function(goal) {
+        goal.buttons = false;
+      });
+      goal.buttons = !goal.buttons;
+    }
+    function init() {
+      getStandard();
+    }
+    function getStandard() {
+      if (AdminData.Standards.getStandard()) {
+        $scope.standard = AdminData.Standards.getStandard();
+      } else if ($routeParams.standardId) {
+        AdminData.Standards.fetchStandard($routeParams.standardId);
+      }
+    }
+    function deleteStandard(standard) {
+      AdminData.Standards.deleteStandard(standard._id, function(err, data) {
+        $location.path('/admin/standards');
+      });
+    }
+    function editGoal(goal) {
       var scope = $rootScope.$new();
       scope.params = {
         buttonText: 'Save Goal',
         formType: 'editing'
       };
-      scope.goal = goal;
+      AdminData.Standards.setGoal(goal);
       $modal.open({
         animation:true,
         templateUrl: '/templates/partials/goal_form.html',
@@ -94,21 +106,9 @@ module.exports = function(app) {
         size:'lg',
         scope: scope
       });
-    };
-
-    $scope.selectGoal = function(goal) {
-      editGoal(goal);
-    };
-
-    $scope.deleteGoal = function(goal) {
-      Standards.deleteGoal(goal, function(err) {
-        if (err) {
-          return Errors.addError({
-            'msg': 'Failed to delete goal'
-          });
-        }
-      });
-    };
-
+    }
+    function deleteGoal(goal) {
+      AdminData.Standards.deleteGoal($scope.standard._id, goal._id);
+    }
   }]);
 };

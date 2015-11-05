@@ -34,11 +34,6 @@ module.exports = function(app) {
   app.factory('RESTResource', ['$http', '$cookies', function($http, $cookies) {
 
     return function(resourceName) {
-      var token = $cookies.get('token');
-      var role = $cookies.getObject('user').role;
-
-      $http.defaults.headers.common.token = token;
-      $http.defaults.headers.common.role = role;
       return {
 
         /**

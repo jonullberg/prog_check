@@ -1,6 +1,8 @@
 'use strict';
 
 var Students = require('../models/Student');
+var Attempts = require('../models/Attempt');
+var Standards = require('../models/Standard');
 var bodyparser = require('body-parser');
 var eatAuth = require('../lib/eat_auth')(process.env.APP_SECRET);
 
@@ -62,14 +64,16 @@ module.exports = function(router, passport) {
   });
 
   router.get('/students', eatAuth, function(req, res) {
-    Students.find({'teacherId': req.user._id}, function(err, data) {
+    Students.find({'teacherId': req.user._id}, function(err, students) {
       if (err) {
         console.log(err);
         return res.status(500).json({
           'msg': 'Internal Server Error'
         });
       }
-      res.json(data);
+      res.json({
+        students: students
+      });
     });
   });
 
@@ -105,4 +109,122 @@ module.exports = function(router, passport) {
       });
     });
   });
+
+  router.put('/students/:studentId/goals/:goalId', eatAuth, function(req, res) {
+    Students.find({'_id': req.params.studentId}, function(err, data) {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          'msg': 'Internal Server Error'
+        });
+      }
+      res.json({
+        'data': data
+      });
+
+    });
+  });
+  router.get('/students/:studentId/attempts/', eatAuth, function(req, res) {
+    Attempts.find({'studentId': req.params.studentId}, function(err, data) {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          'msg': 'Internal Server Error'
+        });
+      }
+      res.json({
+        'data': data
+      });
+    });
+  });
+  router.put('/students/:studentId/attempts/:attemptId', eatAuth, function(req, res) {
+    Attempts.find({
+      'studentId': req.params.studentId,
+      '_id': req.params.attemptId
+    }, function(err, data) {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          'msg': 'Internal Server Error'
+        });
+      }
+      res.json({
+        'data': data
+      });
+    });
+  });
+  /**
+   * A POST route to add goals to a specific student. This route had to be authenticated with an EAT token
+   * @param  {Object} req  The request coming from the client
+   * @param  {Object} res) The response object
+   */
+  router.post('/students/:studentId/goals/', eatAuth, function(req, res) {
+    var goal = req.body;
+    Standards.find().elemMatch('goals', { _id: { $in: [goal.goalId]}} ).exec(function(err, data) {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          'msg': 'Internal Server Error'
+        });
+      }
+      var returnedGoal = data[0].goals.id(goal.goalId);
+      if (returnedGoal.name) {
+        goal.description = returnedGoal.name;
+      } else if (returnedGoal.description) {
+        goal.description = returnedGoal.description;
+      } else {
+        goal.description = null;
+      }
+      goal.active = true;
+      Students.findById(req.params.studentId, function(err, user) {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({
+            'msg': 'Internal Server Error'
+          });
+        }
+        user.goals.push(goal);
+        user.save(function(err, updatedUser) {
+          if (err) {
+            console.log('Found user but could not save new variables');
+            console.log(err);
+            return res.status(500).json({
+              'msg': 'Internal Server Error'
+            });
+          }
+          res.json({
+            'user': updatedUser
+          });
+        });
+      });
+    });
+  });
+
+  /**
+   * An endpoint to update a specific goal of a student
+   * @param  {Object} req  The request object
+   * @param  {Object} res  The response object
+   */
+  router.put('/students/:studentId/goals/:goalId/', eatAuth, function(req, res) {
+    var goal = req.body;
+    Standards.find().elemMatch('goals', { _id: { $in: [goal.goalId]}} ).exec(function(err, data) {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          'msg': 'Internal Server Error'
+        });
+      }
+      var returnedGoal = data[0].goals.id(goal.goalId);
+      if (returnedGoal.name) {
+        goal.description = returnedGoal.name;
+      } else if (returnedGoal.description) {
+        goal.description = returnedGoal.description;
+      } else {
+        goal.description = null;
+      }
+      goal.active = true;
+
+    });
+  });
+
 };

@@ -1,9 +1,9 @@
 'use strict';
 //  TODO: Refactor this data into other external modules
 module.exports = function(app) {
-  app.factory('Student', ['$rootScope', '$http', '$cookies', 'RESTResource', 'Errors', function($rootScope, $http, $cookies, resource, Errors) {
-    var Student = resource('student');
-    var Tests = resource('tests');
+  app.factory('StudentData', ['$rootScope', '$http', '$cookies', 'RESTResource', 'Errors', 'StudentUserData', 'StudentTestData', function($rootScope, $http, $cookies, resource, Errors, Student, Tests) {
+    var Student = Student;
+    var Tests = Tests;
     var Attempt = resource('attempt');
     var studentData = {
       student: $cookies.getObject('user'),
@@ -14,13 +14,14 @@ module.exports = function(app) {
         correctAnswers:0,
         questions: []
       },
-      getTestByGoalId: function(goal, callback) {
-        $http.get('/api/tests/goal/' + goal._id)
-          .success(
-            function(data) {
-              callback(null, data);
+      getTestByGoalId: function(goalId, callback) {
+        $http.get('/api/tests/goal/' + goalId)
+          .then(
+            function(response) {
+              var data = response.data[0];
+              return callback(null, data);
             })
-          .error(
+          .catch(
             function(data) {
               console.log(data);
               callback(data);

@@ -5,7 +5,7 @@ module.exports = function(app) {
     return {
       restrict: 'E',
       replace: true,
-      templateUrl: '/templates/directives/standards/single_standard.html',
+      templateUrl: '/templates/admin/single_standard.html',
       scope: {
         standard: '=',
         toggle: '&',

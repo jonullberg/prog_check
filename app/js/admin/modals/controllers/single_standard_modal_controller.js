@@ -23,14 +23,21 @@ module.exports = function(app) {
     };
 
     var addGoal = function(goal) {
-      Students.addGoal(goal, function(err, data) {
-        if (err) {
-          return Errors.addError({
-            'msg': 'There was an error adding goal'
-          });
-        }
-      });
+      var scope = $rootScope.$new();
+      scope.params = {
+        buttonText: 'Add Goal',
+        formType: 'creating'
+      };
+      scope.goal = goal;
+      scope.student = $scope.student;
       $modalInstance.close();
+      $modal.open({
+        animation:true,
+        templateUrl: '/templates/teacher/student_goal_settings.html',
+        size:'lg',
+        controller: 'StudentGoalSettingsCtrl',
+        scope: scope
+      });
     };
 
     var showSample = function(goal) {

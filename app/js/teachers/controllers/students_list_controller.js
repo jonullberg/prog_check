@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('StudentsListCtrl', ['$scope', '$location', '$modal', '$rootScope', 'Errors', 'Students', function($scope, $location, $modal, $rootScope, Errors, Students) {
+  app.controller('StudentsListCtrl', ['$scope', '$location', '$modal', '$rootScope', '$routeParams', 'Errors', 'AdminData', function($scope, $location, $modal, $rootScope, $routeParams, AdminData) {
 
     var getStudents = function() {
       $scope.students = Students.students;
@@ -10,7 +10,7 @@ module.exports = function(app) {
     $scope.$on('students:changed', getStudents);
 
     $scope.getStudents = function() {
-      Students.getStudents(function(err, data) {
+      AdminData.Students.getStudents(function(err, data) {
         if (err) {
           return Errors.addError({
             'msg': 'Failed to get students from server'
@@ -21,8 +21,7 @@ module.exports = function(app) {
     };
 
     $scope.showStudent = function(student) {
-      Students.setStudent(student);
-      $location.path('/teacher/students/' + student._id);
+      $location.path('/teacher/' + $routeParams.teacherId + '/students/' + student._id);
     };
 
     $scope.addStudent = function() {
@@ -31,6 +30,7 @@ module.exports = function(app) {
         formType: 'creating',
         buttonText: 'Create Student'
       };
+      scope.student = {};
       $modal.open({
         animation:true,
         templateUrl: '/templates/directives/teachers/student_form.html',

@@ -29,7 +29,6 @@ require('./services/to_trusted')(progCheck);
 require('./services/errors_service')(progCheck); // Service for holding errors of application
 require('./services/test_data')(progCheck); // Stores all test data for app
 require('./services/standards_data')(progCheck); // Stores all standard data for app
-require('./teachers/services/students_data')(progCheck); // Stores all student data on client for teacher user
 
 //  controllers
 require('./controllers/errors_controller')(progCheck);
@@ -60,6 +59,7 @@ require('./directives/header_directive')(progCheck);
 require('./directives/pc_footer_directive')(progCheck);
 require('./auth/directives/account_tools_directive')(progCheck);
 require('./teachers/directives/pc_teachers_directive')(progCheck);
+require('./directives/convert_to_number')(progCheck);
 
   //  Test directives
 
@@ -78,7 +78,10 @@ require('./teachers/directives/pc_teachers_directive')(progCheck);
 
 //  Admin
   //  Data
-  //  TODO: Import Data service for admin user
+  require('./admin/data_services/admin_data_service')(progCheck);
+  require('./admin/data_services/admin_standards_data')(progCheck);
+  require('./admin/data_services/admin_tests_data')(progCheck);
+  require('./admin/data_services/admin_teachers_data')(progCheck);
 
   //  Standards
     //  Standards List
@@ -123,23 +126,33 @@ require('./teachers/directives/pc_teachers_directive')(progCheck);
     require('./admin/controllers/edit_test_form_controller')(progCheck);
 
 //  Teacher
-  require('./teachers/services/teacher_data')(progCheck);
-  require('./teachers/services/attempt_data')(progCheck);
+  //  Data Services
+  require('./teachers/data_services/teacher_data')(progCheck);
+  require('./teachers/data_services/students_data')(progCheck);
+  require('./teachers/data_services/attempt_data')(progCheck);
 
   require('./teachers/controllers/teachers_controller')(progCheck);
   require('./teachers/controllers/student_form_controller')(progCheck);
   require('./teachers/controllers/single_student_controller')(progCheck);
   require('./teachers/controllers/students_list_controller')(progCheck);
 
-  //  Controllers
+  //  Student Goals List Directive
+  require('./teachers/controllers/student_goals_list_controller')(progCheck);
+  require('./teachers/directives/pc_student_goals_list')(progCheck);
 
-  //  Directives
+  //  Student Goal Settings
+  require('./teachers/controllers/student_goal_settings_controller')(progCheck);
 
+  //  Student Attempts
+  require('./teachers/directives/pc_student_attempts_directive')(progCheck);
+  require('./teachers/controllers/student_attempts_controller')(progCheck);
 
 
 //  Students
   //  Data
-  require('./students/data/student_data_service')(progCheck);
+  require('./students/data_services/student_data_service')(progCheck);
+  require('./students/data_services/student_user_data')(progCheck);
+  require('./students/data_services/student_test_data')(progCheck);
 
   //  Test
   require('./students/controllers/test_controller')(progCheck);

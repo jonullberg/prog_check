@@ -8,8 +8,8 @@ module.exports = function(app) {
     var attemptData = {
       attempt: null,
       attempts: [],
-      getAttempts: function(student, cb) {
-        $http.get('/api/tests/attempts/' + student._id)
+      getAttempts: function(studentId, cb) {
+        $http.get('/api/students/' + studentId + '/attempts/')
           .then(function(res) {
             this.attempts = res.data;
             cb(res.data);
