@@ -6,6 +6,12 @@ var groupSchema = mongoose.Schema({
   'name': {
     type: String
   },
+  'description': {
+    type: String
+  },
+  'teacherId': {
+    type: String
+  },
   'students': {
     type: Array
   }

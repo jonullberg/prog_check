@@ -20,6 +20,9 @@ var attemptSchema = mongoose.Schema({
   },
   'directions': {
     type: String
+  },
+  'active': {
+    type: Boolean
   }
 });
 

@@ -1,0 +1,31 @@
+<main class="panel panel-primary"
+  data-ng-init="init()">
+  <header class="panel-heading">
+    <h3 class="col-lg-9">Information for {{student.firstName}} {{student.lastName}}</h3>
+    <button type="button" class="btn btn-default"
+      data-ng-click="goBack()">
+      Go Back
+    </button>
+    <div class="clearfix"></div>
+  </header>
+  <div class="panel-body">
+    <h4>Default Number of Questions Per Test: {{student.numberOfQuestions}}</h4>
+    <h4 data-ng-if="student.goalPriority">Sort Goal Priority By: {{student.goalPriority}}</h4>
+    <pc-student-attempts></pc-student-attempts>
+    <div class="col-lg-6">
+    </div>
+    <pc-student-goals-list
+      student="student"></pc-student-goals-list>
+  </div>
+  <footer class="panel-footer">
+    <button type="button" class="btn btn-primary"
+      data-ng-click="editStudentModal(student)">
+      Edit/Delete Student
+    </button>
+    <button type="button" class="btn btn-info"
+      data-ng-click="openGoalForm()">
+      Add Goals For {{student.firstName}}
+      <span class="glyphicon glyphicon-plus"></span>
+    </button>
+  </footer>
+</main>

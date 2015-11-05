@@ -1,54 +1,46 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('GoalCtrl', ['$scope', '$modalInstance', 'Errors', 'Standards', function($scope, $modalInstance, Errors, Standards) {
-
-
-    var updateStandard = function() {
-      $scope.standard = Standards.standard;
-    };
-
-    updateStandard();
-
-    $scope.$on('standard:changed', updateStandard());
-
-    var addGoal = function(goal) {
-      Standards.addGoal(goal, function(err, data) {
-        if (err) {
-          return Errors.addError({
-            'msg': 'There was an error creating that goal'
-          });
-        }
-      });
-      $scope.goal = null;
-    };
-
-    var saveGoal = function(goal) {
-      Standards.saveGoal(goal, function(err) {
-        if (err) {
-          return Errors.addError({
-            'msg': 'There was an error updating that goal'
-          });
-        }
-      });
-    };
+  app.controller('GoalCtrl', ['$scope', '$modalInstance', '$routeParams', 'AdminData', function($scope, $modalInstance, $routeParams, AdminData) {
 
     $scope.save = function(goal) {
       if ($scope.goalForm.$valid) {
         if ($scope.params.formType === 'creating') {
-          addGoal(goal);
+          createGoal(goal);
           $modalInstance.close();
         } else if ($scope.params.formType === 'editing') {
-          saveGoal(goal);
+          updateGoal(goal);
           $modalInstance.close();
         }
-
       }
     };
 
     $scope.cancel = function() {
-      $modalInstance.dismiss();
+      $modalInstance.dismiss(function() {
+        AdminData.Standards.setGoal(null)
+      });
     };
+
+    $scope.init = initForm;
+
+    function initForm() {
+      getGoal();
+    }
+
+    function getGoal() {
+      $scope.goal = AdminData.Standards.getGoal();
+    }
+    function createGoal(goal) {
+      AdminData.Standards.createGoal($routeParams.standardId, goal, function(err, data) {
+        AdminData.Standards.setGoal(null);
+      });
+    }
+
+    function updateGoal(goal) {
+      AdminData.Standards.updateGoal($routeParams.standardId, goal, function(err) {
+        AdminData.Standards.setGoal(null);
+      });
+    }
   }]);
 
 };

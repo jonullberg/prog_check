@@ -20,7 +20,8 @@ module.exports = function(app) {
         return AuthenticationService.isLogged;
       }, function(newVal, oldVal, scope) {
         if (newVal) {
-          if ($cookies.getObject('user').role === 'admin') {
+          var user = $cookies.getObject('user');
+          if (user.role === 'admin') {
             scope.tabs = [{
               header: 'Home',
               url: 'admin/home'
@@ -33,28 +34,28 @@ module.exports = function(app) {
               header: 'Teachers',
               url: 'admin/teachers'
             }];
-          } else if ($cookies.getObject('user').role === 'teacher') {
+          } else if (user.role === 'teacher') {
             scope.tabs = [{
               header: 'Home',
-              url: 'teacher/home'
+              url: 'teacher/' + user._id + '/home'
             },
             {
               header: 'Students',
-              url: 'teacher/students'
+              url: 'teacher/' + user._id + '/students'
             },
             // {
             //   header: 'Tests',
             //   url: 'teacher/tests'
             // }
             ];
-          } else if ($cookies.getObject('user').role === 'student') {
+          } else if (user.role === 'student') {
             scope.tabs = [{
               header: 'Home',
-              url: 'student/home'
+              url: 'student/' + user._id + '/home'
             },
             {
               header: 'Tests',
-              url: 'student/tests'
+              url: 'student/' + user._id + '/tests'
             },
             // {
             //   header: 'Scores',

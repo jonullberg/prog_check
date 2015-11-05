@@ -19,7 +19,6 @@ module.exports = function(app) {
             });
           }
           updateStandards();
-
         });
       }
     };
