@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('StandardsListCtrl', ['$scope', '$uibMmodal', '$rootScope', '$cookies', '$location', 'Errors', 'AdminData', function($scope, $modal, $rootScope, $cookies, $location, Errors, AdminData) {
+  app.controller('StandardsListCtrl', ['$scope', '$uibMmodal', '$rootScope', '$cookies', '$location', 'Errors', 'AdminData', function($scope, $uibModal, $rootScope, $cookies, $location, Errors, AdminData) {
     $scope.$on('standards:changed', function(e, standards) {
       $scope.standards = standards;
     });

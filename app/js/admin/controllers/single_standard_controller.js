@@ -5,7 +5,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('SingleStandardCtrl', ['$scope', '$uibModal', '$cookies', '$rootScope', '$routeParams', '$location', 'AdminData', function($scope, $modal, $cookies, $rootScope, $routeParams, $location, AdminData) {
+  app.controller('SingleStandardCtrl', ['$scope', '$uibModal', '$cookies', '$rootScope', '$routeParams', '$location', 'AdminData', function($scope, $uibModal, $cookies, $rootScope, $routeParams, $location, AdminData) {
     $scope.params = {
       goalButtonText: 'Edit Goal'
     };

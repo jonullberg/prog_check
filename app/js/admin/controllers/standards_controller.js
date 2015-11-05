@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('StandardsCtrl', ['$scope', '$filter', '$uibModal', '$rootScope', 'copy', 'AdminData', 'pcGrades', function($scope, $filter, $modal, $rootScope, copy, AdminData, pcGrades) {
+  app.controller('StandardsCtrl', ['$scope', '$filter', '$uibModal', '$rootScope', 'copy', 'AdminData', 'pcGrades', function($scope, $filter, $uibModal, $rootScope, copy, AdminData, pcGrades) {
 
     $scope.formShowing = false;
     $scope.isStandardShowing = false;

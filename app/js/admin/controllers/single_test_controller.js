@@ -75,7 +75,7 @@ module.exports = function(app) {
         templateUrl = '/templates/admin/modals/image_question_form_modal.html';
         controller = 'ImageQuestionFormCtrl'
       }
-      $modal.open({
+      $uibModal.open({
         animation:true,
         templateUrl: templateUrl,
         controller: controller,
