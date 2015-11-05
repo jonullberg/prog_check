@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('SingleTestCtrl', ['$scope', '$modal', '$rootScope', '$location', '$routeParams', '$sce', 'AdminData', 'SanitizeFractions', function($scope, $modal, $rootScope, $location, $routeParams, $sce, AdminData, SanitizeFractions) {
+  app.controller('SingleTestCtrl', ['$scope', '$uibModal', '$rootScope', '$location', '$routeParams', '$sce', 'AdminData', 'SanitizeFractions', function($scope, $modal, $rootScope, $location, $routeParams, $sce, AdminData, SanitizeFractions) {
     $scope.isDeleteShown = false;
     $scope.init = init;
 
@@ -26,7 +26,7 @@ module.exports = function(app) {
         formType: 'editing',
         buttonText: 'Save Test'
       };
-      $modal.open({
+      $uibModal.open({
         animation: true,
         templateUrl: '/templates/directives/test_form.html',
         controller: 'TestFormCtrl',
@@ -49,7 +49,7 @@ module.exports = function(app) {
         formType: 'creating',
         buttonText: 'Add Question'
       };
-      $modal.open({
+      $uibModal.open({
         animation:true,
         templateUrl: '/templates/admin/modals/question_form_modal.html',
         controller:'QuestionFormCtrl',
@@ -84,7 +84,8 @@ module.exports = function(app) {
         formType: 'editing',
         buttonText: 'Save Question'
       };
-      $modal.open({
+      scope.question = question;
+      $uibModal.open({
         animation:true,
         templateUrl: '/templates/admin/modals/question_form_modal.html',
         controller:'QuestionFormCtrl',

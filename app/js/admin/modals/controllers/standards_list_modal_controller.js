@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('StandardsListModalCtrl', ['$scope', '$modal', '$modalInstance', '$rootScope', '$cookies', 'Errors', 'Standards', 'Students', function($scope, $modal, $modalInstance, $rootScope, $cookies, Errors, Standards, Students) {
+  app.controller('StandardsListModalCtrl', ['$scope', '$uibModal', '$modalInstance', '$rootScope', '$cookies', 'Errors', 'Standards', 'Students', function($scope, $uibModal, $modalInstance, $rootScope, $cookies, Errors, Standards, Students) {
     $scope.standards;
     var updateStandards = function() {
       $scope.standards = Standards.standards;
@@ -30,7 +30,7 @@ module.exports = function(app) {
         goalButtonText: 'Add Goal'
       };
       $modalInstance.close();
-      $modal.open({
+      $uibModal.open({
         animation:true,
         templateUrl:'/templates/modals/single_standard_modal.html',
         size:'lg',

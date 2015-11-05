@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('SingleStudentCtrl', ['$scope', '$routeParams', '$modal', '$location', '$rootScope', '$sce', 'Errors', 'Students', 'TeacherData', function($scope, $routeParams, $modal, $location, $rootScope, $sce, Errors, Students, TeacherData) {
+  app.controller('SingleStudentCtrl', ['$scope', '$routeParams', '$uibModal', '$location', '$rootScope', '$sce', 'Errors', 'Students', 'TeacherData', function($scope, $routeParams, $uibModal, $location, $rootScope, $sce, Errors, Students, TeacherData) {
 
     $scope.trustAsHtml = $sce.trustAsHtml;
 
@@ -27,7 +27,7 @@ module.exports = function(app) {
 
 
     $scope.openGoalForm = function() {
-      $modal.open({
+      $uibModal.open({
         animation: true,
         templateUrl: '/templates/directives/standards/standards_list.html',
         size: 'lg',
@@ -58,8 +58,7 @@ module.exports = function(app) {
         formType: 'editing',
         buttonText: 'Save Student'
       };
-      scope.student = student;
-      $modal.open({
+      $uibModal.open({
         animation:true,
         templateUrl: '/templates/directives/teachers/student_form.html',
         size:'lg',
