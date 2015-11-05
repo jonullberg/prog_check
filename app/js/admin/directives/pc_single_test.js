@@ -5,11 +5,7 @@ module.exports = function(app) {
     return {
       restrict: 'E',
       replace: true,
-      templateUrl: '/templates/directives/single_test.html',
-      scope: {
-        toggleSingleTest: '&',
-        toggleTestForm: '&'
-      },
+      templateUrl: '/templates/admin/single_test.html',
       controller: 'SingleTestCtrl'
     };
   });

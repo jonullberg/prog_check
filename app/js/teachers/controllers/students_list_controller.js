@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('StudentsListCtrl', ['$scope', '$location', '$modal', '$rootScope', '$routeParams', 'Errors', 'AdminData', function($scope, $location, $modal, $rootScope, $routeParams, AdminData) {
+  app.controller('StudentsListCtrl', ['$scope', '$location', '$uibModal', '$rootScope', '$routeParams', 'Errors', 'AdminData', function($scope, $location, $uibModal, $rootScope, $routeParams, AdminData) {
 
     var getStudents = function() {
       $scope.students = Students.students;
@@ -30,8 +30,7 @@ module.exports = function(app) {
         formType: 'creating',
         buttonText: 'Create Student'
       };
-      scope.student = {};
-      $modal.open({
+      $uibModal.open({
         animation:true,
         templateUrl: '/templates/directives/teachers/student_form.html',
         size: 'lg',

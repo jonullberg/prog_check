@@ -1,70 +1,72 @@
-<section class="panel panel-primary"
-  data-ng-init="init()">
-  <header class="panel-heading">
-    <h3 class="col-lg-9">
-      {{standard.name}}
-    </h3>
-    <button type="button"
-      class="btn btn-default col-lg-3"
-      data-ng-click="goBack()">Go Back</button>
-    <div class="clearfix"></div>
-  </header>
-  <div class="panel-body">
-    <div class="alert alert-danger"
-      data-ng-if="isAlertShown">
-      <p class="col-lg-8">Are you sure? Deleting can't be undone</p>
-      <div class="btn-group col-lg-4">
-        <button type="button"
-          class="btn btn-danger"
-          data-ng-click="deleteStandard(standard)">Yes
-        </button>
-        <button type="button"
-          class="btn btn-primary"
-          data-ng-click="toggleAlert()">
-          No
-        </button>
-      </div>
+<div>
+  <section class="panel panel-primary"
+    data-ng-init="init()">
+    <header class="panel-heading">
+      <h3 class="col-lg-9">
+        {{standard.name}}
+      </h3>
+      <button type="button"
+        class="btn btn-default col-lg-3"
+        data-ng-click="goBack()">Go Back</button>
       <div class="clearfix"></div>
-    </div>
+    </header>
+    <div class="panel-body">
+      <div class="alert alert-danger"
+        data-ng-if="isAlertShown">
+        <p class="col-lg-8">Are you sure? Deleting can't be undone</p>
+        <div class="btn-group col-lg-4">
+          <button type="button"
+            class="btn btn-danger"
+            data-ng-click="deleteStandard(standard)">Yes
+          </button>
+          <button type="button"
+            class="btn btn-primary"
+            data-ng-click="toggleAlert()">
+            No
+          </button>
+        </div>
+        <div class="clearfix"></div>
+      </div>
 
-    <h3>Standard</h3>
-    <p>
-      {{standard.language}}
-    </p>
-    <h3>Goals</h3>
-    <p data-ng-if="!standard.goals">You have no goals. Add some below.</p>
-    <ul>
-      <li data-ng-click="showButtons(goal)"
-        data-ng-repeat="goal in standard.goals">
-        {{goal.name}}: {{goal.description}}
-        <button class="btn btn-info" type="button"
-          data-ng-if="goal.buttons"
-          data-ng-click="selectGoal(goal)">
-          Edit Goal
-        </button>
-        <button class="btn btn-danger" type="button"
-          data-ng-click="deleteGoal(goal)"
-          data-ng-if="goal.buttons && isAdmin()">
-          Delete Goal
-        </button>
-      </li>
-    </ul>
-  </div>
-  <div class="panel-footer">
-    <button type="button" class="btn btn-primary"
-      data-ng-click="edit(standard)"
-      data-ng-if="isAdmin()">
-      Edit Standard
-    </button>
-    <button type="button" class="btn btn-danger"
-      data-ng-click="toggleAlert()"
-      data-ng-if="isAdmin()">
-      Delete Standard
-    </button>
-    <button type="button" class="btn btn-info"
-      data-ng-click="addGoals()">
-      Add Goals
-      <span class="glyphicon glyphicon-plus"></span>
-    </button>
-  </div>
-</section>
+      <h3>Standard</h3>
+      <p>
+        {{standard.language}}
+      </p>
+      <h3>Goals</h3>
+      <p data-ng-if="!standard.goals">You have no goals. Add some below.</p>
+      <ul>
+        <li data-ng-click="showButtons(goal)"
+          data-ng-repeat="goal in standard.goals">
+          {{goal.name}}: {{goal.description}}
+          <button class="btn btn-info" type="button"
+            data-ng-if="goal.buttons"
+            data-ng-click="selectGoal(goal)">
+            Edit Goal
+          </button>
+          <button class="btn btn-danger" type="button"
+            data-ng-click="deleteGoal(goal)"
+            data-ng-if="goal.buttons && isAdmin()">
+            Delete Goal
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div class="panel-footer">
+      <button type="button" class="btn btn-primary"
+        data-ng-click="edit(standard)"
+        data-ng-if="isAdmin()">
+        Edit Standard
+      </button>
+      <button type="button" class="btn btn-danger"
+        data-ng-click="toggleAlert()"
+        data-ng-if="isAdmin()">
+        Delete Standard
+      </button>
+      <button type="button" class="btn btn-info"
+        data-ng-click="addGoals()">
+        Add Goals
+        <span class="glyphicon glyphicon-plus"></span>
+      </button>
+    </div>
+  </section>
+</div>

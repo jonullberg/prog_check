@@ -6,10 +6,13 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('StandardFormCtrl', ['$scope', '$modalInstance', '$location', '$routeParams', 'AdminData', 'pcGrades', function($scope, $modalInstance, $location, $routeParams, AdminData, pcGrades) {
+  app.controller('StandardFormCtrl', ['$scope', '$modalInstance', '$location', '$routeParams', 'AdminData', 'pcGrades', 'copy', function($scope, $modalInstance, $location, $routeParams, AdminData, pcGrades, copy) {
+    var master;
     $scope.grades = angular.fromJson(pcGrades.grades);
-
-    $scope.init = initForm;
+    $scope.cancel = function() {
+      AdminData.Standards.setStandard(master);
+      $modalInstance.dismiss();
+    };
 
     $scope.changeGrade = function(standard) {
       standard.gradeName = standard._gradeName;
@@ -38,10 +41,13 @@ module.exports = function(app) {
         }
       }
     };
+    $scope.init = initForm;
+
     function initForm() {
       getStandard();
       getGrade();
       setGrade($scope.standard);
+      master = copy($scope.standard);
     }
     function getGrade() {
       if ($scope.standard) {

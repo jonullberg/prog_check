@@ -54,6 +54,15 @@ module.exports = function(app) {
           requiredStudent: false
         }
       })
+      .when('/reset/success', {
+        templateUrl: 'templates/auth/reset_success.html',
+        access: {}
+      })
+      .when('/reset/:resetToken', {
+        templateUrl: 'templates/auth/reset_password.html',
+        access: {},
+        controller: 'ResetPasswordCtrl'
+      })
       .when('/not-authorized', {
         templateUrl: 'templates/views/not-authorized.html',
         access: {
@@ -92,8 +101,7 @@ module.exports = function(app) {
         }
       })
       .when('/admin/standards/:standardId', {
-        templateUrl: 'templates/admin/single_standard.html',
-        controller: 'SingleStandardCtrl',
+        templateUrl: 'templates/admin/single_standard_container.html',
         access: {
           requiredLogin: true,
           requiredAdmin: true,
@@ -101,7 +109,16 @@ module.exports = function(app) {
           requiredStudent:false
         }
       })
-
+      .when('/admin/standards/:standardId/tests/:testId', {
+        templateUrl: 'templates/admin/single_test.html',
+        controller: 'SingleTestCtrl',
+        access: {
+          requiredLogin: true,
+          requiredAdmin: true,
+          requiredTeacher:false,
+          requiredStudent: false
+        }
+      })
       .when('/admin/teachers', {
         templateUrl: 'templates/directives/teachers.html',
         access: {
@@ -184,13 +201,13 @@ module.exports = function(app) {
 
   app.run(['$rootScope', '$location', 'AuthenticationService', function($rootScope, $location, AuthenticationService) {
     $rootScope.$on('$routeChangeStart', function(event, next, current) {
-      if (next.access.requiredLogin && !AuthenticationService.isLogged) {
+      if (next.access && next.access.requiredLogin && !AuthenticationService.isLogged) {
         $location.path('/not-authorized');
       }
-      if (next.access.requiredAdmin && AuthenticationService.user.role !== 'admin') {
+      if (next.access && next.access.requiredAdmin && AuthenticationService.user.role !== 'admin') {
         $location.path('/not-authorized');
       }
-      if (next.access.requiredTeacher && AuthenticationService.user.role !== 'teacher') {
+      if (next.access && next.access.requiredTeacher && AuthenticationService.user.role !== 'teacher') {
         $location.path('/not-authorized');
       }
     });

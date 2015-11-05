@@ -8,7 +8,7 @@ module.exports = function(app) {
   app.factory('AdminStandardsData', ['$http', '$rootScope', 'Errors', function ($http, $rootScope, Errors) {
 
     var adminStandardsData = {
-      standards: [],
+      standards: null,
       standard: null,
       goal: null,
       getStandards: function() {
@@ -25,6 +25,7 @@ module.exports = function(app) {
       },
       setStandard: function(standard) {
         this.standard = standard;
+        $rootScope.$broadcast('standard:changed', standard);
         return;
       },
       getGoal: function() {

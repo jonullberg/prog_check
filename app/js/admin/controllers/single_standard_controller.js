@@ -5,7 +5,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('SingleStandardCtrl', ['$scope', '$modal', '$cookies', '$rootScope', '$routeParams', '$location', 'AdminData', function($scope, $modal, $cookies, $rootScope, $routeParams, $location, AdminData) {
+  app.controller('SingleStandardCtrl', ['$scope', '$uibModal', '$cookies', '$rootScope', '$routeParams', '$location', 'AdminData', function($scope, $uibModal, $cookies, $rootScope, $routeParams, $location, AdminData) {
     $scope.params = {
       goalButtonText: 'Edit Goal'
     };
@@ -27,7 +27,7 @@ module.exports = function(app) {
         formType: 'editing',
         buttonText: 'Save Standard'
       };
-      $modal.open({
+      $uibModal.open({
         animation:true,
         templateUrl: '/templates/directives/standards/standard_form.html',
         size:'lg',
@@ -50,7 +50,7 @@ module.exports = function(app) {
         buttonText: 'Add Goal',
         formType: 'creating'
       };
-      $modal.open({
+      $uibModal.open({
         animation:true,
         templateUrl: '/templates/partials/goal_form.html',
         controller: 'GoalCtrl',
@@ -69,6 +69,8 @@ module.exports = function(app) {
 
     function goBack() {
       AdminData.Standards.setStandard(null);
+      AdminData.Tests.setTest(null);
+      AdminData.Tests.setTests(null);
       $location.path('admin/standards');
     }
     function showButtons(goal) {
@@ -99,7 +101,7 @@ module.exports = function(app) {
         formType: 'editing'
       };
       AdminData.Standards.setGoal(goal);
-      $modal.open({
+      $uibModal.open({
         animation:true,
         templateUrl: '/templates/partials/goal_form.html',
         controller: 'GoalCtrl',

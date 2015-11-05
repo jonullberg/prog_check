@@ -56,7 +56,12 @@
       <button type="submit" class="btn btn-primary">
         {{params.buttonText}}
       </button>
-      <button type="button" class="btn btn-danger">Cancel</button>
+      <button
+        type="button"
+        class="btn btn-danger"
+        data-ng-click="cancel()">
+        Cancel
+      </button>
     </div>
   </div>
 </form>
