@@ -42,7 +42,7 @@
     "gulp-util": "^3.0.6",
     "jshint-stylish": "^2.0.1",
     "mongoose": "^4.0.3",
-    "ng-file-upload": "^6.0.4",
+    "ng-file-upload": "latest",
     "nodemailer": "^1.4.0",
     "passport": "^0.2.2",
     "passport-http": "^0.2.2",

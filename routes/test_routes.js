@@ -173,7 +173,7 @@ module.exports = function(router) {
             'msg': 'Internal Server Error'
           });
         }
-        newQuestion.dateCreated = new Date.now();
+        newQuestion.dateCreated = Date.now();
         test.questions.push(newQuestion);
         test.save(function(err, data) {
           if (err) {

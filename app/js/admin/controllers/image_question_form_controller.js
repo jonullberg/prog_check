@@ -4,57 +4,68 @@
  */
 'use strict';
 
+var config = require('./config/config.js');
+console.log(config);
+
 module.exports = function(app) {
-  app.controller('ImageQuestionFormCtrl', ['$scope', '$modalInstance', '$sce', 'Errors', 'AdminData', 'Upload', function($scope, $modalInstance, $sce, Errors, AdminData, Upload) {
+  app.controller('ImageQuestionFormCtrl', ['$scope', '$modalInstance', '$sce', '$http', 'Errors', 'AdminData', 'Upload', function($scope, $modalInstance, $sce, $http, Errors, AdminData, Upload) {
 
     $scope.init = init;
     $scope.trustAsHtml = $sce.trustAsHtml;
     $scope.$on('test:changed', getTest);
 
-    if ($scope.params.formType === 'creating') {
-
-    }
 
     $scope.$watch('questionImage', function(file) {
       $scope.upload(file, function(filePath) {
-        $scope.question.question = filePath;
+        $scope.question.question = (process.env.AWS_GET_URL || config.AWS_GET_URL) + filePath;
       });
     });
     $scope.$watch('correctImage', function(file) {
       $scope.upload(file, function(filePath) {
-        $scope.question.correct = filePath;
-        $scope.question.answers[0] = filePath;
+        $scope.question.correct = (process.env.AWS_GET_URL || config.AWS_GET_URL) + filePath;
+        $scope.question.answers[0] = (process.env.AWS_GET_URL || config.AWS_GET_URL) + filePath;
       });
     });
     $scope.$watch('answersImage1', function(file) {
       $scope.upload(file, function(filePath) {
-        $scope.question.answers[1] = filePath;
+        $scope.question.answers[1] = (process.env.AWS_GET_URL || config.AWS_GET_URL) + filePath;
       });
     });
     $scope.$watch('answersImage2', function(file) {
       $scope.upload(file, function(filePath) {
-        $scope.question.answers[2] = filePath;
+        $scope.question.answers[2] = (process.env.AWS_GET_URL || config.AWS_GET_URL) + filePath;
       });
     });
     $scope.$watch('answersImage3', function(file) {
       $scope.upload(file, function(filePath) {
-        $scope.question.answers[3] = filePath;
+        $scope.question.answers[3] = (process.env.AWS_GET_URL || config.AWS_GET_URL) + filePath;
       });
     });
     $scope.upload = function(file, cb) {
-      Upload.upload({
-        url: 'api/tests/' + $scope.test._id + '/questions/image',
-        method: 'POST',
-        data: {
-
-        },
-        fields: {
-          'testField': 'This is a test'
-        },
-        file: file
-      }).success(function(data, status, headers, config) {
-        cb(data.filePath);
-      });
+      var storeAuth = $http.defaults.headers.common.Authorization;
+      delete $http.defaults.headers.common.Authorization;
+      if (file && file.name) {
+        var filename = Math.round(Math.random()*10000) + file.name
+        Upload.upload({
+          url: process.env.AWS_URL || config.AWS_URL,
+          method: 'POST',
+          data: {
+            'key' : filename,
+            'acl' : 'public-read',
+            'Content-Type' : file.type,
+            'AWSAccessKeyId' : process.env.AWS_ACCESS_KEY || config.AWS_ACCESS_KEY,
+            'Policy' : process.env.AWS_POLICY || config.AWS_POLICY,
+            'Signature' : process.env.AWS_SIGNATURE || config.AWS_SIGNATURE,
+            'filename': filename
+          },
+          'file': file
+        })
+        .then(function(response) {
+          console.log(filename);
+          cb(filename);
+        });
+        $http.defaults.headers.common.Authorization;
+      }
     };
 
     $scope.save = function(question) {
@@ -63,7 +74,7 @@ module.exports = function(app) {
           .map(function(key) {
             return question.answers[key];
           });
-        addQuestion(question);
+        createQuestion(question);
       } else if ($scope.params.formType === 'editing') {
         saveQuestion(question);
       }
@@ -78,13 +89,21 @@ module.exports = function(app) {
       getQuestion();
     }
     function getQuestion() {
-      $scope.question = AdminData.Tests.getQuestion();
+      if ($scope.params.formType === 'creating') {
+        $scope.question = {
+          question: null,
+          correct: null,
+          answers: [null, null, null]
+        }
+      } else {
+        $scope.question = AdminData.Tests.getQuestion();
+      }
     }
     function getTest() {
       $scope.test = AdminData.Tests.getTest();
     }
     function createQuestion(question) {
-      AdminData.Tests.createQuestion(question, function(err) {
+      AdminData.Tests.createQuestion($scope.test._id, question, function(err) {
         if (err) {
           return Errors.addError({
             'msg': 'Failed to save question'

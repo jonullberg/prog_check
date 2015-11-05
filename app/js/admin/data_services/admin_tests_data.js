@@ -85,6 +85,7 @@ module.exports = function(app) {
     function fetchQuestion() {}
 
     function createQuestion(testId, question, cb) {
+      console.log(question);
       $http.post('/api/tests/' + testId + '/questions/', question)
         .then(function(response) {
           this.test = response.data.test;

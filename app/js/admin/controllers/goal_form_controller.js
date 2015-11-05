@@ -16,8 +16,9 @@ module.exports = function(app) {
     };
 
     $scope.cancel = function() {
-      AmdinData.Standards.setGoal(null);
-      $modalInstance.dismiss();
+      $modalInstance.dismiss(function() {
+        AdminData.Standards.setGoal(null)
+      });
     };
 
     $scope.init = initForm;
