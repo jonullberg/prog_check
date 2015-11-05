@@ -5,7 +5,6 @@
 'use strict';
 
 var config = require('./config/config.js');
-console.log(config);
 
 module.exports = function(app) {
   app.controller('ImageQuestionFormCtrl', ['$scope', '$modalInstance', '$sce', '$http', 'Errors', 'AdminData', 'Upload', function($scope, $modalInstance, $sce, $http, Errors, AdminData, Upload) {
@@ -61,7 +60,6 @@ module.exports = function(app) {
           'file': file
         })
         .then(function(response) {
-          console.log(filename);
           cb(filename);
         });
         $http.defaults.headers.common.Authorization;

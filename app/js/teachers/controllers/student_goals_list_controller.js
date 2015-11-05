@@ -4,7 +4,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('StudentGoalsListCtrl', ['$scope', '$rootScope', '$modal', 'TeacherData', function studentGoalsListCtrl($scope, $rootScope, $modal, TeacherData) {
+  app.controller('StudentGoalsListCtrl', ['$scope', '$rootScope', '$uibModal', 'TeacherData', function studentGoalsListCtrl($scope, $rootScope, $uibModal, TeacherData) {
 
     $scope.removeGoal = function(goal) {
       TeacherData.Students.removeGoal(goal);
@@ -24,7 +24,7 @@ module.exports = function(app) {
       };
       scope.student = $scope.student;
       scope.goal = goal;
-      $modal.open({
+      $uibModal.open({
         animation:true,
         templateUrl: '/templates/teacher/student_goal_settings.html',
         size:'lg',

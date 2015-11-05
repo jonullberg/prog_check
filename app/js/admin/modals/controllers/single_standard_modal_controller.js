@@ -31,7 +31,7 @@ module.exports = function(app) {
       scope.goal = goal;
       scope.student = $scope.student;
       $modalInstance.close();
-      $modal.open({
+      $uibodal.open({
         animation:true,
         templateUrl: '/templates/teacher/student_goal_settings.html',
         size:'lg',

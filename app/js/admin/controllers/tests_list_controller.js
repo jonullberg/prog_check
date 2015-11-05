@@ -6,7 +6,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('TestsListCtrl', ['$scope', '$modal', '$rootScope', '$location', '$routeParams', 'AdminData',  function($scope, $modal, $rootScope, $location, $routeParams, AdminData) {
+  app.controller('TestsListCtrl', ['$scope', '$uibModal', '$rootScope', '$location', '$routeParams', 'AdminData',  function($scope, $uibModal, $rootScope, $location, $routeParams, AdminData) {
     $scope.init = init;
     $scope.$on('standard:changed', getStandard);
     $scope.$on('tests:changed', function(e, data) {
