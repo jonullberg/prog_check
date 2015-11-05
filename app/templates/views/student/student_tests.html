@@ -1,10 +1,10 @@
 <main>
   <h2>Here are the tests you can take next</h2>
-  <accordion close-others="true">
-    <accordion-group data-ng-repeat="goal in student.goals" heading="{{goal.name || goal.description}}">
+  <uib-accordion close-others="true">
+    <uib-accordion-group data-ng-repeat="goal in student.goals" heading="{{goal.name || goal.description}}">
       <p data-ng-if="goal.name">{{goal.description}}</p>
       <button class="btn btn-primary btn-lg"
         data-ng-click="takeTest(goal)">Take Test</button>
-    </accordion-group>
-  </accordion>
+    </uib-accordion-group>
+  </uib-accordion>
 </main>

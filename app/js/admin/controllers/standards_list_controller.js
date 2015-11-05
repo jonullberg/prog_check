@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('StandardsListCtrl', ['$scope', '$modal', '$rootScope', '$cookies', 'Errors', 'Standards', function($scope, $modal, $rootScope, $cookies, Errors, Standards) {
+  app.controller('StandardsListCtrl', ['$scope', '$uibModal', '$rootScope', '$cookies', 'Errors', 'Standards', function($scope, $uibModal, $rootScope, $cookies, Errors, Standards) {
     var updateStandards = function() {
       $scope.standards = Standards.standards;
     };
@@ -43,7 +43,7 @@ module.exports = function(app) {
       scope.showStandard = function() {
         $scope.show();
       };
-      $modal.open({
+      $uibModal.open({
         animation:true,
         templateUrl: '/templates/directives/standards/standard_form.html',
         size: 'lg',
