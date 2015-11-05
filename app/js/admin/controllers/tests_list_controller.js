@@ -22,7 +22,7 @@ module.exports = function(app) {
         formType: 'creating',
         buttonText: 'Create Test'
       };
-      $modal.open({
+      $uibModal.open({
         animation:true,
         templateUrl: '/templates/directives/test_form.html',
         size: 'lg',

@@ -38,6 +38,14 @@ var userSchema = mongoose.Schema({
     'schoolDistrict': {
       type: String
     }
+  },
+  'reset': {
+    'resetToken': {
+      type: String
+    },
+    'expiration': {
+      type: Date
+    }
   }
 
 });

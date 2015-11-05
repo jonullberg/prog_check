@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('SingleStandardModalCtrl', ['$scope', '$modal', '$modalInstance', '$cookies', '$rootScope', '$sce', 'Errors', 'Standards', 'Students', 'Tests', function($scope, $modal, $modalInstance, $cookies, $rootScope, $sce, Errors, Standards, Students, Tests) {
+  app.controller('SingleStandardModalCtrl', ['$scope', '$uibModal', '$modalInstance', '$cookies', '$rootScope', '$sce', 'Errors', 'Standards', 'Students', 'Tests', function($scope, $uibModal, $modalInstance, $cookies, $rootScope, $sce, Errors, Standards, Students, Tests) {
 
     $scope.standard = Standards.standard;
 
@@ -55,7 +55,7 @@ module.exports = function(app) {
     $scope.goBack = function() {
       var scope = $rootScope.$new();
       $modalInstance.close();
-      $modal.open({
+      $uibModal.open({
         animation:true,
         templateUrl:'/templates/directives/standards/standards_list.html',
         size:'lg',
@@ -110,7 +110,7 @@ module.exports = function(app) {
         formType: 'editing',
         buttonText: 'Save Standard'
       };
-      $modal.open({
+      $uibModal.open({
         animation:true,
         templateUrl: '/templates/directives/standards/standard_form.html',
         size:'lg',

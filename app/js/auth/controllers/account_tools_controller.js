@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('AccountToolsCtrl', ['$scope', '$modal', '$cookies', '$location', 'UserService', function($scope, $modal, $cookies, $location, UserService) {
+  app.controller('AccountToolsCtrl', ['$scope', '$uibModal', '$cookies', '$location', 'UserService', function($scope, $uibModal, $cookies, $location, UserService) {
 
     $scope.signedIn = function() {
       return UserService.isSignedIn();
@@ -22,7 +22,7 @@ module.exports = function(app) {
     };
 
     $scope.bugModal = function() {
-      $modal.open({
+      $uibModal.open({
         animation:true,
         templateUrl: '/templates/directives/bug_form.html',
         size:'lg',

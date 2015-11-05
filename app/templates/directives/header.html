@@ -6,10 +6,10 @@
     </pc-account-tools>
   </div>
   <nav>
-    <tabset class="nav navbar-nav" type="pills" vertical="false" justified="true">
-      <tab data-ng-repeat="tab in tabs"
+    <uib-tabset class="nav navbar-nav" type="pills" vertical="false" justified="true">
+      <uib-tab data-ng-repeat="tab in tabs"
         heading="{{tab.header}}"
-        data-ng-click="changeView({url: tab.url})"></tab>
-    </tabset>
+        data-ng-click="changeView({url: tab.url})"></uib-tab>
+    </uib-tabset>
   </nav>
 </header>

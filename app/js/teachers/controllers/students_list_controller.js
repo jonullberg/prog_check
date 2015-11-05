@@ -30,8 +30,7 @@ module.exports = function(app) {
         formType: 'creating',
         buttonText: 'Create Student'
       };
-      scope.student = {};
-      $modal.open({
+      $uibModal.open({
         animation:true,
         templateUrl: '/templates/directives/teachers/student_form.html',
         size: 'lg',

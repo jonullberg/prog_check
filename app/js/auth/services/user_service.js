@@ -11,15 +11,15 @@ module.exports = function(app) {
               'Authorization': 'Basic ' + encoded
             }
           })
-          .success(function(data) {
+          .then(function(response) {
+            var data = response.data;
             $cookies.put('token', data.token);
             $cookies.putObject('user', data.user);
             AuthenticationService.role = $cookies.getObject('user').role;
             AuthenticationService.isLogged = true;
-            callback(null);
-          })
-          .error(function(data) {
-            callback(data);
+            callback(null, response);
+          }, function(err) {
+            callback(err);
           });
       },
       studentSignIn: function(student, callback) {
@@ -30,29 +30,28 @@ module.exports = function(app) {
               'Authorization': 'Basic ' + encoded
             }
           })
-          .success(function(data) {
+          .then(function(response) {
+            var data = response.data
             $cookies.put('token', data.token);
             $cookies.putObject('user', data.user);
             AuthenticationService.role = $cookies.getObject('user').role;
             AuthenticationService.isLogged = true;
-            callback(null);
-          })
-          .error(function(data) {
-            callback(data);
+            callback(null, response);
+          }, function(err) {
+            callback(err);
           });
       },
       create: function(user, callback) {
         $http
           .post('/api/create_user', user)
-          .success(function(data) {
+          .then(function(data) {
             $cookies.put('token', data.token);
             $cookies.putObject('user', data.user);
             AuthenticationService.role = $cookies.getObject('user').role;
             AuthenticationService.isLogged = true;
             callback(null);
-          })
-          .error(function(data) {
-            callback(data);
+          }, function(err) {
+            callback(err);
           });
       },
 

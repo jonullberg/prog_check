@@ -4,7 +4,7 @@ require('angular/angular');
 require('angular-route');
 require('angular-cookies');
 require('angular-base64');
-require('angular-bootstrap');
+require('angular-ui-bootstrap');
 require('ng-file-upload');
 
 var progCheck = angular.module('progCheck', ['ngRoute', 'ngCookies', 'base64', 'ui.bootstrap', 'ngFileUpload']);
@@ -41,6 +41,8 @@ require('./auth/controllers/student_auth_controller')(progCheck);
 require('./auth/controllers/auth_controller')(progCheck);
 require('./auth/controllers/account_tools_controller')(progCheck);
 require('./controllers/terms_controller')(progCheck);
+require('./auth/controllers/forgot_password_controller')(progCheck);
+require('./auth/controllers/reset_password_controller')(progCheck);
 
 //    Standard Controllers
 require('./admin/controllers/standards_controller')(progCheck);

@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('BugFormCtrl', ['$scope', '$rootScope', '$modal', '$modalInstance', 'RESTResource', 'Errors', function($scope, $rootScope, $modal, $modalInstance, resource, Errors) {
+  app.controller('BugFormCtrl', ['$scope', '$rootScope', '$uibModal', '$modalInstance', 'RESTResource', 'Errors', function($scope, $rootScope, $uibModal, $modalInstance, resource, Errors) {
     var Bugs = resource('bugs');
     $scope.submitBug = function(bugReport) {
       if ($scope.bugForm.$valid) {
@@ -23,7 +23,7 @@ module.exports = function(app) {
             header: 'Thanks for reporting',
             message: 'We will make sure to take a look into the problem and fix it soon.'
           };
-          $modal.open({
+          $uibModal.open({
             animation:true,
             templateUrl: '/templates/modals/message.html',
             size:'lg',
