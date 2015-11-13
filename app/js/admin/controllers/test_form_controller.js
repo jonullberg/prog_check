@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('TestFormCtrl', ['$scope', '$modalInstance', 'Tests', 'Standards', 'Errors', function($scope, $modalInstance, Tests, Standards, Errors) {
+  app.controller('TestFormCtrl', ['$scope', '$uibModalInstance', 'Tests', 'Standards', 'Errors', function($scope, $uibModalInstance, Tests, Standards, Errors) {
 
     $scope.standard = Standards.standard;
     $scope.test = Tests.test;
@@ -13,7 +13,7 @@ module.exports = function(app) {
     };
 
     $scope.cancel = function(test) {
-      $modalInstance.dismiss();
+      $uibModalInstance.dismiss();
     };
 
     var saveTest = function(test) {
@@ -45,7 +45,7 @@ module.exports = function(app) {
       } else if ($scope.params.formType === 'creating') {
         createTest(test);
       }
-      $modalInstance.close();
+      $uibModalInstance.close();
     };
   }]);
 };

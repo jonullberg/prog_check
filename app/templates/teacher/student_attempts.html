@@ -1,4 +1,6 @@
-<div class="col-lg-6">
+<div
+  data-ng-init="init()"
+  class="col-lg-6">
   <h4>Recent Tests</h4>
   <p data-ng-if="!attempts.length">{{student.firstName}} has not taken any tests yet.</p>
   <ul data-ng-if="attempts.length">

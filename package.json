@@ -1,6 +1,6 @@
 {
   "name": "prog_check",
-  "version": "0.1.0",
+  "version": "0.12.0",
   "engines": {
     "node": "0.10.x",
     "npm": "2.10.x"
@@ -9,8 +9,9 @@
   "description": "An API for Prog-Check to connect to a server, save users and store progress",
   "main": "server.js",
   "scripts": {
-    "postinstall": "gulp webpack:heroku",
-    "start": "gulp build && gulp watch"
+    "postinstall": "NODE_ENV=PRODUCTION gulp webpack:heroku",
+    "start": "gulp build && gulp watch",
+    "development": "NODE_ENV=DEV mongod --dbpath=./db --smallfiles & nodemon server & gulp build & gulp watch"
   },
   "repository": {
     "type": "git",
@@ -35,16 +36,14 @@
     "gulp": "^3.9.0",
     "gulp-clean": "^0.3.1",
     "gulp-copy": "0.0.2",
+    "gulp-load-plugins": "^1.0.0-rc.1",
     "gulp-util": "^3.0.6",
-    "jshint-stylish": "^2.0.1",
     "mongoose": "^4.0.3",
     "ng-file-upload": "latest",
     "nodemailer": "^1.4.0",
     "passport": "^0.2.2",
     "passport-http": "^0.2.2",
-    "validator": "^3.40.1",
-    "webpack": "^1.9.11",
-    "webpack-dev-server": "^1.10.1"
+    "webpack": "^1.9.11"
   },
   "devDependencies": {
     "chai": "^2.3.0",
@@ -54,18 +53,15 @@
     "gulp-jscs": "^1.6.0",
     "gulp-jshint": "^1.11.0",
     "gulp-karma": "0.0.4",
-    "gulp-livereload": "^3.8.0",
-    "gulp-load-plugins": "^1.0.0-rc.1",
     "gulp-mocha": "^2.1.0",
     "html-loader": "^0.3.0",
     "jasmine-core": "^2.3.4",
+    "jshint-stylish": "^2.0.1",
     "karma": "^0.12.37",
     "karma-jasmine": "^0.3.5",
     "karma-phantomjs-launcher": "^0.2.0",
     "mocha": "^2.2.5",
     "node-libs-browser": "^0.5.2",
-    "phantomjs": "^1.9.17",
-    "superagent": "^1.2.0",
-    "webpack-dev-server": "^1.10.1"
+    "phantomjs": "^1.9.17"
   }
 }

@@ -7,7 +7,7 @@
 var config = require('./config/config.js');
 
 module.exports = function(app) {
-  app.controller('ImageQuestionFormCtrl', ['$scope', '$modalInstance', '$sce', '$http', 'Errors', 'AdminData', 'Upload', function($scope, $modalInstance, $sce, $http, Errors, AdminData, Upload) {
+  app.controller('ImageQuestionFormCtrl', ['$scope', '$uibModalInstance', '$sce', '$http', 'Errors', 'AdminData', 'Upload', function($scope, $uibModalInstance, $sce, $http, Errors, AdminData, Upload) {
 
     $scope.init = init;
     $scope.trustAsHtml = $sce.trustAsHtml;
@@ -76,11 +76,11 @@ module.exports = function(app) {
       } else if ($scope.params.formType === 'editing') {
         saveQuestion(question);
       }
-      $modalInstance.close();
+      $uibModalInstance.close();
     };
 
     $scope.cancel = function() {
-      $modalInstance.dismiss();
+      $uibModalInstance.dismiss();
     };
     function init() {
       getTest();

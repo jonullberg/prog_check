@@ -4,16 +4,8 @@ module.exports = function(app) {
   app.factory('StudentData', ['$rootScope', '$http', '$cookies', 'RESTResource', 'Errors', 'StudentUserData', 'StudentTestData', function($rootScope, $http, $cookies, resource, Errors, Student, Tests) {
     var Student = Student;
     var Tests = Tests;
-    var Attempt = resource('attempt');
     var studentData = {
       student: $cookies.getObject('user'),
-      test: null,
-      attempt: {
-        testId: null,
-        studentId: null,
-        correctAnswers:0,
-        questions: []
-      },
       getTestByGoalId: function(goalId, callback) {
         $http.get('/api/tests/goal/' + goalId)
           .then(

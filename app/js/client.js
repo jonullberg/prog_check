@@ -130,9 +130,10 @@ require('./directives/convert_to_number')(progCheck);
 
 //  Teacher
   //  Data Services
-  require('./teachers/data_services/teacher_data')(progCheck);
-  require('./teachers/data_services/students_data')(progCheck);
-  require('./teachers/data_services/attempt_data')(progCheck);
+  require('./teachers/data_services/teacher_data_service')(progCheck);
+  require('./teachers/data_services/teacher_students_data')(progCheck);
+  require('./teachers/data_services/teacher_attempts_data')(progCheck);
+  require('./teachers/data_services/teacher_standards_data')(progCheck);
 
   require('./teachers/controllers/teachers_controller')(progCheck);
   require('./teachers/controllers/student_form_controller')(progCheck);

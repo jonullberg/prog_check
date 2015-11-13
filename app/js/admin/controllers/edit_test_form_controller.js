@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('EditTestCtrl', ['$scope', '$modalInstance', 'Tests', 'dataStore', function($scope, $modalInstance, Tests, dataStore) {
+  app.controller('EditTestCtrl', ['$scope', '$uibModalInstance', 'Tests', 'dataStore', function($scope, $uibModalInstance, Tests, dataStore) {
 
     $scope.test = Tests.test;
     $scope.standard = dataStore.standard;
@@ -17,12 +17,12 @@ module.exports = function(app) {
           console.log(err);
         }
       });
-      $modalInstance.close();
+      $uibModalInstance.close();
     };
 
     $scope.cancel = function(test) {
       Tests.test = null;
-      $modalInstance.dismiss();
+      $uibModalInstance.dismiss();
     };
 
     $scope.newQuestions = function(test) {

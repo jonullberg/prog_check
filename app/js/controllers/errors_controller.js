@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('ErrorsCtrl', ['$scope', '$modalInstance', 'Errors', function ($scope, $modalInstance, Errors) {
+  app.controller('ErrorsCtrl', ['$scope', '$uibModalInstance', 'Errors', function ($scope, $uibModalInstance, Errors) {
     $scope.errors = Errors.errors;
     $scope.testFn = function() {
       console.log($scope.errors);
@@ -12,7 +12,7 @@ module.exports = function(app) {
     };
 
     $scope.close = function() {
-      $modalInstance.close();
+      $uibModalInstance.close();
     };
   }]);
 };

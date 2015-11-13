@@ -1,22 +1,22 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('GoalCtrl', ['$scope', '$modalInstance', '$routeParams', 'AdminData', function($scope, $modalInstance, $routeParams, AdminData) {
+  app.controller('GoalCtrl', ['$scope', '$uibModalInstance', '$routeParams', 'AdminData', function($scope, $uibModalInstance, $routeParams, AdminData) {
 
     $scope.save = function(goal) {
       if ($scope.goalForm.$valid) {
         if ($scope.params.formType === 'creating') {
           createGoal(goal);
-          $modalInstance.close();
+          $uibModalInstance.close();
         } else if ($scope.params.formType === 'editing') {
           updateGoal(goal);
-          $modalInstance.close();
+          $uibModalInstance.close();
         }
       }
     };
 
     $scope.cancel = function() {
-      $modalInstance.dismiss(function() {
+      $uibModalInstance.dismiss(function() {
         AdminData.Standards.setGoal(null)
       });
     };

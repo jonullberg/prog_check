@@ -9,8 +9,7 @@ var eat = require('eat');
 
 var goalSchema = mongoose.Schema({
   'goalId': {
-    type: String,
-    required: true
+    type: String
   },
   'numberOfQuestions': {
     type: Number
@@ -24,9 +23,11 @@ var goalSchema = mongoose.Schema({
   'description': {
     type: String
   },
+  'name': {
+    type: String
+  },
   'active': {
-    type: Boolean,
-    required: true
+    type: Boolean
   }
 });
 
@@ -64,6 +65,9 @@ var studentSchema = mongoose.Schema({
   },
   'goalPriority': {
     type: String
+  },
+  'archivedGoals': {
+    type: Array
   }
 });
 

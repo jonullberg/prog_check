@@ -6,12 +6,13 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('StandardFormCtrl', ['$scope', '$modalInstance', '$location', '$routeParams', 'AdminData', 'pcGrades', 'copy', function($scope, $modalInstance, $location, $routeParams, AdminData, pcGrades, copy) {
+  app.controller('StandardFormCtrl', ['$scope', '$uibModalInstance', '$location', '$routeParams', 'AdminData', 'pcGrades', 'copy', function($scope, $uibModalInstance, $location, $routeParams, AdminData, pcGrades, copy) {
     var master;
     $scope.grades = angular.fromJson(pcGrades.grades);
+    $scope.$on('standard:changed');
     $scope.cancel = function() {
       AdminData.Standards.setStandard(master);
-      $modalInstance.dismiss();
+      $uibModalInstance.dismiss();
     };
 
     $scope.changeGrade = function(standard) {
@@ -27,7 +28,7 @@ module.exports = function(app) {
           standard.shortGrade = $scope.thisGrade.shortName;
           standard.goals = [];
           createStandard(standard);
-          $modalInstance.close();
+          $uibModalInstance.close();
         }
       } else if ($scope.params.formType === 'editing') {
         if ($scope.standardForm.$valid) {
@@ -36,18 +37,20 @@ module.exports = function(app) {
             standard.goals = [];
           }
           updateStandard(standard);
-          $modalInstance.close();
+          $uibModalInstance.close();
 
         }
       }
     };
-    $scope.init = initForm;
+    $scope.init = init;
 
-    function initForm() {
+    function init() {
       getStandard();
       getGrade();
       setGrade($scope.standard);
-      master = copy($scope.standard);
+      if ($scope.params.formType === 'editing') {
+        master = copy($scope.standard);
+      }
     }
     function getGrade() {
       if ($scope.standard) {
@@ -79,7 +82,7 @@ module.exports = function(app) {
 
     function createStandard(standard, cb) {
       AdminData.Standards.createStandard(standard, function(err, data) {
-        $location.url('admin/standards/' + data._id);
+        $location.url('admin/standards/' + data.standard._id);
       });
     }
   }]);

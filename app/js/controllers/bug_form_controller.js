@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('BugFormCtrl', ['$scope', '$rootScope', '$uibModal', '$modalInstance', 'RESTResource', 'Errors', function($scope, $rootScope, $uibModal, $modalInstance, resource, Errors) {
+  app.controller('BugFormCtrl', ['$scope', '$rootScope', '$uibModal', '$uibModalInstance', 'RESTResource', 'Errors', function($scope, $rootScope, $uibModal, $uibModalInstance, resource, Errors) {
     var Bugs = resource('bugs');
     $scope.submitBug = function(bugReport) {
       if ($scope.bugForm.$valid) {
@@ -12,10 +12,10 @@ module.exports = function(app) {
             });
           }
 
-          $modalInstance.close();
-          var controller = ['$scope', '$modalInstance', function($scope, $modalInstance) {
+          $uibModalInstance.close();
+          var controller = ['$scope', '$uibModalInstance', function($scope, $uibModalInstance) {
             $scope.dismiss = function() {
-              $modalInstance.dismiss();
+              $uibModalInstance.dismiss();
             };
           }];
           var scope = $rootScope.$new();
@@ -35,7 +35,7 @@ module.exports = function(app) {
     };
 
     $scope.dismiss = function() {
-      $modalInstance.dismiss();
+      $uibModalInstance.dismiss();
     };
   }]);
 };

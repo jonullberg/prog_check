@@ -5,9 +5,9 @@
 'use strict';
 
 module.exports = function(app) {
-  app.factory('AdminStandardsData', ['$http', '$rootScope', 'Errors', function ($http, $rootScope, Errors) {
+  app.factory('TeacherStandardsData', ['$http', '$rootScope', 'Errors', function ($http, $rootScope, Errors) {
 
-    var adminStandardsData = {
+    var teacherStandardsData = {
       standards: null,
       standard: null,
       goal: null,
@@ -44,7 +44,7 @@ module.exports = function(app) {
       updateGoal: updateGoal,
       deleteGoal: deleteGoal
     };
-    return adminStandardsData;
+    return teacherStandardsData;
 
     function fetchStandards(cb) {
       $http.get('/api/standards')
@@ -86,12 +86,10 @@ module.exports = function(app) {
           var standard = response.data.standard;
           if (standard) {
             this.standard = standard;
-            this.standards.push(standard);
-            $rootScope.$broadcast('standard:changed', this.standard);
-            $rootScope.$broadcast('standard:changed', this.standards);
+            $rootScope.$broadcast('standard:changed', standard);
             handleCallback(cb, response);
           }
-        }.bind(this))
+        })
         .catch(function(rejection) {
           handleCallback(cb, null, rejection);
           return Errors.addError({
@@ -124,7 +122,7 @@ module.exports = function(app) {
             if (standard._id != standardId) {
               return standard;
             }
-          }.bind(this));
+          });
           $rootScope.$broadcast('standards:changed', this.standards);
           handleCallback(cb, response);
         }.bind(this))
@@ -179,6 +177,9 @@ module.exports = function(app) {
             'msg': 'There was an error deleting that goal. Please log out, refresh, log in and try again. If the problem persists, please file a bug report and we will get it fixed.'
           })
         })
+    }
+    function fetchExampleQuestion(goal, cb) {
+      $http.get('/api/tests?standardId=' + goal._id + '/questions/random')
     }
     function handleCallback(cb, response, rejection) {
       if (cb && typeof cb === 'function') {

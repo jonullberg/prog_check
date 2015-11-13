@@ -8,6 +8,9 @@ var goalSchema = mongoose.Schema({
   },
   'description': {
     type: String
+  },
+  'exampleQuestion': {
+    type: String
   }
 });
 

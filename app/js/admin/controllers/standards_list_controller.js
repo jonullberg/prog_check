@@ -2,10 +2,8 @@
 
 module.exports = function(app) {
   app.controller('StandardsListCtrl', ['$scope', '$uibModal', '$rootScope', '$cookies', '$location', 'Errors', 'AdminData', function($scope, $uibModal, $rootScope, $cookies, $location, Errors, AdminData) {
-    $scope.$on('standards:changed', function(e, standards) {
-      $scope.standards = standards;
-    });
-
+    $scope.$on('standards:changed', getStandards);
+    $scope.init = init;
     $scope.getStandards = getStandards;
 
     $scope.isAdmin = function() {
@@ -19,7 +17,7 @@ module.exports = function(app) {
      * Opens modal with ability to add a new standard
      */
 
-    $scope.newStandard = function() {
+    $scope.newStandardModal = function() {
       var scope = $rootScope.$new();
       AdminData.Standards.setStandard(null);
       scope.params = {
@@ -43,19 +41,14 @@ module.exports = function(app) {
       $location.path('/admin/standards/' + standard._id)
       return $scope.show();
     };
-
-    function updateStandards() {
-      $scope.standards = AdminData.Standards.getStandards();
+    function init() {
+      getStandards();
     }
     function getStandards() {
-      var standards = AdminData.Standards.getStandards();
-      if (standards && standards.length) {
-        updateStandards();
-      } else {
-        AdminData.Standards.fetchStandards(function(err, data) {
-          updateStandards();
-        });
+      if (!AdminData.Standards.getStandards()) {
+        AdminData.Standards.fetchStandards();
       }
+      $scope.standards = AdminData.Standards.getStandards();
     }
   }]);
 };

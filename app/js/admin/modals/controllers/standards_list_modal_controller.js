@@ -1,35 +1,19 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('StandardsListModalCtrl', ['$scope', '$uibModal', '$modalInstance', '$rootScope', '$cookies', 'Errors', 'Standards', 'Students', function($scope, $uibModal, $modalInstance, $rootScope, $cookies, Errors, Standards, Students) {
-    $scope.standards;
-    var updateStandards = function() {
-      $scope.standards = Standards.standards;
-    };
-    $scope.$on('standards:changed', updateStandards());
+  app.controller('StandardsListModalCtrl', ['$scope', '$uibModal', '$uibModalInstance', '$rootScope', '$cookies', 'TeacherData', function($scope, $uibModal, $uibModalInstance, $rootScope, $cookies, TeacherData) {
 
-    $scope.getAllStandards = function() {
-      if (Standards.standards.length) {
-        updateStandards();
-      } else {
-        Standards.getStandards(function(err, data) {
-          if (err) {
-            Errors.addError({
-              'msg': 'Failed to get any standards'
-            });
-          }
-          updateStandards();
-        });
-      }
-    };
+    $scope.init = init;
+
+    $scope.$on('standards:changed', getStandards);
 
     $scope.select = function(standard) {
-      Standards.setStandard(standard);
+      TeacherData.Standards.setStandard(standard);
       var scope = $rootScope.$new();
       scope.params = {
         goalButtonText: 'Add Goal'
       };
-      $modalInstance.close();
+      $uibModalInstance.close();
       $uibModal.open({
         animation:true,
         templateUrl:'/templates/modals/single_standard_modal.html',
@@ -39,5 +23,15 @@ module.exports = function(app) {
       });
 
     };
+    function init() {
+      getStandards();
+    }
+    function getStandards() {
+      if (!TeacherData.Standards.getStandards()) {
+        TeacherData.Standards.fetchStandards();
+      }
+      $scope.standards = TeacherData.Standards.getStandards();
+    }
+
   }]);
 };
