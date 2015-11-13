@@ -1,31 +1,19 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('StudentsListCtrl', ['$scope', '$location', '$uibModal', '$rootScope', '$routeParams', 'Errors', 'AdminData', function($scope, $location, $uibModal, $rootScope, $routeParams, AdminData) {
-
-    var getStudents = function() {
-      $scope.students = Students.students;
-    };
+  app.controller('StudentsListCtrl', ['$scope', '$location', '$uibModal', '$rootScope', '$routeParams', 'TeacherData', function($scope, $location, $uibModal, $rootScope, $routeParams, TeacherData) {
+    $scope.init = init;
 
     $scope.$on('students:changed', getStudents);
 
-    $scope.getStudents = function() {
-      AdminData.Students.getStudents(function(err, data) {
-        if (err) {
-          return Errors.addError({
-            'msg': 'Failed to get students from server'
-          });
-        }
-      });
-      getStudents();
-    };
-
     $scope.showStudent = function(student) {
+      TeacherData.Students.setStudent(student);
       $location.path('/teacher/' + $routeParams.teacherId + '/students/' + student._id);
     };
 
     $scope.addStudent = function() {
       var scope = $rootScope.$new();
+      TeacherData.Students.setStudent(null);
       scope.params = {
         formType: 'creating',
         buttonText: 'Create Student'
@@ -38,5 +26,14 @@ module.exports = function(app) {
         scope: scope
       });
     };
+    function init() {
+      if (!TeacherData.Students.getStudents()) {
+        TeacherData.Students.fetchStudents($routeParams.teacherId);
+      }
+      getStudents();
+    }
+    function getStudents() {
+      $scope.students = TeacherData.Students.getStudents();
+    }
   }]);
 };

@@ -1,5 +1,5 @@
 <section
-  data-ng-init="getStandard()">
+  data-ng-init="init()">
   <header class="modal-header">
     <h3 class="col-lg-9">
       {{standard.name}}
@@ -10,23 +10,6 @@
     <div class="clearfix"></div>
   </header>
   <div class="modal-body">
-    <div class="alert alert-danger"
-      data-ng-if="isAlertShown">
-      <p class="col-lg-8">Are you sure? Deleting can't be undone</p>
-      <div class="btn-group col-lg-4">
-        <button type="button"
-          class="btn btn-danger"
-          data-ng-click="deleteStandard(standard)">Yes
-        </button>
-        <button type="button"
-          class="btn btn-primary"
-          data-ng-click="toggleAlert()">
-          No
-        </button>
-      </div>
-      <div class="clearfix"></div>
-    </div>
-
     <h3>Standard</h3>
     <p>
       {{standard.language}}
@@ -38,11 +21,22 @@
     <ul>
       <li
         data-ng-repeat="goal in standard.goals"
-        data-ng-click="showDescription(goal)">
-        {{goal.name || goal.description}}
+        data-ng-click="showDescription(goal)">Name
+          Name - {{goal.name || goal.description}}
         <p data-ng-if="goal.descriptionShowing && goal.name">
-          {{goal.description}}
+          Description - {{goal.description}}
         </p>
+        <p
+          data-ng-if="goal.enableExample"
+          data-ng-bind-html="goal.exampleQuestion | to_trusted">
+          Example - {{goal.exampleQuestion}}
+          <p
+            data-ng-if="!goal.exampleQuestion && goal.enableExample">
+            Sorry, there was no example question. Please ask the Administrator to add one.
+          </p>
+
+        </p>
+
         <div>
           <button class="btn btn-primary text-right" type="button"
             data-ng-click="addGoal(goal)">
@@ -55,7 +49,6 @@
           </button>
 
         </div>
-        <p data-ng-if="goal.enableExample" data-ng-bind-html="goal.sampleQuestion | to_trusted">Example: {{goal.sampleQuestion}}</p>
       </li>
     </ul>
     <div class="clearfix"></div>

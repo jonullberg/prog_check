@@ -5,7 +5,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('QuestionFormCtrl', ['$scope', '$modalInstance', '$sce', '$routeParams', 'AdminData', 'Upload', function($scope, $modalInstance, $sce, $routeParams, AdminData, Upload) {
+  app.controller('QuestionFormCtrl', ['$scope', '$uibModalInstance', '$sce', '$routeParams', 'AdminData', 'Upload', function($scope, $uibModalInstance, $sce, $routeParams, AdminData, Upload) {
 
     $scope.init = init;
     $scope.trustAsHtml = $sce.trustAsHtml;
@@ -19,7 +19,7 @@ module.exports = function(app) {
           });
         createQuestion(question);
         AdminData.Tests.setQuestion(null);
-        $modalInstance.close();
+        $uibModalInstance.close();
       }
     }
 
@@ -27,12 +27,12 @@ module.exports = function(app) {
       $scope.save = function(question) {
         updateQuestion(question);
         AdminData.Tests.setQuestion(null);
-        $modalInstance.close();
+        $uibModalInstance.close();
       }
     }
 
     $scope.cancel = function() {
-      $modalInstance.dismiss();
+      $uibModalInstance.dismiss();
     };
     function init() {
       getTest();

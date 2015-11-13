@@ -6,7 +6,15 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('StudentAttemptsCtrl', ['$scope', function ($scope) {
+  app.controller('StudentAttemptsCtrl', ['$scope', 'TeacherData', function ($scope, TeacherData) {
+    $scope.init = init;
+    $scope.$on('attempts:changed', getAttempts);
+    function init() {
+      getAttempts();
+    }
+    function getAttempts() {
+      $scope.attempts = TeacherData.Attempts.getAttempts();
+    }
 
   }]);
 };

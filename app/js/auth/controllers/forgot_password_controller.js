@@ -5,11 +5,11 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('ForgotPasswordCtrl', ['$scope', '$uibModal', '$modalInstance', '$http', 'Errors', function($scope, $uibModal, $modalInstance, $http, Errors) {
+  app.controller('ForgotPasswordCtrl', ['$scope', '$uibModal', '$uibModalInstance', '$http', 'Errors', function($scope, $uibModal, $uibModalInstance, $http, Errors) {
     $scope.submitForm = function() {
       $http.post('/api/forgot', $scope.resetPassword)
         .then(function(data) {
-          $modalInstance.close();
+          $uibModalInstance.close();
           $uibModal.open({
             animation:true,
             size:'lg',

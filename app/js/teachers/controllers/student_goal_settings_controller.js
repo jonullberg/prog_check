@@ -4,37 +4,35 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('StudentGoalSettingsCtrl', ['$scope', '$modalInstance', '$routeParams', 'TeacherData', 'Errors', function ($scope, $modalInstance, $routeParams, TeacherData, Errors) {
+  app.controller('StudentGoalSettingsCtrl', ['$scope', '$uibModalInstance', '$routeParams', 'TeacherData', function ($scope, $uibModalInstance, $routeParams, TeacherData) {
+    $scope.init = init;
+    $scope.$on('goal:changed', getGoal);
     $scope.save = function(goal) {
       if ($scope.params.formType === 'editing') {
         updateGoal(goal);
       } else if ($scope.params.formType === 'creating') {
         createGoal(goal);
       }
-      $modalInstance.close();
+      $uibModalInstance.close();
     };
     $scope.cancel = function() {
-      $modalInstance.dismiss();
+      $uibModalInstance.dismiss();
     };
+    function init() {
+      getGoal();
+    }
 
+    function getGoal() {
+      $scope.goal = TeacherData.Students.getGoal();
+      console.log($scope.goal);
+    }
     function updateGoal(goal) {
-      TeacherData.Students.updateGoal(goal, $routeParams.studentId, function(err, data) {
-        if (err) {
-          return Errors.addError({
-            'msg': 'There was an error updating that goal to the student. Plese refresh, log back in and try again. If the error persists, please file a report to the administrator through your profile.'
-          });
-        }
-      });
+      TeacherData.Students.updateGoal($routeParams.studentId, goal);
     }
 
     function createGoal(goal) {
-      TeacherData.Students.createGoal(goal, $routeParams.studentId, function(err, data) {
-        if (err) {
-          return Errors.addError({
-            'msg': 'There was an error adding that goal to the student. Please refresh, log back in and try again. If the error continues, please file a report to the administrator through your profile.'
-          });
-        }
-      });
+      console.log($scope.goal);
+      TeacherData.Students.createGoal($routeParams.studentId, goal);
     }
   }]);
 };

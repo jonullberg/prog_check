@@ -1,27 +1,20 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('SingleStudentCtrl', ['$scope', '$routeParams', '$uibModal', '$location', '$rootScope', '$sce', 'Errors', 'Students', 'TeacherData', function($scope, $routeParams, $uibModal, $location, $rootScope, $sce, Errors, Students, TeacherData) {
+  app.controller('SingleStudentCtrl', ['$scope', '$routeParams', '$uibModal', '$location', '$rootScope', '$sce', 'TeacherData', function($scope, $routeParams, $uibModal, $location, $rootScope, $sce, TeacherData) {
 
+    $scope.init = init;
     $scope.trustAsHtml = $sce.trustAsHtml;
-
-    $scope.attempts = TeacherData.Attempts.attempts;
 
     $scope.toggleDelete = function() {
       $scope.isDeleteShown = !$scope.isDeleteShown;
     };
 
-    $scope.$on('student:changed', function(event, student) {
-      $scope.student = student;
-    });
-
-    $scope.init = function() {
-      getStudent();
-      getAttempts();
-    };
+    $scope.$on('student:changed', getStudent);
 
     $scope.goBack = function() {
-      TeacherData.Students.student = null;
+      TeacherData.Students.setStudent(null);
+      TeacherData.Attempts.setAttempts(null);
       $location.path('teacher/'+ $routeParams.teacherId + '/students');
     };
 
@@ -35,24 +28,8 @@ module.exports = function(app) {
       });
     };
 
-
-    $scope.saveStudent = function(student) {
-      student.numberOfQuestions = $scope.selectedNumber;
-      TeacherData.Students.saveStudent(student, function(err, data) {
-        if (err) {
-          return Errors.addError({
-            'msg': 'There was an error updating that student'
-          });
-        }
-        $location.path('/teacher/' + $routeParams.teacherId + '/students/' + data._id);
-      });
-    };
-
     $scope.editStudentModal = function(student) {
-      if (!student.goalPriority) {
-        student.goalPriority = null;
-      }
-      TeacherData.Students.student = student;
+      TeacherData.Students.setStudent(student);
       var scope = $rootScope.$new();
       scope.params = {
         formType: 'editing',
@@ -78,32 +55,17 @@ module.exports = function(app) {
       question.answersShowing = !question.answersShowing;
     };
 
-    function getStudent() {
-      if (!!TeacherData.Students.student) {
-        $scope.student = TeacherData.Students.student;
-      } else {
-        TeacherData.Students.getStudent($routeParams.studentId, function(err, data) {
-          if (err) {
-            return Errors.addError({
-              'msg': 'Failed to get that student'
-            });
-          }
-          TeacherData.Students.student = data[0];
-          $scope.student = TeacherData.Students.student;
-          getAttempts();
-        });
-      }
-    };
+    function init() {
+      getStudent();
+    }
 
-    function getAttempts() {
-      if (TeacherData.Attempts.attempts && TeacherData.Attempts.attempts.length) {
-        $scope.attempts = TeacherData.Attempts.attemps;
-      } else {
-        TeacherData.Attempts.getAttempts($routeParams.studentId, function(data) {
-          $scope.attempts = TeacherData.Attempts.attempts;
-        });
+    function getStudent() {
+      if (!TeacherData.Students.getStudent()) {
+        TeacherData.Students.fetchStudent($routeParams.studentId);
       }
-    };
+      $scope.student = TeacherData.Students.getStudent();
+    }
+
     function setAttemptStyling(attempt) {
       attempt.questions.forEach(function(question) {
         if (question.result === 'correct') {

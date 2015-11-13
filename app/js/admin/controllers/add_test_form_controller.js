@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('AddTestCtrl', ['$scope', '$modalInstance', '$filter', 'dataStore', 'Tests', function($scope, $modalInstance, $filter, dataStore, Tests) {
+  app.controller('AddTestCtrl', ['$scope', '$uibModalInstance', '$filter', 'dataStore', 'Tests', function($scope, $uibModalInstance, $filter, dataStore, Tests) {
 
 
         $scope.buttonText = 'Add Test';
@@ -56,7 +56,7 @@ module.exports = function(app) {
             $scope.tests = dataStore.tests;
 
           });
-          $modalInstance.close();
+          $uibModalInstance.close();
         };
 
         $scope.newQuestions = function(test) {
@@ -78,7 +78,7 @@ module.exports = function(app) {
 
         $scope.cancel = function(test) {
           Tests.test = null;
-          $modalInstance.dismiss();
+          $uibModalInstance.dismiss();
         };
 
         $scope.addQuestion = function(question) {

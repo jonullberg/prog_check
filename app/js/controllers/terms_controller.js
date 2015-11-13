@@ -1,10 +1,10 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('TermsCtrl', ['$scope', '$modalInstance', function($scope, $modalInstance) {
+  app.controller('TermsCtrl', ['$scope', '$uibModalInstance', function($scope, $uibModalInstance) {
 
     $scope.close = function() {
-      $modalInstance.close();
+      $uibModalInstance.close();
     };
 
   }]);

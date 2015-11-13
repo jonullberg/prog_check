@@ -3,14 +3,6 @@
 **/test/
 **/build/
 karma.conf.js
-**/bower_components/
-**/bower.json
-server.crt
-server.csr
-server.key
-server.pass.key
-int.txt
-progcheck_com_ee.crt
-config.js
+**/crt/
 config.js
 npm-debug.log

@@ -20,10 +20,22 @@
 
     <div class="form-group">
       <label for="description" class="">What is a description for the goal?</label>
-      <textarea class="form-control" required
-        name="description" id="description"
+      <textarea
+        class="form-control"
+        required
+        name="description"
+        id="description"
         data-ng-model="goal.description">
-
+      </textarea>
+    </div>
+    <div class="form-group">
+      <label for="example-question">What is an example question to display to the student?</label>
+      <textarea
+        class="form-control"
+        required
+        name="example-question"
+        id="example-question"
+        data-ng-model="goal.exampleQuestion">
       </textarea>
     </div>
   </div>

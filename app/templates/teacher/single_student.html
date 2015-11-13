@@ -11,11 +11,7 @@
   <div class="panel-body">
     <h4>Default Number of Questions Per Test: {{student.numberOfQuestions}}</h4>
     <h4 data-ng-if="student.goalPriority">Sort Goal Priority By: {{student.goalPriority}}</h4>
-    <pc-student-attempts></pc-student-attempts>
-    <div class="col-lg-6">
-    </div>
-    <pc-student-goals-list
-      student="student"></pc-student-goals-list>
+    <pc-student-goals-list></pc-student-goals-list>
   </div>
   <footer class="panel-footer">
     <button type="button" class="btn btn-primary"

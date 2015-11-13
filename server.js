@@ -4,10 +4,10 @@ var mongoose = require('mongoose');
 var express = require('express');
 var passport = require('passport');
 var	app = express();
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 3001;
 var busboy = require('connect-busboy');
 
-var env = process.env.NODE_ENV || 'development';
+var env = process.env.NODE_ENV || 'DEVELOPMENT';
 
 var forceSsl = function(req, res, next) {
   if (req.headers['x-forwarded-proto'] !== 'https') {
@@ -17,7 +17,7 @@ var forceSsl = function(req, res, next) {
 };
 
 
-if (env === 'production') {
+if (env === 'PRODUCTION') {
   app.use(forceSsl);
 }
 
