@@ -21,6 +21,7 @@ module.exports = function(app) {
      * @param  {object} test The test that will be edited in form
      */
     $scope.editTest = function(test) {
+      AdminData.Tests.setTest(test);
       var scope = $rootScope.$new();
       scope.params = {
         formType: 'editing',

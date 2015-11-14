@@ -45,6 +45,7 @@ module.exports = function(app) {
     };
 
     $scope.addGoals = function() {
+      AdminData.Standards.setGoal(null);
       var scope = $rootScope.$new();
       scope.params = {
         buttonText: 'Add Goal',
