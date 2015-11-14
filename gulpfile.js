@@ -99,7 +99,6 @@ gulp.task('webpack:client', ['copy:html'], function(callback) {
   });
 });
 gulp.task('build', ['webpack:client']);
-gulp.task('default', ['webpack:client']);
 
 gulp.task('clean:build', function (cb) {
   del.sync([
