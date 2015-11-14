@@ -1,51 +1,54 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('TestFormCtrl', ['$scope', '$uibModalInstance', 'Tests', 'Standards', 'Errors', function($scope, $uibModalInstance, Tests, Standards, Errors) {
+  app.controller('TestFormCtrl', ['$scope', '$routeParams', '$uibModalInstance', 'AdminData', function($scope, $routeParams, $uibModalInstance, AdminData) {
 
-    $scope.standard = Standards.standard;
-    $scope.test = Tests.test;
-    $scope.setGoal = function(test) {
-      if (!test) {
-        test = {};
-      }
-      test._goal = test.goalId;
-    };
-
+    $scope.init = init;
+    $scope.$on('test:changed', getTest);
+    $scope.boolToString = function(arg) {
+      return arg ? 'Yes' : 'No';
+    }
     $scope.cancel = function(test) {
       $uibModalInstance.dismiss();
     };
-
-    var saveTest = function(test) {
-      Tests.saveTest(test, function(err) {
-        if (err) {
-          return Errors.addError({
-            'msg': 'There was an error updating your test'
-          });
-        }
-      });
-    };
-
-    var createTest = function(test) {
-      Tests.createTest(test, function(err, data) {
-        if (err) {
-          return Errors.addError({
-            'msg': 'Failed to create test'
-          });
-        }
-      });
-    };
-
     $scope.save = function(test) {
       if (!test.standardId && Standards.standard) {
         test.standardId = Standards.standard._id;
       }
       if ($scope.params.formType === 'editing') {
-        saveTest(test);
+        updateTest(test);
       } else if ($scope.params.formType === 'creating') {
         createTest(test);
       }
       $uibModalInstance.close();
     };
+
+    function init() {
+      getTest();
+      getStandard();
+    }
+
+    function getTest() {
+      if ($scope.params.formType === 'editing') {
+        if (!AdminData.Tests.getTest()) {
+          AdminData.Tests.fetchTest($routeParams.testId);
+        }
+        $scope.test = AdminData.Tests.getTest();
+        $scope.test._goal = $scope.test.goalId;
+        return;
+      }
+      $scope.test = AdminData.Tests.getTest();
+    }
+    function getStandard() {
+      $scope.standard = AdminData.Standards.getStandard();
+    }
+    function updateTest(test) {
+      AdminData.Tests.updateTest(test);
+    };
+
+    function createTest(test) {
+      AdminData.Tests.createTest(test);
+    }
+
   }]);
 };

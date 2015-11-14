@@ -64,8 +64,7 @@ module.exports = function(app) {
     function fetchTest(testId, cb) {
       $http.get('/api/tests/' + testId)
         .then(function(response) {
-          this.test = response.data.test;
-          $rootScope.$broadcast('test:changed', this.test);
+          this.setTest(response.data.test);
           handleCallback(cb, response);
         }.bind(this))
         .catch(function(rejection) {
@@ -76,9 +75,33 @@ module.exports = function(app) {
         });
     }
 
-    function createTest() {}
+    function createTest(test, cb) {
+      $http.post('/api/tests/', test)
+      .then(function(response) {
+        this.setTest(response.data.test);
+        handleCallback(cb, response);
+      }.bind(this))
+      .catch(function(rejection) {
+        handleCallback(cb, null, rejection);
+        return Errors.addError({
+          'msg': 'There was an error creating that test on the server. Please log out, refresh and try again. If it persists, please create a bug report so we can fix it.'
+        });
+      });
+    }
 
-    function updateTest() {}
+    function updateTest(test, cb) {
+      $http.put('/api/tests/' + test._id, test)
+        .then(function(response) {
+          this.setTest(test);
+          handleCallback(cb, response);
+        }.bind(this))
+        .catch(function(rejection) {
+          handleCallback(cb, null, rejection);
+          return Errors.addError({
+            'msg': 'There was an error creating that test on the server. Please log out, refresh and try again. If it persists, please create a bug report so we can fix it.'
+          });
+        });
+    }
 
     function deleteTest() {}
 
@@ -87,8 +110,7 @@ module.exports = function(app) {
     function createQuestion(testId, question, cb) {
       $http.post('/api/tests/' + testId + '/questions/', question)
         .then(function(response) {
-          this.test = response.data.test;
-          $rootScope.$broadcast('test:changed', this.test);
+          this.setTest(response.data.test);
           handleCallback(cb, response);
         }.bind(this))
         .catch(function(rejection) {
@@ -102,8 +124,7 @@ module.exports = function(app) {
     function updateQuestion(testId, question, cb) {
       $http.put('/api/tests/' + testId + '/questions/' + question._id, question)
         .then(function(response) {
-          this.test = response.data.test;
-          $rootScope.$broadcast('test:changed', this.test);
+          this.setTest(response.data.test);
           handleCallback(cb, response);
         }.bind(this))
         .catch(function(rejection) {
@@ -118,8 +139,7 @@ module.exports = function(app) {
     function deleteQuestion(testId, questionId, cb) {
       $http.delete('/api/tests/' + testId + '/questions/' + questionId)
         .then(function(response) {
-          this.test = response.data.test;
-          $rootScope.$broadcast('test:changed', this.test);
+          this.setTest(response.data.test);
           handleCallback(cb, response);
         }.bind(this))
         .catch(function(rejection) {

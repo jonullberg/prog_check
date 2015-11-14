@@ -9,6 +9,7 @@ var jshint = require('gulp-jshint');
 var jscs = require('gulp-jscs');
 var copy = require('gulp-copy');
 var karma = require('gulp-karma');
+var uglify = require('gulp-uglify');
 
 var paths = {
   scripts: './app/**/*.js',
@@ -20,22 +21,6 @@ var paths = {
   dataModels: './models/**/*.js',
   gulpfile: './gulpfile.js'
 };
-
-gulp.task('webpack:heroku', ['copy:html'], function(callback) {
-  webpack({
-    entry: __dirname + '/app/js/client.js',
-    output: {
-      path: 'build/',
-      file: 'bundle.js'
-    }
-  }, function(err, stats) {
-    if(err) throw new gutil.PluginError('webpack', err);
-    gutil.log('[webpack]', stats.toString({
-
-    }));
-    callback();
-  });
-});
 
 gulp.task('webpack:karma_test', ['clean:karma'], function(callback) {
   webpack({
@@ -83,12 +68,39 @@ gulp.task('watch', function() {
 
 var workingFiles = ['gulpfile.js', './lib/**/*.js', './routes/**/*.js', './app/**/*.js', './test/**/*.js', './models/**/*.js'];
 
-gulp.task('webpack:client', ['copy:html'], function(callback) {
+
+gulp.task('clean:karma', function(cb) {
+  del.sync([
+    'test/karma_tests/build.js'
+    ]);
+  cb();
+});
+
+// Build
+gulp.task('clean:build', function (cb) {
+  del.sync([
+    'build/css/**/*',
+    'build/templates/**/*',
+    'build/index.html',
+    'build/bundle.min.js',
+    '!build/img/**/*',
+    '!build/uploads/**/*'
+    ]);
+  cb();
+});
+
+gulp.task('copy:build', ['clean:build'], function() {
+  var srcFiles = ['app/**/*.html', 'app/**/*.css', 'app/**/*.png'];
+  return gulp.src(srcFiles)
+    .pipe(gulp.dest('build/'));
+});
+
+gulp.task('webpack:build', ['copy:build'], function(callback) {
   webpack({
     entry: __dirname + '/app/js/client.js',
     output: {
       path: 'build/',
-      file: 'bundle.js'
+      file: 'bundle.min.js'
     }
   }, function(err, stats) {
     if(err) throw new gutil.PluginError('webpack', err);
@@ -98,30 +110,53 @@ gulp.task('webpack:client', ['copy:html'], function(callback) {
     callback();
   });
 });
-gulp.task('build', ['webpack:client']);
 
-gulp.task('clean:build', function (cb) {
-  del.sync([
-    'build/css/**/*',
-    'build/templates/**/*',
-    'build/index.html',
-    'build/bundle.js',
-    '!build/img/**/*',
-    '!build/uploads/**/*'
-    ]);
-  cb();
-});
-
-gulp.task('clean:karma', function(cb) {
-  del.sync([
-    'test/karma_tests/build.js'
-    ]);
-  cb();
-});
-
-gulp.task('copy:html', ['clean:build'], function() {
-  var srcFiles = ['app/**/*.html', 'app/**/*.css', 'app/**/*.png'];
-  return gulp.src(srcFiles)
+gulp.task('uglify:build', ['webpack:build'], function() {
+  return gulp.src('build/bundle.min.js')
+    .pipe(uglify())
     .pipe(gulp.dest('build/'));
 });
+gulp.task('build', ['uglify:build']);
 
+// DIST
+gulp.task('clean:dist', function (cb) {
+  del.sync([
+    'dist/css/**/*',
+    'dist/templates/**/*',
+    'dist/index.html',
+    'dist/bundle.js',
+    '!dist/img/**/*',
+    '!dist/uploads/**/*'
+    ]);
+  cb();
+});
+
+gulp.task('copy:dist', ['clean:dist'], function() {
+  var srcFiles = ['app/**/*.html', 'app/**/*.css', 'app/**/*.png'];
+  return gulp.src(srcFiles)
+    .pipe(gulp.dest('dist/'));
+});
+
+gulp.task('webpack:dist', ['copy:dist'], function(callback) {
+  webpack({
+    entry: __dirname + '/app/js/client.js',
+    output: {
+      path: 'dist/',
+      file: 'bundle.min.js'
+    }
+  }, function(err, stats) {
+    if(err) throw new gutil.PluginError('webpack', err);
+    gutil.log('[webpack]', stats.toString({
+
+    }));
+    callback();
+  });
+});
+
+gulp.task('uglify:dist', ['webpack:dist'], function() {
+  return gulp.src('dist/bundle.js')
+    .pipe(uglify())
+    .pipe(gulp.dest('dist/'));
+});
+
+gulp.task('dist', ['uglify:dist']);

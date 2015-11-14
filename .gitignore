@@ -6,3 +6,4 @@ karma.conf.js
 **/crt/
 config.js
 npm-debug.log
+**/dist/
