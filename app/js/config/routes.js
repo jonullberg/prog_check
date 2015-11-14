@@ -173,7 +173,7 @@ module.exports = function(app) {
       // A student looking at a singular test/goal
       .when('/student/:studentId/tests/:testId', {
         templateUrl: 'templates/student/test.html',
-        controller: 'TestCtrl',
+        controller: 'StudentTestCtrl',
         access: {
           requiredLogin: true,
           requiredStudent: true
@@ -186,13 +186,16 @@ module.exports = function(app) {
           requiredStudent: true
         }
       })
-      .when('/student/:studentId/attempt', {
+      .when('/student/:studentId/attempt/:attemptId', {
         templateUrl: 'templates/views/student/attempt_review.html',
         controller: 'AttemptReviewCtrl',
         access: {
           requiredLogin: true,
           requiredStudent: true
         }
+      })
+      .when('/test-expired', {
+        templateUrl: 'templates/student/test_expired.html'
       })
       .otherwise({
         redirectTo: '/home'

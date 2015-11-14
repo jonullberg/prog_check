@@ -1,18 +1,25 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('StudentTestsCtrl', ['$scope', '$location', 'Errors', 'Student', function($scope, $location, Errors, Student) {
-    $scope.student = Student.student;
-    $scope.takeTest = function(goal) {
-      var goalId = goal.goalId;
-      Student.getTestByGoalId(goalId, function(err, data) {
-        if (err) {
-          return Errors.addError({
-            'msg': 'There was an error getting your test'
-          });
-        }
-        $location.path('/student/' + $scope.student._id + '/tests/' + data._id);
+  app.controller('StudentTestsCtrl', ['$scope', '$location', '$routeParams', 'StudentData', function($scope, $location, $routeParams, StudentData) {
+    $scope.$on('student:changed', getStudent);
+    $scope.init = init;
+    $scope.getTest = getTest;
+    function init() {
+      getStudent($routeParams.studentId);
+    }
+
+    function getTest(goal) {
+      StudentData.Tests.fetchTest(goal._id, StudentData.getStudent(), function(err, data) {
+        $location.path('/student/' + $routeParams.studentId + '/tests/' + data.test._id);
       });
-    };
+    }
+
+    function getStudent(studentId) {
+      if (!StudentData.getStudent()) {
+        StudentData.fetchStudent(studentId);
+      }
+      $scope.student = StudentData.getStudent();
+    }
   }]);
 };

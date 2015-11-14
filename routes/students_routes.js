@@ -38,8 +38,8 @@ module.exports = function(router, passport) {
   /**
    * Gets a specific student from the server based on their ID
    */
-  router.get('/students/:id', eatAuth, function(req, res) {
-    Students.findById(req.params.id, function(err, student) {
+  router.get('/students/:studentId', eatAuth, function(req, res) {
+    Students.findById(req.params.studentId, function(err, student) {
       if (err) {
         console.log(err);
         return res.status(500).json({
@@ -111,8 +111,8 @@ module.exports = function(router, passport) {
   /**
    * Removes a student by their id
    */
-  router.delete('/students/:id', eatAuth, function(req, res) {
-    Students.remove({'_id': req.params.id}, function(err, data) {
+  router.delete('/students/:studentId', eatAuth, function(req, res) {
+    Students.remove({'_id': req.params.studentId}, function(err, data) {
       if (err) {
         console.log(err);
         return res.status(500).json({
@@ -126,69 +126,6 @@ module.exports = function(router, passport) {
     });
   });
 
-  router.get('/students/:studentId/attempts/', eatAuth, function(req, res) {
-    if (req.query.goalId) {
-      Tests.find({'goalId': req.query.goalId}, function(err, tests) {
-        if (tests && tests.length) {
-          var testId = tests[0]._id;
-        } else {
-          return res.json({
-            'attempts': null,
-            'msg': 'There were no tests associated with this goal'
-          });
-        }
-        Attempts.find({
-          'studentId': req.params.studentId,
-          'testId': testId
-        }, function(err, attempts) {
-          if (err) {
-            console.log(err);
-            return res.status(500).json({
-              'msg': 'Internal Server Error'
-            });
-          }
-          res.json({
-            'attempts': attempts
-          });
-        });
-
-      })
-    } else {
-      Attempts.find({'studentId': req.params.studentId}, function(err, attempts) {
-        if (err) {
-          console.log(err);
-          return res.status(500).json({
-            'msg': 'Internal Server Error'
-          });
-        }
-        res.json({
-          'attempts': attempts
-        });
-      });
-
-    }
-  });
-
-  /**
-   * Updates a specific students attempt
-   * @param  {Object} req
-   */
-  router.put('/students/:studentId/attempts/:attemptId', eatAuth, function(req, res) {
-    Attempts.find({
-      'studentId': req.params.studentId,
-      '_id': req.params.attemptId
-    }, function(err, data) {
-      if (err) {
-        console.log(err);
-        return res.status(500).json({
-          'msg': 'Internal Server Error'
-        });
-      }
-      res.json({
-        'data': data
-      });
-    });
-  });
   /**
    * Adds the new goal to the student
    */
@@ -273,13 +210,5 @@ module.exports = function(router, passport) {
         });
       });
     });
-  });
-
-  /**
-   * Gets all Tests for a student
-   */
-  router.get('/students/:studentId/tests/', eatAuth, function(req, res) {
-    console.log(req);
-    res.end();
   });
 };
