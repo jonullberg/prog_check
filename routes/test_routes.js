@@ -10,6 +10,9 @@ var fs = require('fs');
 module.exports = function(router) {
   router.use(bodyparser.json());
 
+  /**
+   * Creates a new test
+   */
   router.post('/tests', eatAuth, function(req, res) {
     var newTest = new Tests(req.body);
     newTest.save(function(err, data) {
@@ -23,34 +26,12 @@ module.exports = function(router) {
     });
   });
 
-  router.get('/tests/attempts/:studentId', eatAuth, function(req, res) {
-    Attempt.find({'studentId': req.params.studentId}, function(err, data) {
-      if (err) {
-        console.log(err);
-        return res.status(500).json({
-          'msg': 'Internal Server Error'
-        });
-      }
-      res.json(data);
-    });
-  });
-
-  router.post('/tests/attempts', eatAuth, function(req, res) {
-    var newAttempt = new Attempt(req.body);
-    newAttempt.dateTaken = Date.now();
-    newAttempt.save(function(err, data) {
-      if (err) {
-        console.log(err);
-        return res.status(500).json({
-          'msg': 'Internal Server Error'
-        });
-      }
-
-      res.json({
-        'msg': 'Success'
-      });
-    });
-  });
+  /**
+   * Creates a new attempt
+   * @param  {[type]}  req  [description]
+   * @param  {Attempt} res) {               var newAttempt [description]
+   * @return {[type]}       [description]
+   */
 
   router.get('/tests', eatAuth, function(req, res) {
     if (req.query.standardId) {
@@ -63,6 +44,18 @@ module.exports = function(router) {
         }
         res.json({
           'tests': tests
+        });
+      });
+    } else if (req.query.goalId) {
+      Tests.find({goalId: req.query.goalId}, function(err, tests) {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({
+            'msg': 'Internal Server Error'
+          });
+        }
+        res.json({
+          'test': tests[0]
         });
       });
     } else {

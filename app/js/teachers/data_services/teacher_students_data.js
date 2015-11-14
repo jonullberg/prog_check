@@ -116,14 +116,6 @@ module.exports = function(app) {
 
     }
 
-    function handleCallback(cb, response, rejection) {
-      if (cb && typeof cb === 'function') {
-        if (response) {
-          return cb(null, response.data);
-        }
-        cb(rejection);
-      }
-    }
     function createGoal(studentId, goal, cb) {
       $http.post('/api/students/' + studentId + '/goals/', goal)
         .then(function(response) {
@@ -166,45 +158,14 @@ module.exports = function(app) {
           });
         });
     }
+    function handleCallback(cb, response, rejection) {
+      if (cb && typeof cb === 'function') {
+        if (response) {
+          return cb(null, response.data);
+        }
+        cb(rejection);
+      }
+    }
     return teacherStudentsData;
   }]);
-};
-var used = {
-  createGoal: function(goal, studentId, callback) {
-    var submitted = {
-      numberOfQuestions: goal.numberOfQuestions,
-      goalId: goal._id,
-      priority:null,
-
-    };
-    $http.post('/api/students/' + studentId + '/goals/', submitted)
-      .then(function(response) {
-        var student = response.data.user;
-        this.student = student;
-        $rootScope.$broadcast('student:changed', student);
-        callback(null, student);
-
-      }.bind(this))
-      .catch(function(response) {
-        callback(response.data)
-      });
-  },
-  updateGoal: function(goal, studentId, callback) {
-    $http.put('/api/students/' + studentId + '/goals/' + goal._id, submitted)
-      .then(function(response) {
-        callback(null, response.data);
-      })
-      .catch(function(rejection) {
-        callback(rejection.data);
-      });
-  },
-  removeGoal: function(goal, callback) {
-    this.student.goals.splice(this.student.goals.indexOf(goal), 1);
-    this.students.splice(this.students.indexOf(this.student), 1, this.student);
-    Students.save(this.student, function(err) {
-      if (err) {
-        callback(err);
-      }
-    });
-  }
 };

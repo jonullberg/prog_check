@@ -155,11 +155,10 @@ require('./directives/convert_to_number')(progCheck);
 //  Students
   //  Data
   require('./students/data_services/student_data_service')(progCheck);
-  require('./students/data_services/student_user_data')(progCheck);
   require('./students/data_services/student_test_data')(progCheck);
 
   //  Test
-  require('./students/controllers/test_controller')(progCheck);
+  require('./students/controllers/student_test_controller')(progCheck);
 
   //  Questions
   require('./students/controllers/question_controller')(progCheck);

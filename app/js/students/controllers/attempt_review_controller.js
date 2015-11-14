@@ -1,11 +1,24 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('AttemptReviewCtrl', ['$scope', '$sce', '$location', 'Errors', 'Student', function($scope, $sce, $location, Errors, Student) {
-    $scope.attempt = Student.attempt;
+  app.controller('AttemptReviewCtrl', ['$scope', '$sce', '$location', '$routeParams', 'StudentData', function($scope, $sce, $location, $routeParams, StudentData) {
 
+    $scope.$on('test:changed', getTest);
     $scope.backToTests = function() {
-      $location.url('/student/tests');
+      StudentData.Tests.setTest(null);
+      $location.url('/student/' + $routeParams.studentId + '/tests');
     };
+    $scope.init = init;
+
+    function init() {
+      getTest();
+    }
+
+    function getTest() {
+      if (!StudentData.Tests.getTest()) {
+        return $location.path('/test-expired');
+      }
+      $scope.attempt = StudentData.Tests.getTest();
+    }
   }]);
 };

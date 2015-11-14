@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var express = require('express');
 var passport = require('passport');
 var	app = express();
-var port = process.env.PORT || 3001;
+var port = process.env.PORT || 3000;
 var busboy = require('connect-busboy');
 
 var env = process.env.NODE_ENV || 'DEVELOPMENT';
@@ -35,6 +35,7 @@ var standardsRoutes = express.Router();
 var testsRoutes = express.Router();
 var studentsRoutes = express.Router();
 var bugRoutes = express.Router();
+var attemptsRoutes = express.Router();
 
 //  The database URI to connect to for saving information
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/progcheck_dev');
@@ -49,12 +50,14 @@ require('./routes/standard_routes.js')(standardsRoutes);
 require('./routes/test_routes.js')(testsRoutes);
 require('./routes/students_routes.js')(studentsRoutes, passport);
 require('./routes/bug_routes.js')(bugRoutes);
+require('./routes/attempts_routes.js')(attemptsRoutes);
 
 app.use('/api', usersRoutes);
 app.use('/api', standardsRoutes);
 app.use('/api', testsRoutes);
 app.use('/api', studentsRoutes);
 app.use('/api', bugRoutes);
+app.use('/api', attemptsRoutes)
 
 
 app.listen(port, function() {

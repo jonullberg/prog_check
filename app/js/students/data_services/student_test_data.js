@@ -6,7 +6,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.factory('StudentTestData', ['$http', '$rootScope', 'Errors', function ($http, $rootScope, Errors) {
+  app.factory('StudentTestData', ['$http', '$rootScope', 'Errors', 'shuffle', function ($http, $rootScope, Errors, shuffle) {
     var studentTestData = {
       tests: null,
       test: null,
@@ -27,17 +27,16 @@ module.exports = function(app) {
         return;
       },
       fetchTests: fetchTests,
-      fetchTest: fetchTest
+      fetchTest: fetchTest,
+      createTest: createTest
     };
 
     function fetchTests(studentId, cb) {
       $http.get('/api/students/' + studentId + '/tests/')
         .then(function(response) {
-          var data = response.data;
-          this.tests = data.tests;
-          $rootScope.$broadcast('tests:changed', this.tests);
+          this.setTests(response.data.tests);
           handleCallback(cb, response);
-        })
+        }.bind(this))
         .catch(function(rejection) {
           handleCallback(cb, null, rejection);
           return Errors.addError({
@@ -45,14 +44,13 @@ module.exports = function(app) {
           });
         });
     }
-    function fetchTest(studentId, testId, cb) {
-      $http.get('/api/students/' + studentId + '/tests/' + testId)
+    function fetchTest(goalId, student, cb) {
+      $http.get('/api/tests?goalId=' + goalId)
         .then(function(response) {
-          var data = response.data;
-          this.test = data.test;
-          $rootScope.$broadcast('test:changed', this.test);
+          var test = setUpTest(response.data.test, student, goalId);
+          this.setTest(test);
           handleCallback(cb, response);
-        })
+        }.bind(this))
         .catch(function(rejection) {
           handleCallback(cb, null, rejection);
           return Errors.addError({
@@ -61,6 +59,70 @@ module.exports = function(app) {
         });
     }
 
+    /**
+     *
+     */
+    function createTest(studentId, test, cb) {
+      $http.post('/api/students/' + studentId + '/tests/', test)
+        .then(function(response) {
+          this.setTest(response.data.test);
+          handleCallback(cb, response);
+        }.bind(this))
+        .catch(function(rejection) {
+          handleCallback(cb, null, rejection);
+          return Errors.addError({
+            'msg': 'There was an error saving that test. Please log out, refresh, log in and try again. If the problem persists, please file a bug report and we will get it fixed.'
+          });
+        });
+    }
+    /**
+     * Takes a test, shuffles its questions and turnes it into a students attempt
+     * @param  {Object} test The Test object from the server
+     * @return {Object}      A process Test
+     */
+    function setUpTest(test, student, goalId) {
+      var max = getMaxQuestions(student, goalId);
+      var newTest = {};
+      newTest.maxQuestions = getMaxQuestions(student, goalId);
+      newTest.studentId = student._id;
+      newTest.testId = test._id;
+      newTest.correctAnswers = 0;
+      newTest.questions = createQuestions(test.questions, max);
+      newTest.directions = test.testDirections;
+      newTest.active = true;
+      return newTest;
+    }
+    function getMaxQuestions(student, goalId) {
+      var max;
+      var selectedGoal = student.goals.filter(function(goal) {
+        if (goal._id === goalId) {
+          return goal;
+        }
+      })[0];
+      if (selectedGoal.numberOfQuestions) {
+        max = selectedGoal.numberOfQuestions;
+      } else {
+        max = student.numberOfQuestions;
+      }
+      return max;
+    }
+    function createQuestions(questions, num) {
+        questions = shuffle.shuffle(questions);
+        questions = questions.slice(0, num);
+        questions.forEach(function(question) {
+          question.answers = shuffle.shuffle(question.answers);
+          question.type = 'info';
+          return question;
+        });
+        return questions;
+    }
+    /**
+     * Deals with handling callbacks, can be reused if a rejection or successful response
+     * @param  {Function} cb        A callback function to execute on data
+     * @param  {Object}   response  The response object if a successful request
+     * @param  {Object}   rejection The rejection object/error object if a failed request
+     * @return {undefined}
+     */
     function handleCallback(cb, response, rejection) {
       if (cb && typeof cb === 'function') {
         if (response) {
@@ -69,7 +131,6 @@ module.exports = function(app) {
         cb(rejection);
       }
     }
-
     return studentTestData;
-  }])
+  }]);
 }

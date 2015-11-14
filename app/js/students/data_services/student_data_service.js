@@ -1,49 +1,40 @@
 'use strict';
-//  TODO: Refactor this data into other external modules
 module.exports = function(app) {
-  app.factory('StudentData', ['$rootScope', '$http', '$cookies', 'RESTResource', 'Errors', 'StudentUserData', 'StudentTestData', function($rootScope, $http, $cookies, resource, Errors, Student, Tests) {
-    var Student = Student;
-    var Tests = Tests;
+  app.factory('StudentData', ['$rootScope', '$http', 'Errors', 'StudentTestData', function($rootScope, $http, Errors, Tests) {
     var studentData = {
-      student: $cookies.getObject('user'),
-      getTestByGoalId: function(goalId, callback) {
-        $http.get('/api/tests/goal/' + goalId)
-          .then(
-            function(response) {
-              var data = response.data[0];
-              return callback(null, data);
-            })
-          .catch(
-            function(data) {
-              console.log(data);
-              callback(data);
-            });
-      },
-      getTest: function(testId, callback) {
-        Tests.getOne(testId, function(err, data) {
-          if (err) {
-            return Errors.addError({
-              'msg': 'There was an error getting your test'
-            });
-          }
-
-          callback(err, data);
-        });
-      },
+      Tests: Tests,
+      student: null,
       getStudent: function() {
-
+        return this.student;
       },
-      saveAttempt: function(attempt, callback) {
-        this.attempt = attempt;
-        $http.post('/api/tests/attempts', attempt)
-          .success(function(res) {
-            callback(res.data);
-          })
-          .error(function(err) {
-            callback(err);
-          });
-      }
+      setStudent: function(student) {
+        this.student = student;
+        $rootScope.$broadcast('student:changed');
+      },
+      fetchStudent: fetchStudent
     };
+    function fetchStudent(studentId, cb) {
+      $http.get('/api/students/' + studentId)
+        .then(function(response) {
+          this.setStudent(response.data.student);
+          handleCallback(cb, response);
+        }.bind(this))
+        .catch(function(rejection) {
+          handleCallback(cb, null, rejection);
+          return Errors.addError({
+            'msg': 'There was an error fetching your information from the server. Please log out, refresh and try again. If it persists, please create a bug report so we can fix it.'
+          });
+        });
+    }
+
+    function handleCallback(cb, response, rejection) {
+      if (cb && typeof cb === 'function') {
+        if (response) {
+          return cb(null, response.data);
+        }
+        cb(rejection);
+      }
+    }
     return studentData;
   }]);
 };
