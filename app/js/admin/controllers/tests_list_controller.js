@@ -17,6 +17,7 @@ module.exports = function(app) {
       $location.path('/admin/standards/' + $scope.standard._id + '/tests/' + test._id);
     };
     $scope.newTest = function() {
+      AdminData.Tests.setTest(null);
       var scope = $rootScope.$new();
       scope.params = {
         formType: 'creating',

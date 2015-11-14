@@ -15,24 +15,22 @@ module.exports = function(router) {
    */
   router.post('/tests', eatAuth, function(req, res) {
     var newTest = new Tests(req.body);
-    newTest.save(function(err, data) {
+    newTest.save(function(err, test) {
       if (err) {
         console.log(err);
         return res.status(500).json({
           'msg': 'Internal Server Error'
         });
       }
-      res.json(data);
+      res.json({
+        'test': test
+      });
     });
   });
 
   /**
-   * Creates a new attempt
-   * @param  {[type]}  req  [description]
-   * @param  {Attempt} res) {               var newAttempt [description]
-   * @return {[type]}       [description]
+   * Gets tests from the database
    */
-
   router.get('/tests', eatAuth, function(req, res) {
     if (req.query.standardId) {
       Tests.find({standardId: req.query.standardId}, function (err, tests) {
@@ -75,9 +73,6 @@ module.exports = function(router) {
 
   /**
    * Gets a single test from the database
-   * @param  {Object} req  The request object
-   * @param  {Object} res  The response object
-   * @return {Object}      An object with the test attached to it
    */
   router.get('/tests/:testId', eatAuth, function(req, res) {
     Tests.findById(req.params.testId, function(err, test) {
@@ -93,27 +88,13 @@ module.exports = function(router) {
     });
   });
 
-  router.get('/tests/goal/:goalId', eatAuth, function(req, res) {
-    Tests.find({goalId: req.params.goalId}, function(err, data) {
-      if (err) {
-        console.log(err);
-        return res.status(500).json({
-          'msg': 'Internal Server Error'
-        });
-      }
-      res.json(data);
-    });
-  });
-
   /**
    * Updates a test in the database
-   * @param  {Object} req           The request object
-   * @param  {Object} res           The response object
-   * @return {Object}               Sends back a success message
    */
-  router.put('/tests/:id', eatAuth, function(req, res) {
+  router.put('/tests/:testId', eatAuth, function(req, res) {
     var updatedTest = req.body;
-    Tests.update({_id: req.params.id},
+    delete updatedTest._id;
+    Tests.update({_id: req.params.testId},
       updatedTest, function(err) {
         if (err) {
           console.log(err);
@@ -121,18 +102,14 @@ module.exports = function(router) {
             'msg': 'Internal Server Error'
           });
         }
-
         res.json({
-          'msg': 'Success'
+          'test': updatedTest
         });
       });
   });
 
   /**
    * Deletes a test from the database
-   * @param  {Object} req           The request object
-   * @param  {Object} res)          The response object
-   * @return {Object}               Sends back a success message
    */
   router.delete('/tests/:id', eatAuth, function(req, res) {
     Tests.remove({'_id': req.params.id},
@@ -151,8 +128,6 @@ module.exports = function(router) {
 
   /**
    * Adds a new text question to a test
-   * @param  {Object} req  The request object
-   * @param  {Object} res  The response object
    */
   router.post('/tests/:testId/questions', eatAuth, function(req,res) {
     if (req.query.type === 'image') {
@@ -182,10 +157,9 @@ module.exports = function(router) {
       });
     }
   });
+
   /**
    * Adds a new image question to a test
-   * @param  {Object} req  The request object
-   * @param  {Object} res  The response object
    */
   router.post('/tests/:id/questions', eatAuth, function(req, res) {
     var uploadPath = null;
@@ -206,8 +180,6 @@ module.exports = function(router) {
 
   /**
    * Updates a specific text question
-   * @param  {Object} req  The request object
-   * @param  {Object} res  The response object
    */
   router.put('/tests/:testId/questions/:questionId', eatAuth, function(req, res) {
     var updatedQuestion = req.body;
@@ -231,9 +203,6 @@ module.exports = function(router) {
 
   /**
    * Deletes a specific question from a test
-   * @param  {Object} req  The request object
-   * @param  {Object} res) The response object
-   * @return {Object}      Returns the new test
    */
   router.delete('/tests/:testId/questions/:questionId', eatAuth, function(req, res) {
     Tests.findById(req.params.testId, function(err, test) {
@@ -261,10 +230,4 @@ module.exports = function(router) {
       });
     });
   });
-  function handleError(err) {
-    console.log(err);
-    return res.status(500).json({
-      'msg': 'Internal Server Error'
-    });
-  }
 };

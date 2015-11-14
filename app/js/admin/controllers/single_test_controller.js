@@ -113,24 +113,6 @@ module.exports = function(app) {
       question.imageButtonsShowing = !question.imageButtonsShowing;
     };
 
-
-    $scope.editQuestion = function(question) {
-      AdminData.Tests.setQuestion(question);
-      var scope = $rootScope.$new();
-      scope.params = {
-        formType: 'editing',
-        buttonText: 'Save Question'
-      };
-      scope.question = question;
-      $uibModal.open({
-        animation:true,
-        templateUrl: '/templates/admin/modals/question_form_modal.html',
-        controller:'QuestionFormCtrl',
-        size: 'lg',
-        scope: scope
-      });
-    };
-
     $scope.deleteQuestion = function(question) {
       AdminData.Tests.deleteQuestion($scope.test._id, question._id, function(err) {
       });
