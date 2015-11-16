@@ -1,6 +1,6 @@
 {
   "name": "prog_check",
-  "version": "0.12.3",
+  "version": "0.13.0",
   "engines": {
     "node": "0.10.x",
     "npm": "2.10.x"
