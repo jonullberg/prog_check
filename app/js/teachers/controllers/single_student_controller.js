@@ -18,7 +18,6 @@ module.exports = function(app) {
       $location.path('teacher/'+ $routeParams.teacherId + '/students');
     };
 
-
     $scope.openGoalForm = function() {
       $uibModal.open({
         animation: true,
@@ -43,17 +42,6 @@ module.exports = function(app) {
         scope: scope
       });
     };
-    $scope.showAttempt = function(attempt) {
-      $scope.attempts.forEach(function(attempt) {
-        attempt.questionsShowing = false;
-      });
-      attempt = setAttemptStyling(attempt);
-      attempt.questionsShowing = true;
-
-    };
-    $scope.showAnswers = function(question) {
-      question.answersShowing = !question.answersShowing;
-    };
 
     function init() {
       getStudent();
@@ -64,19 +52,6 @@ module.exports = function(app) {
         TeacherData.Students.fetchStudent($routeParams.studentId);
       }
       $scope.student = TeacherData.Students.getStudent();
-    }
-
-    function setAttemptStyling(attempt) {
-      attempt.questions.forEach(function(question) {
-        if (question.result === 'correct') {
-          question.icon = 'glyphicon glyphicon-ok green';
-          question.color = 'green';
-        } else {
-          question.icon = 'glyphicon glyphicon-remove red';
-          question.color = 'red';
-        }
-      });
-      return attempt;
     }
   }]);
 };

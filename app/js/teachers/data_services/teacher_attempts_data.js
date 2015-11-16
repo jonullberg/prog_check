@@ -32,8 +32,7 @@ module.exports = function(app) {
     function fetchAttempts(studentId, cb) {
       $http.get('/api/students/' + studentId + '/attempts/')
         .then(function(response) {
-          this.attempts = response.data.attempts;
-          $rootScope.$broadcast('attempts:changed');
+          this.setAttempts(response.data.attempts);
           handleCallback(cb, response);
         }.bind(this))
         .catch(function(rejection) {
@@ -46,8 +45,7 @@ module.exports = function(app) {
     function fetchAttemptsByGoal(studentId, goalId, cb) {
       $http.get('/api/students/' + studentId + '/attempts?goalId=' + goalId)
         .then(function(response) {
-          this.attempts = response.data.attempts;
-          $rootScope.$broadcast('attempts:changed', this.attempts);
+          this.setAttempts(response.data.attempts);
           handleCallback(cb, response);
         }.bind(this))
         .catch(function(rejection) {

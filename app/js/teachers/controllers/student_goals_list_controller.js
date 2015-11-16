@@ -22,6 +22,7 @@ module.exports = function(app) {
       });
       goal.buttonsShowing = !showing;
     };
+
     $scope.editStudentGoal = editStudentGoal;
 
     function init() {

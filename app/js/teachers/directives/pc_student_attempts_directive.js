@@ -11,10 +11,7 @@ module.exports = function(app) {
       replace: true,
       templateUrl: '/templates/teacher/student_attempts.html',
       controller: 'StudentAttemptsCtrl',
-      scope: {
-        attempts: '='
-      },
-      link: function (scope, iElement, iAttrs) {
+      link: function(scope, iElement, iAttrs) {
 
       }
     };
