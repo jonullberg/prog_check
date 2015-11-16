@@ -47,6 +47,9 @@ var studentSchema = mongoose.Schema({
     'pin': {
       type: String,
       required: true
+    },
+    'tokenExpiration': {
+      type: Date
     }
   },
   'groupId': {

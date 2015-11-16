@@ -1,2 +1,6 @@
 'use strict';
-module.exports = function () { };
+var progressReportController = function (app) {
+    app.controller('ProgressReportCtrl', ['$scope', function ($scope) {
+        }]);
+};
+module.exports = progressReportController;

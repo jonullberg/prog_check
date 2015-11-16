@@ -5,13 +5,14 @@ module.exports = function(app) {
     return {
       request: function(config) {
         var token = $cookies.get('token');
-        var user = $cookies.getObject('user');
         var role;
-        if (user && user.role) {
-          role = user.role;
+        if (AuthenticationService.getUser() && AuthenticationService.getUser().role) {
+          role = AuthenticationService.getUser().role;
+        } else {
+          role = null;
         }
-
-        config.headers['token'] = token;
+        config.headers['Authorization'] = config.headers['Authorization'] ?
+          config.headers['Authorization'] : 'Bearer ' + token;
         config.headers['role'] = role;
         return config;
       },
@@ -25,7 +26,6 @@ module.exports = function(app) {
       responseError: function(rejection) {
         if (rejection !== null && (rejection.status >= 400 && rejection.status <= 599) && ($cookies.get('token') || AuthenticationService.isLogged)) {
           $cookies.put('token', '');
-          $cookies.putObject('user', null);
           AuthenticationService.isLogged = false;
         }
         return $q.reject(rejection);

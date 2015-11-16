@@ -2,7 +2,7 @@
 
 module.exports = function(app) {
   app.directive('pcHeader', ['$location', '$cookies', function($location, $cookies) {
-    var controller = ['$scope', 'AuthenticationService', function($scope, AuthenticationService) {
+    var controller = ['$scope', 'AuthenticationService', function($scope, AuthService) {
       $scope.tabs = [{
         header: 'Home',
         url: 'home'
@@ -17,10 +17,10 @@ module.exports = function(app) {
       }];
 
       $scope.$watch(function() {
-        return AuthenticationService.isLogged;
+        return AuthService.isLogged;
       }, function(newVal, oldVal, scope) {
         if (newVal) {
-          var user = $cookies.getObject('user');
+          var user = AuthService.user;
           if (user.role === 'admin') {
             scope.tabs = [{
               header: 'Home',

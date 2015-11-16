@@ -14,12 +14,12 @@ module.exports = function(app) {
           .then(function(response) {
             var data = response.data;
             $cookies.put('token', data.token);
-            $cookies.putObject('user', data.user);
-            AuthenticationService.role = $cookies.getObject('user').role;
+            AuthenticationService.user = data.user;
             AuthenticationService.isLogged = true;
             callback(null, response);
-          }, function(err) {
-            callback(err);
+          })
+          .catch(function(rejection) {
+            callback(rejection);
           });
       },
       studentSignIn: function(student, callback) {
@@ -33,8 +33,7 @@ module.exports = function(app) {
           .then(function(response) {
             var data = response.data
             $cookies.put('token', data.token);
-            $cookies.putObject('user', data.user);
-            AuthenticationService.role = $cookies.getObject('user').role;
+            AuthenticationService.user = data.user;
             AuthenticationService.isLogged = true;
             callback(null, response);
           }, function(err) {
@@ -44,24 +43,42 @@ module.exports = function(app) {
       create: function(user, callback) {
         $http
           .post('/api/create_user', user)
-          .then(function(data) {
-            $cookies.put('token', data.token);
-            $cookies.putObject('user', data.user);
-            AuthenticationService.role = $cookies.getObject('user').role;
+          .then(function(response) {
+            $cookies.put('token', response.data.token);
+            AuthenticationService.user = response.data.user;
             AuthenticationService.isLogged = true;
-            callback(null);
-          }, function(err) {
-            callback(err);
+            callback(null, response);
+          })
+          .catch(function(rejection) {
+            callback(rejection);
           });
       },
 
       logout: function() {
         $cookies.put('token', '');
-        $cookies.putObject('user', {});
-        AuthenticationService.role = null;
+        AuthenticationService.user = null;
         AuthenticationService.isLogged = false;
       },
-
+      authToken: function(token, callback) {
+        $http
+          .get('/api/auth_token', {
+            'headers': {
+              'Authentication': 'Bearer ' + token
+            }
+          })
+          .then(function(response) {
+            $cookies.put('token', response.data.token);
+            AuthenticationService.user = response.data.user;
+            AuthenticationService.isLogged = true;
+            callback(null, response);
+          })
+          .catch(function(rejection) {
+            $cookies.put('token', null);
+            AuthenticationService.user = null;
+            AuthenticationService.isLogged = false;
+            callback(rejection);
+          });
+      },
       isSignedIn: function() {
         return AuthenticationService.isLogged;
       }

@@ -3,6 +3,7 @@
 var User = require('../models/User');
 var bodyparser = require('body-parser');
 var nodemailer = require('nodemailer');
+var eatAuth = require('../lib/eat_auth')(process.env.APP_SECRET);
 
 module.exports = function(router, passport) {
 	router.use(bodyparser.json());
@@ -28,6 +29,9 @@ module.exports = function(router, passport) {
 				});
 			}
 			newUser.basic.password = hash;
+			var expDate = new Date();
+			expDate.setDate(expDate.getDate() + 7);
+			newUser.basic.tokenExpiration = expDate;
 			newUser.save(function(err, user) {
 				if(err) {
 					console.log(err);
@@ -52,22 +56,56 @@ module.exports = function(router, passport) {
 				}); // end generate Token
 			}); // end user save
 		}); // end generate hash
-}); // end POST
+	}); // end POST
 
 	router.get('/sign_in', passport.authenticate('basic', {session:false}), function(req, res) {
 	  req.user.generateToken(process.env.APP_SECRET, function(err, token) {
 	    if (err) {
 	      console.log(err);
-	      return res.status(500).json({msg: 'error generating token'});
+	      return res.status(500).json({msg: 'Internal Server Error'});
 	    }
-	    req.user.basic.password = null;
-	    req.user.fullName = req.user.firstName + ' ' + req.user.lastName;
-	    res.json({
-	    	'user':req.user,
-	    	'token': token
-	    });
+	    User.findById(req.user._id, function(err, user) {
+	    	if (err) {
+	    	  console.log(err);
+	    	  return res.status(500).json({msg: 'Internal Server Error'});
+	    	}
+	    	var expDate = new Date();
+	    	expDate.setDate(expDate.getDate() + 7);
+	    	user.basic.tokenExpiration = expDate;
+	    	user.save(function(err, data) {
+	    		if (err) {
+	    		  console.log(err);
+	    		  return res.status(500).json({msg: 'Internal Server Error'});
+	    		}
+
+	    		var sentUser = {};
+	    		sentUser.role = data.role;
+	    		sentUser.school = data.school;
+	    		sentUser.firstName = data.firstName;
+	    		sentUser.lastName = data.lastName;
+	    		sentUser.email = data.basic.email;
+	    		res.json({
+	    			'user':sentUser,
+	    			'token':token
+	    		});
+
+	    	})
+	    })
 	  });//end generateToken
 	});//end GET
+
+	router.get('/auth_token', eatAuth, function(req, res) {
+		var sentUser = {};
+		sentUser.firstName = req.user.firstName;
+		sentUser.lastName = req.user.lastName;
+		sentUser.email = req.user.email;
+		sentUser.role = req.user.role;
+		sentUser.school = req.user.school;
+		res.json({
+			'token': token,
+			'user': sentUser
+		});
+	});
 
 	router.post('/forgot', function(req, res) {
 		var transport = nodemailer.createTransport({

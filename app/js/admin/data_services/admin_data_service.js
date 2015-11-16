@@ -5,17 +5,17 @@
 'use strict';
 
 module.exports = function(app) {
-  app.factory('AdminData', ['AdminStandardsData', 'AdminTestsData', 'AdminTeachersData', function (Standards, Tests, Teachers) {
+  app.factory('AdminData', ['AdminStandardsData', 'AdminTestsData', 'AdminTeachersData', 'AuthenticationService', function (Standards, Tests, Teachers, AuthService) {
     var adminData = {
-      profile: null,
+      user: AuthService.getUser(),
       Standards: Standards,
       Tests: Tests,
       Teachers: Teachers,
-      getProfile: function() {
-        return this.profile;
+      getUser: function() {
+        return this.user;
       },
-      setProfile: function(profile) {
-        this.profile = profile;
+      setUser: function(user) {
+        this.user = user;
         return;
       }
     };

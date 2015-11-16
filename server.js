@@ -16,16 +16,13 @@ var forceSsl = function(req, res, next) {
   return next();
 };
 
-
 if (env === 'PRODUCTION') {
   app.use(forceSsl);
 }
 
-
 //  Serve up static pages from our build
 app.use(express.static(__dirname + '/build'));
 app.use(busboy({immediate:true}));
-
 
 //  Set the application secret to be checked on token confirmation
 process.env.APP_SECRET = process.env.APP_SECRET || 'changethischangethischangethis!';
@@ -58,7 +55,6 @@ app.use('/api', testsRoutes);
 app.use('/api', studentsRoutes);
 app.use('/api', bugsRoutes);
 app.use('/api', attemptsRoutes)
-
 
 app.listen(port, function() {
 	console.log('Your server is running on port ' + port);

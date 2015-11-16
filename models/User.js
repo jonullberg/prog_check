@@ -14,6 +14,9 @@ var userSchema = mongoose.Schema({
     'password': {
       type: String,
       required: '{PASSWORD is a required field}'
+    },
+    'tokenExpiration': {
+      type: Date
     }
   },
   'role': {

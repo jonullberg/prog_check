@@ -64,8 +64,6 @@ module.exports = function(app) {
         // Is the form valid?
         if ($scope.signUpForm.$valid) {
           UserService.create(user, function(err, data) {
-            console.log(err);
-            console.log(data);
             if (err)  {
               return Errors.addError({
                 'msg': 'Could not sign in'

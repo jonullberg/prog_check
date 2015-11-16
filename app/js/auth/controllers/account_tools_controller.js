@@ -1,14 +1,19 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('AccountToolsCtrl', ['$scope', '$uibModal', '$cookies', '$location', 'UserService', function($scope, $uibModal, $cookies, $location, UserService) {
+  app.controller('AccountToolsCtrl', ['$scope', '$uibModal', '$cookies', '$location', 'UserService', 'AuthenticationService', function($scope, $uibModal, $cookies, $location, UserService, AuthService) {
 
     $scope.signedIn = function() {
       return UserService.isSignedIn();
     };
 
     $scope.displayUsername = function() {
-      var fullName = $cookies.getObject('user').firstName + ' ' + $cookies.getObject('user').lastName;
+      var fullName
+      if (AuthService.getUser()) {
+        fullName = AuthService.getUser().firstName + ' ' + AuthService.getUser().lastName;
+      } else {
+        UserService.authToken($cookies.get('token'));
+      }
       return fullName;
     };
 

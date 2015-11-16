@@ -63,11 +63,29 @@ module.exports = function(router, passport) {
           'msg': 'There was an error generating token'
         });
       }
-
-      req.user.role = 'student';
-      res.json({
-        'user': req.user,
-        'token': token
+      Student.findById(req.user._id, function(err, student) {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({
+            'msg': 'Internal Server Error'
+          });
+        }
+        var expDate = new Date();
+        expDate.setDate(expDate.getDate() + 7);
+        student.basic.tokenExpiration = expDate;
+        student.save(function(err, data) {
+          if (err) {
+            console.log(err);
+            return res.status(500).json({
+              'msg': 'Internal Server Error'
+            });
+          }
+          data.role = 'student';
+          res.json({
+            'user': data,
+            'token': token
+          });
+        });
       });
     });
   });
