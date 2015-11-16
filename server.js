@@ -34,7 +34,7 @@ var usersRoutes = express.Router();
 var standardsRoutes = express.Router();
 var testsRoutes = express.Router();
 var studentsRoutes = express.Router();
-var bugRoutes = express.Router();
+var bugsRoutes = express.Router();
 var attemptsRoutes = express.Router();
 
 //  The database URI to connect to for saving information
@@ -45,18 +45,18 @@ app.use(passport.initialize());
 require('./lib/passport_strat')(passport);
 require('./lib/student_passport_strat')(passport);
 
-require('./routes/user_routes.js')(usersRoutes, passport);
-require('./routes/standard_routes.js')(standardsRoutes);
-require('./routes/test_routes.js')(testsRoutes);
+require('./routes/users_routes.js')(usersRoutes, passport);
+require('./routes/standards_routes.js')(standardsRoutes);
+require('./routes/tests_routes.js')(testsRoutes);
 require('./routes/students_routes.js')(studentsRoutes, passport);
-require('./routes/bug_routes.js')(bugRoutes);
+require('./routes/bugs_routes.js')(bugsRoutes);
 require('./routes/attempts_routes.js')(attemptsRoutes);
 
 app.use('/api', usersRoutes);
 app.use('/api', standardsRoutes);
 app.use('/api', testsRoutes);
 app.use('/api', studentsRoutes);
-app.use('/api', bugRoutes);
+app.use('/api', bugsRoutes);
 app.use('/api', attemptsRoutes)
 
 
