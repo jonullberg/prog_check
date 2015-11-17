@@ -6,8 +6,9 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('StudentAttemptsCtrl', ['$scope', '$filter', 'TeacherData', function ($scope, $filter, TeacherData) {
+  app.controller('StudentAttemptsCtrl', ['$scope', '$filter', '$routeParams', 'TeacherData', function ($scope, $filter, $routeParams, TeacherData) {
     $scope.init = init;
+    $scope.$watch('totalAttempts');
     $scope.showAttempt = function(attempt) {
       $scope.attempts.forEach(function(attempt) {
         attempt.questionsShowing = false;
@@ -15,6 +16,7 @@ module.exports = function(app) {
       attempt = setAttemptStyling(attempt);
       attempt.questionsShowing = true;
     };
+    $scope.isArchiveAttemptAlertShown = false;
     $scope.showAnswers = function(attempt, question) {
       attempt.questions.forEach(function(question) {
         question.answersShowing = false;
@@ -24,6 +26,10 @@ module.exports = function(app) {
     $scope.setPage = setPage;
     $scope.currentPage = 1;
     $scope.quantity = 5;
+
+    $scope.toggleArchiveAttemptAlert = toggleArchiveAttemptAlert;
+    $scope.archiveAttempt = archiveAttempt;
+
     function init() {
       getAttempts();
     }
@@ -47,6 +53,19 @@ module.exports = function(app) {
       });
       return attempt;
     }
-
+    function toggleArchiveAttemptAlert(attempt) {
+      if ($scope.isArchiveAttemptAlertShown) {
+        $scope.isArchiveAttemptAlertShown = false;
+      } else {
+        $scope.isArchiveAttemptAlertShown = true;
+      }
+      $scope.attempt = attempt;
+    }
+    function archiveAttempt(attempt) {
+      TeacherData.Attempts.archiveAttempt($routeParams.studentId, attempt._id, function(err, data) {
+        $scope.isArchiveAttemptAlertShown = false;
+        getAttempts();
+      });
+    }
   }]);
 };

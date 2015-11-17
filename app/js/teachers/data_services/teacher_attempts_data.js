@@ -56,7 +56,20 @@ module.exports = function(app) {
         });
     }
     function fetchAttempt() {}
-    function archiveAttempt() {}
+    function archiveAttempt(studentId, attemptId, cb) {
+      $http.delete('/api/students/' + studentId + '/attempts/' + attemptId)
+        .then(function(response) {
+          this.setAttempts(response.data.attempts);
+          handleCallback(cb, response);
+        }.bind(this))
+        .catch(function(rejection) {
+          handleCallback(cb, null, rejection);
+          return Errors.addError({
+            'msg': 'There was an error archving that attempt. Please log-out, log back in and try again. If the problem persists, please send a bug report and we will fix it as soon as possible.'
+          });
+
+        });
+    }
     function handleCallback(cb, response, rejection) {
       if (cb && typeof cb === 'function') {
         if (response) {

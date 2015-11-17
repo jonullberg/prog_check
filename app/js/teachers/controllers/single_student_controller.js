@@ -6,10 +6,6 @@ module.exports = function(app) {
     $scope.init = init;
     $scope.trustAsHtml = $sce.trustAsHtml;
 
-    $scope.toggleDelete = function() {
-      $scope.isDeleteShown = !$scope.isDeleteShown;
-    };
-
     $scope.$on('student:changed', getStudent);
 
     $scope.goBack = function() {
@@ -53,6 +49,7 @@ module.exports = function(app) {
       }
       $scope.student = TeacherData.Students.getStudent();
     }
+
   }]);
 };
 
