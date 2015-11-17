@@ -9,6 +9,22 @@
       data-panel-class="panel-info"
       data-ng-repeat="attempt in attempts | orderBy: '-dateTaken'"
       data-ng-click="showAttempt(attempt)">
+      <div class="alert alert-danger"
+        data-ng-if="isArchiveAttemptAlertShown">
+        <p class="col-lg-8">Are you sure? This will archive this test attempt so the results won't show up in their final scores.</p>
+        <div class="btn-group col-lg-4">
+          <button type="button"
+            class="btn btn-danger"
+            data-ng-click="archiveAttempt(attempt)">Yes
+          </button>
+          <button type="button"
+            class="btn btn-primary"
+            data-ng-click="toggleArchiveAttemptAlert(null)">
+            No
+          </button>
+        </div>
+        <div class="clearfix"></div>
+      </div>
       <ul data-ng-if="attempt.questionsShowing">
         <li data-ng-repeat="question in attempt.questions"
           data-ng-click="showAnswers(attempt, question)">
@@ -36,6 +52,10 @@
           </ul>
         </li>
       </ul>
+      <button
+        type="button"
+        class="btn btn-danger"
+        data-ng-click="toggleArchiveAttemptAlert(attempt)">Archive Attempt</button>
     </uib-accordion-group>
     <uib-pagination
       data-total-items="totalAttempts.length"
