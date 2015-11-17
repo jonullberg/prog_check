@@ -29,6 +29,7 @@ module.exports = function(app) {
       getStudent();
     }
     function showAttempts(goal) {
+      goal.isopen = !goal.isopen
       TeacherData.Attempts.fetchAttemptsByGoal($routeParams.studentId, goal._id);
     }
     function getAttempts() {
