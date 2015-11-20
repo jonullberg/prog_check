@@ -7,7 +7,7 @@
 
 var Standard = require('../models/Standard');
 var bodyparser = require('body-parser');
-var eatAuth = require('../lib/eat_auth')(process.env.APP_SECRET);
+var jwtAuth = require('../lib/jwt_auth')(process.env.APP_SECRET);
 
 module.exports = function(router) {
   router.use(bodyparser.json());
@@ -33,7 +33,7 @@ module.exports = function(router) {
   /**
    * Reads a specific standard
    */
-  router.get('/standards/:id', eatAuth, function(req, res) {
+  router.get('/standards/:id', jwtAuth, function(req, res) {
     Standard.findById(req.params.id, function(err, standard) {
       if (err) {
         console.log(err);
@@ -50,7 +50,7 @@ module.exports = function(router) {
   /**
    * Creates a new standard
    */
-  router.post('/standards', eatAuth, function(req, res) {
+  router.post('/standards', jwtAuth, function(req, res) {
     var newStandard = new Standard(req.body);
     newStandard.save(function(err, data) {
       if (err) {
@@ -68,7 +68,7 @@ module.exports = function(router) {
   /**
    * Updates a specific standard
    */
-  router.put('/standards/:id', eatAuth, function(req, res) {
+  router.put('/standards/:id', jwtAuth, function(req, res) {
     var updatedStandard = req.body;
     delete updatedStandard._id;
     Standard.update({_id: req.params.id},
@@ -89,7 +89,7 @@ module.exports = function(router) {
   /**
    * Deletes a specific standard
    */
-  router.delete('/standards/:id', eatAuth, function(req, res) {
+  router.delete('/standards/:id', jwtAuth, function(req, res) {
     Standard.remove({'_id': req.params.id}, function(err, data) {
       if (err) {
         console.log(err);
@@ -107,7 +107,7 @@ module.exports = function(router) {
   /**
    * Creates a goal for a specific standard
    */
-  router.post('/standards/:standardId/goals', eatAuth, function(req, res) {
+  router.post('/standards/:standardId/goals', jwtAuth, function(req, res) {
     var newGoal = req.body;
     Standard.findById(req.params.standardId, function(err, standard) {
       if (err) {
@@ -136,7 +136,7 @@ module.exports = function(router) {
   /**
    * Updates a specific goal on a standard
    */
-  router.put('/standards/:standardId/goals/:goalId', eatAuth, function(req, res) {
+  router.put('/standards/:standardId/goals/:goalId', jwtAuth, function(req, res) {
     var goal = req.body;
     Standard.update({
       '_id': req.params.standardId,
@@ -158,7 +158,7 @@ module.exports = function(router) {
   /*
    * Deletes a specific goal from a standard
    */
-  router.delete('/standards/:standardId/goals/:goalId', eatAuth, function(req, res) {
+  router.delete('/standards/:standardId/goals/:goalId', jwtAuth, function(req, res) {
     Standard.findById(req.params.standardId, function(err, standard) {
       if (err) {
         console.log(err);

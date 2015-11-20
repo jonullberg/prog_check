@@ -202,21 +202,24 @@ module.exports = function(app) {
       });
   }]);
 
-  app.run(['$rootScope', '$location', '$cookies', 'AuthenticationService', 'UserService', function($rootScope, $location, $cookies, AuthService, UserService) {
+  app.run(['$rootScope', '$location', '$cookies', 'AuthenticationService', 'UserService', function($rootScope, $location, $cookies, Auth, UserService) {
     $rootScope.$on('$routeChangeStart', function(event, next, current) {
+      if (next.access && next.access.requiredLogin && !Auth.getUser()) {
+        if ($cookies.get('token')) {
+          UserService.authToken($cookies.get('token'));
+        } else {
+          event.preventDefault();
+          $location.path('/sign-in');
+        }
+      }
       if (next.access &&
-          next.access.requiredLogin &&
-          $cookies.get('token') &&
-          !AuthService.getUser()) {
-        UserService.authToken($cookies.get('token'));
-      }
-      if (next.access && next.access.requiredLogin && !AuthService.isLogged) {
+          next.access.requiredAdmin &&
+          Auth.getUser().role !== 'admin') {
         $location.path('/not-authorized');
       }
-      if (next.access && next.access.requiredAdmin && AuthService.user.role !== 'admin') {
-        $location.path('/not-authorized');
-      }
-      if (next.access && next.access.requiredTeacher && AuthService.user.role !== 'teacher') {
+      if (next.access &&
+          next.access.requiredTeacher &&
+          Auth.user.role !== 'teacher') {
         $location.path('/not-authorized');
       }
     });

@@ -17,11 +17,10 @@ module.exports = function(app) {
       }];
 
       $scope.$watch(function() {
-        return AuthService.isLogged;
+        return AuthService.getUser();
       }, function(newVal, oldVal, scope) {
         if (newVal) {
-          var user = AuthService.user;
-          if (user.role === 'admin') {
+          if (newVal.role === 'admin') {
             scope.tabs = [{
               header: 'Home',
               url: 'admin/home'
@@ -34,28 +33,28 @@ module.exports = function(app) {
               header: 'Teachers',
               url: 'admin/teachers'
             }];
-          } else if (user.role === 'teacher') {
+          } else if (newVal.role === 'teacher') {
             scope.tabs = [{
               header: 'Home',
-              url: 'teacher/' + user._id + '/home'
+              url: 'teacher/' + newVal._id + '/home'
             },
             {
               header: 'Students',
-              url: 'teacher/' + user._id + '/students'
+              url: 'teacher/' + newVal._id + '/students'
             },
             // {
             //   header: 'Tests',
             //   url: 'teacher/tests'
             // }
             ];
-          } else if (user.role === 'student') {
+          } else if (newVal.role === 'student') {
             scope.tabs = [{
               header: 'Home',
-              url: 'student/' + user._id + '/home'
+              url: 'student/' + newVal._id + '/home'
             },
             {
               header: 'Tests',
-              url: 'student/' + user._id + '/tests'
+              url: 'student/' + newVal._id + '/tests'
             },
             // {
             //   header: 'Scores',

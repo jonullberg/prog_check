@@ -5,15 +5,32 @@ var Attempts = require('../models/Attempt');
 var Standards = require('../models/Standard');
 var Tests = require('../models/Test');
 var bodyparser = require('body-parser');
-var eatAuth = require('../lib/eat_auth')(process.env.APP_SECRET);
+var jwtAuth = require('../lib/jwt_auth')(process.env.APP_SECRET);
 
 module.exports = function(router, passport) {
   router.use(bodyparser.json());
 
   /**
+   * Signs in a student with their PIN and username
+   */
+  router.get('/students/sign_in', passport.authenticate('studentBasic', {session:false}), function(req, res) {
+    req.user.generateToken(process.env.APP_SECRET, function(err, token) {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          'msg': 'There was an error generating token'
+        });
+      }
+      res.json({
+        'token': token
+      });
+    });
+  });
+
+  /**
    * Creates a new student
    */
-  router.post('/students', eatAuth, function(req, res) {
+  router.post('/students', jwtAuth, function(req, res) {
     var newStudentData = JSON.parse(JSON.stringify(req.body));
     var newStudent = new Students(newStudentData);
     if (req.body.basic.pin === undefined) {
@@ -38,7 +55,7 @@ module.exports = function(router, passport) {
   /**
    * Gets a specific student from the server based on their ID
    */
-  router.get('/students/:studentId', eatAuth, function(req, res) {
+  router.get('/students/:studentId', jwtAuth, function(req, res) {
     Students.findById(req.params.studentId, function(err, student) {
       if (err) {
         console.log(err);
@@ -53,47 +70,9 @@ module.exports = function(router, passport) {
   });
 
   /**
-   * Signs in a student with their PIN and username
-   */
-  router.get('/sign_in/students', passport.authenticate('studentBasic', {session:false}), function(req, res) {
-    req.user.generateToken(process.env.APP_SECRET, function(err, token) {
-      if (err) {
-        console.log(err);
-        return res.status(500).json({
-          'msg': 'There was an error generating token'
-        });
-      }
-      Student.findById(req.user._id, function(err, student) {
-        if (err) {
-          console.log(err);
-          return res.status(500).json({
-            'msg': 'Internal Server Error'
-          });
-        }
-        var expDate = new Date();
-        expDate.setDate(expDate.getDate() + 7);
-        student.basic.tokenExpiration = expDate;
-        student.save(function(err, data) {
-          if (err) {
-            console.log(err);
-            return res.status(500).json({
-              'msg': 'Internal Server Error'
-            });
-          }
-          data.role = 'student';
-          res.json({
-            'user': data,
-            'token': token
-          });
-        });
-      });
-    });
-  });
-
-  /**
    * Gets all students for a specific teacher from the server
    */
-  router.get('/students', eatAuth, function(req, res) {
+  router.get('/students', jwtAuth, function(req, res) {
     Students.find({'teacherId': req.user._id}, function(err, students) {
       if (err) {
         console.log(err);
@@ -110,7 +89,7 @@ module.exports = function(router, passport) {
   /**
    * Updates a student by their ID
    */
-  router.put('/students/:studentId', eatAuth, function(req, res) {
+  router.put('/students/:studentId', jwtAuth, function(req, res) {
     var updatedStudent = req.body;
     // delete updatedStudent._id;
     Students.update({'_id': req.params.studentId}, updatedStudent, function(err, response) {
@@ -129,7 +108,7 @@ module.exports = function(router, passport) {
   /**
    * Removes a student by their id
    */
-  router.delete('/students/:studentId', eatAuth, function(req, res) {
+  router.delete('/students/:studentId', jwtAuth, function(req, res) {
     Students.remove({'_id': req.params.studentId}, function(err, data) {
       if (err) {
         console.log(err);
@@ -147,7 +126,7 @@ module.exports = function(router, passport) {
   /**
    * Adds the new goal to the student
    */
-  router.post('/students/:studentId/goals/', eatAuth, function(req, res) {
+  router.post('/students/:studentId/goals/', jwtAuth, function(req, res) {
     var goal = req.body;
     goal.active = true;
     goal.goalId = goal._id;
@@ -177,7 +156,7 @@ module.exports = function(router, passport) {
   /**
    * Updates a students goal by id
    */
-  router.put('/students/:studentId/goals/:goalId', eatAuth, function(req, res) {
+  router.put('/students/:studentId/goals/:goalId', jwtAuth, function(req, res) {
     var goal = req.body;
     Students.findById(req.params.studentId, function(err, student) {
       if (err) {
@@ -203,7 +182,7 @@ module.exports = function(router, passport) {
   /**
    * Deletes/Archives a goal for a student
    */
-  router.delete('/students/:studentId/goals/:goalId', eatAuth, function(req, res) {
+  router.delete('/students/:studentId/goals/:goalId', jwtAuth, function(req, res) {
     Students.findById(req.params.studentId, function(err, student) {
       if (err) {
         console.log(err);

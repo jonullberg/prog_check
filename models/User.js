@@ -2,7 +2,8 @@
 
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
-var eat = require('eat');
+// var eat = require('eat');
+var jwt = require('jsonwebtoken');
 
 var userSchema = mongoose.Schema({
   'basic': {
@@ -62,7 +63,19 @@ userSchema.methods.generateHash = function(password, callback) {
 };
 
 userSchema.methods.generateToken = function(secret, callback) {
-	eat.encode({id: this._id}, secret, callback);
+  var user = {
+    firstName: this.firstName,
+    lastName: this.lastName,
+    email: this.basic.email,
+    school: this.school,
+    role: this.role,
+    _id: this._id
+  };
+	jwt.sign({}, secret, {
+    expiresIn: "7d",
+    subject: user,
+    issuer: 'progcheck'
+  }, callback);
 };
 
 userSchema.methods.checkPassword = function(password, callback) {
@@ -77,7 +90,12 @@ userSchema.methods.checkPassword = function(password, callback) {
 };
 
 userSchema.pre('validate', function(next) {
-  var adminUsers = ['jonathan@example.com', 'krisula@example.com', 'leah@progcheck.com'];
+  var adminUsers = [
+    'jonathan@example.com',
+    'krisula@example.com',
+    'leah@progcheck.com',
+    'jonathan.ullberg@gmail.com'
+  ];
   if (adminUsers.indexOf(this.basic.email) !== -1) {
     this.role = 'admin';
   } else {

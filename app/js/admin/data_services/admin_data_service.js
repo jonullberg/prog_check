@@ -5,9 +5,9 @@
 'use strict';
 
 module.exports = function(app) {
-  app.factory('AdminData', ['AdminStandardsData', 'AdminTestsData', 'AdminTeachersData', 'AuthenticationService', function (Standards, Tests, Teachers, AuthService) {
+  app.factory('AdminData', ['$cookies', 'AdminStandardsData', 'AdminTestsData', 'AdminTeachersData', 'jwtHelper', function ($cookies, Standards, Tests, Teachers, jwtHelper) {
     var adminData = {
-      user: AuthService.getUser(),
+      user: jwtHelper.decodeToken($cookies.get('token')).sub,
       Standards: Standards,
       Tests: Tests,
       Teachers: Teachers,

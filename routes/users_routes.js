@@ -3,11 +3,14 @@
 var User = require('../models/User');
 var bodyparser = require('body-parser');
 var nodemailer = require('nodemailer');
-var eatAuth = require('../lib/eat_auth')(process.env.APP_SECRET);
+var jwtAuth = require('../lib/jwt_auth')(process.env.APP_SECRET);
 
 module.exports = function(router, passport) {
 	router.use(bodyparser.json());
 
+	/**
+	 * Creates a new user with a username and password
+	 */
 	router.post('/create_user', function(req, res) {
 		var newUserData = JSON.parse(JSON.stringify(req.body));
 		delete newUserData.email;
@@ -29,9 +32,7 @@ module.exports = function(router, passport) {
 				});
 			}
 			newUser.basic.password = hash;
-			var expDate = new Date();
-			expDate.setDate(expDate.getDate() + 7);
-			newUser.basic.tokenExpiration = expDate;
+			newUser.basic.tokenExpiration = createExpirationDate();
 			newUser.save(function(err, user) {
 				if(err) {
 					console.log(err);
@@ -40,17 +41,8 @@ module.exports = function(router, passport) {
 					});
 				}
 
-				user.generateToken(process.env.APP_SECRET, function(err, token) {
-					if(err) {
-						console.log(err);
-						return res.status(500).json({
-							'msg': 'Internal Server Error'
-						});
-					}
-					user.basic.password = null;
-					user.fullName = user.firstName + ' ' + user.lastName;
+				user.generateToken(process.env.APP_SECRET, function(token) {
 					res.json({
-						'user': user,
 						'token': token
 					}); // end res.json
 				}); // end generate Token
@@ -58,43 +50,21 @@ module.exports = function(router, passport) {
 		}); // end generate hash
 	}); // end POST
 
+	/**
+	 * The end point for the user to send their email and password and sign in
+	 */
 	router.get('/sign_in', passport.authenticate('basic', {session:false}), function(req, res) {
-	  req.user.generateToken(process.env.APP_SECRET, function(err, token) {
-	    if (err) {
-	      console.log(err);
-	      return res.status(500).json({msg: 'Internal Server Error'});
-	    }
-	    User.findById(req.user._id, function(err, user) {
-	    	if (err) {
-	    	  console.log(err);
-	    	  return res.status(500).json({msg: 'Internal Server Error'});
-	    	}
-	    	var expDate = new Date();
-	    	expDate.setDate(expDate.getDate() + 7);
-	    	user.basic.tokenExpiration = expDate;
-	    	user.save(function(err, data) {
-	    		if (err) {
-	    		  console.log(err);
-	    		  return res.status(500).json({msg: 'Internal Server Error'});
-	    		}
-
-	    		var sentUser = {};
-	    		sentUser.role = data.role;
-	    		sentUser.school = data.school;
-	    		sentUser.firstName = data.firstName;
-	    		sentUser.lastName = data.lastName;
-	    		sentUser.email = data.basic.email;
-	    		res.json({
-	    			'user':sentUser,
-	    			'token':token
-	    		});
-
-	    	})
-	    })
+	  req.user.generateToken(process.env.APP_SECRET, function(token) {
+  		res.json({
+  			'token':token
+  		});
 	  });//end generateToken
 	});//end GET
 
-	router.get('/auth_token', eatAuth, function(req, res) {
+	/**
+	 * Takes a token and checks that it originates from the server and resends the user to the client
+	 */
+	router.get('/auth_token', jwtAuth, function(req, res) {
 		var sentUser = {};
 		sentUser.firstName = req.user.firstName;
 		sentUser.lastName = req.user.lastName;
@@ -102,11 +72,13 @@ module.exports = function(router, passport) {
 		sentUser.role = req.user.role;
 		sentUser.school = req.user.school;
 		res.json({
-			'token': token,
-			'user': sentUser
+			'token': req.token
 		});
 	});
 
+	/**
+	 * An endpoint for the user to get a new reset password token emailed to them
+	 */
 	router.post('/forgot', function(req, res) {
 		var transport = nodemailer.createTransport({
 		  service: 'Gmail',
@@ -167,6 +139,9 @@ module.exports = function(router, passport) {
 		res.send('<div><h2>Reset Your Password</h2><p>Please type in a new password</p><form action="/api/reset/' + req.params.idToken + '" method="POST"><label>New Password<input type="password" placeholder="Password" /></label></form></div>');
 	});
 
+	/**
+	 * A user hits this route with their reset token and their email to reset their password. It checks the date to make sure the token has not expired and resets the users email;
+	 */
 	router.post('/reset/:idToken', function(req, res) {
 		User.findOne({'basic.email': req.body.email}, function(err, user) {
 			var currentTime = new Date();
@@ -197,3 +172,13 @@ module.exports = function(router, passport) {
 		});
 	});
 };
+
+/**
+ * Takes the date, adds 7 days onto it and returns the new token expiration date
+ * @return {Date} The new expiration date for the token
+ */
+function createExpirationDate() {
+	var expDate = new Date();
+	expDate.setDate(expDate.getDate() + 7);
+	return expDate;
+}

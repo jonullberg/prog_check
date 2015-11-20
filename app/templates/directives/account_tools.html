@@ -1,10 +1,11 @@
-<aside>
+<aside
+  data-ng-init="init()">
   <div class="btn-group" uib-dropdown>
     <button type="button"
       class="pull-right btn btn-primary uib-dropdown-toggle"
       uib-dropdown-toggle
       data-ng-if="signedIn()">
-      {{displayUsername()}}
+      {{displayUsername}}
       <span class="glyphicon glyphicon-user"></span>
     </button>
     <button type="button"

@@ -2,7 +2,7 @@
 
 var Bug = require('../models/Bug.js');
 var bodyparser = require('body-parser');
-var eatAuth = require('../lib/eat_auth')(process.env.APP_SECRET);
+var jwtAuth = require('../lib/jwt_auth')(process.env.APP_SECRET);
 var adminAuth = require('../lib/admin_auth.js')();
 var nodemailer = require('nodemailer');
 
@@ -55,7 +55,7 @@ module.exports = function(router) {
     });
   });
 
-  router.get('/bugs', eatAuth, adminAuth, function(req, res) {
+  router.get('/bugs', jwtAuth, adminAuth, function(req, res) {
     Bug.find({}, function(err, data) {
       if (err) {
         console.log(err);

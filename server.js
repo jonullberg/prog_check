@@ -1,10 +1,12 @@
 'use strict';
 
+var config = require('./lib/config_variables');
+
 var mongoose = require('mongoose');
 var express = require('express');
 var passport = require('passport');
 var	app = express();
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || config.port;
 var busboy = require('connect-busboy');
 
 var env = process.env.NODE_ENV || 'DEVELOPMENT';
@@ -25,7 +27,7 @@ app.use(express.static(__dirname + '/build'));
 app.use(busboy({immediate:true}));
 
 //  Set the application secret to be checked on token confirmation
-process.env.APP_SECRET = process.env.APP_SECRET || 'changethischangethischangethis!';
+process.env.APP_SECRET = process.env.APP_SECRET || config.secret;
 
 var usersRoutes = express.Router();
 var standardsRoutes = express.Router();
@@ -35,7 +37,7 @@ var bugsRoutes = express.Router();
 var attemptsRoutes = express.Router();
 
 //  The database URI to connect to for saving information
-mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/progcheck_dev');
+mongoose.connect(process.env.MONGOLAB_URI || config.database);
 
 app.use(passport.initialize());
 
