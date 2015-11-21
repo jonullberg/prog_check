@@ -24,14 +24,12 @@ module.exports = function(app) {
 
     function getGoal() {
       $scope.goal = TeacherData.Students.getGoal();
-      console.log($scope.goal);
     }
     function updateGoal(goal) {
       TeacherData.Students.updateGoal($routeParams.studentId, goal);
     }
 
     function createGoal(goal) {
-      console.log($scope.goal);
       TeacherData.Students.createGoal($routeParams.studentId, goal);
     }
   }]);
