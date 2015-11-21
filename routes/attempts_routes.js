@@ -58,11 +58,35 @@ module.exports = function(router) {
           attempts = attempts.filter(function(attempt) {
             return attempt.active;
           });
+          var totalCorrect = 0;
+          var totalPossible = 0;
+          var earliestDate = Date.now();
+          var latestDate = 0;
+          attempts.forEach(function(attempt) {
+            totalCorrect += attempt.correctAnswers;
+            totalPossible += attempt.questions.length;
+            if (attempt.dateTaken < earliestDate) {
+              earliestDate = attempt.dateTaken;
+            }
+            if (attempt.dateTaken > latestDate) {
+              latestDate = attempt.dateTaken;
+            }
+          });
+          var results = {
+            correct: totalCorrect,
+            possible: totalPossible,
+            earliestTest: earliestDate,
+            latestTest: latestDate,
+            testsTaken: attempts.length,
+            mostRecent: attempts[attempts.length - 1],
+            averageScore: this.correct / this.possible
+          };
           res.json({
+            'results': results,
             'attempts': attempts
           });
         });
-      })
+      });
     } else {
       Attempt.find({'studentId': req.params.studentId}, function(err, attempts) {
         if (err) {

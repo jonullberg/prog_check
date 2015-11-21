@@ -151,6 +151,9 @@ require('./directives/convert_to_number')(progCheck);
   require('./teachers/directives/pc_student_attempts_directive')(progCheck);
   require('./teachers/controllers/student_attempts_controller')(progCheck);
 
+  // Student Progress Report
+  require('./teachers/directives/pc-attempt-progress-report')(progCheck);
+  require('./teachers/controllers/progress_report/progress_report_controller')(progCheck);
 
 //  Students
   //  Data
