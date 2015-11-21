@@ -2,7 +2,6 @@
 
 var progressReportController = function(app: Object) {
   app.controller('ProgressReportCtrl', ['$scope', function($scope) {
-
   }]);
 };
 
