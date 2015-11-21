@@ -63,15 +63,16 @@ module.exports = function(app) {
       if(user.passwordConfirmation) {
         // Is the form valid?
         if ($scope.signUpForm.$valid) {
-          UserService.create(user, function(err, data) {
-            console.log(err);
-            console.log(data);
+          UserService.create(user, function(err, user) {
             if (err)  {
               return Errors.addError({
                 'msg': 'Could not sign in'
               });
             }
-            $location.path('/home');
+            var path = user.role === 'admin' ?
+              path = '/admin/' + user._id + '/home' :
+              path = '/teacher/' + user._id + '/home';
+            $location.path(path);
           });
         } else {
           alert('You\'re form is invalid');
