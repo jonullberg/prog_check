@@ -52,6 +52,7 @@ module.exports = function(router) {
             'msg': 'Internal Server Error'
           });
         }
+        console.log(tests);
         res.json({
           'test': tests[0]
         });
