@@ -28,9 +28,10 @@ module.exports = function(app) {
     function init() {
       getStudent();
     }
+
     function showAttempts(goal) {
       goal.isopen = !goal.isopen
-      TeacherData.Attempts.fetchAttemptsByGoal($routeParams.studentId, goal._id);
+      TeacherData.Attempts.fetchAttemptsByGoal($routeParams.studentId, goal.goalId);
     }
     function getAttempts() {
       $scope.attempts = TeacherData.Attempts.getAttempts();

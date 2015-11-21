@@ -1,12 +1,13 @@
 'use strict';
 
 module.exports = function(app) {
-  app.factory('TeacherAttemptsData', ['$rootScope', '$http', 'Errors', function($rootScope, $http, Errors) {
+  app.factory('TeacherAttemptsData', ['$rootScope', '$http', '$log', 'Errors', function($rootScope, $http, $log, Errors) {
 
 
     var attemptData = {
       attempt: null,
       attempts: null,
+      results: null,
       getAttempts: function() {
         return this.attempts;
       },
@@ -21,6 +22,14 @@ module.exports = function(app) {
       setAttempt: function(attempt) {
         this.attempt = attempt;
         $rootScope.$broadcast('attempt:changed', this.attempt);
+        return;
+      },
+      getResults: function() {
+        return this.results;
+      },
+      setResults: function(results) {
+        this.results = results;
+        $rootScope.$broadcast('results:changed', this.results);
         return;
       },
       fetchAttempts: fetchAttempts,
@@ -46,6 +55,7 @@ module.exports = function(app) {
       $http.get('/api/students/' + studentId + '/attempts?goalId=' + goalId)
         .then(function(response) {
           this.setAttempts(response.data.attempts);
+          this.setResults(response.data.results);
           handleCallback(cb, response);
         }.bind(this))
         .catch(function(rejection) {
