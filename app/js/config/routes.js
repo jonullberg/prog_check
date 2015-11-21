@@ -202,15 +202,24 @@ module.exports = function(app) {
       });
   }]);
 
-  app.run(['$rootScope', '$location', 'AuthenticationService', function($rootScope, $location, AuthenticationService) {
+  app.run(['$rootScope', '$location', '$cookies', 'AuthenticationService', 'UserService', function($rootScope, $location, $cookies, Auth, UserService) {
     $rootScope.$on('$routeChangeStart', function(event, next, current) {
-      if (next.access && next.access.requiredLogin && !AuthenticationService.isLogged) {
+      if (next.access && next.access.requiredLogin && !Auth.getUser()) {
+        if ($cookies.get('token')) {
+          UserService.authToken($cookies.get('token'));
+        } else {
+          event.preventDefault();
+          $location.path('/sign-in');
+        }
+      }
+      if (next.access &&
+          next.access.requiredAdmin &&
+          Auth.getUser().role !== 'admin') {
         $location.path('/not-authorized');
       }
-      if (next.access && next.access.requiredAdmin && AuthenticationService.user.role !== 'admin') {
-        $location.path('/not-authorized');
-      }
-      if (next.access && next.access.requiredTeacher && AuthenticationService.user.role !== 'teacher') {
+      if (next.access &&
+          next.access.requiredTeacher &&
+          Auth.user.role !== 'teacher') {
         $location.path('/not-authorized');
       }
     });

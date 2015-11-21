@@ -5,9 +5,10 @@ require('angular-route');
 require('angular-cookies');
 require('angular-base64');
 require('angular-ui-bootstrap');
+require('angular-jwt');
 require('ng-file-upload');
 
-var progCheck = angular.module('progCheck', ['ngRoute', 'ngCookies', 'base64', 'ui.bootstrap', 'ngFileUpload']);
+var progCheck = angular.module('progCheck', ['ngRoute', 'ngCookies', 'angular-jwt', 'base64', 'ui.bootstrap', 'ngFileUpload']);
 
 //  Configuration
 require('./config/routes')(progCheck);

@@ -1,15 +1,16 @@
 'use strict';
 module.exports = function(app) {
-  app.factory('StudentData', ['$rootScope', '$http', 'Errors', 'StudentTestData', function($rootScope, $http, Errors, Tests) {
+  app.factory('StudentData', ['$rootScope', '$http', 'Errors', 'StudentTestData', 'AuthenticationService', function($rootScope, $http, Errors, Tests, Auth) {
     var studentData = {
       Tests: Tests,
-      student: null,
-      getStudent: function() {
-        return this.student;
+      user: Auth.getUser(),
+      getUser: function() {
+        return this.user;
       },
-      setStudent: function(student) {
-        this.student = student;
-        $rootScope.$broadcast('student:changed');
+      setUser: function(user) {
+        this.user = user;
+        $rootScope.$broadcast('user:changed');
+        return;
       },
       fetchStudent: fetchStudent
     };

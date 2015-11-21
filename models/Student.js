@@ -5,7 +5,7 @@
 
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
-var eat = require('eat');
+var jwt = require('jsonwebtoken');
 
 var goalSchema = mongoose.Schema({
   'goalId': {
@@ -109,7 +109,13 @@ studentSchema.methods.generateHash = function(password, callback) {
 };
 
 studentSchema.methods.generateToken = function(secret, callback) {
-  eat.encode({id: this._id}, secret, callback);
+  var user = this;
+  delete user.basic.pin;
+  jwt.sign({}, secret, {
+    expiresIn: '1d',
+    subject: user,
+    issuer: 'progcheck'
+  }, callback);
 };
 
 studentSchema.methods.checkPin = function(pin, callback) {

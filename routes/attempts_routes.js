@@ -6,7 +6,7 @@ var Student = require('../models/Student');
 
 var bodyparser = require('body-parser');
 
-var eatAuth = require('../lib/eat_auth')(process.env.APP_SECRET);
+var jwtAuth = require('../lib/jwt_auth')(process.env.APP_SECRET);
 
 module.exports = function(router) {
   router.use(bodyparser.json());
@@ -14,7 +14,7 @@ module.exports = function(router) {
   /**
    * Adds a new test attempt for that student
    */
-  router.post('/students/:studentId/tests/', eatAuth, function(req, res) {
+  router.post('/students/:studentId/tests/', jwtAuth, function(req, res) {
     var newAttempt = new Attempt(req.body);
     newAttempt.dateTaken = Date.now();
     newAttempt.save(function(err, data) {

@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.factory('UserService', ['$http', '$base64', '$cookies', 'AuthenticationService', function($http, $base64, $cookies, AuthenticationService) {
+  app.factory('UserService', ['$http', '$base64', '$cookies', 'AuthenticationService', 'jwtHelper', function($http, $base64, $cookies, AuthenticationService, jwtHelper) {
     return {
       signIn: function(user, callback) {
         var encoded = $base64.encode(user.email + ':' + user.password);
@@ -13,19 +13,19 @@ module.exports = function(app) {
           })
           .then(function(response) {
             var data = response.data;
+            var tokenPayload = jwtHelper.decodeToken(data.token);
             $cookies.put('token', data.token);
-            $cookies.putObject('user', data.user);
-            AuthenticationService.role = $cookies.getObject('user').role;
-            AuthenticationService.isLogged = true;
+            AuthenticationService.setUser(tokenPayload.sub)
             callback(null, response);
-          }, function(err) {
-            callback(err);
+          })
+          .catch(function(rejection) {
+            callback(rejection);
           });
       },
       studentSignIn: function(student, callback) {
         var encoded = $base64.encode(student.username + ':' + student.pin);
         $http
-          .get('/api/sign_in/students', {
+          .get('/api/students/sign_in', {
             headers: {
               'Authorization': 'Basic ' + encoded
             }
@@ -33,23 +33,23 @@ module.exports = function(app) {
           .then(function(response) {
             var data = response.data
             $cookies.put('token', data.token);
-            $cookies.putObject('user', data.user);
-            AuthenticationService.role = $cookies.getObject('user').role;
-            AuthenticationService.isLogged = true;
+            var tokenPayload = jwtHelper.decodeToken(data.token);
+            AuthenticationService.setUser(tokenPayload.sub);
             callback(null, response);
-          }, function(err) {
-            callback(err);
+          })
+          .catch(function(rejection) {
+            callback(rejection);
           });
       },
       create: function(user, callback) {
         $http
           .post('/api/create_user', user)
           .then(function(response) {
+            var data = response.data;
             $cookies.put('token', response.data.token);
-            $cookies.putObject('user', response.data.user);
-            AuthenticationService.role = $cookies.getObject('user').role;
-            AuthenticationService.isLogged = true;
-            callback(null, response.data.user);
+            var tokenPayload = jwtHelper.decodeToken(data.token);
+            AuthenticationService.setUser(tokenPayload.sub);
+            callback(null, response);
           })
           .catch(function(rejection) {
             callback(rejection);
@@ -57,15 +57,38 @@ module.exports = function(app) {
       },
 
       logout: function() {
-        $cookies.put('token', '');
-        $cookies.putObject('user', {});
-        AuthenticationService.role = null;
-        AuthenticationService.isLogged = false;
+        $cookies.remove('token');
+        AuthenticationService.setUser(null);
       },
-
-      isSignedIn: function() {
-        return AuthenticationService.isLogged;
+      authToken: function(token, cb) {
+        $http
+          .get('/api/auth_token', {
+            'headers': {
+              'Authentication': 'Bearer ' + token
+            }
+          })
+          .then(function(response) {
+            var data = response.data;
+            $cookies.put('token', data.token);
+            var tokenPayload = jwtHelper.decodeToken(data.token);
+            AuthenticationService.setUser(tokenPayload.sub);
+            handleCallback(cb, response);
+          })
+          .catch(function(rejection) {
+            $cookies.remove('token');
+            AuthenticationService.setUser(null);
+            handleCallback(cb, null, rejection);
+          });
       }
     };
   }]);
 };
+function handleCallback(cb, response, rejection) {
+  if (cb && typeof cb === 'function') {
+    if (response) {
+      cb(null, response);
+    } else if (rejection) {
+      cb(rejection);
+    }
+  }
+}

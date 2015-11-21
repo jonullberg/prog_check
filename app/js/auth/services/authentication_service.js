@@ -1,15 +1,24 @@
 'use strict';
 
 module.exports = function(app) {
-  app.factory('AuthenticationService', ['$cookies', function($cookies) {
-    var auth = {
-      isLogged: false,
-      user: null
-    };
-    if ($cookies.get('token') && $cookies.get('token').length) {
-      auth.isLogged = true;
+  app.factory('AuthenticationService', ['$cookies', '$rootScope', 'jwtHelper', function($cookies, $rootScope, jwtHelper) {
+    var user;
+    if ($cookies.get('token') && jwtHelper.decodeToken($cookies.get('token'))) {
+      user = jwtHelper.decodeToken($cookies.get('token')).sub;
+    } else {
+      user = null;
     }
-    auth.user = $cookies.getObject('user');
+    var auth = {
+      user: user,
+      getUser: function() {
+        return this.user;
+      },
+      setUser: function(user) {
+        this.user = user;
+        $rootScope.$broadcast('user:changed', this.user);
+        return;
+      }
+    };
     return auth;
   }]);
 };
