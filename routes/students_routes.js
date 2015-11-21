@@ -14,13 +14,7 @@ module.exports = function(router, passport) {
    * Signs in a student with their PIN and username
    */
   router.get('/students/sign_in', passport.authenticate('studentBasic', {session:false}), function(req, res) {
-    req.user.generateToken(process.env.APP_SECRET, function(err, token) {
-      if (err) {
-        console.log(err);
-        return res.status(500).json({
-          'msg': 'There was an error generating token'
-        });
-      }
+    req.user.generateToken(process.env.APP_SECRET, function(token) {
       res.json({
         'token': token
       });

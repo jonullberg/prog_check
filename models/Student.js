@@ -111,7 +111,7 @@ studentSchema.methods.generateHash = function(password, callback) {
 studentSchema.methods.generateToken = function(secret, callback) {
   var user = this;
   delete user.basic.pin;
-  jwt.verify({}, secret, {
+  jwt.sign({}, secret, {
     expiresIn: '1d',
     subject: user,
     issuer: 'progcheck'

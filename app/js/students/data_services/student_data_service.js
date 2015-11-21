@@ -1,9 +1,9 @@
 'use strict';
 module.exports = function(app) {
-  app.factory('StudentData', ['$rootScope', '$http', 'Errors', 'StudentTestData', 'AuthenticationService', function($rootScope, $http, Errors, Tests, AuthService) {
+  app.factory('StudentData', ['$rootScope', '$http', 'Errors', 'StudentTestData', 'AuthenticationService', function($rootScope, $http, Errors, Tests, Auth) {
     var studentData = {
       Tests: Tests,
-      user: AuthenticationService.getUser(),
+      user: Auth.getUser(),
       getUser: function() {
         return this.user;
       },

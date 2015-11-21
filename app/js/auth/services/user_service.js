@@ -25,7 +25,7 @@ module.exports = function(app) {
       studentSignIn: function(student, callback) {
         var encoded = $base64.encode(student.username + ':' + student.pin);
         $http
-          .get('/api/sign_in/students', {
+          .get('/api/students/sign_in', {
             headers: {
               'Authorization': 'Basic ' + encoded
             }
@@ -36,8 +36,9 @@ module.exports = function(app) {
             var tokenPayload = jwtHelper.decodeToken(data.token);
             AuthenticationService.setUser(tokenPayload.sub);
             callback(null, response);
-          }, function(err) {
-            callback(err);
+          })
+          .catch(function(rejection) {
+            callback(rejection);
           });
       },
       create: function(user, callback) {
