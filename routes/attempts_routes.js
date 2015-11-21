@@ -15,6 +15,7 @@ module.exports = function(router) {
    * Adds a new test attempt for that student
    */
   router.post('/students/:studentId/tests/', eatAuth, function(req, res) {
+    var newAttempt = new Attempt(req.body);
     newAttempt.dateTaken = Date.now();
     newAttempt.save(function(err, data) {
       if (err) {
