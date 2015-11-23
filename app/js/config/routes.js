@@ -120,7 +120,8 @@ module.exports = function(app) {
         }
       })
       .when('/admin/teachers', {
-        templateUrl: 'templates/directives/teachers.html',
+        templateUrl: 'templates/admin/teachers_list.html',
+        controller: 'AdminTeachersListCtrl',
         access: {
           requiredLogin: true,
           requiredAdmin: true

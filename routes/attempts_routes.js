@@ -35,7 +35,7 @@ module.exports = function(router) {
    * Gets all tests for the student at that id
    */
 
-  router.get('/students/:studentId/attempts/', eatAuth, function(req, res) {
+  router.get('/students/:studentId/attempts/', jwtAuth, function(req, res) {
     if (req.query.goalId) {
       Tests.find({'goalId': req.query.goalId}, function(err, tests) {
         if (tests && tests.length) {
@@ -105,7 +105,7 @@ module.exports = function(router) {
       });
     }
   });
-  router.delete('/students/:studentId/attempts/:attemptId', eatAuth, function(req, res) {
+  router.delete('/students/:studentId/attempts/:attemptId', jwtAuth, function(req, res) {
     Attempt.findById(req.params.attemptId, function(err, attempt) {
       if (err) {
         console.log(err);
