@@ -123,7 +123,11 @@ require('./directives/convert_to_number')(progCheck);
     require('./admin/controllers/question_form_controller')(progCheck);
     require('./admin/controllers/image_question_form_controller')(progCheck);
 
-    // Miscellaneous
+  // Teachers
+    // Teachers List
+    require('./admin/controllers/admin_teachers_list_controller/admin_teachers_list_controller')(progCheck);
+
+  // Miscellaneous
     // TODO: Refactor these controllers
     require('./admin/controllers/test_controller')(progCheck);
     require('./admin/controllers/add_test_form_controller')(progCheck);

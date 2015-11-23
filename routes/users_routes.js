@@ -171,7 +171,41 @@ module.exports = function(router, passport) {
 			}
 		});
 	});
+
+	/**
+	 * Gets all users in the DB
+	 */
+	router.get('/users', jwtAuth, function(req, res) {
+		User.find({}, function(err, users) {
+			if (err) {
+				console.log(err);
+				return res.status(500).json({
+					'msg': 'Internal Server Error'
+				});
+			}
+			res.json({
+				'users': users
+			});
+		});
+	});
+
+	router.put('/users/:userId', jwtAuth, function(req, res) {
+		var newUser = req.body;
+		User.update({'_id': req.params.userId}, newUser, function(err, user) {
+			if (err) {
+				console.log(err);
+				return res.status(500).json({
+					'msg': 'Internal Server Error'
+				});
+			}
+			res.json({
+				'teacher': newUser
+			});
+		});
+	});
+
 };
+
 
 /**
  * Takes the date, adds 7 days onto it and returns the new token expiration date

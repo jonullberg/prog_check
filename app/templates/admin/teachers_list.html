@@ -1,0 +1,33 @@
+<section
+  data-ng-init="init()">
+  <h3>Your Teachers</h3>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>School</th>
+        <th>State</th>
+        <th>District</th>
+        <th>Role</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-ng-repeat="teacher in teachers">
+        <th>{{teacher.firstName + ' ' + teacher.lastName}}</th>
+        <th>{{teacher.school.schoolName}}</th>
+        <th>{{teacher.school.schoolState}}</th>
+        <th>{{teacher.school.schoolDistrict}}</th>
+        <th>
+          <select
+            name="role"
+            id="role"
+            data-ng-change="updateTeacher(teacher)"
+            data-ng-model="teacher.role">
+            <option value="admin">Admin</option>
+            <option value="teacher">Teacher</option>
+          </select>
+        </th>
+      </tr>
+    </tbody>
+  </table>
+</section>
