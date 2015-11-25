@@ -42,8 +42,7 @@ module.exports = function (app) {
             function fetchTests(standardId, cb) {
                 $http.get('/api/tests?standardId=' + standardId)
                     .then(function (response) {
-                    this.tests = response.data.tests;
-                    $rootScope.$broadcast('tests:changed', this.tests);
+                    this.setTests(response.data.tests);
                     handleCallback(cb, response, null);
                 }.bind(this))
                     .catch(function (rejection) {

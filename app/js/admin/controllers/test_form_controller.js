@@ -12,9 +12,7 @@ module.exports = function(app) {
       $uibModalInstance.dismiss();
     };
     $scope.save = function(test) {
-      if (!test.standardId && Standards.standard) {
-        test.standardId = Standards.standard._id;
-      }
+      test.standardId = $routeParams.standardId;
       if ($scope.params.formType === 'editing') {
         updateTest(test);
       } else if ($scope.params.formType === 'creating') {
