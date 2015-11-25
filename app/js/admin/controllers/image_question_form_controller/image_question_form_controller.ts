@@ -14,28 +14,28 @@ export = function(app) {
 
     $scope.$watch('questionImage', function(file) {
       $scope.upload(file, function(filePath) {
-        $scope.question.question = (process.env.AWS_GET_URL || config.AWS_GET_URL) + filePath;
+        $scope.question.question = process.env.AWS_GET_URL + filePath;
       });
     });
     $scope.$watch('correctImage', function(file) {
       $scope.upload(file, function(filePath) {
-        $scope.question.correct = (process.env.AWS_GET_URL || config.AWS_GET_URL) + filePath;
-        $scope.question.answers[0] = (process.env.AWS_GET_URL || config.AWS_GET_URL) + filePath;
+        $scope.question.correct = process.env.AWS_GET_URL + filePath;
+        $scope.question.answers[0] = process.env.AWS_GET_URL + filePath;
       });
     });
     $scope.$watch('answersImage1', function(file) {
       $scope.upload(file, function(filePath) {
-        $scope.question.answers[1] = (process.env.AWS_GET_URL || config.AWS_GET_URL) + filePath;
+        $scope.question.answers[1] = process.env.AWS_GET_URL + filePath;
       });
     });
     $scope.$watch('answersImage2', function(file) {
       $scope.upload(file, function(filePath) {
-        $scope.question.answers[2] = (process.env.AWS_GET_URL || config.AWS_GET_URL) + filePath;
+        $scope.question.answers[2] = process.env.AWS_GET_URL + filePath;
       });
     });
     $scope.$watch('answersImage3', function(file) {
       $scope.upload(file, function(filePath) {
-        $scope.question.answers[3] = (process.env.AWS_GET_URL || config.AWS_GET_URL) + filePath;
+        $scope.question.answers[3] = process.env.AWS_GET_URL + filePath;
       });
     });
     $scope.upload = function(file, cb) {
@@ -44,15 +44,15 @@ export = function(app) {
       if (file && file.name) {
         var filename = Math.round(Math.random()*10000) + file.name;
         Upload.upload({
-          url: process.env.AWS_URL || config.AWS_URL,
+          url: process.env.AWS_URL,
           method: 'POST',
           data: {
             'key' : filename,
             'acl' : 'public-read',
             'Content-Type' : file.type,
-            'AWSAccessKeyId' : process.env.AWS_ACCESS_KEY || config.AWS_ACCESS_KEY,
-            'Policy' : process.env.AWS_POLICY || config.AWS_POLICY,
-            'Signature' : process.env.AWS_SIGNATURE || config.AWS_SIGNATURE,
+            'AWSAccessKeyId' : process.env.AWS_ACCESS_KEY,
+            'Policy' : process.env.AWS_POLICY,
+            'Signature' : process.env.AWS_SIGNATURE,
             'filename': filename
           },
           'file': file
@@ -60,7 +60,7 @@ export = function(app) {
         .then(function(response) {
           cb(filename);
         });
-        // $http.defaults.headers.common.Authorization;
+        $http.defaults.headers.common.Authorization;
       }
     };
 
