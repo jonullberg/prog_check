@@ -1,5 +1,4 @@
 'use strict';
-var config = require('./config/config') || {};
 module.exports = function (app) {
     app.controller('ImageQuestionFormCtrl', ['$scope', '$uibModalInstance', '$sce', '$http', 'Errors', 'AdminData', 'Upload', function ($scope, $uibModalInstance, $sce, $http, Errors, AdminData, Upload) {
             $scope.init = init;

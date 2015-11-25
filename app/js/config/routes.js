@@ -126,7 +126,6 @@ module.exports = function(app) {
           requiredLogin: true,
           requiredAdmin: true
         }
-        // No controller as of now
       })
       .when('/teacher/:teacherId/home', {
         templateUrl: 'templates/views/teacher/home.html',

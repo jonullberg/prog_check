@@ -50,21 +50,14 @@ module.exports = function (router) {
                     var totalPossible = 0;
                     var earliestDate = Date.now();
                     var latestDate = 0;
-                    var recent;
                     attempts.forEach(function (attempt) {
-                        if (attempt.questions.length === 5) {
-                            totalCorrect += (attempt.correctAnswers * 2);
-                            totalPossible += (attempt.questions.length * 2);
-                        } else {
-                            totalCorrect += attempt.correctAnswers;
-                            totalPossible += attempt.questions.length;
-                        }
+                        totalCorrect += attempt.correctAnswers;
+                        totalPossible += attempt.questions.length;
                         if (attempt.dateTaken < earliestDate) {
                             earliestDate = attempt.dateTaken;
                         }
                         if (attempt.dateTaken > latestDate) {
                             latestDate = attempt.dateTaken;
-                            recent = attempt;
                         }
                     });
                     var results = {
@@ -73,10 +66,8 @@ module.exports = function (router) {
                         earliestTest: earliestDate,
                         latestTest: latestDate,
                         testsTaken: attempts.length,
-                        averageCorrect: totalCorrect / attempts.length,
                         mostRecent: attempts[attempts.length - 1],
-                        averageScore: this.correct / this.possible,
-                        recent: recent
+                        averageScore: this.correct / this.possible
                     };
                     res.json({
                         'results': results,

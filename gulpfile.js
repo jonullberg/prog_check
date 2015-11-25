@@ -125,7 +125,7 @@ gulp.task('uglify:build', ['webpack:build'], function() {
     .pipe(uglify())
     .pipe(gulp.dest('build/'));
 });
-gulp.task('build', ['uglify:build']);
+gulp.task('build', ['webpack:build']);
 
 // DIST
 gulp.task('clean:dist', function (cb) {
