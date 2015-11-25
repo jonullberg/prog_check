@@ -8,5 +8,6 @@
     "beforeEach": true,
     "afterEach": true,
     "angular": true
-  }
+  },
+  "validthis": true
 }

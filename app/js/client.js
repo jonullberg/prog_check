@@ -14,7 +14,6 @@ var progCheck = angular.module('progCheck', ['ngRoute', 'ngCookies', 'angular-jw
 require('./config/routes')(progCheck);
 
 //  services
-require('./services/rest_resource')(progCheck);
 require('./services/copy')(progCheck);
 require('./services/pc_grades_service')(progCheck);
 require('./services/lodash')(progCheck);
@@ -25,11 +24,7 @@ require('./services/to_trusted')(progCheck);
 
 //    Auth Services
 
-
-
 require('./services/errors_service')(progCheck); // Service for holding errors of application
-require('./services/test_data')(progCheck); // Stores all test data for app
-require('./services/standards_data')(progCheck); // Stores all standard data for app
 
 //  controllers
 require('./controllers/errors_controller')(progCheck);
@@ -51,11 +46,6 @@ require('./admin/controllers/standards_controller')(progCheck);
 //    Student Controllers
 require('./students/controllers/student_home_controller')(progCheck);
 require('./students/controllers/student_tests_controller')(progCheck);
-
-//    Teacher Controllers
-
-//    Test Controllers
-
 
 //  directives
 require('./directives/header_directive')(progCheck);
@@ -121,7 +111,7 @@ require('./directives/convert_to_number')(progCheck);
     //  Question Form
     require('./admin/directives/pc_question_form')(progCheck);
     require('./admin/controllers/question_form_controller')(progCheck);
-    require('./admin/controllers/image_question_form_controller')(progCheck);
+    require('./admin/controllers/image_question_form_controller/image_question_form_controller')(progCheck);
 
   // Teachers
     // Teachers List
@@ -129,9 +119,9 @@ require('./directives/convert_to_number')(progCheck);
 
   // Miscellaneous
     // TODO: Refactor these controllers
-    require('./admin/controllers/test_controller')(progCheck);
-    require('./admin/controllers/add_test_form_controller')(progCheck);
-    require('./admin/controllers/edit_test_form_controller')(progCheck);
+    // require('./admin/controllers/test_controller')(progCheck);
+    // require('./admin/controllers/add_test_form_controller')(progCheck);
+    // require('./admin/controllers/edit_test_form_controller')(progCheck);
 
 //  Teacher
   //  Data Services

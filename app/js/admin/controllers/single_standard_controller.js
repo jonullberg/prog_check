@@ -111,7 +111,7 @@ module.exports = function(app) {
       });
     }
     function deleteGoal(goal) {
-      AdminData.Standards.deleteGoal($scope.standard._id, goal._id);
+      AdminData.Standards.deleteGoal($scope.standard, goal);
     }
   }]);
 };

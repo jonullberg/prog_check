@@ -4,7 +4,25 @@
  */
 'use strict';
 
-export = function(app) {
+interface Standard {
+  _id: string;
+  name: string;
+  gradeName: string;
+  shortGrade: string;
+  code: string;
+  language: string;
+  domain: Array<string>;
+  goals: Array<Goal>
+}
+
+interface Goal {
+  _id: string;
+  name: string;
+  description: string;
+  exampleQuestion: string;
+}
+
+export = function(app): void {
   app.factory('AdminStandardsData', ['$http', '$rootScope', 'Errors', function ($http, $rootScope, Errors) {
 
     var adminStandardsData = {
@@ -14,7 +32,7 @@ export = function(app) {
       getStandards: function() {
         return this.standards;
       },
-      setStandards: function(standards) {
+      setStandards: function(standards: Standard) {
         if (Array.isArray(standards)) {
           this.standards = standards;
         }
@@ -24,7 +42,7 @@ export = function(app) {
       getStandard: function() {
         return this.standard;
       },
-      setStandard: function(standard) {
+      setStandard: function(standard: Standard) {
         this.standard = standard;
         $rootScope.$broadcast('standard:changed', standard);
         return;
@@ -32,7 +50,7 @@ export = function(app) {
       getGoal: function() {
         return this.goal;
       },
-      setGoal: function(goal) {
+      setGoal: function(goal: Goal) {
         this.goal = goal;
         return;
       },
@@ -47,7 +65,7 @@ export = function(app) {
     };
     return adminStandardsData;
 
-    function fetchStandards(cb) {
+    function fetchStandards(cb: Function) {
       $http.get('/api/standards')
         .then(function(response) {
           var standards = response.data.standards;
@@ -62,7 +80,7 @@ export = function(app) {
         });
     }
 
-    function fetchStandard(standardId, cb) {
+    function fetchStandard(standardId: string, cb: Function): void {
       $http.get('/api/standards/' + standardId)
         .then(function(response) {
           var data = response.data;
@@ -80,7 +98,7 @@ export = function(app) {
         });
     }
 
-    function createStandard(standard, cb) {
+    function createStandard(standard: Standard, cb: Function): void {
       $http.post('/api/standards', standard)
         .then(function(response) {
           var standard = response.data.standard;
@@ -99,7 +117,7 @@ export = function(app) {
         });
     }
 
-    function updateStandard(standard, cb) {
+    function updateStandard(standard: Standard, cb:Function) {
       $http.put('/api/standards/' + standard._id, standard)
         .then(function(response) {
           this.standards.splice(this.standards.indexOf(standard), standard);
@@ -135,7 +153,7 @@ export = function(app) {
         });
     }
 
-    function createGoal(standardId, goal, cb) {
+    function createGoal(standardId: string, goal: Goal, cb: Function): void {
       $http.post('/api/standards/' + standardId + '/goals', goal)
         .then(function(response) {
           var data = response.data;
@@ -149,7 +167,7 @@ export = function(app) {
           });
         });
     }
-    function updateGoal(standardId, goal, cb) {
+    function updateGoal(standardId: string, goal: Goal, cb: Function) {
       $http.put('/api/standards/' + standardId + '/goals/' + goal._id, goal)
         .then(function(response) {
           this.standard.goals.splice(this.standard.goals.indexOf(goal), 1, goal);
@@ -163,8 +181,8 @@ export = function(app) {
           });
         });
     }
-    function deleteGoal(standardId, goalId, cb) {
-      $http.delete('/api/standards/' + standardId + '/goals/' + goalId)
+    function deleteGoal(standard: Standard, goal: Goal, cb: Function) {
+      $http.delete('/api/standards/' + standard._id + '/goals/' + goal._id)
         .then(function(response) {
           this.setStandard(response.data.standard);
           handleCallback(cb, response, null);
@@ -176,7 +194,7 @@ export = function(app) {
           })
         })
     }
-    function handleCallback(cb, response, rejection) {
+    function handleCallback(cb: Function, response, rejection) {
       if (cb && typeof cb === 'function') {
         if (response) {
           return cb(null, response.data);

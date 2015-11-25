@@ -151,8 +151,8 @@ module.exports = function (app) {
                     });
                 });
             }
-            function deleteGoal(standardId, goalId, cb) {
-                $http.delete('/api/standards/' + standardId + '/goals/' + goalId)
+            function deleteGoal(standard, goal, cb) {
+                $http.delete('/api/standards/' + standard._id + '/goals/' + goal._id)
                     .then(function (response) {
                     this.setStandard(response.data.standard);
                     handleCallback(cb, response, null);

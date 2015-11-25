@@ -1,3 +1,8 @@
+/**
+ * The Tests for the all user routes pertaining to the Prog-Check API
+ * Created by Jonathan Ullberg on 11/23/2015
+ * Created with Mocha
+ */
 'use strict';
 
 process.env.MONGOLAB_URI = 'mongodb://localhost/prog_check_test';
@@ -7,7 +12,8 @@ var mongoose = require('mongoose');
 var chai = require('chai');
 var chaihttp = require('chai-http');
 var expect = chai.expect;
-var app = 'localhost:3000';
+var port = process.env.PORT || 3002;
+var app = 'localhost:' + port;
 chai.use(chaihttp);
 
 describe('The login API', function() {
@@ -23,14 +29,14 @@ describe('The login API', function() {
     }
   };
 
-  afterEach(function(done) {
+  after(function(done) {
     mongoose.connection.db.dropDatabase(function() {
       done();
     });
   });
 
-  describe('Creating a user', function() {
-    it('Should create a user and return a token', function(done) {
+  describe('The /create_user route', function() {
+    it('Should create a user', function(done) {
       chai.request(app)
         .post('/api/create_user')
         .send(successfulTestUser)
