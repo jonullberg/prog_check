@@ -27,12 +27,12 @@ module.exports = function(app) {
       });
     };
     function init() {
-      if (!TeacherData.Students.getStudents()) {
-        TeacherData.Students.fetchStudents($routeParams.teacherId);
-      }
       getStudents();
     }
     function getStudents() {
+      if (!TeacherData.Students.getStudents()) {
+        TeacherData.Students.fetchStudents($routeParams.teacherId);
+      }
       $scope.students = TeacherData.Students.getStudents();
     }
   }]);
