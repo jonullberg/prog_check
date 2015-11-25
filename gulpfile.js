@@ -99,7 +99,7 @@ gulp.task('clean:build', function (cb) {
 });
 
 gulp.task('copy:build', ['clean:build'], function() {
-  var srcFiles = ['app/**/*.html', 'app/**/*.css', 'app/**/*.png'];
+  var srcFiles = ['app/**/*.html', 'app/**/*.css', 'app/**/*.png', 'app/browserconfig.xml', 'app/safari-pinned-tab.svg', 'app/manifest.json', 'app/favicon.ico'];
   return gulp.src(srcFiles)
     .pipe(gulp.dest('build/'));
 });
