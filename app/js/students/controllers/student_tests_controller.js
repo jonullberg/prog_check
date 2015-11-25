@@ -10,7 +10,7 @@ module.exports = function(app) {
     }
 
     function getTest(goal) {
-      StudentData.Tests.fetchTest(goal._id, StudentData.getStudent(), function(err, data) {
+      StudentData.Tests.fetchTest(goal.goalId, StudentData.getStudent(), function(err, data) {
         $location.path('/student/' + $routeParams.studentId + '/tests/' + data.test._id);
       });
     }

@@ -22,7 +22,8 @@ var attemptSchema = mongoose.Schema({
     type: String
   },
   'active': {
-    type: Boolean
+    type: Boolean,
+    default: true
   }
 });
 

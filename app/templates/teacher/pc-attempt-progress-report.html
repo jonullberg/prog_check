@@ -1,0 +1,7 @@
+<div
+  data-ng-init="init()">
+  <h4>Progress Report for {{student.firstName + ' ' + student.lastName}}</h4>
+  <p>For the goal of: {{goal.description}}, they have scored {{results.correct}} out of {{results.possible}} in {{results.testsTaken}} attempts for an average score of {{(results.correct / results.possible * 100).toFixed(1) + '%'}}.</p>
+  <p>These tests have been taken from {{results.earliestTest | date: 'MMM d, yyyy'}} to {{results.latestTest | date: 'MMM d, yyyy'}}.
+  </p>
+</div>

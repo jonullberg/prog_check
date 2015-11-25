@@ -1,12 +1,13 @@
 'use strict';
 
 module.exports = function(app) {
-  app.factory('TeacherAttemptsData', ['$rootScope', '$http', 'Errors', function($rootScope, $http, Errors) {
+  app.factory('TeacherAttemptsData', ['$rootScope', '$http', '$log', 'Errors', function($rootScope, $http, $log, Errors) {
 
 
     var attemptData = {
       attempt: null,
       attempts: null,
+      results: null,
       getAttempts: function() {
         return this.attempts;
       },
@@ -23,6 +24,14 @@ module.exports = function(app) {
         $rootScope.$broadcast('attempt:changed', this.attempt);
         return;
       },
+      getResults: function() {
+        return this.results;
+      },
+      setResults: function(results) {
+        this.results = results;
+        $rootScope.$broadcast('results:changed', this.results);
+        return;
+      },
       fetchAttempts: fetchAttempts,
       fetchAttemptsByGoal: fetchAttemptsByGoal,
       fetchAttempt: fetchAttempt,
@@ -32,8 +41,7 @@ module.exports = function(app) {
     function fetchAttempts(studentId, cb) {
       $http.get('/api/students/' + studentId + '/attempts/')
         .then(function(response) {
-          this.attempts = response.data.attempts;
-          $rootScope.$broadcast('attempts:changed');
+          this.setAttempts(response.data.attempts);
           handleCallback(cb, response);
         }.bind(this))
         .catch(function(rejection) {
@@ -46,8 +54,8 @@ module.exports = function(app) {
     function fetchAttemptsByGoal(studentId, goalId, cb) {
       $http.get('/api/students/' + studentId + '/attempts?goalId=' + goalId)
         .then(function(response) {
-          this.attempts = response.data.attempts;
-          $rootScope.$broadcast('attempts:changed', this.attempts);
+          this.setAttempts(response.data.attempts);
+          this.setResults(response.data.results);
           handleCallback(cb, response);
         }.bind(this))
         .catch(function(rejection) {
@@ -58,7 +66,20 @@ module.exports = function(app) {
         });
     }
     function fetchAttempt() {}
-    function archiveAttempt() {}
+    function archiveAttempt(studentId, attemptId, cb) {
+      $http.delete('/api/students/' + studentId + '/attempts/' + attemptId)
+        .then(function(response) {
+          this.setAttempts(response.data.attempts);
+          handleCallback(cb, response);
+        }.bind(this))
+        .catch(function(rejection) {
+          handleCallback(cb, null, rejection);
+          return Errors.addError({
+            'msg': 'There was an error archving that attempt. Please log-out, log back in and try again. If the problem persists, please send a bug report and we will fix it as soon as possible.'
+          });
+
+        });
+    }
     function handleCallback(cb, response, rejection) {
       if (cb && typeof cb === 'function') {
         if (response) {

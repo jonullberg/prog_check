@@ -44,14 +44,15 @@ module.exports = function(app) {
       create: function(user, callback) {
         $http
           .post('/api/create_user', user)
-          .then(function(data) {
-            $cookies.put('token', data.token);
-            $cookies.putObject('user', data.user);
+          .then(function(response) {
+            $cookies.put('token', response.data.token);
+            $cookies.putObject('user', response.data.user);
             AuthenticationService.role = $cookies.getObject('user').role;
             AuthenticationService.isLogged = true;
-            callback(null);
-          }, function(err) {
-            callback(err);
+            callback(null, response.data.user);
+          })
+          .catch(function(rejection) {
+            callback(rejection);
           });
       },
 

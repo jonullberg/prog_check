@@ -17,7 +17,7 @@ describe('The question controller', function() {
   }));
 
   it('Should be able to create a new controller', function() {
-    var testCtrl = $ControllerConstructor('testCtrl', {$scope: $scope});
+    var testCtrl = $ControllerConstructor('TestCtrl', {$scope: $scope});
     expect(typeof testCtrl).toBe('object');
   });
 

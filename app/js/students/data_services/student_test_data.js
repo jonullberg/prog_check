@@ -47,7 +47,10 @@ module.exports = function(app) {
     function fetchTest(goalId, student, cb) {
       $http.get('/api/tests?goalId=' + goalId)
         .then(function(response) {
-          var test = setUpTest(response.data.test, student, goalId);
+          var studentGoalId = student.goals.filter(function(goal) {
+            return goal.goalId === goalId;
+          })[0]._id;
+          var test = setUpTest(response.data.test, student, studentGoalId);
           this.setTest(test);
           handleCallback(cb, response);
         }.bind(this))

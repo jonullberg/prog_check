@@ -20,6 +20,7 @@
   </div>
   <uib-accordion close-others="true">
     <uib-accordion-group class="list-group-item"
+      is-open="goal.isopen"
       data-ng-repeat="goal in student.goals"
       data-ng-click="showAttempts(goal)"
       data-panel-class="panel-primary"
@@ -34,10 +35,13 @@
         data-ng-click="toggleAlert(goal)">
         Delete Goal
       </button>
+       <pc-attempt-progress-report>
+       </pc-attempt-progress-report>
       </div>
       <div class="col-lg-6">
         <pc-student-attempts
-          data-ng-if="attempts">
+          data-attempts="attempts"
+          data-ng-if="attempts && attempts.length">
         </pc-student-attempts>
       </div>
       <div class="clearfix"></div>

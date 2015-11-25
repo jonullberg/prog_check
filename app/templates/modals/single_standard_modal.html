@@ -21,7 +21,7 @@
     <ul>
       <li
         data-ng-repeat="goal in standard.goals"
-        data-ng-click="showDescription(goal)">Name
+        data-ng-click="showDescription(goal)">
           Name - {{goal.name || goal.description}}
         <p data-ng-if="goal.descriptionShowing && goal.name">
           Description - {{goal.description}}

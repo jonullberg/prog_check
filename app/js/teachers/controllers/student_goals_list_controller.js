@@ -22,13 +22,16 @@ module.exports = function(app) {
       });
       goal.buttonsShowing = !showing;
     };
+
     $scope.editStudentGoal = editStudentGoal;
 
     function init() {
       getStudent();
     }
+
     function showAttempts(goal) {
-      TeacherData.Attempts.fetchAttemptsByGoal($routeParams.studentId, goal._id);
+      goal.isopen = !goal.isopen
+      TeacherData.Attempts.fetchAttemptsByGoal($routeParams.studentId, goal.goalId);
     }
     function getAttempts() {
       $scope.attempts = TeacherData.Attempts.getAttempts();

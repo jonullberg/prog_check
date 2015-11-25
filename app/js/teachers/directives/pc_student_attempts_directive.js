@@ -14,7 +14,7 @@ module.exports = function(app) {
       scope: {
         attempts: '='
       },
-      link: function (scope, iElement, iAttrs) {
+      link: function(scope, iElement, iAttrs) {
 
       }
     };

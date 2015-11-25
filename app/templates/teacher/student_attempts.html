@@ -1,16 +1,33 @@
 <div
-  data-ng-init="init()"
-  class="col-lg-6">
+  data-ng-init="init()">
   <h4>Recent Tests</h4>
   <p data-ng-if="!attempts.length">{{student.firstName}} has not taken any tests yet.</p>
-  <ul data-ng-if="attempts.length">
-    <li data-ng-repeat="attempt in attempts"
+  <uib-accordion close-others="true"
+    data-ng-if="attempts.length">
+    <uib-accordion-group
+      data-heading="{{attempt.correctAnswers}}/{{attempt.questions.length}} - {{attempt.dateTaken | date}}"
+      data-panel-class="panel-info"
+      data-ng-repeat="attempt in attempts | orderBy: '-dateTaken'"
       data-ng-click="showAttempt(attempt)">
-      {{attempt.correctAnswers}}/{{attempt.questions.length}} - {{attempt.dateTaken | date}}
-      {{attempt.directions}}
+      <div class="alert alert-danger"
+        data-ng-if="isArchiveAttemptAlertShown">
+        <p class="col-lg-8">Are you sure? This will archive this test attempt so the results won't show up in their final scores.</p>
+        <div class="btn-group col-lg-4">
+          <button type="button"
+            class="btn btn-danger"
+            data-ng-click="archiveAttempt(attempt)">Yes
+          </button>
+          <button type="button"
+            class="btn btn-primary"
+            data-ng-click="toggleArchiveAttemptAlert(null)">
+            No
+          </button>
+        </div>
+        <div class="clearfix"></div>
+      </div>
       <ul data-ng-if="attempt.questionsShowing">
         <li data-ng-repeat="question in attempt.questions"
-          data-ng-click="showAnswers(question)">
+          data-ng-click="showAnswers(attempt, question)">
           <span data-ng-bind-html="question.question | to_trusted">{{question.question}}</span>
           <span data-ng-class="question.icon"></span>
           <ul data-ng-if="question.answersShowing">
@@ -35,6 +52,16 @@
           </ul>
         </li>
       </ul>
-    </li>
-  </ul>
+      <button
+        type="button"
+        class="btn btn-danger"
+        data-ng-click="toggleArchiveAttemptAlert(attempt)">Archive Attempt</button>
+    </uib-accordion-group>
+    <uib-pagination
+      data-total-items="totalAttempts.length"
+      data-items-per-page="quantity"
+      data-ng-model="currentPage"
+      data-ng-change="setPage(currentPage)">
+    </uib-pagination>
+  </uib-accordion>
 </div>
