@@ -13,7 +13,13 @@ module.exports = function(app) {
           })
           .then(function(response) {
             var data = response.data;
-            var tokenPayload = jwtHelper.decodeToken(data.token);
+            var tokenPayload;
+            try {
+              tokenPayload = jwtHelper.decodeToken(data.token);
+            }
+            catch (e) {
+              console.log('That token was invalid');
+            }
             $cookies.put('token', data.token);
             AuthenticationService.setUser(tokenPayload.sub)
             callback(null, response);
@@ -70,7 +76,12 @@ module.exports = function(app) {
           .then(function(response) {
             var data = response.data;
             $cookies.put('token', data.token);
-            var tokenPayload = jwtHelper.decodeToken(data.token);
+            var tokenPayload
+            try {
+              tokenPayload = jwtHelper.decodeToken(data.token);
+            } catch (e) {
+              console.log('err', e);
+            }
             AuthenticationService.setUser(tokenPayload.sub);
             handleCallback(cb, response);
           })
