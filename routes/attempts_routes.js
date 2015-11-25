@@ -75,7 +75,7 @@ module.exports = function (router) {
                         latestTest: latestDate,
                         testsTaken: attempts.length,
                         recent: recent,
-                        average: totalCorrect / attempts.length
+                        averageCorrect: totalCorrect / attempts.length
                     };
                     res.json({
                         'results': results,
