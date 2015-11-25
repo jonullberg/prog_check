@@ -11,8 +11,8 @@ module.exports = function(app) {
       $cookies.remove('token');
       $location.path('/sign-in')
     }
-    if ($cookies.get('token') && jwtHelper.decodeToken($cookies.get('token'))) {
-      user = jwtHelper.decodeToken($cookies.get('token')).sub;
+    if ($cookies.get('token') && token) {
+      user = token.sub;
     } else {
       user = null;
     }

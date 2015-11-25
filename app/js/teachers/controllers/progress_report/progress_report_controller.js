@@ -9,6 +9,7 @@ var progressReportController = function (app) {
             }
             function getResults() {
                 $scope.results = TeacherData.Attempts.getResults();
+                console.log($scope.results);
             }
             function getStudent() {
                 $scope.student = TeacherData.Students.getStudent();
