@@ -52,8 +52,14 @@ module.exports = function (router) {
                     var latestDate = 0;
                     var recent;
                     attempts.forEach(function (attempt) {
-                        totalCorrect += attempt.correctAnswers;
-                        totalPossible += attempt.questions.length;
+                        if (attempt.questions.length === 5) {
+                            totalCorrect += (attempt.correctAnswers * 2);
+                            totalPossible += 10;
+                        }
+                        else {
+                            totalCorrect += attempt.correctAnswers;
+                            totalPossible += 10;
+                        }
                         if (attempt.dateTaken < earliestDate) {
                             earliestDate = attempt.dateTaken;
                         }
@@ -69,7 +75,7 @@ module.exports = function (router) {
                         latestTest: latestDate,
                         testsTaken: attempts.length,
                         recent: recent,
-                        averageCorrect: totalCorrect / attempts.length
+                        averageScore: totalCorrect / attempts.length
                     };
                     res.json({
                         'results': results,
