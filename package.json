@@ -10,8 +10,8 @@
   "main": "server.js",
   "scripts": {
     "postinstall": "NODE_ENV=PRODUCTION gulp build",
-    "start": "NODE_ENV=DEV gulp build && gulp watch",
-    "development": "NODE_ENV=DEV mongod --dbpath=./db --smallfiles & nodemon server & gulp build & gulp watch",
+    "start": "NODE_ENV=DEVELOPMENT gulp build && gulp watch",
+    "development": "NODE_ENV=DEVELOPMENT mongod --dbpath=./db --smallfiles & nodemon server & gulp build & gulp watch",
     "test": "NODE_ENV=TEST gulp test"
   },
   "repository": {

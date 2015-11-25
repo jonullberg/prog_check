@@ -48,20 +48,16 @@ module.exports = function(app) {
       }
     }
     function getTests() {
-      var tests = AdminData.Tests.getTests();
-      if (tests) {
-        $scope.tests = numberTests(tests);
-      } else {
-        AdminData.Tests.fetchTests($routeParams.standardId, function(err, data) {
-          $scope.tests = numberTests(data.tests);
-        })
+      if (!AdminData.Tests.getTests()) {
+        AdminData.Tests.fetchTests($routeParams.standardId);
       }
+      $scope.tests = numberTests(AdminData.Tests.getTests());
     }
     function numberTests(tests) {
       if (tests && tests.length) {
         tests.forEach(function(test, i) {
           test.testName = 'Test #' + (i + 1);
-        })
+        });
         return tests;
       }
     }
