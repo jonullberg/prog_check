@@ -7,3 +7,5 @@ karma.conf.js
 config.js
 npm-debug.log
 **/dist/
+prog-check.sublime-project
+prog-check.sublime-workspace

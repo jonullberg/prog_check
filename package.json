@@ -11,7 +11,8 @@
   "scripts": {
     "postinstall": "NODE_ENV=PRODUCTION gulp build",
     "start": "NODE_ENV=DEV gulp build && gulp watch",
-    "development": "NODE_ENV=DEV mongod --dbpath=./db --smallfiles & nodemon server & gulp build & gulp watch"
+    "development": "NODE_ENV=DEV mongod --dbpath=./db --smallfiles & nodemon server & gulp build & gulp watch",
+    "test": "NODE_ENV=TEST gulp test"
   },
   "repository": {
     "type": "git",
@@ -61,9 +62,11 @@
     "file-loader": "^0.8.4",
     "html-loader": "^0.3.0",
     "jasmine-core": "^2.3.4",
-    "karma": "^0.12.37",
+    "karma": "^0.13.15",
+    "karma-chai": "^0.1.0",
     "karma-jasmine": "^0.3.5",
-    "karma-phantomjs-launcher": "^0.2.0",
+    "karma-mocha": "^0.2.1",
+    "karma-phantomjs-launcher": "^0.2.1",
     "mocha": "^2.2.5",
     "node-libs-browser": "^0.5.2",
     "phantomjs": "^1.9.17"
