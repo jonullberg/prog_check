@@ -32,7 +32,7 @@ module.exports = function(app) {
     function showAttempts(goal) {
       console.log('goal', goal);
       goal.isopen = !goal.isopen
-      TeacherData.Attempts.fetchAttemptsByGoal($routeParams.studentId, goal.goalId);
+      TeacherData.Attempts.fetchAttemptsByGoal($routeParams.studentId, goal._id);
     }
     function getAttempts() {
       $scope.attempts = TeacherData.Attempts.getAttempts();
