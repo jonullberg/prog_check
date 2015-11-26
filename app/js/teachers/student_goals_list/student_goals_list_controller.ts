@@ -3,7 +3,7 @@
  */
 'use strict';
 
-module.exports = function(app) {
+export = function(app) {
   app.controller('StudentGoalsListCtrl', ['$scope', '$rootScope', '$routeParams', '$uibModal', 'TeacherData', function studentGoalsListCtrl($scope, $rootScope, $routeParams, $uibModal, TeacherData) {
     $scope.showAttempts = showAttempts;
     $scope.deleteGoal = function(goal) {
@@ -53,9 +53,9 @@ module.exports = function(app) {
       scope.student = $scope.student;
       TeacherData.Students.setGoal(goal);
       $uibModal.open({
-        animation:true,
+        animation: true,
         templateUrl: '/templates/teacher/student_goal_settings.html',
-        size:'lg',
+        size: 'lg',
         controller: 'StudentGoalSettingsCtrl',
         scope: scope
 
@@ -70,7 +70,7 @@ module.exports = function(app) {
       $scope.goal = goal;
     }
 
-}]);
+  }]);
 };
 
 

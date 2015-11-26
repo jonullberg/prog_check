@@ -1,6 +1,6 @@
 'use strict';
 
-var progressReportController = function(app: Object) {
+var progressReportController = function(app) {
   app.controller('ProgressReportCtrl', ['$scope', '$routeParams', 'TeacherData', function($scope, $routeParams, TeacherData) {
     $scope.init = init;
     $scope.$on('results:changed', getResults);

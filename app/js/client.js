@@ -136,8 +136,8 @@ require('./directives/convert_to_number')(progCheck);
   require('./teachers/controllers/students_list_controller')(progCheck);
 
   //  Student Goals List Directive
-  require('./teachers/controllers/student_goals_list_controller')(progCheck);
-  require('./teachers/directives/pc_student_goals_list')(progCheck);
+  require('./teachers/student_goals_list/student_goals_list_controller')(progCheck);
+  require('./teachers/student_goals_list/student_goals_list_directive')(progCheck);
 
   //  Student Goal Settings
   require('./teachers/controllers/student_goal_settings_controller')(progCheck);
@@ -146,9 +146,9 @@ require('./directives/convert_to_number')(progCheck);
   require('./teachers/directives/pc_student_attempts_directive')(progCheck);
   require('./teachers/controllers/student_attempts_controller')(progCheck);
 
-  // Student Progress Report
-  require('./teachers/directives/pc-attempt-progress-report')(progCheck);
-  require('./teachers/controllers/progress_report/progress_report_controller')(progCheck);
+  // Goal Progress Report
+  require('./teachers/goal_progress_report/goal_progress_report_directive')(progCheck);
+  require('./teachers/goal_progress_report/goal_progress_report_controller')(progCheck);
 
 //  Students
   //  Data
