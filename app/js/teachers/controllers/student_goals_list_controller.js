@@ -6,6 +6,7 @@
 module.exports = function(app) {
   app.controller('StudentGoalsListCtrl', ['$scope', '$rootScope', '$routeParams', '$uibModal', 'TeacherData', function studentGoalsListCtrl($scope, $rootScope, $routeParams, $uibModal, TeacherData) {
     $scope.showAttempts = showAttempts;
+    $scope.closeOthers = true;
     $scope.deleteGoal = function(goal) {
       TeacherData.Students.deleteGoal($routeParams.studentId, goal._id);
       toggleAlert(null);
@@ -30,8 +31,13 @@ module.exports = function(app) {
     }
 
     function showAttempts(goal) {
-      goal.isopen = !goal.isopen
-      TeacherData.Attempts.fetchAttemptsByGoal($routeParams.studentId, goal.goalId);
+      var goalId;
+      if (goal.goalId) {
+        goalId = goal.goalId;
+      } else {
+        goalId = goal._id;
+      }
+      TeacherData.Attempts.fetchAttemptsByGoal($routeParams.studentId, goalId);
     }
     function getAttempts() {
       $scope.attempts = TeacherData.Attempts.getAttempts();
