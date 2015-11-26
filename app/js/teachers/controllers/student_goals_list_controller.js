@@ -30,6 +30,7 @@ module.exports = function(app) {
     }
 
     function showAttempts(goal) {
+      console.log('goal', goal);
       goal.isopen = !goal.isopen
       TeacherData.Attempts.fetchAttemptsByGoal($routeParams.studentId, goal.goalId);
     }
