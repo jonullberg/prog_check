@@ -3,7 +3,11 @@
  * Created by Jonathan Ullberg on 11/23/2015
  */
 'use strict';
+
 declare function require(name: string);
+
+var winston = require('winston');
+
 var User = require('../models/User');
 var bodyparser = require('body-parser');
 var nodemailer = require('nodemailer');
@@ -22,15 +26,23 @@ export = function(router, passport) {
 
     var newUser = new User(newUserData);
     newUser.basic.email = req.body.email;
-    if(req.body.password === undefined) {
-      console.log('No password submitted');
+    if(!req.body.password) {
+      winston.log({
+        'Error': 'No password submitted',
+        timestamp: Date.now(),
+        pid: process.pid
+      });
       return res.status(401).json({
         'msg': 'No Password Submitted'
       });
     }
     newUser.generateHash(req.body.password, function(err, hash) {
       if(err) {
-        console.log(err);
+        winston.log({
+          'Error': err,
+          timestamp: Date.now(),
+          pid: process.pid
+        });
         return res.status(500).json({
           'msg': 'Internal Server Error'
         });
@@ -128,7 +140,7 @@ export = function(router, passport) {
       });
 
       res.json({
-        'msg': 'Hello world'
+        'msg': 'We have sent an email to the email provided with this account, please check that emial to reset your password.'
       });
     });
   });
@@ -163,7 +175,6 @@ export = function(router, passport) {
               });
             }
           });
-
           return res.end();
         });
       }

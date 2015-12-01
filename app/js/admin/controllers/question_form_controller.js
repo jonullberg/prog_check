@@ -20,7 +20,7 @@ module.exports = function(app) {
         createQuestion(question);
         AdminData.Tests.setQuestion(null);
         $uibModalInstance.close();
-      }
+      };
     }
 
     if ($scope.params.formType === 'editing') {
@@ -28,7 +28,7 @@ module.exports = function(app) {
         updateQuestion(question);
         AdminData.Tests.setQuestion(null);
         $uibModalInstance.close();
-      }
+      };
     }
 
     $scope.cancel = function() {
@@ -47,7 +47,7 @@ module.exports = function(app) {
     function createQuestion(question) {
       AdminData.Tests.createQuestion($routeParams.testId, question, function(err, data) {
       });
-    };
+    }
 
     function updateQuestion(question) {
       AdminData.Tests.updateQuestion($routeParams.testId, question, function(err, data) {

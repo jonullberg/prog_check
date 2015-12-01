@@ -46,10 +46,10 @@ module.exports = function(app) {
       var controller;
       if ($scope.test.questionType === 'text') {
         templateUrl = '/templates/admin/modals/question_form_modal.html';
-        controller = 'QuestionFormCtrl'
+        controller = 'QuestionFormCtrl';
       } else if ($scope.test.questionType === 'image') {
         templateUrl = '/templates/admin/modals/image_question_form_modal.html';
-        controller = 'ImageQuestionFormCtrl'
+        controller = 'ImageQuestionFormCtrl';
       }
       $uibModal.open({
         animation:true,
@@ -71,10 +71,10 @@ module.exports = function(app) {
       var controller;
       if ($scope.test.questionType === 'text') {
         templateUrl = '/templates/admin/modals/question_form_modal.html';
-        controller = 'QuestionFormCtrl'
+        controller = 'QuestionFormCtrl';
       } else if ($scope.test.questionType === 'image') {
         templateUrl = '/templates/admin/modals/image_question_form_modal.html';
-        controller = 'ImageQuestionFormCtrl'
+        controller = 'ImageQuestionFormCtrl';
       }
       $uibModal.open({
         animation:true,

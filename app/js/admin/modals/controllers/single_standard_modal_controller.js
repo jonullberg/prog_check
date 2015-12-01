@@ -57,7 +57,7 @@ module.exports = function(app) {
     }
 
     function showDescription(goal) {
-      var showing = goal.descriptionShowing;;
+      var showing = goal.descriptionShowing;
       $scope.standard.goals.forEach(function(goal) {
         goal.descriptionShowing = false;
       });

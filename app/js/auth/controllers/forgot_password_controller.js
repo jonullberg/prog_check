@@ -20,6 +20,6 @@ module.exports = function(app) {
             'msg': 'There was an error on the server. Please try again in a bit. If the problem continues, please submit a bug report. Thank you for your patience.'
           });
         });
-    }
+    };
   }]);
 };

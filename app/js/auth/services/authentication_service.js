@@ -9,7 +9,7 @@ module.exports = function(app) {
     } catch (e) {
       console.log('That token was invalid', e);
       $cookies.remove('token');
-      $location.path('/sign-in')
+      $location.path('/sign-in');
     }
     if ($cookies.get('token') && token) {
       user = token.sub;

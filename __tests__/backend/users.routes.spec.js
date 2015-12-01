@@ -12,16 +12,18 @@ var mongoose = require('mongoose');
 var chai = require('chai');
 var chaihttp = require('chai-http');
 var expect = chai.expect;
-var port = process.env.PORT || 3002;
+var port = process.env.PORT || 3000;
 var app = 'localhost:' + port;
+var sinon = require('sinon');
 chai.use(chaihttp);
 
 describe('The login API', function() {
-  var successfulTestUser = {
+  var testUser = {
     'email': 'successTest@example.com',
     'password': 'foobar123',
     'firstName': 'Jonathan',
     'lastName': 'Testing',
+    'role': 'teacher',
     'school': {
       'schoolName': 'Test School',
       'schoolState': 'WA',
@@ -35,11 +37,11 @@ describe('The login API', function() {
     });
   });
 
-  describe('The /create_user route', function() {
+  describe('POST to /create_user route', function() {
     it('Should create a user', function(done) {
       chai.request(app)
         .post('/api/create_user')
-        .send(successfulTestUser)
+        .send(testUser)
         .end(function(err, res) {
           expect(err).to.equal(null);
           expect(res).to.have.status(200);
@@ -49,11 +51,11 @@ describe('The login API', function() {
     });
   });
 
-  describe('Logging in a user', function() {
+  describe('GET to /sign_in', function() {
     beforeEach(function(done) {
       chai.request(app)
         .post('/api/create_user')
-        .send(successfulTestUser)
+        .send(testUser)
         .end(function(err, res) {
           done();
         });
@@ -64,8 +66,6 @@ describe('The login API', function() {
         .auth('successTest@example.com', 'foobar123')
         .end(function(err, res) {
           expect(err).to.equal(null);
-          expect(res.body.role).to.equal('teacher');
-          expect(res.body).to.have.property('fullName');
           expect(res.body).to.have.property('token');
           done();
         });
@@ -93,6 +93,56 @@ describe('The login API', function() {
           expect(res.text).to.equal('No such user\n');
           done();
         });
+    });
+  });
+
+  describe('GET to /auth_token', function() {
+    var token;
+    beforeEach(function(done) {
+      chai.request(app)
+        .post('/api/create_user')
+        .send(testUser)
+        .end(function(err, res) {
+          token = res.body.token;
+          done();
+        });
+    });
+    it('should auth a correct token', function(done) {
+      chai.request(app)
+        .get('/api/auth_token')
+        .set({authorization: 'Bearer ' + token})
+        .end(function(err, res) {
+          expect(res.status).to.equal(200);
+          expect(res.body.token).to.equal(token);
+          done();
+        });
+    });
+    it('should fail with an incorrect token', function(done) {
+      chai.request(app)
+        .get('/api/auth_token')
+        .set({authorization: ''})
+        .end(function(err, res) {
+          expect(res.status).to.equal(401);
+          done();
+        });
+    });
+  });
+  describe('POST to /forgot', function() {
+    it('should')
+  });
+  describe('POST to /reset/:idToken', function() {
+    it('should', function(done) {
+      done();
+    });
+  });
+  describe('GET to /users', function() {
+    it('should return an array of users', function(done) {
+      done();
+    });
+  });
+  describe('PUT to /users/:userId', function() {
+    it('should return a specific teacher', function(done) {
+      done();
     });
   });
 });

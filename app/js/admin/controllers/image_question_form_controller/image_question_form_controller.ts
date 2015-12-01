@@ -60,7 +60,7 @@ export = function(app) {
         .then(function(response) {
           cb(filename);
         });
-        $http.defaults.headers.common.Authorization;
+        $http.defaults.headers.common.Authorization = storeAuth;
       }
     };
 

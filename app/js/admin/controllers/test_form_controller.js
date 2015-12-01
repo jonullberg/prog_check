@@ -7,7 +7,7 @@ module.exports = function(app) {
     $scope.$on('test:changed', getTest);
     $scope.boolToString = function(arg) {
       return arg ? 'Yes' : 'No';
-    }
+    };
     $scope.cancel = function(test) {
       $uibModalInstance.dismiss();
     };
@@ -42,7 +42,7 @@ module.exports = function(app) {
     }
     function updateTest(test) {
       AdminData.Tests.updateTest(test);
-    };
+    }
 
     function createTest(test) {
       AdminData.Tests.createTest(test);

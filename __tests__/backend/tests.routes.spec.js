@@ -7,35 +7,46 @@ var mongoose = require('mongoose');
 var chai = require('chai');
 var chaihttp = require('chai-http');
 var expect = chai.expect;
-var port = process.env.PORT || 3002;
+var port = process.env.PORT || 3000;
 var app = 'localhost:' + port;
 chai.use(chaihttp);
 
 describe('The Test API', function () {
   var token;
   var id;
-  var testUser = {
+  var mockUser = {
     'email': 'successTest@example.com',
     'password': 'foobar123',
     'firstName': 'Jonathan',
-    'lastName': 'Testing'
+    'lastName': 'Testing',
+    'role': 'teacher',
+    'school': {
+      'schoolName': 'Test School',
+      'schoolState': 'WA',
+      'schoolDistrict': 'Test District'
+    }
   };
 
-  var successfulTest = {
-    'standardId': 'testId',
+  var mockTest = {
+    'standardId': 'standardId',
     'testDirections': 'Sample directions for test',
-    'goalId': 'testId',
+    'goalId': 'goalId',
+    'questionType': 'text',
+    'answerType': 'text',
+    'fractions': false,
+    'dateCreated': Date.now(),
     'questions': [{
       'question': 'testQuestion',
       'correct': 'C',
-      'answers': ['C', '1', '2', '3']
+      'answers': ['C', '1', '2', '3'],
+      'dateCreated': Date.now()
     }]
   };
 
   beforeEach(function(done) {
     chai.request(app)
       .post('/api/create_user')
-      .send(testUser)
+      .send(mockUser)
       .end(function(err, res) {
         token = res.body.token;
         done();
@@ -48,17 +59,17 @@ describe('The Test API', function () {
     });
   });
 
-  describe('Create a test', function () {
-    it('Should save a test', function(done) {
+  describe('POST to /tests', function () {
+    it('Should return a test', function(done) {
       chai.request(app)
         .post('/api/tests')
-        .set({token: token})
-        .send(successfulTest)
+        .set({authorization: 'Bearer ' + token})
+        .send(mockTest)
         .end(function(err, res) {
           expect(err).to.equal(null);
-          expect(res.body).to.have.property('_id');
-          expect(res.body).to.have.property('testName');
-          expect(res.body.testName).to.equal('Test 1');
+          expect(res.body.test).to.have.property('_id');
+          expect(res.body.test).to.have.property('testName');
+          expect(res.body.test.testName).to.equal('Test 1');
           done();
         });
     });
@@ -69,24 +80,24 @@ describe('The Test API', function () {
     beforeEach(function(done) {
       chai.request(app)
         .post('/api/tests')
-        .set({token: token})
-        .send(successfulTest)
+        .set({authorization: 'Bearer ' + token})
+        .send(mockTest)
         .end(function(err, res) {
-          id = res.body._id;
+          id = res.body.test._id;
           done();
         });
     });
 
-    describe('Get tests', function() {
+    describe('Get /tests', function() {
 
       it('Should get an array of tests', function(done) {
         chai.request(app)
           .get('/api/tests')
-          .set({token: token})
+          .set({authorization: 'Bearer ' + token})
           .end(function(err, res) {
-            expect(Array.isArray(res.body)).to.equal(true);
-            expect(typeof res.body[0]).to.equal('object');
-            expect(res.body[0]).to.have.property('_id');
+            expect(Array.isArray(res.body.tests)).to.equal(true);
+            expect(typeof res.body.tests[0]).to.equal('object');
+            expect(res.body.tests[0]).to.have.property('_id');
             done();
           });
 
@@ -95,9 +106,9 @@ describe('The Test API', function () {
 
     describe('Update tests', function() {
       var newTest = {
-        'standardId': 'testId',
+        'standardId': 'updatedStandardId',
         'testDirections': 'Sample directions for test',
-        'goalId': 'testId',
+        'goalId': 'updatedGoalId',
         'questions': [{
           'question': 'testQuestion',
           'correct': 'C',
@@ -107,10 +118,10 @@ describe('The Test API', function () {
       it('Should update a single test', function(done) {
         chai.request(app)
           .put('/api/tests/' + id)
-          .set({token: token})
+          .set({authorization: 'Bearer ' + token})
           .send(newTest)
           .end(function(err, res) {
-            expect(res.body.msg).to.equal('Success');
+            expect(res.body.test.standardId).to.equal('updatedStandardId');
             done();
           });
 
@@ -121,7 +132,7 @@ describe('The Test API', function () {
       it('Should delete a single test', function(done) {
         chai.request(app)
           .delete('/api/tests/' + id)
-          .set({token: token})
+          .set({authorization: 'Bearer ' + token})
           .end(function(err, res) {
             expect(res.body.msg).to.equal('Success');
             done();

@@ -38,7 +38,7 @@ module.exports = function(app) {
 
     $scope.select = function(standard) {
       AdminData.Standards.setStandard(standard);
-      $location.path('/admin/standards/' + standard._id)
+      $location.path('/admin/standards/' + standard._id);
       return $scope.show();
     };
     function init() {

@@ -2,6 +2,7 @@
 
 module.exports = function(app) {
   app.controller('AuthCtrl', ['$scope', '$location', '$uibModal', 'UserService', 'USStates', 'AuthenticationService', 'Errors', function($scope, $location, $uibModal, UserService, USStates, AuthenticationService, Errors) {
+
     $scope.initUser = function() {
       $scope.user = {
         type: 'student',
@@ -14,7 +15,7 @@ module.exports = function(app) {
       if (user.type === 'student') {
         user.usernameText = 'Username';
         user.passwordText = 'PIN';
-        user.usernameType = 'text'
+        user.usernameType = 'text';
       } else if (user.type === 'teacher') {
         user.usernameText = 'Email';
         user.passwordText = 'Password';
@@ -35,7 +36,7 @@ module.exports = function(app) {
         controller: 'TermsCtrl'
       });
     };
-    $scope.pwdValidationText = 'Your password should: '
+    $scope.pwdValidationText = 'Your password should: ';
     $scope.pwdValidationWarnings = {
       'length': {
         'className': 'red',
@@ -75,7 +76,7 @@ module.exports = function(app) {
             $location.path(path);
           });
         } else {
-          alert('You\'re form is invalid');
+          console.alert('You\'re form is invalid');
         }
 
       } else {
@@ -96,8 +97,8 @@ module.exports = function(app) {
               $scope.errorMessage = 'Wrong Username or PIN';
               return;
             }
-            $location.path('/student/home')
-          })
+            $location.path('/student/home');
+          });
         }
       }
     };

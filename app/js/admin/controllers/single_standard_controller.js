@@ -32,6 +32,7 @@ module.exports = function(app) {
         templateUrl: '/templates/directives/standards/standard_form.html',
         size:'lg',
         controller: 'StandardFormCtrl',
+        controllerAs: 'goalForm',
         scope: scope
       });
     };
@@ -55,6 +56,7 @@ module.exports = function(app) {
         animation:true,
         templateUrl: '/templates/partials/goal_form.html',
         controller: 'GoalCtrl',
+        controllerAs: 'goalForm',
         size:'lg',
         scope:scope
       });
@@ -106,6 +108,7 @@ module.exports = function(app) {
         animation:true,
         templateUrl: '/templates/partials/goal_form.html',
         controller: 'GoalCtrl',
+        controllerAs: 'goalForm',
         size:'lg',
         scope: scope
       });

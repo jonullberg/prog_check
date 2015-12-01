@@ -1,4 +1,5 @@
 'use strict';
+var winston = require('winston');
 var User = require('../models/User');
 var bodyparser = require('body-parser');
 var nodemailer = require('nodemailer');
@@ -16,15 +17,23 @@ module.exports = function (router, passport) {
         delete newUserData.password;
         var newUser = new User(newUserData);
         newUser.basic.email = req.body.email;
-        if (req.body.password === undefined) {
-            console.log('No password submitted');
+        if (!req.body.password) {
+            winston.log({
+                'Error': 'No password submitted',
+                timestamp: Date.now(),
+                pid: process.pid
+            });
             return res.status(401).json({
                 'msg': 'No Password Submitted'
             });
         }
         newUser.generateHash(req.body.password, function (err, hash) {
             if (err) {
-                console.log(err);
+                winston.log({
+                    'Error': err,
+                    timestamp: Date.now(),
+                    pid: process.pid
+                });
                 return res.status(500).json({
                     'msg': 'Internal Server Error'
                 });

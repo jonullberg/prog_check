@@ -5,8 +5,8 @@ module.exports = function(app) {
     return {
       request: function(config) {
         config.headers = config.headers || {};
-        if ($cookies.get('token') && !config.headers['Authorization']) {
-          config.headers['Authorization'] = 'Bearer ' + $cookies.get('token');
+        if ($cookies.get('token') && !config.headers.authorization) {
+          config.headers.authorization = 'Bearer ' + $cookies.get('token');
         }
         var role;
         return config;

@@ -21,7 +21,7 @@ module.exports = function(app) {
               console.log('That token was invalid');
             }
             $cookies.put('token', data.token);
-            AuthenticationService.setUser(tokenPayload.sub)
+            AuthenticationService.setUser(tokenPayload.sub);
             callback(null, response);
           })
           .catch(function(rejection) {
@@ -37,7 +37,7 @@ module.exports = function(app) {
             }
           })
           .then(function(response) {
-            var data = response.data
+            var data = response.data;
             $cookies.put('token', data.token);
             var tokenPayload = jwtHelper.decodeToken(data.token);
             AuthenticationService.setUser(tokenPayload.sub);
@@ -76,7 +76,7 @@ module.exports = function(app) {
           .then(function(response) {
             var data = response.data;
             $cookies.put('token', data.token);
-            var tokenPayload
+            var tokenPayload;
             try {
               tokenPayload = jwtHelper.decodeToken(data.token);
             } catch (e) {

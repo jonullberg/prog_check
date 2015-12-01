@@ -1,0 +1,5 @@
+{
+  "client": "./app/js/client",
+  "test": "./__tests__/",
+  "js": "./app/js/**/*.js"
+}

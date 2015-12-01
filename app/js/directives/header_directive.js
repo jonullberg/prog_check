@@ -41,11 +41,7 @@ module.exports = function(app) {
             {
               header: 'Students',
               url: 'teacher/' + newVal._id + '/students'
-            },
-            // {
-            //   header: 'Tests',
-            //   url: 'teacher/tests'
-            // }
+            }
             ];
           } else if (newVal.role === 'student') {
             scope.tabs = [{
@@ -55,11 +51,7 @@ module.exports = function(app) {
             {
               header: 'Tests',
               url: 'student/' + newVal._id + '/tests'
-            },
-            // {
-            //   header: 'Scores',
-            //   url: 'student/scores'
-            // }
+            }
             ];
           }
         } else {

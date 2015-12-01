@@ -8,7 +8,14 @@ require('angular-ui-bootstrap');
 require('angular-jwt');
 require('ng-file-upload');
 
-var progCheck = angular.module('progCheck', ['ngRoute', 'ngCookies', 'angular-jwt', 'base64', 'ui.bootstrap', 'ngFileUpload']);
+var progCheck = angular.module('progCheck', [
+  'ngRoute',
+  'ngCookies',
+  'angular-jwt',
+  'base64',
+  'ui.bootstrap',
+  'ngFileUpload'
+  ]);
 
 //  Configuration
 require('./config/routes')(progCheck);
@@ -92,8 +99,8 @@ require('./directives/convert_to_number')(progCheck);
     require('./admin/controllers/standard_form_controller')(progCheck); //  Controller
 
     //  Goal Form
-    require('./admin/directives/pc_goal_form_directive')(progCheck);
-    require('./admin/controllers/goal_form_controller')(progCheck);
+    require('./admin/goal_form/goal_form_directive')(progCheck);
+    require('./admin/goal_form/goal_form_controller')(progCheck);
 
   // Tests
     //  Single Test

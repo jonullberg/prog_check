@@ -2,15 +2,16 @@
 
 var gulp = require('gulp');
 var del = require('del');
-var gutil = require('gulp-util');
 var webpack = require('webpack');
-var stylish = require('jshint-stylish');
-var jshint = require('gulp-jshint');
-var jscs = require('gulp-jscs');
-var copy = require('gulp-copy');
-var karma = require('gulp-karma');
-var uglify = require('gulp-uglify');
-var mocha = require('gulp-mocha');
+var plug = require('gulp-load-plugins')();
+var plato = require('plato');
+var glob = require('glob');
+var merge = require('merge-stream');
+
+var colors = plug.util.colors;
+var env = plug.util.env;
+var log = plug.util.log;
+var port = process.env.PORT || 7203;
 
 var paths = {
   scripts: './app/**/*.js',
@@ -20,55 +21,73 @@ var paths = {
   serverTests: './routes/**/*-tests.js',
   serverFiles: ['./server.js', './routes/**/*.js'],
   dataModels: './models/**/*.js',
-  gulpfile: './gulpfile.js'
+  gulpfile: './gulpfile.js',
+  tests: {
+    tests: [
+      './__tests__/frontend/**/*-test.js',
+      './__tests__/backend/**/*.spec.js'],
+    frontend:'./__tests__/frontend/**/*-test.js',
+    backend: './__tests__/backend/**/*.spec.js'
+  },
+  "js": "./app/js/**/*.js"
 };
 
+gulp.task('watch', ['analyze'], function() {
+  gulp.watch([paths.scripts, paths.tests.frontend, paths.tests.backend], ['test', 'build'])
+});
+/**
+ * Lint the available gulp tasks
+ */
+gulp.task('help', plug.taskListing);
+
+/**
+ * Lint the code, create coverage report and a visualizer
+ * @return {Stream}
+ */
+gulp.task('analyze', function() {
+  log('Analyzing source with JSHint, JSCS and Plato');
+
+  var jshint = analyzejshint([].concat(paths.scripts));
+  var jscs = analyzejscs([].concat(paths.scripts));
+
+  startPlatoVisualizer();
+
+  return merge(jshint, jscs);
+
+});
+
 // Testing
-gulp.task('webpack:karma_test', ['clean:karma'], function(callback) {
+gulp.task('webpack:karma_test', function(callback) {
   webpack({
-    entry: __dirname + '/test/karma_tests/test_entry.js',
+    entry: __dirname + '/__tests__/frontend/test_entry.js',
     output: {
-      path: 'test/karma_tests/',
+      path: '__tests__/frontend/',
       file: 'bundle.js'
     }
   }, function(err, stats) {
     if(err) throw new gutil.PluginError('webpack', err);
-    gutil.log('[webpack]', stats.toString({
-
-    }));
     callback();
   });
 });
 gulp.task('karma:test', ['webpack:karma_test'], function() {
-  return gulp.src('./test/karma_tests/bundle.js')
-    .pipe(karma({
+  return gulp.src('./__tests__/frontend/bundle.js')
+    .pipe(plug.karma({
       configFile: 'karma.conf.js',
       action: 'run'
-    }))
-    .on('error', function(err) {
-      console.log(err);
-      this.emit('end');
-    });
+    }));
 });
 gulp.task('mocha:backend', function() {
-  return gulp.src(paths.serverTests, {read: false})
-    .pipe(mocha({reporter: 'spec'}));
+  return gulp.src(paths.tests.backend, {read: false})
+    .pipe(plug.mocha({reporter: 'spec', growl: true}));
 });
-gulp.task('lint', function() {
-  return gulp.src(workingFiles)
-    .pipe(jshint('.jshintrc'))
-    .pipe(jshint.reporter(stylish));
+
+gulp.task('test', ['mocha:backend', 'karma:test']);
+
+gulp.task('watch:testing', function() {
+  gulp.watch(paths.tests.tests, ['mocha:backend']);
 });
-gulp.task('jscs', function() {
-  return gulp.src(workingFiles)
-    .pipe(jscs());
-});
-gulp.task('karmatest', ['karma:test']);
 
-gulp.task('test', ['lint', 'jscs', 'mocha:backend', 'karma:test']);
-
-
-gulp.task('watch', function() {
+gulp.task('watch:development', function() {
   var client = ['build'];
   gulp.watch(paths.scripts, client);
   gulp.watch(paths.html, client);
@@ -76,14 +95,6 @@ gulp.task('watch', function() {
 });
 
 var workingFiles = ['gulpfile.js', './lib/**/*.js', './routes/**/*.js', './app/**/*.js', './test/**/*.js', './models/**/*.js'];
-
-
-gulp.task('clean:karma', function(cb) {
-  del.sync([
-    'test/karma_tests/build.js'
-    ]);
-  cb();
-});
 
 // Build
 gulp.task('clean:build', function (cb) {
@@ -113,7 +124,7 @@ gulp.task('webpack:build', ['copy:build'], function(callback) {
     }
   }, function(err, stats) {
     if(err) throw new gutil.PluginError('webpack', err);
-    gutil.log('[webpack]', stats.toString({
+    log('[webpack]', stats.toString({
 
     }));
     callback();
@@ -122,7 +133,7 @@ gulp.task('webpack:build', ['copy:build'], function(callback) {
 
 gulp.task('uglify:build', ['webpack:build'], function() {
   return gulp.src('build/bundle.min.js')
-    .pipe(uglify())
+    .pipe(plug.uglify())
     .pipe(gulp.dest('build/'));
 });
 gulp.task('build', ['webpack:build']);
@@ -155,7 +166,7 @@ gulp.task('webpack:dist', ['copy:dist'], function(callback) {
     }
   }, function(err, stats) {
     if(err) throw new gutil.PluginError('webpack', err);
-    gutil.log('[webpack]', stats.toString({
+    log('[webpack]', stats.toString({
 
     }));
     callback();
@@ -164,8 +175,41 @@ gulp.task('webpack:dist', ['copy:dist'], function(callback) {
 
 gulp.task('uglify:dist', ['webpack:dist'], function() {
   return gulp.src('dist/bundle.js')
-    .pipe(uglify())
+    .pipe(plug.uglify())
     .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('dist', ['uglify:dist']);
+
+function analyzejshint(sources, overrideRcFile) {
+  var jshintrcFile = overrideRcFile || './.jshintrc';
+  log('Running JSHint');
+  log(sources);
+  return gulp
+    .src(sources)
+    .pipe(plug.jshint(jshintrcFile))
+    .pipe(plug.jshint.reporter('jshint-stylish'));
+}
+
+function analyzejscs(sources) {
+  log('Running JSCS');
+  return gulp
+    .src(sources)
+    .pipe(plug.jscs('./.jscsrc'));
+}
+
+function startPlatoVisualizer() {
+  log('Running Plato');
+  var files = glob.sync('./app/js/**/*.js');
+
+  var options = {
+    title: 'Plato Inspections Report'
+  };
+  var outputDir = './report/plato';
+  plato.inspect(files, outputDir, options, platoCompleted);
+
+  function platoCompleted(report) {
+    var overview = plato.getOverviewReport(report);
+    log(overview.summary);
+  }
+}

@@ -1,5 +1,8 @@
 {
+  "fileExtensions": [".js", "jscs"],
+  "requireParenthesesAroundIIFE": true,
+  "disallowTrailingComma": true,
   "disallowMultipleVarDecl": true,
   "disallowSpacesInsideObjectBrackets": true,
-  "excludeFiles": ["excluded.js"]
+  "excludeFiles": []
 }

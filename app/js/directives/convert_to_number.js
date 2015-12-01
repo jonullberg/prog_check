@@ -4,7 +4,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.directive('convertToNumber', [function () {
+  app.directive('convertToNumber', function () {
     return {
       restrict: 'A',
       require: 'ngModel',
@@ -17,5 +17,5 @@ module.exports = function(app) {
         });
       }
     };
-  }]);
+  });
 };

@@ -17,7 +17,7 @@ module.exports = function(app) {
           });
       }
     };
-    $scope.pwdValidationText = 'Your password should: '
+    $scope.pwdValidationText = 'Your password should: ';
     $scope.pwdValidationWarnings = {
       'length': {
         'className': 'red',
