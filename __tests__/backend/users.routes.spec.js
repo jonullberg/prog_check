@@ -30,8 +30,18 @@ describe('The login API', function() {
       'schoolDistrict': 'school district'
     }
   };
+  var token;
+  beforeEach(function(done) {
+    chai.request(app)
+      .post('/api/create_user')
+      .send(testUser)
+      .end(function(err, res) {
+        token = res.body.token;
+        done();
+      });
+  });
 
-  after(function(done) {
+  afterEach(function(done) {
     mongoose.connection.db.dropDatabase(function() {
       done();
     });
@@ -97,16 +107,6 @@ describe('The login API', function() {
   });
 
   describe('GET to /auth_token', function() {
-    var token;
-    beforeEach(function(done) {
-      chai.request(app)
-        .post('/api/create_user')
-        .send(testUser)
-        .end(function(err, res) {
-          token = res.body.token;
-          done();
-        });
-    });
     it('should auth a correct token', function(done) {
       chai.request(app)
         .get('/api/auth_token')
@@ -128,10 +128,40 @@ describe('The login API', function() {
     });
   });
   describe('POST to /forgot', function() {
-    it('should')
+    it('should call nodemailer.createTransport and should call the transport sendmail function', function(done) {
+      var nodemailer = require('nodemailer');
+      var mockSendMail = sinon.spy();
+      var stubbedCreateTransport = sinon.stub(nodemailer, 'createTransport', function() {
+        return {
+          sendMail: mockSendMail
+        }
+      });
+      expect(mockSendMail.called).to.equal(false);
+      expect(stubbedCreateTransport.called).to.equal(false);
+      chai.request(app)
+        .post('/api/forgot')
+        .set({authorization: 'Bearer ' + token})
+        .end(function(err, res) {
+          expect(stubbedCreateTransport.called).to.equal(true);
+          expect(mockSendMail.called).to.equal(true);
+          nodemailer.createTransport.restore();
+          done();
+        });
+    });
   });
   describe('POST to /reset/:idToken', function() {
-    it('should', function(done) {
+    var resetToken;
+    beforeEach(function(done) {
+      chai.request(app)
+        .post('/api/forgot')
+        .send({email: 'successTest@example.com'})
+        .end(function(err, res) {
+          done();
+        });
+    });
+    it('should search for a user with req.body.email', function(done) {
+      var User = require('../../models/User');
+      var mockFindOne = sinon.stub()
       done();
     });
   });

@@ -1,5 +1,9 @@
 'use strict';
 var winston = require('winston');
+var MongoDB = require('winston-mongodb').MongoDB;
+winston.add(MongoDB, {
+    db: process.env.MONGOLAB_URI || 'mongodb://localhost/progcheck_dev'
+});
 var User = require('../models/User');
 var bodyparser = require('body-parser');
 var nodemailer = require('nodemailer');
@@ -42,7 +46,11 @@ module.exports = function (router, passport) {
             newUser.basic.tokenExpiration = createExpirationDate();
             newUser.save(function (err, user) {
                 if (err) {
-                    console.log(err);
+                    winston.log({
+                        'Error': err,
+                        timestamp: Date.now(),
+                        pid: process.pid
+                    });
                     return res.status(500).json({
                         'msg': 'Internal Server Error'
                     });
@@ -109,11 +117,15 @@ module.exports = function (router, passport) {
             };
             transport.sendMail(mailOptions, function (err, info) {
                 if (err) {
-                    return console.log(err);
+                    return winston.log({
+                        'Error': err,
+                        timestamp: Date.now(),
+                        pid: process.pid
+                    });
                 }
             });
             res.json({
-                'msg': 'Hello world'
+                'msg': 'We have sent an email to the email provided with this account, please check that email to reset your password.'
             });
         });
     });
@@ -127,7 +139,11 @@ module.exports = function (router, passport) {
             if (resetData && resetData.resetToken === req.params.idToken && currentTime <= resetData.expiration) {
                 user.generateHash(req.body.newPassword, function (err, hash) {
                     if (err) {
-                        console.log(err);
+                        winston.log({
+                            'Error': err,
+                            timestamp: Date.now(),
+                            pid: process.pid
+                        });
                         return res.status(500).json({
                             'msg': 'Internal Server Error'
                         });
@@ -137,7 +153,11 @@ module.exports = function (router, passport) {
                     user.reset.resetToken = null;
                     user.save(function (err, data) {
                         if (err) {
-                            console.log('There was an error', err);
+                            winston.log({
+                                'Error': err,
+                                timestamp: Date.now(),
+                                pid: process.pid
+                            });
                             return res.status(500).json({
                                 'msg': 'Internal Server Error'
                             });
@@ -151,7 +171,11 @@ module.exports = function (router, passport) {
     router.get('/users', jwtAuth, function (req, res) {
         User.find({}, function (err, users) {
             if (err) {
-                console.log(err);
+                winston.log({
+                    'Error': err,
+                    timestamp: Date.now(),
+                    pid: process.pid
+                });
                 return res.status(500).json({
                     'msg': 'Internal Server Error'
                 });
@@ -165,7 +189,11 @@ module.exports = function (router, passport) {
         var newUser = req.body;
         User.update({ '_id': req.params.userId }, newUser, function (err, user) {
             if (err) {
-                console.log(err);
+                winston.log({
+                    'Error': err,
+                    timestamp: Date.now(),
+                    pid: process.pid
+                });
                 return res.status(500).json({
                     'msg': 'Internal Server Error'
                 });

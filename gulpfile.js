@@ -24,9 +24,9 @@ var paths = {
   gulpfile: './gulpfile.js',
   tests: {
     tests: [
-      './__tests__/frontend/**/*-test.js',
+      './__tests__/frontend/**/*.spec.js',
       './__tests__/backend/**/*.spec.js'],
-    frontend:'./__tests__/frontend/**/*-test.js',
+    frontend:'./__tests__/frontend/**/*.spec.js',
     backend: './__tests__/backend/**/*.spec.js'
   },
   "js": "./app/js/**/*.js"
