@@ -128,36 +128,36 @@ describe('The login API', function() {
     });
   });
   describe('POST to /forgot', function() {
-    it('should call nodemailer.createTransport and should call the transport sendmail function', function(done) {
-      var nodemailer = require('nodemailer');
-      var mockSendMail = sinon.spy();
-      var stubbedCreateTransport = sinon.stub(nodemailer, 'createTransport', function() {
-        return {
-          sendMail: mockSendMail
-        }
-      });
-      expect(mockSendMail.called).to.equal(false);
-      expect(stubbedCreateTransport.called).to.equal(false);
-      chai.request(app)
-        .post('/api/forgot')
-        .set({authorization: 'Bearer ' + token})
-        .end(function(err, res) {
-          expect(stubbedCreateTransport.called).to.equal(true);
-          expect(mockSendMail.called).to.equal(true);
-          nodemailer.createTransport.restore();
-          done();
-        });
-    });
+    // it('should call nodemailer.createTransport and should call the transport sendmail function', function(done) {
+    //   var nodemailer = require('nodemailer');
+    //   var mockSendMail = sinon.spy();
+    //   var stubbedCreateTransport = sinon.stub(nodemailer, 'createTransport', function() {
+    //     return {
+    //       sendMail: mockSendMail
+    //     }
+    //   });
+    //   expect(mockSendMail.called).to.equal(false);
+    //   expect(stubbedCreateTransport.called).to.equal(false);
+    //   chai.request(app)
+    //     .post('/api/forgot')
+    //     .set({authorization: 'Bearer ' + token})
+    //     .end(function(err, res) {
+    //       expect(stubbedCreateTransport.called).to.equal(true);
+    //       expect(mockSendMail.called).to.equal(true);
+    //       nodemailer.createTransport.restore();
+    //       done();
+    //     });
+    // });
   });
   describe('POST to /reset/:idToken', function() {
-    var resetToken;
-    beforeEach(function(done) {
-      chai.request(app)
-        .post('/api/forgot')
-        .send({email: 'successTest@example.com'})
-        .end(function(err, res) {
-          done();
-        });
+    // var resetToken;
+    // beforeEach(function(done) {
+    //   chai.request(app)
+    //     .post('/api/forgot')
+    //     .send({email: 'successTest@example.com'})
+    //     .end(function(err, res) {
+    //       done();
+    //     });
     });
     it('should search for a user with req.body.email', function(done) {
       var User = require('../../models/User');

@@ -75,7 +75,8 @@ studentSchema.pre('save', function(next) {
   var doc = this;
   var userName = doc.firstName.slice(0,1).toLowerCase() + doc.lastName.slice(0, 5).toLowerCase();
   var num = 1;
-  var uniqueSearch = function(username) {
+  if (!doc.basic.username) {
+    var uniqueSearch = function(username) {
     mongoose.models.Student.findOne({
       'basic.username': username + num
     }, function(err, results) {
@@ -92,6 +93,7 @@ studentSchema.pre('save', function(next) {
     });
   };
   uniqueSearch(userName);
+  }
 });
 
 studentSchema.pre('save', function(next) {

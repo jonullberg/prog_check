@@ -17,8 +17,10 @@ var progCheck = angular.module('progCheck', [
   'ngFileUpload'
   ]);
 
+
 //  Configuration
 require('./config/routes')(progCheck);
+require('./config/config')(progCheck);
 
 //  services
 require('./services/copy')(progCheck);
@@ -28,6 +30,12 @@ require('./services/us_states')(progCheck);
 require('./services/sanitize_fractions')(progCheck);
 require('./services/shuffle')(progCheck);
 require('./services/to_trusted')(progCheck);
+require('./services/stacktrace.service.js')(progCheck);
+require('./services/error-log.service.js')(progCheck);
+
+
+// Error Tests Controller (Can Delete)
+require('./controllers/error.test.controller.js')(progCheck);
 
 //    Auth Services
 
@@ -50,15 +58,10 @@ require('./auth/controllers/reset_password_controller')(progCheck);
 //    Standard Controllers
 require('./admin/controllers/standards_controller')(progCheck);
 
-//    Student Controllers
-require('./students/controllers/student_home_controller')(progCheck);
-require('./students/controllers/student_tests_controller')(progCheck);
-
 //  directives
 require('./directives/header_directive')(progCheck);
 require('./directives/pc_footer_directive')(progCheck);
 require('./auth/directives/account_tools_directive')(progCheck);
-require('./teachers/directives/pc_teachers_directive')(progCheck);
 require('./directives/convert_to_number')(progCheck);
 
   //  Test directives
@@ -77,52 +80,47 @@ require('./directives/convert_to_number')(progCheck);
 
 
 //  Admin
-  //  Data
-  require('./admin/data_services/admin_data_service')(progCheck);
-  require('./admin/data_services/admin_standards_data')(progCheck);
-  require('./admin/data_services/admin_tests_data')(progCheck);
-  require('./admin/data_services/admin_teachers_data')(progCheck);
+  //  Data Services
+  require('./admin/data-services/admin.data.service')(progCheck);
+  require('./admin/data-services/admin.standards.data')(progCheck);
+  require('./admin/data-services/admin.tests.data')(progCheck);
+  require('./admin/data-services/admin.teachers.data')(progCheck);
 
-  //  Standards
-    //  Standards List
-    require('./admin/directives/pc_standards_list')(progCheck);
-    require('./admin/controllers/standards_list_controller')(progCheck);
-    require('./admin/modals/controllers/standards_list_modal_controller')(progCheck);
+  //  Standards List
+  require('./admin/standards-list/admin.standards-list.directive')(progCheck);
+  require('./admin/standards-list/admin.standards-list.controller')(progCheck);
 
-    //  Single Standards
-    require('./admin/directives/pc_single_standard')(progCheck);  //  Directive
-    require('./admin/controllers/single_standard_controller')(progCheck); //  Controller
-    require('./admin/modals/controllers/single_standard_modal_controller')(progCheck);  //  Modal Controller
+  //  Single Standards
+  require('./admin/single-standard/admin.single-standard.directive')(progCheck);  //  Directive
+  require('./admin/single-standard/admin.single-standard.controller')(progCheck); //  Controller
 
-    //  Standard Form
-    require('./admin/directives/pc_standard_form_directive')(progCheck);  //  Directive
-    require('./admin/controllers/standard_form_controller')(progCheck); //  Controller
+  //  Standard Form
+  require('./admin/standard-form/admin.standard-form.directive')(progCheck);  //  Directive
+  require('./admin/standard-form/admin.standard-form.controller')(progCheck); //  Controller
 
-    //  Goal Form
-    require('./admin/goal_form/goal_form_directive')(progCheck);
-    require('./admin/goal_form/goal_form_controller')(progCheck);
+  //  Goal Form
+  require('./admin/goal-form/admin.goal-form.directive')(progCheck);
+  require('./admin/goal-form/admin.goal-form.controller')(progCheck);
 
-  // Tests
-    //  Single Test
-    require('./admin/directives/pc_single_test')(progCheck);
-    require('./admin/controllers/single_test_controller')(progCheck);
+  //  Single Test
+  require('./admin/single-test/admin.single-test.directive')(progCheck);
+  require('./admin/single-test/admin.single-test.controller')(progCheck);
 
-    //  Tests List
-    require('./admin/directives/pc_tests_list')(progCheck);
-    require('./admin/controllers/tests_list_controller')(progCheck);
+  //  Tests List
+  require('./admin/tests-list/admin.tests-list.directive')(progCheck);
+  require('./admin/tests-list/admin.tests-list.controller')(progCheck);
 
-    //  Test Create Form
-    require('./admin/directives/pc_test_form')(progCheck);
-    require('./admin/controllers/test_form_controller')(progCheck);
+  //  Test Create Form
+  require('./admin/test-form/admin.test-form.directive')(progCheck);
+  require('./admin/test-form/admin.test-form.controller')(progCheck);
 
-    //  Question Form
-    require('./admin/directives/pc_question_form')(progCheck);
-    require('./admin/controllers/question_form_controller')(progCheck);
-    require('./admin/controllers/image_question_form_controller/image_question_form_controller')(progCheck);
+  //  Question Form
+  require('./admin/question-form/admin.question-form.directive')(progCheck);
+  require('./admin/question-form/admin.question-form.controller')(progCheck);
+  require('./admin/question-form/admin.image-question-form.controller')(progCheck);
 
-  // Teachers
-    // Teachers List
-    require('./admin/controllers/admin_teachers_list_controller/admin_teachers_list_controller')(progCheck);
+  // Teachers List
+  require('./admin/teachers-list/admin.teachers-list.controller')(progCheck);
 
   // Miscellaneous
     // TODO: Refactor these controllers
@@ -132,44 +130,60 @@ require('./directives/convert_to_number')(progCheck);
 
 //  Teacher
   //  Data Services
-  require('./teachers/data_services/teacher_data_service')(progCheck);
-  require('./teachers/data_services/teacher_students_data')(progCheck);
-  require('./teachers/data_services/teacher_attempts_data')(progCheck);
-  require('./teachers/data_services/teacher_standards_data')(progCheck);
-
-  require('./teachers/controllers/teachers_controller')(progCheck);
-  require('./teachers/controllers/student_form_controller')(progCheck);
-  require('./teachers/controllers/single_student_controller')(progCheck);
-  require('./teachers/controllers/students_list_controller')(progCheck);
-
-  //  Student Goals List Directive
-  require('./teachers/student_goals_list/student_goals_list_controller')(progCheck);
-  require('./teachers/student_goals_list/student_goals_list_directive')(progCheck);
-
-  //  Student Goal Settings
-  require('./teachers/controllers/student_goal_settings_controller')(progCheck);
-
-  //  Student Attempts
-  require('./teachers/directives/pc_student_attempts_directive')(progCheck);
-  require('./teachers/controllers/student_attempts_controller')(progCheck);
+  require('./teacher/data-services/teacher.data.service')(progCheck);
+  require('./teacher/data-services/teacher.students.data')(progCheck);
+  require('./teacher/data-services/teacher.attempts.data')(progCheck);
+  require('./teacher/data-services/teacher.standards.data')(progCheck);
 
   // Goal Progress Report
-  require('./teachers/goal_progress_report/goal_progress_report_directive')(progCheck);
-  require('./teachers/goal_progress_report/goal_progress_report_controller')(progCheck);
+  require('./teacher/goal-progress-report/teacher.goal-progress-report.directive')(progCheck);
+  require('./teacher/goal-progress-report/teacher.goal-progress-report.controller')(progCheck);
+  
+  // Single Standard
+  require('./teacher/single-standard/teacher.single-standard-modal.controller')(progCheck);  //  Modal Controller
+  
+  // Single Student
+  require('./teacher/single-student/teacher.single-student.controller')(progCheck);
+  
+  // Standards List
+  require('./teacher/standards-list/teacher.standards-list-modal.controller')(progCheck);
+  
+  //  Student Attempts
+  require('./teacher/student-attempts/teacher.student-attempts.directive')(progCheck);
+  require('./teacher/student-attempts/teacher.student-attempts.controller')(progCheck);
+
+  // Student Form
+  require('./teacher/student-form/teacher.student-form.controller')(progCheck);
+  
+  //  Student Goals List Directive
+  require('./teacher/student-goals-list/teacher.student-goals-list.controller')(progCheck);
+  require('./teacher/student-goals-list/teacher.student-goals-list.directive')(progCheck);
+
+  //  Student Goal Settings
+  require('./teacher/student-goal-settings/teacher.student-goal-settings.controller')(progCheck);
+
+  // Students List
+  require('./teacher/students-list/teacher.students-list.controller')(progCheck);
+
 
 //  Students
-  //  Data
-  require('./students/data_services/student_data_service')(progCheck);
-  require('./students/data_services/student_test_data')(progCheck);
-
-  //  Test
-  require('./students/controllers/student_test_controller')(progCheck);
-
-  //  Questions
-  require('./students/controllers/question_controller')(progCheck);
-  require('./students/directives/pc_question_directive')(progCheck);
+  //  Data Services
+  require('./student/data-services/student.data.service')(progCheck);
+  require('./student/data-services/student.test.data')(progCheck);
 
   //  Attempt Review
-  require('./students/controllers/attempt_review_controller')(progCheck);
+  require('./student/attempt-review/student.attempt-review.controller')(progCheck);
+  
+  //  Questions
+  require('./student/question/student.question.controller')(progCheck);
+  require('./student/question/student.question.directive')(progCheck);
+
+  //  Test
+  require('./student/test/student.test.controller')(progCheck);
+  
+  // Tests List
+  require('./student/tests-list/student.tests-list.controller')(progCheck);
+  require('./student/tests-list/student.tests-list.controller')(progCheck);
+
 
 

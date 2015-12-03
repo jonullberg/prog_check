@@ -7,6 +7,10 @@ module.exports = function(app) {
 
   app.config(['$routeProvider', function($routeProvider) {
     $routeProvider
+      .when('/errors', {
+        templateUrl: 'templates/views/errors.html',
+        controller: 'ErrorTestCtrl'
+      })
       .when('/about', {
         templateUrl: 'templates/views/about.html',
         access: {
@@ -91,8 +95,9 @@ module.exports = function(app) {
         // No controller needed as of now
       })
       .when('/admin/standards', {
-        templateUrl: 'templates/views/standards.html',
-        controller: 'StandardsCtrl',
+        templateUrl: 'js/admin/standards-list/standards-list.html',
+        controller: 'StandardsListCtrl',
+        controllerAs: 'sl',
         access: {
           requiredLogin: true,
           requiredAdmin: true,
@@ -101,7 +106,7 @@ module.exports = function(app) {
         }
       })
       .when('/admin/standards/:standardId', {
-        templateUrl: 'templates/admin/single_standard_container.html',
+        templateUrl: 'templates/admin/single-standard-container.html',
         access: {
           requiredLogin: true,
           requiredAdmin: true,
