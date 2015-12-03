@@ -9,3 +9,5 @@ npm-debug.log
 **/dist/
 prog-check.sublime-project
 prog-check.sublime-workspace
+**/report/
+**/.vscode/
