@@ -22,7 +22,10 @@ module.exports = function (app) {
                 getStudent();
             }
             function showAttempts(goal) {
-                goal.isopen = !goal.isopen;
+                $scope.student.goals.forEach(function (goal) {
+                    goal.isOpen = false;
+                });
+                goal.isopen = true;
                 TeacherData.Attempts.fetchAttemptsByGoal($routeParams.studentId, goal.goalId);
             }
             function getAttempts() {
