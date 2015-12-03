@@ -33,11 +33,7 @@ require('./services/to_trusted')(progCheck);
 require('./services/stacktrace.service.js')(progCheck);
 require('./services/error-log.service.js')(progCheck);
 
-
-// Error Tests Controller (Can Delete)
-require('./controllers/error.test.controller.js')(progCheck);
-
-//    Auth Services
+// Auth Services
 
 require('./services/errors_service')(progCheck); // Service for holding errors of application
 

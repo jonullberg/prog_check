@@ -7,6 +7,7 @@ var plug = require('gulp-load-plugins')();
 var plato = require('plato');
 var glob = require('glob');
 var merge = require('merge-stream');
+var config = require('./gulp.config.json');
 
 var colors = plug.util.colors;
 var env = plug.util.env;
@@ -31,6 +32,25 @@ var paths = {
   },
   allTypeScript: './**/*.ts'
 };
+
+gulp.task('watch', function() {
+  gulp.watch([config.ts.frontend, config.ts.backend], ['ts-lint']);
+  gulp.watch([config.js.client, config.js.server, config.html, config.css], ['build']);
+  gulp.watch(config.tests.backend, ['analyze', 'mocha:backend']);
+  gulp.watch(config.sass, ['sass', 'sass-concat'])
+});
+
+// gulp.task('watch:testing', function() {
+//   gulp.watch(paths.tests.tests, ['mocha:backend']);
+// });
+
+// gulp.task('watch:development', function() {
+//   var client = ['build'];
+//   gulp.watch(paths.clientJs, client);
+//   gulp.watch(paths.html, client);
+//   gulp.watch(paths.styles, client);
+// });
+
 gulp.task('scripts', function() {
   var tsResult = gulp.src('./app/**/*.ts')
     .pipe(plug.typescript({
@@ -44,11 +64,9 @@ gulp.task('scripts', function() {
       tsResult.js.pipe(gulp.dest('testing/js'))
     ]);
 });
-gulp.task('watch', ['analyze'], function() {
-  gulp.watch([paths.scripts, paths.tests.frontend, paths.tests.backend], ['test', 'build'])
-});
+
 /**
- * Lint the available gulp tasks
+ * List the available gulp tasks
  */
 gulp.task('help', plug.taskListing);
 
@@ -67,6 +85,7 @@ gulp.task('analyze', function() {
   return merge(jshint, jscs);
 
 });
+
 // TypeScript
 gulp.task('ts-lint', function() {
   return gulp.src(paths.allTypeScript).pipe(plug.tslint()).pipe(plug.tslint.report('spec'));
@@ -84,7 +103,6 @@ gulp.task('compile-ts', function() {
 })
 
 // Testing
-
 gulp.task('webpack:karma_test', function(callback) {
   webpack({
     entry: __dirname + '/__tests__/frontend/test_entry.js',
@@ -111,18 +129,9 @@ gulp.task('mocha:backend', function() {
 
 gulp.task('test', ['mocha:backend', 'karma:test']);
 
-gulp.task('watch:testing', function() {
-  gulp.watch(paths.tests.tests, ['mocha:backend']);
-});
-
-gulp.task('watch:development', function() {
-  var client = ['build'];
-  gulp.watch(paths.scripts, client);
-  gulp.watch(paths.html, client);
-  gulp.watch(paths.styles, client);
-});
 
 var workingFiles = ['gulpfile.js', './lib/**/*.js', './routes/**/*.js', './app/**/*.js', './test/**/*.js', './models/**/*.js'];
+
 
 // Build
 gulp.task('clean:build', function (cb) {
@@ -166,49 +175,7 @@ gulp.task('uglify:build', ['webpack:build'], function() {
 });
 gulp.task('build', ['webpack:build']);
 
-// DIST
-gulp.task('clean:dist', function (cb) {
-  del.sync([
-    'dist/css/**/*',
-    'dist/templates/**/*',
-    'dist/index.html',
-    'dist/bundle.js',
-    '!dist/img/**/*',
-    '!dist/uploads/**/*'
-    ]);
-  cb();
-});
-
-gulp.task('copy:dist', ['clean:dist'], function() {
-  var srcFiles = ['app/**/*.html', 'app/**/*.css', 'app/**/*.png'];
-  return gulp.src(srcFiles)
-    .pipe(gulp.dest('dist/'));
-});
-
-gulp.task('webpack:dist', ['copy:dist'], function(callback) {
-  webpack({
-    entry: __dirname + '/app/js/client.js',
-    output: {
-      path: 'dist/',
-      file: 'bundle.min.js'
-    }
-  }, function(err, stats) {
-    if(err) throw new gutil.PluginError('webpack', err);
-    log('[webpack]', stats.toString({
-
-    }));
-    callback();
-  });
-});
-
-gulp.task('uglify:dist', ['webpack:dist'], function() {
-  return gulp.src('dist/bundle.js')
-    .pipe(plug.uglify())
-    .pipe(gulp.dest('dist/'));
-});
-
-gulp.task('dist', ['uglify:dist']);
-
+// Private Functions
 function analyzejshint(sources, overrideRcFile) {
   var jshintrcFile = overrideRcFile || './.jshintrc';
   log('Running JSHint');

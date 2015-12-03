@@ -7,10 +7,6 @@ module.exports = function(app) {
 
   app.config(['$routeProvider', function($routeProvider) {
     $routeProvider
-      .when('/errors', {
-        templateUrl: 'templates/views/errors.html',
-        controller: 'ErrorTestCtrl'
-      })
       .when('/about', {
         templateUrl: 'templates/views/about.html',
         access: {
@@ -20,6 +16,7 @@ module.exports = function(app) {
           requiredStudent: false
         }
       })
+      
       .when('/pricing', {
         templateUrl: 'templates/views/pricing.html',
         access: {

@@ -16,6 +16,8 @@ function questionCtrl($sce: any) {
 
   qu.select = function(answer: string, $index: number) {
     qu.question.selectedIndex = $index;
-    qu.selectAnswer({answer: answer});
+    qu.selectAnswer({
+      answer: answer
+    });
   };
 }

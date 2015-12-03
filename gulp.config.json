@@ -1,5 +1,18 @@
 {
   "client": "./app/js/client",
-  "test": "./__tests__/",
-  "js": "./app/js/**/*.js"
+  "tests": {
+    "frontend": "app/js/**/*.spec.js",
+    "backend": "server/**/*.spec.js"
+  },
+  "js": {
+    "client": "./app/js/**/*.js",
+    "server": ["server/**/*.js", "!server/**/*.spec.js"]
+  },
+  "ts": {
+    "frontend": "app/**/*.ts",
+    "backend": "server/**/*.ts"
+  },
+  "html": "app/**/*.html",
+  "css": "app/**/*.css",
+  "sass": "app/**/*.scss"
 }

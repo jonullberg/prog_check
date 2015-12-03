@@ -7,8 +7,8 @@
 
 export = function(app) {
   app.factory('stacktraceService', stacktraceService);
-}
+};
 
 function stacktraceService() {
   return StackTrace;
-};
+}
