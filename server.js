@@ -9,6 +9,18 @@ var	app = express();
 var port = process.env.PORT || config.port;
 var busboy = require('connect-busboy');
 
+var winston = require('winston');
+var MongoDB = require('winston-mongodb').MongoDB;
+var PaperTrail = require('winston-papertrail').Papertrail
+winston.add(MongoDB, {
+  level: 'info',
+  db: process.env.MONGOLAB_URI || 'mongodb://localhost/progcheck_dev'
+});
+winston.add(PaperTrail, {
+  host: 'logs3.papertrailapp.com',
+  port: 32135
+});
+
 var env = process.env.NODE_ENV || 'DEVELOPMENT';
 
 var forceSsl = function(req, res, next) {
@@ -44,12 +56,12 @@ app.use(passport.initialize());
 require('./lib/passport_strat')(passport);
 require('./lib/student_passport_strat')(passport);
 
-require('./routes/users_routes.js')(usersRoutes, passport);
-require('./routes/standards_routes.js')(standardsRoutes);
-require('./routes/tests_routes.js')(testsRoutes);
-require('./routes/students_routes.js')(studentsRoutes, passport);
-require('./routes/bugs_routes.js')(bugsRoutes);
-require('./routes/attempts_routes.js')(attemptsRoutes);
+require('./routes/routes.users.js')(usersRoutes, passport);
+require('./routes/routes.standards.js')(standardsRoutes);
+require('./routes/routes.tests.js')(testsRoutes);
+require('./routes/routes.students.js')(studentsRoutes, passport);
+require('./routes/routes.bugs.js')(bugsRoutes);
+require('./routes/routes.attempts.js')(attemptsRoutes);
 
 app.use('/api', usersRoutes);
 app.use('/api', standardsRoutes);

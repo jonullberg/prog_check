@@ -29,9 +29,21 @@ var paths = {
     frontend:'./__tests__/frontend/**/*.spec.js',
     backend: './__tests__/backend/**/*.spec.js'
   },
-  "js": "./app/js/**/*.js"
+  allTypeScript: './**/*.ts'
 };
-
+gulp.task('scripts', function() {
+  var tsResult = gulp.src('./app/**/*.ts')
+    .pipe(plug.typescript({
+      declarationFiles: true,
+      noExternalResolve:true,
+      noImplicitAny: true,
+      removeComments: true
+    }));
+    return merge([
+      tsResult.dts.pipe(gulp.dest('testing/definitions')),
+      tsResult.js.pipe(gulp.dest('testing/js'))
+    ]);
+});
 gulp.task('watch', ['analyze'], function() {
   gulp.watch([paths.scripts, paths.tests.frontend, paths.tests.backend], ['test', 'build'])
 });
@@ -55,8 +67,24 @@ gulp.task('analyze', function() {
   return merge(jshint, jscs);
 
 });
+// TypeScript
+gulp.task('ts-lint', function() {
+  return gulp.src(paths.allTypeScript).pipe(plug.tslint()).pipe(plug.tslint.report('spec'));
+});
+
+gulp.task('compile-ts', function() {
+  var sourceTsFiles = [paths.allTypeScript];
+  var tsResult = gulp.src(sourceTsFiles)
+    .pipe(plug.sourcemaps.init())
+    .pipe(plug.tsc(tsProject));
+    tsResult.dts.pipe(gulp.dest(paths.tsOutputPath));
+    return tsResult.js
+      .pipe(plug.sourcemaps.write('.'))
+      .pipe(gulp.dest(paths.tsOutputPath));
+})
 
 // Testing
+
 gulp.task('webpack:karma_test', function(callback) {
   webpack({
     entry: __dirname + '/__tests__/frontend/test_entry.js',
