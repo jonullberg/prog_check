@@ -112,7 +112,7 @@ module.exports = function(app) {
         }
       })
       .when('/admin/standards/:standardId/tests/:testId', {
-        templateUrl: 'templates/admin/single_test.html',
+        templateUrl: 'js/admin/single-test/single-test.html',
         controller: 'SingleTestCtrl',
         access: {
           requiredLogin: true,
@@ -138,8 +138,9 @@ module.exports = function(app) {
       })
       // A teacher looking at all of their students
       .when('/teacher/:teacherId/students', {
-        templateUrl: 'templates/teacher/students_list.html',
+        templateUrl: 'js/teacher/students-list/students-list.html',
         controller: 'StudentsListCtrl',
+        controllerAs: 'sl',
         access: {
           requiredLogin: true,
           requiredTeacher: true
@@ -147,8 +148,9 @@ module.exports = function(app) {
       })
       // A teacher looking at a single student
       .when('/teacher/:teacherId/students/:studentId', {
-        templateUrl: 'templates/teacher/single_student.html',
+        templateUrl: 'js/teacher/single-student/single-student.html',
         controller: 'SingleStudentCtrl',
+        // controllerAs:'ss',
         access: {
           requiredLogin: true,
           requiredTeacher: true

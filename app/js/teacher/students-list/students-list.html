@@ -1,5 +1,5 @@
 <main
-  data-ng-init="init()">
+  data-ng-init="sl.init()">
   <section class="panel panel-primary">
     <header class="panel-heading">
       <h3>List of Your Students</h3>
@@ -10,7 +10,7 @@
         <input type="text"
           class="form-control input-lg"
           placeholder="Search..."
-          data-ng-model="search.$" />
+          data-ng-model="sl.search.$" />
         <span class="input-group-btn">
           <button type="button" class="btn btn-primary btn-lg">
             <i class="glyphicon glyphicon-search"></i>
@@ -27,8 +27,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr data-ng-repeat="student in students | orderBy: 'lastName' | filter:search"
-            data-ng-click="showStudent(student)">
+          <tr data-ng-repeat="student in sl.students | orderBy: 'lastName' | filter:search"
+            data-ng-click="sl.showStudent(student)">
             <td>{{student.firstName}}</td>
             <td>{{student.lastName}}</td>
             <td>{{student.basic.username}}</td>
@@ -39,7 +39,7 @@
     </div>
     <footer class="panel-footer">
       <button class="btn btn-primary"
-        data-ng-click="addStudent()">
+        data-ng-click="sl.addStudent()">
         Add Student
         <span class="glyphicon glyphicon-plus"></span>
       </button>

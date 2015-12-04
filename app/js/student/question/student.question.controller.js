@@ -4,7 +4,9 @@ function questionCtrl($sce) {
     qu.trustAsHtml = $sce.trustAsHtml;
     qu.select = function (answer, $index) {
         qu.question.selectedIndex = $index;
-        qu.selectAnswer({ answer: answer });
+        qu.selectAnswer({
+            answer: answer
+        });
     };
 }
 module.exports = function (app) {
