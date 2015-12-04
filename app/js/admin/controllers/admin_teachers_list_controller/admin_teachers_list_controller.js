@@ -16,6 +16,5 @@ module.exports = function (app) {
             function updateTeacher(teacher) {
                 AdminData.Teachers.updateTeacher(teacher);
             }
-        }
-    ]);
+        }]);
 };
