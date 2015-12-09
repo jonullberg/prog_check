@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('StudentHomeCtrl', ['$scope', '$cookies', 'Errors', function($scope, $cookies, Errors) {
-    $scope.student = $cookies.getObject('user');
+  app.controller('StudentHomeCtrl', ['$scope', '$cookies', 'StudentData', function($scope, $cookies, StudentData) {
+    $scope.student = StudentData.getUser();
   }]);
 };

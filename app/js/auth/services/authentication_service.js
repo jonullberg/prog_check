@@ -1,15 +1,32 @@
 'use strict';
 
 module.exports = function(app) {
-  app.factory('AuthenticationService', ['$cookies', function($cookies) {
-    var auth = {
-      isLogged: false,
-      user: null
-    };
-    if ($cookies.get('token') && $cookies.get('token').length) {
-      auth.isLogged = true;
+  app.factory('AuthenticationService', ['$cookies', '$rootScope', '$location', 'jwtHelper', function($cookies, $rootScope, $location, jwtHelper) {
+    var user;
+    var token;
+    try {
+      token = jwtHelper.decodeToken($cookies.get('token'));
+    } catch (e) {
+      console.log('That token was invalid', e);
+      $cookies.remove('token');
+      $location.path('/sign-in')
     }
-    auth.user = $cookies.getObject('user');
+    if ($cookies.get('token') && token) {
+      user = token.sub;
+    } else {
+      user = null;
+    }
+    var auth = {
+      user: user,
+      getUser: function() {
+        return this.user;
+      },
+      setUser: function(user) {
+        this.user = user;
+        $rootScope.$broadcast('user:changed', this.user);
+        return;
+      }
+    };
     return auth;
   }]);
 };

@@ -2,7 +2,7 @@
 
 module.exports = function(app) {
   app.controller('StudentTestCtrl', ['$scope', '$routeParams', '$location', 'StudentData', function($scope, $routeParams, $location, StudentData) {
-    $scope.$on('student:changed', getStudent);
+    $scope.$on('user:changed', getUser);
     $scope.$on('test:changed', getTest);
     $scope.init = init;
     $scope.nextText = 'Next';
@@ -49,7 +49,7 @@ module.exports = function(app) {
     };
 
     function init() {
-      getStudent();
+      getUser();
       getTest();
       $scope.current = 1;
       $scope.question = $scope.test.questions[0];
@@ -60,11 +60,11 @@ module.exports = function(app) {
       }
       $scope.test = StudentData.Tests.getTest();
     }
-    function getStudent() {
-      if (!StudentData.getStudent()) {
+    function getUser() {
+      if (!StudentData.getUser()) {
         return $location.path('/test-expired');
       }
-      $scope.student = StudentData.getStudent();
+      $scope.student = StudentData.getUser();
     }
 
     function submitTest(test) {

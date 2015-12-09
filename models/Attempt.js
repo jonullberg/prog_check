@@ -1,6 +1,6 @@
 'use strict';
 
-var mongoose = require('mongoose')
+var mongoose = require('mongoose');
 
 var attemptSchema = mongoose.Schema({
   'studentId': {

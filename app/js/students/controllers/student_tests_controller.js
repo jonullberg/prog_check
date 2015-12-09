@@ -2,24 +2,24 @@
 
 module.exports = function(app) {
   app.controller('StudentTestsCtrl', ['$scope', '$location', '$routeParams', 'StudentData', function($scope, $location, $routeParams, StudentData) {
-    $scope.$on('student:changed', getStudent);
+    $scope.$on('student:changed', getUser);
     $scope.init = init;
     $scope.getTest = getTest;
     function init() {
-      getStudent($routeParams.studentId);
+      getUser($routeParams.studentId);
     }
 
     function getTest(goal) {
-      StudentData.Tests.fetchTest(goal.goalId, StudentData.getStudent(), function(err, data) {
+      StudentData.Tests.fetchTest(goal.goalId, StudentData.getUser(), function(err, data) {
         $location.path('/student/' + $routeParams.studentId + '/tests/' + data.test._id);
       });
     }
 
-    function getStudent(studentId) {
-      if (!StudentData.getStudent()) {
+    function getUser(studentId) {
+      if (!StudentData.getUser()) {
         StudentData.fetchStudent(studentId);
       }
-      $scope.student = StudentData.getStudent();
+      $scope.student = StudentData.getUser();
     }
   }]);
 };

@@ -7,7 +7,8 @@ var mongoose = require('mongoose');
 var chai = require('chai');
 var chaihttp = require('chai-http');
 var expect = chai.expect;
-var app = 'localhost:3000';
+var port = process.env.PORT || 3002;
+var app = 'localhost:' + port;
 chai.use(chaihttp);
 
 describe('The standards API', function() {

@@ -1,16 +1,13 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('AccountToolsCtrl', ['$scope', '$uibModal', '$cookies', '$location', 'UserService', function($scope, $uibModal, $cookies, $location, UserService) {
+  app.controller('AccountToolsCtrl', ['$scope', '$uibModal', '$cookies', '$location', 'UserService', 'AuthenticationService', function($scope, $uibModal, $cookies, $location, UserService, Auth) {
 
+    $scope.$on('user:changed', getUsername);
     $scope.signedIn = function() {
-      return UserService.isSignedIn();
+      return Auth.user;
     };
-
-    $scope.displayUsername = function() {
-      var fullName = $cookies.getObject('user').firstName + ' ' + $cookies.getObject('user').lastName;
-      return fullName;
-    };
+    $scope.init = init;
 
     $scope.logOut = function() {
       UserService.logout();
@@ -29,6 +26,16 @@ module.exports = function(app) {
         controller: 'BugFormCtrl'
       });
     };
+    function init() {
+      getUsername();
+    }
+    function getUsername() {
+      var username;
+      if (Auth.getUser()) {
+        username = Auth.getUser().firstName + ' ' + Auth.getUser().lastName;
 
+      }
+      $scope.displayUsername = username;
+    }
   }]);
 };

@@ -1,6 +1,6 @@
 {
   "name": "prog_check",
-  "version": "0.13.0",
+  "version": "0.13.1",
   "engines": {
     "node": "0.10.x",
     "npm": "2.10.x"
@@ -11,7 +11,8 @@
   "scripts": {
     "postinstall": "NODE_ENV=PRODUCTION gulp build",
     "start": "NODE_ENV=DEV gulp build && gulp watch",
-    "development": "NODE_ENV=DEV mongod --dbpath=./db --smallfiles & nodemon server & gulp build & gulp watch"
+    "development": "NODE_ENV=DEV mongod --dbpath=./db --smallfiles & nodemon server & gulp build & gulp watch",
+    "test": "NODE_ENV=TEST gulp test"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,7 @@
     "angular": "^1.4.4",
     "angular-base64": "^2.0.5",
     "angular-cookies": "^1.4.4",
+    "angular-jwt": "0.0.9",
     "angular-mocks": "^1.4.1",
     "angular-route": "^1.4.4",
     "angular-ui-bootstrap": "^0.14.2",
@@ -33,6 +35,7 @@
     "del": "^1.2.1",
     "eat": "^0.1.1",
     "express": "^4.12.3",
+    "express-jwt": "^3.3.0",
     "gulp": "^3.9.0",
     "gulp-copy": "0.0.2",
     "gulp-jscs": "^1.6.0",
@@ -43,6 +46,7 @@
     "gulp-uglify": "^1.5.1",
     "gulp-util": "^3.0.6",
     "jshint-stylish": "^2.0.1",
+    "jsonwebtoken": "^5.4.1",
     "mongoose": "^4.0.3",
     "ng-file-upload": "latest",
     "nodemailer": "^1.4.0",
@@ -58,9 +62,11 @@
     "file-loader": "^0.8.4",
     "html-loader": "^0.3.0",
     "jasmine-core": "^2.3.4",
-    "karma": "^0.12.37",
+    "karma": "^0.13.15",
+    "karma-chai": "^0.1.0",
     "karma-jasmine": "^0.3.5",
-    "karma-phantomjs-launcher": "^0.2.0",
+    "karma-mocha": "^0.2.1",
+    "karma-phantomjs-launcher": "^0.2.1",
     "mocha": "^2.2.5",
     "node-libs-browser": "^0.5.2",
     "phantomjs": "^1.9.17"

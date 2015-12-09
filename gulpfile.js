@@ -10,18 +10,20 @@ var jscs = require('gulp-jscs');
 var copy = require('gulp-copy');
 var karma = require('gulp-karma');
 var uglify = require('gulp-uglify');
+var mocha = require('gulp-mocha');
 
 var paths = {
   scripts: './app/**/*.js',
   styles: ['./app/**/*.css', './app/**/*.scss'],
   html: './app/**/*.html',
   serverLib: './lib/**/*.js',
-  serverTests: './tests/**/*.js',
+  serverTests: './routes/**/*-tests.js',
   serverFiles: ['./server.js', './routes/**/*.js'],
   dataModels: './models/**/*.js',
   gulpfile: './gulpfile.js'
 };
 
+// Testing
 gulp.task('webpack:karma_test', ['clean:karma'], function(callback) {
   webpack({
     entry: __dirname + '/test/karma_tests/test_entry.js',
@@ -48,6 +50,10 @@ gulp.task('karma:test', ['webpack:karma_test'], function() {
       this.emit('end');
     });
 });
+gulp.task('mocha:backend', function() {
+  return gulp.src(paths.serverTests, {read: false})
+    .pipe(mocha({reporter: 'spec'}));
+});
 gulp.task('lint', function() {
   return gulp.src(workingFiles)
     .pipe(jshint('.jshintrc'))
@@ -58,6 +64,9 @@ gulp.task('jscs', function() {
     .pipe(jscs());
 });
 gulp.task('karmatest', ['karma:test']);
+
+gulp.task('test', ['lint', 'jscs', 'mocha:backend', 'karma:test']);
+
 
 gulp.task('watch', function() {
   var client = ['build'];
@@ -116,7 +125,7 @@ gulp.task('uglify:build', ['webpack:build'], function() {
     .pipe(uglify())
     .pipe(gulp.dest('build/'));
 });
-gulp.task('build', ['uglify:build']);
+gulp.task('build', ['webpack:build']);
 
 // DIST
 gulp.task('clean:dist', function (cb) {

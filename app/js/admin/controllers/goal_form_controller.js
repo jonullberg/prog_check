@@ -17,7 +17,7 @@ module.exports = function(app) {
 
     $scope.cancel = function() {
       $uibModalInstance.dismiss(function() {
-        AdminData.Standards.setGoal(null)
+        AdminData.Standards.setGoal(null);
       });
     };
 
