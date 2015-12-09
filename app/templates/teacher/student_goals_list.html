@@ -18,9 +18,8 @@
     </div>
     <div class="clearfix"></div>
   </div>
-  <uib-accordion close-others="true">
-    <uib-accordion-group class="list-group-item"
-      is-open="goal.isopen"
+  <uib-accordion>
+    <uib-accordion-group
       data-ng-repeat="goal in student.goals"
       data-ng-click="showAttempts(goal)"
       data-panel-class="panel-primary"
