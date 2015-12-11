@@ -52,8 +52,9 @@ module.exports = function(router) {
             'msg': 'Internal Server Error'
           });
         }
+        var test = tests[0];
         res.json({
-          'test': tests[0]
+          'test': test
         });
       });
     } else {

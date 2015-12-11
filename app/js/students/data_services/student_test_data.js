@@ -47,10 +47,20 @@ module.exports = function(app) {
     function fetchTest(goalId, student, cb) {
       $http.get('/api/tests?goalId=' + goalId)
         .then(function(response) {
-          var studentGoalId = student.goals.filter(function(goal) {
-            return goal.goalId === goalId;
-          })[0]._id;
-          var test = setUpTest(response.data.test, student, studentGoalId);
+          var selectedGoal = student.goals.filter(function(goal) {
+            if (goal.goalId) {
+              return goal.goalId === goalId;
+            } else {
+              return goal._id === goalId;
+            }
+          })[0];
+          var numberOfQuestions = selectedGoal.numberOfQuestions;
+          var test;
+          if (response.data.test) {
+            test = setUpTest(response.data.test, student, numberOfQuestions);
+          } else {
+            test = null;
+          }
           this.setTest(test);
           handleCallback(cb, response);
         }.bind(this))
@@ -83,10 +93,12 @@ module.exports = function(app) {
      * @param  {Object} test The Test object from the server
      * @return {Object}      A process Test
      */
-    function setUpTest(test, student, goalId) {
-      var max = getMaxQuestions(student, goalId);
+    function setUpTest(test, student, numberOfQuestions) {
+      console.log('test', test);
+      console.log('student', student);
+      var max = getMaxQuestions(student, numberOfQuestions);
       var newTest = {};
-      newTest.maxQuestions = getMaxQuestions(student, goalId);
+      newTest.maxQuestions = max;
       newTest.studentId = student._id;
       newTest.testId = test._id;
       newTest.correctAnswers = 0;
@@ -95,15 +107,10 @@ module.exports = function(app) {
       newTest.active = true;
       return newTest;
     }
-    function getMaxQuestions(student, goalId) {
+    function getMaxQuestions(student, numberOfQuestions) {
       var max;
-      var selectedGoal = student.goals.filter(function(goal) {
-        if (goal._id === goalId) {
-          return goal;
-        }
-      })[0];
-      if (selectedGoal.numberOfQuestions) {
-        max = selectedGoal.numberOfQuestions;
+      if (numberOfQuestions) {
+        max = numberOfQuestions;
       } else {
         max = student.numberOfQuestions;
       }
