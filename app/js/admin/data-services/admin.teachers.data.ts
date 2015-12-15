@@ -2,10 +2,14 @@
  * A module to hold all teachers/users for the admin to see
  * Created by Jonathan Ullberg on 10/23/2015
  */
-'use strict';
+module ProgCheck {
+  'use strict';
 
-export = function(app) {
-  app.factory('AdminTeachersData', ['$http', '$rootScope', 'Errors', function ($http, $rootScope, Errors) {
+  angular
+    .module('progCheck')
+    .factory('AdminTeachersData', ['$http', '$rootScope', 'Errors', adminTeachersData]);
+
+  function adminTeachersData($http, $rootScope, Errors) {
 
     var adminTeachersData = {
       teachers: null,
@@ -59,5 +63,6 @@ export = function(app) {
     }
 
     return adminTeachersData;
-  }]);
-};
+  }
+
+}

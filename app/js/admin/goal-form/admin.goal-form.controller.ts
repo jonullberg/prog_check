@@ -22,7 +22,7 @@ module ProgCheck {
   function goalFormCtrl($scope: ng.IScope, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, $routeParams: ng.route.IRouteParamsService, AdminData) {
     var gf = this;
     gf.save = function(goal) {
-      if (gf.goalForm.$valid) {
+      if ($scope.goalForm.$valid) {
         if ($scope.params.formType === 'creating') {
           createGoal(goal);
         } else if ($scope.params.formType === 'editing') {

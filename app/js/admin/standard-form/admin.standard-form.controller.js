@@ -30,7 +30,7 @@ var ProgCheck;
         };
         sf.save = function (standard) {
             if ($scope.params.formType === 'creating') {
-                if (sf.standardForm.$valid) {
+                if ($scope.standardForm.$valid) {
                     standard.shortGrade = sf.thisGrade.shortName;
                     standard.goals = [];
                     createStandard(standard);

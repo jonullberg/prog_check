@@ -7,7 +7,7 @@ var ProgCheck;
     function goalFormCtrl($scope, $uibModalInstance, $routeParams, AdminData) {
         var gf = this;
         gf.save = function (goal) {
-            if (gf.goalForm.$valid) {
+            if ($scope.goalForm.$valid) {
                 if ($scope.params.formType === 'creating') {
                     createGoal(goal);
                 }

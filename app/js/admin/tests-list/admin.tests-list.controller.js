@@ -1,58 +1,57 @@
-'use strict';
-module.exports = function (app) {
-    app.controller('TestsListCtrl', ['$scope', '$uibModal', '$rootScope', '$location', '$routeParams', 'AdminData', function ($scope, $uibModal, $rootScope, $location, $routeParams, AdminData) {
-            $scope.init = init;
-            $scope.$on('standard:changed', getStandard);
-            $scope.$on('tests:changed', function (e, data) {
-                $scope.tests = data;
+var ProgCheck;
+(function (ProgCheck) {
+    'use strict';
+    angular
+        .module('progCheck')
+        .controller('TestsListCtrl', ['$scope', '$uibModal', '$rootScope', '$location', '$routeParams', 'AdminData', testsListCtrl]);
+    function testsListCtrl($scope, $uibModal, $rootScope, $location, $routeParams, AdminData) {
+        var tl = this;
+        $scope.$on('standard:changed', getStandard);
+        $scope.$on('tests:changed', getTests);
+        tl.init = function () {
+            getStandard();
+            getTests();
+        };
+        tl.select = function (test) {
+            AdminData.Tests.setTest(test);
+            $location.path('/admin/standards/' + $routeParams.standardId + '/tests/' + test._id);
+        };
+        tl.newTest = function () {
+            AdminData.Tests.setTest(null);
+            var scope = $rootScope.$new();
+            scope.params = {
+                formType: 'creating',
+                buttonText: 'Create Test'
+            };
+            $uibModal.open({
+                animation: true,
+                templateUrl: '/js/admin/test-form/test-form.html',
+                size: 'lg',
+                controller: 'TestFormCtrl',
+                controllerAs: 'tf',
+                scope: scope
             });
-            $scope.select = function (test) {
-                AdminData.Tests.setTest(test);
-                $location.path('/admin/standards/' + $scope.standard._id + '/tests/' + test._id);
-            };
-            $scope.newTest = function () {
-                AdminData.Tests.setTest(null);
-                var scope = $rootScope.$new();
-                scope.params = {
-                    formType: 'creating',
-                    buttonText: 'Create Test'
-                };
-                $uibModal.open({
-                    animation: true,
-                    templateUrl: '/templates/directives/test_form.html',
-                    size: 'lg',
-                    controller: 'TestFormCtrl',
-                    scope: scope
+        };
+        function getStandard() {
+            var standard = AdminData.Standards.getStandard();
+            if (!AdminData.Standards.getStandard()) {
+                AdminData.Standards.fetchStandard($routeParams.standardId);
+            }
+            tl.standard = AdminData.Standards.getStandard();
+        }
+        function getTests() {
+            if (!AdminData.Tests.getTests()) {
+                AdminData.Tests.fetchTests($routeParams.standardId);
+            }
+            tl.tests = numberTests(AdminData.Tests.getTests());
+        }
+        function numberTests(tests) {
+            if (tests && tests.length) {
+                tests.forEach(function (test, i) {
+                    test.testName = 'Test #' + (i + 1);
                 });
-            };
-            function init() {
-                getStandard();
-                getTests();
+                return tests;
             }
-            function getStandard() {
-                var standard = AdminData.Standards.getStandard();
-                if (standard) {
-                    $scope.standard = standard;
-                }
-                else {
-                    AdminData.Standards.fetchStandard($routeParams.standardId, function (err, data) {
-                        $scope.standard = data.standard;
-                    });
-                }
-            }
-            function getTests() {
-                if (!AdminData.Tests.getTests()) {
-                    AdminData.Tests.fetchTests($routeParams.standardId);
-                }
-                $scope.tests = numberTests(AdminData.Tests.getTests());
-            }
-            function numberTests(tests) {
-                if (tests && tests.length) {
-                    tests.forEach(function (test, i) {
-                        test.testName = 'Test #' + (i + 1);
-                    });
-                    return tests;
-                }
-            }
-        }]);
-};
+        }
+    }
+})(ProgCheck || (ProgCheck = {}));

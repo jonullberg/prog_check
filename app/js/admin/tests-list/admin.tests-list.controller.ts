@@ -3,20 +3,31 @@
  * For use in the Prog Check testing application
  * Created by Jonathan Ullberg on 10/30/2015
  */
-'use strict';
+ /// <reference path="../../../../tools/typings/tsd.d.ts" />
+module ProgCheck {
+  'use strict';
 
-export = function(app) {
-  app.controller('TestsListCtrl', ['$scope', '$uibModal', '$rootScope', '$location', '$routeParams', 'AdminData',  function($scope, $uibModal, $rootScope, $location, $routeParams, AdminData) {
-    $scope.init = init;
+  angular
+    .module('progCheck')
+    .controller('TestsListCtrl', ['$scope', '$uibModal', '$rootScope', '$location', '$routeParams', 'AdminData', testsListCtrl]);
+  // export = function(app) {
+  //   app.controller('TestsListCtrl', ['$scope', '$uibModal', '$rootScope', '$location', '$routeParams', 'AdminData', testsListCtrl]);
+
+  function testsListCtrl($scope, $uibModal: ng.ui.bootstrap.IModalService, $rootScope: ng.IRootScopeService, $location: ng.ILocationService, $routeParams: ng.route.IRouteParamsService, AdminData) {
+    var tl = this;
     $scope.$on('standard:changed', getStandard);
-    $scope.$on('tests:changed', function(e, data) {
-      $scope.tests = data;
-    });
-    $scope.select = function(test) {
-      AdminData.Tests.setTest(test);
-      $location.path('/admin/standards/' + $scope.standard._id + '/tests/' + test._id);
+    $scope.$on('tests:changed', getTests);
+
+    // Public Functions
+    tl.init = function() {
+      getStandard();
+      getTests();
     };
-    $scope.newTest = function() {
+    tl.select = function(test) {
+      AdminData.Tests.setTest(test);
+      $location.path('/admin/standards/' + $routeParams.standardId + '/tests/' + test._id);
+    };
+    tl.newTest = function() {
       AdminData.Tests.setTest(null);
       var scope = $rootScope.$new();
       scope.params = {
@@ -25,33 +36,27 @@ export = function(app) {
       };
       $uibModal.open({
         animation:true,
-        templateUrl: '/templates/directives/test_form.html',
+        templateUrl: '/js/admin/test-form/test-form.html',
         size: 'lg',
         controller: 'TestFormCtrl',
+        controllerAs: 'tf',
         scope: scope
       });
     };
 
-    function init() {
-      getStandard();
-      getTests();
-    }
-
+    // Private Functions
     function getStandard() {
       var standard = AdminData.Standards.getStandard();
-      if (standard) {
-        $scope.standard = standard;
-      } else {
-        AdminData.Standards.fetchStandard($routeParams.standardId, function(err, data) {
-          $scope.standard = data.standard;
-        });
+      if (!AdminData.Standards.getStandard()) {
+        AdminData.Standards.fetchStandard($routeParams.standardId);
       }
+      tl.standard = AdminData.Standards.getStandard();
     }
     function getTests() {
       if (!AdminData.Tests.getTests()) {
         AdminData.Tests.fetchTests($routeParams.standardId);
       }
-      $scope.tests = numberTests(AdminData.Tests.getTests());
+      tl.tests = numberTests(AdminData.Tests.getTests());
     }
     function numberTests(tests) {
       if (tests && tests.length) {
@@ -61,6 +66,5 @@ export = function(app) {
         return tests;
       }
     }
-
-  }]);
-};
+  }
+}

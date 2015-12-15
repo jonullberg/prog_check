@@ -3,15 +3,21 @@
  * For use in the Prog Check testing application
  * Created by Jonathan Ullberg on 09/25/2015
  */
-'use strict';
-  
-export = function(app) {
-  app.controller('TestFormCtrl', ['$scope', '$routeParams', '$uibModalInstance', 'AdminData', testFormCtrl]);
- 
+ /// <reference path="../../../../tools/typings/tsd.d.ts" />
+
+module ProgCheck {
+  'use strict';
+
+  angular
+    .module('progCheck')
+    .controller('TestFormCtrl', ['$scope', '$routeParams', '$uibModalInstance', 'AdminData', testFormCtrl])
+  // export = function(app) {
+  //   app.controller('TestFormCtrl', ['$scope', '$routeParams', '$uibModalInstance', 'AdminData', testFormCtrl]);
+
   function testFormCtrl($scope, $routeParams, $uibModalInstance, AdminData) {
-  
+
     this.$on('test:changed', getTest);
-    
+
     // Public Functions
     this.init = function() {
       getTest();
@@ -56,5 +62,6 @@ export = function(app) {
     function createTest(test) {
       AdminData.Tests.createTest(test);
     }
-  }
-};
+  };
+
+}

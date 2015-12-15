@@ -77,21 +77,21 @@
 
   //  Admin
     //  Data Services
-    require('./admin/data-services/admin.data.service')(progCheck);
-    require('./admin/data-services/admin.standards.data')(progCheck);
-    require('./admin/data-services/admin.tests.data')(progCheck);
-    require('./admin/data-services/admin.teachers.data')(progCheck);
+    require('./admin/data-services/admin.data.service');
+    require('./admin/data-services/admin.standards.data');
+    require('./admin/data-services/admin.tests.data');
+    require('./admin/data-services/admin.teachers.data');
 
     //  Standards List
-    require('./admin/standards-list/admin.standards-list.directive')(progCheck);
-    require('./admin/standards-list/admin.standards-list.controller')(progCheck);
+    require('./admin/standards-list/admin.standards-list.directive');
+    require('./admin/standards-list/admin.standards-list.controller');
 
     //  Single Standards
-    require('./admin/single-standard/admin.single-standard.directive')(progCheck);  //  Directive
+    require('./admin/single-standard/admin.single-standard.directive');  //  Directive
     require('./admin/single-standard/admin.single-standard.controller'); //  Controller
 
     //  Standard Form
-    require('./admin/standard-form/admin.standard-form.directive')(progCheck);  //  Directive
+    require('./admin/standard-form/admin.standard-form.directive');  //  Directive
     require('./admin/standard-form/admin.standard-form.controller'); //  Controller
 
     //  Goal Form
@@ -99,16 +99,16 @@
     require('./admin/goal-form/admin.goal-form.controller');
 
     //  Single Test
-    require('./admin/single-test/admin.single-test.directive')(progCheck);
-    require('./admin/single-test/admin.single-test.controller')(progCheck);
+    require('./admin/single-test/admin.single-test.directive');
+    require('./admin/single-test/admin.single-test.controller');
 
     //  Tests List
-    require('./admin/tests-list/admin.tests-list.directive')(progCheck);
-    require('./admin/tests-list/admin.tests-list.controller')(progCheck);
+    require('./admin/tests-list/admin.tests-list.directive');
+    require('./admin/tests-list/admin.tests-list.controller');
 
     //  Test Create Form
-    require('./admin/test-form/admin.test-form.directive')(progCheck);
-    require('./admin/test-form/admin.test-form.controller')(progCheck);
+    require('./admin/test-form/admin.test-form.directive');
+    require('./admin/test-form/admin.test-form.controller');
 
     //  Question Form
     require('./admin/question-form/admin.question-form.directive');
@@ -116,7 +116,7 @@
     require('./admin/question-form/admin.image-question-form.controller');
 
     // Teachers List
-    require('./admin/teachers-list/admin.teachers-list.controller')(progCheck);
+    require('./admin/teachers-list/admin.teachers-list.controller');
 
     // Miscellaneous
       // TODO: Refactor these controllers

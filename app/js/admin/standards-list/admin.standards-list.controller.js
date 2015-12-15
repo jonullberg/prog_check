@@ -1,6 +1,9 @@
-'use strict';
-module.exports = function (app) {
-    app.controller('StandardsListCtrl', ['$scope', '$uibModal', '$rootScope', '$cookies', '$location', 'AdminData', standardsListCtrl]);
+var ProgCheck;
+(function (ProgCheck) {
+    'use strict';
+    angular
+        .module('progCheck')
+        .controller('StandardsListCtrl', ['$scope', '$uibModal', '$rootScope', '$cookies', '$location', 'AdminData', standardsListCtrl]);
     function standardsListCtrl($scope, $uibModal, $rootScope, $cookies, $location, AdminData) {
         var sl = this;
         $scope.$on('standards:changed', getStandards);
@@ -41,4 +44,4 @@ module.exports = function (app) {
             sl.standards = AdminData.Standards.getStandards();
         }
     }
-};
+})(ProgCheck || (ProgCheck = {}));

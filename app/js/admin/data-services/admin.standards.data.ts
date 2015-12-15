@@ -2,28 +2,36 @@
  * A factory for holding an admin's standards data
  * Created by Jonathan Ullberg on 10/23/2015
  */
-'use strict';
 
-interface Standard {
-  _id: string;
-  name: string;
-  gradeName: string;
-  shortGrade: string;
-  code: string;
-  language: string;
-  domain: Array<string>;
-  goals: Array<Goal>
-}
+module ProgCheck {
+  'use strict';
 
-interface Goal {
-  _id: string;
-  name: string;
-  description: string;
-  exampleQuestion: string;
-}
+  interface Standard {
+    _id: string;
+    name: string;
+    gradeName: string;
+    shortGrade: string;
+    code: string;
+    language: string;
+    domain: Array<string>;
+    goals: Array<Goal>
+  }
 
-export = function(app): void {
-  app.factory('AdminStandardsData', ['$http', '$rootScope', 'Errors', function ($http, $rootScope, Errors) {
+  interface Goal {
+    _id: string;
+    name: string;
+    description: string;
+    exampleQuestion: string;
+  }
+
+  angular
+    .module('progCheck')
+    .factory('AdminStandardsData', ['$http', '$rootScope', 'Errors', adminStandardsData])
+
+  // export = function(app): void {
+  //   app.factory('AdminStandardsData', ['$http', '$rootScope', 'Errors',
+
+  function adminStandardsData($http, $rootScope, Errors) {
 
     var adminStandardsData = {
       standards: null,
@@ -201,5 +209,6 @@ export = function(app): void {
         cb(rejection);
       }
     }
-  }]);
-};
+  }
+
+}

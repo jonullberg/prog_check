@@ -1,6 +1,9 @@
-'use strict';
-module.exports = function (app) {
-    app.directive('pcTestForm', pcTestForm);
+var ProgCheck;
+(function (ProgCheck) {
+    'use strict';
+    angular
+        .module('progCheck')
+        .directive('pcTestForm', pcTestForm);
     function pcTestForm() {
         return {
             restrict: 'E',
@@ -13,4 +16,4 @@ module.exports = function (app) {
             controllerAs: 'tf'
         };
     }
-};
+})(ProgCheck || (ProgCheck = {}));

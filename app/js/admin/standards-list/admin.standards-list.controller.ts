@@ -1,11 +1,18 @@
-'use strict';
- 
-export = function(app) {
-  app.controller('StandardsListCtrl', ['$scope', '$uibModal', '$rootScope', '$cookies', '$location', 'AdminData', standardsListCtrl]);
+
+module ProgCheck {
+  'use strict';
+
+  angular
+    .module('progCheck')
+    .controller('StandardsListCtrl', ['$scope', '$uibModal', '$rootScope', '$cookies', '$location', 'AdminData', standardsListCtrl])
+
+  // export = function(app) {
+  //   app.controller('StandardsListCtrl', ['$scope', '$uibModal', '$rootScope', '$cookies', '$location', 'AdminData', standardsListCtrl]);
+
   function standardsListCtrl($scope, $uibModal, $rootScope, $cookies, $location, AdminData) {
     var sl = this;
     $scope.$on('standards:changed', getStandards);
-    
+
     // Public Functions
     sl.init = function() {
       getStandards();
@@ -44,7 +51,7 @@ export = function(app) {
       $location.path('/admin/standards/' + standard._id);
       return;
     };
-    
+
     // Private Functions
     function getStandards() {
       if (!AdminData.Standards.getStandards()) {
@@ -53,4 +60,4 @@ export = function(app) {
       sl.standards = AdminData.Standards.getStandards();
     }
   }
-};
+}

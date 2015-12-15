@@ -1,6 +1,9 @@
-'use strict';
-module.exports = function (app) {
-    app.controller('TestFormCtrl', ['$scope', '$routeParams', '$uibModalInstance', 'AdminData', testFormCtrl]);
+var ProgCheck;
+(function (ProgCheck) {
+    'use strict';
+    angular
+        .module('progCheck')
+        .controller('TestFormCtrl', ['$scope', '$routeParams', '$uibModalInstance', 'AdminData', testFormCtrl]);
     function testFormCtrl($scope, $routeParams, $uibModalInstance, AdminData) {
         this.$on('test:changed', getTest);
         this.init = function () {
@@ -44,4 +47,5 @@ module.exports = function (app) {
             AdminData.Tests.createTest(test);
         }
     }
-};
+    ;
+})(ProgCheck || (ProgCheck = {}));

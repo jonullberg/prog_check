@@ -3,10 +3,17 @@
  * For use in the Prog Check testing application
  * Created by Jonathan Ullberg on 10/20/2015
  */
-'use strict';
+ /// <reference path="../../../../tools/typings/tsd.d.ts" />
 
-export = function(app) {  
-  app.directive('pcTestForm', pcTestForm);
+module ProgCheck {
+  'use strict';
+
+  angular
+    .module('progCheck')
+    .directive('pcTestForm', pcTestForm)
+  // export = function(app) {
+  //   app.directive('pcTestForm', pcTestForm);
+
   function pcTestForm() {
     return {
       restrict: 'E',
@@ -19,4 +26,5 @@ export = function(app) {
       controllerAs: 'tf'
     };
   }
-};
+
+}

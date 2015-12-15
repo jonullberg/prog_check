@@ -1,16 +1,25 @@
-'use strict';
+module ProgCheck {
+  'use strict';
 
-export = function(app) {
-  app.directive('pcStandardForm', pcStandardForm);
-};
-function pcStandardForm() {
-  return {
-    restrict: 'E',
-    replace: true,
-    templateUrl: '/templates/directives/standards/standard_form.html',
-    scope: {
-      buttonText: '=',
-      standard: '='
-    }
-  };
+  angular
+    .module('progCheck')
+    .directive('pcStandardForm', pcStandardForm)
+
+  // export = function(app) {
+  //   app.directive('pcStandardForm', pcStandardForm);
+  // };
+
+  function pcStandardForm() {
+    return {
+      restrict: 'E',
+      replace: true,
+      templateUrl: '/js/admin/standard-form/standard-form.html',
+      controller: 'StandardFormCtrl',
+      controllerAs: 'sf',
+      scope: {
+        buttonText: '=',
+        standard: '='
+      }
+    };
+  }
 }

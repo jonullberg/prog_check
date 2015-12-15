@@ -2,10 +2,15 @@
  * A module for holding all tests for the admin
  * Created by Jonathan Ullberg on 10/23/2015
  */
-'use strict';
 
-export = function(app) {
-  app.factory('AdminTestsData', ['$http', '$rootScope', 'Errors', function ($http, $rootScope, Errors) {
+module ProgCheck {
+  'use strict';
+
+  angular
+    .module('progCheck')
+    .factory('AdminTestsData', ['$http', '$rootScope', 'Errors', adminTestsData]);
+
+  function adminTestsData($http, $rootScope, Errors) {
 
     var adminTestsData = {
       tests: null,
@@ -157,5 +162,6 @@ export = function(app) {
       }
     }
     return adminTestsData;
-  }]);
-};
+  }
+
+}
