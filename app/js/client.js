@@ -24,7 +24,7 @@
   require('./config/config');
 
   //  services
-  require('./services/copy');
+  require('./services/copy.service');
   require('./services/pc_grades_service')(progCheck);
   require('./services/us_states')(progCheck);
   require('./services/sanitize_fractions')(progCheck);
@@ -32,10 +32,10 @@
   require('./services/to_trusted')(progCheck);
   require('./services/stacktrace.service.js')(progCheck);
   require('./services/error-log.service.js')(progCheck);
+  require('./services/errors.service');
 
   // Auth Services
 
-  require('./services/errors_service')(progCheck); // Service for holding errors of application
 
   //  controllers
   require('./controllers/errors_controller')(progCheck);
