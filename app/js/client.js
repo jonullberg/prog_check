@@ -25,7 +25,7 @@
 
   //  services
   require('./services/copy.service');
-  require('./services/pc_grades_service')(progCheck);
+  require('./services/grades.service');
   require('./services/us_states')(progCheck);
   require('./services/sanitize_fractions')(progCheck);
   require('./services/shuffle.service');
@@ -88,11 +88,11 @@
 
     //  Single Standards
     require('./admin/single-standard/admin.single-standard.directive')(progCheck);  //  Directive
-    require('./admin/single-standard/admin.single-standard.controller')(progCheck); //  Controller
+    require('./admin/single-standard/admin.single-standard.controller'); //  Controller
 
     //  Standard Form
     require('./admin/standard-form/admin.standard-form.directive')(progCheck);  //  Directive
-    require('./admin/standard-form/admin.standard-form.controller')(progCheck); //  Controller
+    require('./admin/standard-form/admin.standard-form.controller'); //  Controller
 
     //  Goal Form
     require('./admin/goal-form/admin.goal-form.directive');

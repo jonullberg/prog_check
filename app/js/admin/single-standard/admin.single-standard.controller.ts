@@ -2,7 +2,7 @@
  * A controller for viewing a single standard as an admin
  * Created by Jonathan on 07/14/2015
  */
- /// <reference path="../../../../tools/typings/tsd.d.ts" />
+ /// <reference path="../../../../tools/typings/angularjs/angular.d.ts" />
 module ProgCheck {
   'use strict';
 
