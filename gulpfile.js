@@ -40,6 +40,9 @@ gulp.task('watch', function() {
   gulp.watch(config.sass, ['sass', 'sass-concat'])
 });
 
+gulp.task('sass', function() {
+
+});
 // gulp.task('watch:testing', function() {
 //   gulp.watch(paths.tests.tests, ['mocha:backend']);
 // });
