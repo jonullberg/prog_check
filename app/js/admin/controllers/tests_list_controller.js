@@ -9,9 +9,7 @@ module.exports = function(app) {
   app.controller('TestsListCtrl', ['$scope', '$uibModal', '$rootScope', '$location', '$routeParams', 'AdminData',  function($scope, $uibModal, $rootScope, $location, $routeParams, AdminData) {
     $scope.init = init;
     $scope.$on('standard:changed', getStandard);
-    $scope.$on('tests:changed', function(e, data) {
-      $scope.tests = data;
-    });
+    $scope.$on('tests:changed', getTests);
     $scope.select = function(test) {
       AdminData.Tests.setTest(test);
       $location.path('/admin/standards/' + $scope.standard._id + '/tests/' + test._id);
@@ -48,14 +46,10 @@ module.exports = function(app) {
       }
     }
     function getTests() {
-      var tests = AdminData.Tests.getTests();
-      if (tests) {
-        $scope.tests = numberTests(tests);
-      } else {
-        AdminData.Tests.fetchTests($routeParams.standardId, function(err, data) {
-          $scope.tests = numberTests(data.tests);
-        })
+      if (!AdminData.Tests.getTests()) {
+        AdminData.Tests.fetchTests($routeParams.standardId);
       }
+      $scope.tests = numberTests(AdminData.Tests.getTests());
     }
     function numberTests(tests) {
       if (tests && tests.length) {
