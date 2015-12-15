@@ -4,17 +4,25 @@
  * For use in the Prog Check testing application
  * Created by Jonathan Ullberg on 08/10/2015
  */
-'use strict';
+ /// <reference path="../../../../tools/typings/tsd.d.ts" />
 
-export = function(app) {
-  app.controller('QuestionFormCtrl', ['$scope', '$uibModalInstance', '$sce', '$routeParams', 'AdminData', questionFormCtrl]);
-};
-function questionFormCtrl($scope, $uibModalInstance, $sce, $routeParams, AdminData) {
+module ProgCheck {
+  'use strict';
 
+  angular
+    .module('progCheck')
+    .controller('QuestionFormCtrl', ['$scope', '$uibModalInstance', '$sce', '$routeParams', 'AdminData', questionFormCtrl]);
 
+  // export = function(app) {
+  //   app.controller('QuestionFormCtrl', ['$scope', '$uibModalInstance', '$sce', '$routeParams', 'AdminData', questionFormCtrl]);
+  // };
+
+  function questionFormCtrl($scope: ng.IScope, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, $sce: ng.ISCEService, $routeParams: ng.route.IRouteParamsService, AdminData) {
+
+    var qf = this;
     $scope.trustAsHtml = $sce.trustAsHtml;
     $scope.$on('test:changed', getTest);
-    
+
     // Public Functions
     $scope.init = function() {
       getTest();
@@ -40,23 +48,24 @@ function questionFormCtrl($scope, $uibModalInstance, $sce, $routeParams, AdminDa
       };
     }
 
-    $scope.cancel = function() {
-      $uibModalInstance.dismiss();
-    };
-    
-    // Private Functions
-    function getQuestion() {
-      $scope.question = AdminData.Tests.getQuestion();
-    }
-    function getTest() {
-      $scope.test = AdminData.Tests.getTest();
-    }
-    function createQuestion(question) {
-      AdminData.Tests.createQuestion($routeParams.testId, question);
-    }
+      $scope.cancel = function() {
+        $uibModalInstance.dismiss();
+      };
 
-    function updateQuestion(question) {
-      AdminData.Tests.updateQuestion($routeParams.testId, question);
-    }
+      // Private Functions
+      function getQuestion() {
+        $scope.question = AdminData.Tests.getQuestion();
+      }
+      function getTest() {
+        $scope.test = AdminData.Tests.getTest();
+      }
+      function createQuestion(question) {
+        AdminData.Tests.createQuestion($routeParams.testId, question);
+      }
 
-  }
+      function updateQuestion(question) {
+        AdminData.Tests.updateQuestion($routeParams.testId, question);
+      }
+
+    }
+}

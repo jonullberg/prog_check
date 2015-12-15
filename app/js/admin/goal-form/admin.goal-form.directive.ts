@@ -3,17 +3,24 @@
  * For use in the Prog Check Testing application
  * Created by Jonathan Ullberg on 09/20/2015
  */
-'use strict';
+ /// <reference path="../../../../tools/typings/angularjs/angular.d.ts" />
+module ProgCheck {
+  'use strict';
 
-export = function(app) {
-  app.directive('pcGoalForm', pcGoalForm);
-};
-function pcGoalForm() {
-  return {
-    restrict: 'E',
-    replace: true,
-    templateUrl: '/js/admin/goal-form/goal_form.html',
-    controller: 'GoalFormCtrl',
-    congrollerAs: 'gf'
-  };
+  angular
+    .module('progCheck')
+    .directive('pcGoalForm', pcGoalForm)
+
+  // export = function(app) {
+  //   app.directive;
+  // };
+  function pcGoalForm() {
+    return {
+      restrict: 'E',
+      replace: true,
+      templateUrl: '/js/admin/goal-form/goal_form.html',
+      controller: 'GoalFormCtrl',
+      controllerAs: 'gf'
+    };
+  }
 }

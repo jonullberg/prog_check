@@ -95,8 +95,8 @@
     require('./admin/standard-form/admin.standard-form.controller')(progCheck); //  Controller
 
     //  Goal Form
-    require('./admin/goal-form/admin.goal-form.directive')(progCheck);
-    require('./admin/goal-form/admin.goal-form.controller')(progCheck);
+    require('./admin/goal-form/admin.goal-form.directive');
+    require('./admin/goal-form/admin.goal-form.controller');
 
     //  Single Test
     require('./admin/single-test/admin.single-test.directive')(progCheck);
@@ -111,9 +111,9 @@
     require('./admin/test-form/admin.test-form.controller')(progCheck);
 
     //  Question Form
-    require('./admin/question-form/admin.question-form.directive')(progCheck);
-    require('./admin/question-form/admin.question-form.controller')(progCheck);
-    require('./admin/question-form/admin.image-question-form.controller')(progCheck);
+    require('./admin/question-form/admin.question-form.directive');
+    require('./admin/question-form/admin.question-form.controller');
+    require('./admin/question-form/admin.image-question-form.controller');
 
     // Teachers List
     require('./admin/teachers-list/admin.teachers-list.controller')(progCheck);

@@ -8,7 +8,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .logo {
   text-indent: -9999px;
-  background-image: url('../img/assets/transparent-bg-logo.png');
+  background-image: url('//s3.amazonaws.com/progcheck/assets/img/transparent-bg-logo.png');
   background-size:contain;
   background-repeat:no-repeat;
 }

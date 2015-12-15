@@ -1,45 +1,46 @@
 'use strict';
+function singleStudentCtrl($scope, $routeParams, $uibModal, $location, $rootScope, $sce, TeacherData) {
+    $scope.$on('student:changed', getStudent);
+    var ss = this;
+    ss.init = function () {
+        getStudent();
+    };
+    ss.trustAsHtml = $sce.trustAsHtml;
+    ss.goBack = function () {
+        TeacherData.Students.setStudent(null);
+        TeacherData.Attempts.setAttempts(null);
+        $location.path('teacher/' + $routeParams.teacherId + '/students');
+    };
+    ss.openGoalForm = function () {
+        $uibModal.open({
+            animation: true,
+            templateUrl: '/templates/directives/standards/standards_list.html',
+            size: 'lg',
+            controller: 'StandardsListModalCtrl'
+        });
+    };
+    ss.editStudentModal = function (student) {
+        TeacherData.Students.setStudent(student);
+        var scope = $rootScope.$new();
+        scope.params = {
+            formType: 'editing',
+            buttonText: 'Save Student'
+        };
+        $uibModal.open({
+            animation: true,
+            templateUrl: '/js/teacher/student-form/student-form.html',
+            size: 'lg',
+            controller: 'StudentFormCtrl',
+            scope: scope
+        });
+    };
+    function getStudent() {
+        if (!TeacherData.Students.getStudent()) {
+            TeacherData.Students.fetchStudent($routeParams.studentId);
+        }
+        $scope.student = TeacherData.Students.getStudent();
+    }
+}
 module.exports = function (app) {
-    app.controller('SingleStudentCtrl', ['$scope', '$routeParams', '$uibModal', '$location', '$rootScope', '$sce', 'TeacherData', function ($scope, $routeParams, $uibModal, $location, $rootScope, $sce, TeacherData) {
-            $scope.init = init;
-            $scope.trustAsHtml = $sce.trustAsHtml;
-            $scope.$on('student:changed', getStudent);
-            $scope.goBack = function () {
-                TeacherData.Students.setStudent(null);
-                TeacherData.Attempts.setAttempts(null);
-                $location.path('teacher/' + $routeParams.teacherId + '/students');
-            };
-            $scope.openGoalForm = function () {
-                $uibModal.open({
-                    animation: true,
-                    templateUrl: '/templates/directives/standards/standards_list.html',
-                    size: 'lg',
-                    controller: 'StandardsListModalCtrl'
-                });
-            };
-            $scope.editStudentModal = function (student) {
-                TeacherData.Students.setStudent(student);
-                var scope = $rootScope.$new();
-                scope.params = {
-                    formType: 'editing',
-                    buttonText: 'Save Student'
-                };
-                $uibModal.open({
-                    animation: true,
-                    templateUrl: '/templates/directives/teachers/student_form.html',
-                    size: 'lg',
-                    controller: 'StudentFormCtrl',
-                    scope: scope
-                });
-            };
-            function init() {
-                getStudent();
-            }
-            function getStudent() {
-                if (!TeacherData.Students.getStudent()) {
-                    TeacherData.Students.fetchStudent($routeParams.studentId);
-                }
-                $scope.student = TeacherData.Students.getStudent();
-            }
-        }]);
+    app.controller('SingleStudentCtrl', ['$scope', '$routeParams', '$uibModal', '$location', '$rootScope', '$sce', 'TeacherData', singleStudentCtrl]);
 };

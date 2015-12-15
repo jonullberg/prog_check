@@ -1,7 +1,10 @@
 'use strict';
 module.exports = function (app) {
     app.controller('StudentGoalsListCtrl', ['$scope', '$rootScope', '$routeParams', '$uibModal', 'TeacherData', function studentGoalsListCtrl($scope, $rootScope, $routeParams, $uibModal, TeacherData) {
-            $scope.showAttempts = showAttempts;
+            $scope.showAttempts = function (goal) {
+                goal.isopen = !goal.isopen;
+                TeacherData.Attempts.fetchAttemptsByGoal($routeParams.studentId, goal.goalId);
+            };
             $scope.deleteGoal = function (goal) {
                 TeacherData.Students.deleteGoal($routeParams.studentId, goal._id);
                 toggleAlert(null);
@@ -20,10 +23,6 @@ module.exports = function (app) {
             $scope.editStudentGoal = editStudentGoal;
             function init() {
                 getStudent();
-            }
-            function showAttempts(goal) {
-                goal.isopen = !goal.isopen;
-                TeacherData.Attempts.fetchAttemptsByGoal($routeParams.studentId, goal.goalId);
             }
             function getAttempts() {
                 $scope.attempts = TeacherData.Attempts.getAttempts();

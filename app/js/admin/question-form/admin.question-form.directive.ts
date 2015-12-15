@@ -3,23 +3,34 @@
  * For use in the Prog Check testing application
  * Created by Jonathan Ullberg on 10/20/2015
  */
-'use strict';
+ /// <reference path="../../../../tools/typings/tsd.d.ts" />
 
-export = function(app) {
-  app.directive('pcQuestionForm', pcQuestionForm);
-};
+module ProgCheck {
+  'use strict';
+  angular
+    .module('progCheck')
+    .directive('pcQuestionForm', pcQuestionForm);
 
-function pcQuestionForm() {
-  return {
-    restrict: 'E',
-    replace: true,
-    templateUrl: './question-form.html',
-    scope: {
-      question: '=',
-      save: '&',
-      addQuestion: '&',
-      buttonText: '=',
-      cancel: '&'
-    }
-  };
+  // export = function(app) {
+  //   app
+  // };
+
+  function pcQuestionForm() {
+    return {
+      restrict: 'E',
+      replace: true,
+      templateUrl: './question-form.html',
+      scope: {
+        question: '=',
+        save: '&',
+        addQuestion: '&',
+        buttonText: '=',
+        cancel: '&'
+      },
+      link: function(scope, iElement, iAttr) {
+
+      }
+    };
+  }
+
 }
