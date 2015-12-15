@@ -1,11 +1,13 @@
-'use strict';
+(function() {
+  'use strict';
 
-module.exports = function(app) {
-  app.config(['$httpProvider', function($httpProvider) {
-    $httpProvider.interceptors.push('TokenInterceptor');
-  }]);
+  angular.module('progCheck')
 
-  app.config(['$routeProvider', function($routeProvider) {
+  .config(['$httpProvider', function($httpProvider) {
+      $httpProvider.interceptors.push('TokenInterceptor');
+    }])
+
+  .config(['$routeProvider', function($routeProvider) {
     $routeProvider
       .when('/about', {
         templateUrl: 'templates/views/about.html',
@@ -16,7 +18,7 @@ module.exports = function(app) {
           requiredStudent: false
         }
       })
-      
+
       .when('/pricing', {
         templateUrl: 'templates/views/pricing.html',
         access: {
@@ -204,28 +206,28 @@ module.exports = function(app) {
       .otherwise({
         redirectTo: '/home'
       });
-  }]);
+    }])
 
-  app.run(['$rootScope', '$location', '$cookies', 'AuthenticationService', 'UserService', function($rootScope, $location, $cookies, Auth, UserService) {
-    $rootScope.$on('$routeChangeStart', function(event, next, current) {
-      if (next.access && next.access.requiredLogin && !Auth.getUser()) {
-        if ($cookies.get('token')) {
-          UserService.authToken($cookies.get('token'));
-        } else {
-          event.preventDefault();
-          $location.path('/sign-in');
+    .run(['$rootScope', '$location', '$cookies', 'AuthenticationService', 'UserService', function($rootScope, $location, $cookies, Auth, UserService) {
+      $rootScope.$on('$routeChangeStart', function(event, next, current) {
+        if (next.access && next.access.requiredLogin && !Auth.getUser()) {
+          if ($cookies.get('token')) {
+            UserService.authToken($cookies.get('token'));
+          } else {
+            event.preventDefault();
+            $location.path('/sign-in');
+          }
         }
-      }
-      if (next.access &&
-          next.access.requiredAdmin &&
-          Auth.getUser().role !== 'admin') {
-        $location.path('/not-authorized');
-      }
-      if (next.access &&
-          next.access.requiredTeacher &&
-          Auth.user.role !== 'teacher') {
-        $location.path('/not-authorized');
-      }
-    });
-  }]);
-};
+        if (next.access &&
+            next.access.requiredAdmin &&
+            Auth.getUser().role !== 'admin') {
+          $location.path('/not-authorized');
+        }
+        if (next.access &&
+            next.access.requiredTeacher &&
+            Auth.user.role !== 'teacher') {
+          $location.path('/not-authorized');
+        }
+      });
+    }])
+})();

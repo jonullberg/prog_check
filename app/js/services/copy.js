@@ -1,7 +1,10 @@
-'use strict';
+(function() {
+  'use strict';
 
-module.exports = function(app) {
-  app.factory('copy', function() {
+  angular.module('progCheck')
+  .factory('copy', copy)
+
+  function copy() {
     return function(objToCopy) {
       var obj = {};
       Object.keys(objToCopy).forEach(function(key) {
@@ -9,5 +12,6 @@ module.exports = function(app) {
       });
       return obj;
     };
-  });
-};
+  }
+})();
+
