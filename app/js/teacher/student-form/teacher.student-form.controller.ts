@@ -1,7 +1,14 @@
-'use strict';
+module ProgCheck {
+  'use strict';
 
-export = function(app) {
-  app.controller('StudentFormCtrl', ['$scope', '$uibModalInstance', '$routeParams', '$location', 'Errors', 'TeacherData', function($scope, $uibModalInstance, $routeParams, $location, Errors, TeacherData) {
+  angular
+    .module('progCheck')
+    .controller('StudentFormCtrl', ['$scope', '$uibModalInstance', '$routeParams', '$location', 'Errors', 'TeacherData', studentFormCtrl])
+
+  // export = function(app) {
+  //   app.controller('StudentFormCtrl', ['$scope', '$uibModalInstance', '$routeParams', '$location', 'Errors', 'TeacherData', studentFormCtrl]);
+  // }
+  function studentFormCtrl($scope, $uibModalInstance, $routeParams, $location, Errors, TeacherData) {
 
     $scope.init = init;
     $scope.$on('student:changed', getStudent);
@@ -59,5 +66,5 @@ export = function(app) {
         $location.path('/teacher/' + $routeParams.teacherId + '/students/' + $scope.student._id);
       });
     }
-  }]);
-};
+  }
+}

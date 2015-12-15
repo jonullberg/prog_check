@@ -1,18 +1,21 @@
-'use strict';
-var progressReportController = function (app) {
-    app.controller('ProgressReportCtrl', ['$scope', '$routeParams', 'TeacherData', function ($scope, $routeParams, TeacherData) {
-            $scope.init = init;
-            $scope.$on('results:changed', getResults);
-            function init() {
-                getResults();
-                getStudent();
-            }
-            function getResults() {
-                $scope.results = TeacherData.Attempts.getResults();
-            }
-            function getStudent() {
-                $scope.student = TeacherData.Students.getStudent();
-            }
-        }]);
-};
-module.exports = progressReportController;
+var ProgCheck;
+(function (ProgCheck) {
+    'use strict';
+    angular
+        .module('progCheck')
+        .controller('ProgressReportCtrl', ['$scope', '$routeParams', 'TeacherData', progressReportCtrl]);
+    function progressReportCtrl($scope, $routeParams, TeacherData) {
+        var pr = this;
+        $scope.$on('results:changed', getResults);
+        pr.init = function () {
+            getResults();
+            getStudent();
+        };
+        function getResults() {
+            pr.results = TeacherData.Attempts.getResults();
+        }
+        function getStudent() {
+            pr.student = TeacherData.Students.getStudent();
+        }
+    }
+})(ProgCheck || (ProgCheck = {}));

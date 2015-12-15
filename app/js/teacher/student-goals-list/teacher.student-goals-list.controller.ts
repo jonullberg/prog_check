@@ -1,10 +1,17 @@
 /**
  * A Controller to deal with the students goal list
  */
-'use strict';
+module ProgCheck {
+  'use strict';
 
-export = function(app) {
-  app.controller('StudentGoalsListCtrl', ['$scope', '$rootScope', '$routeParams', '$uibModal', 'TeacherData', function studentGoalsListCtrl($scope, $rootScope, $routeParams, $uibModal, TeacherData) {
+  angular
+    .module('progCheck')
+    .controller('StudentGoalsListCtrl', ['$scope', '$rootScope', '$routeParams', '$uibModal', 'TeacherData', studentGoalsListCtrl])
+
+  // export = function(app) {
+  //   app.controller('StudentGoalsListCtrl', ['$scope', '$rootScope', '$routeParams', '$uibModal', 'TeacherData', studentGoalsListCtrl]);
+  // }
+  function studentGoalsListCtrl($scope, $rootScope, $routeParams, $uibModal, TeacherData) {
     $scope.showAttempts = function(goal) {
       goal.isopen = !goal.isopen
       TeacherData.Attempts.fetchAttemptsByGoal($routeParams.studentId, goal.goalId);
@@ -32,7 +39,7 @@ export = function(app) {
       getStudent();
     }
 
-    
+
     function getAttempts() {
       $scope.attempts = TeacherData.Attempts.getAttempts();
     }
@@ -54,7 +61,7 @@ export = function(app) {
       TeacherData.Students.setGoal(goal);
       $uibModal.open({
         animation: true,
-        templateUrl: '/templates/teacher/student_goal_settings.html',
+        templateUrl: '/js/teacher/student-goal-settings/student-goal-settings.html',
         size: 'lg',
         controller: 'StudentGoalSettingsCtrl',
         scope: scope
@@ -70,7 +77,5 @@ export = function(app) {
       $scope.goal = goal;
     }
 
-  }]);
-};
-
-
+  }
+}

@@ -2,10 +2,16 @@
  * A factory for holding an admin's standards data
  * Created by Jonathan Ullberg on 10/23/2015
  */
-'use strict';
+module ProgCheck {
+  'use strict';
+  angular
+    .module('progCheck')
+    .factory('TeacherStandardsData', ['$http', '$rootScope', 'Errors', teacherStandardsData])
+  // export = function(app) {
+  //   app.factory('TeacherStandardsData', ['$http', '$rootScope', 'Errors', teacherStandardsData])
+  // }
 
-export = function(app) {
-  app.factory('TeacherStandardsData', ['$http', '$rootScope', 'Errors', function ($http, $rootScope, Errors) {
+  function teacherStandardsData($http, $rootScope, Errors) {
 
     var teacherStandardsData = {
       standards: null,
@@ -181,5 +187,6 @@ export = function(app) {
         cb(rejection);
       }
     }
-  }]);
-};
+  }
+
+}

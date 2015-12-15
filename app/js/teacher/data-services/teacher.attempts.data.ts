@@ -1,9 +1,14 @@
-'use strict';
+module ProgCheck {
+  'use strict';
 
-export = function(app) {
-  app.factory('TeacherAttemptsData', ['$rootScope', '$http', '$log', 'Errors', function($rootScope, $http, $log, Errors) {
+  angular
+    .module('progCheck')
+    .factory('TeacherAttemptsData', ['$rootScope', '$http', '$log', 'Errors', teacherAttemptsData])
 
-
+  // export = function(app) {
+  //   app.factory('TeacherAttemptsData', ['$rootScope', '$http', '$log', 'Errors', teacherAttemptsData])
+  // }
+  function teacherAttemptsData($rootScope, $http, $log, Errors) {
     var attemptData = {
       attempt: null,
       attempts: null,
@@ -90,5 +95,5 @@ export = function(app) {
     }
 
     return attemptData;
-  }]);
-};
+  }
+}

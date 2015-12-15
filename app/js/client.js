@@ -126,40 +126,40 @@
 
   //  Teacher
     //  Data Services
-    require('./teacher/data-services/teacher.data.service')(progCheck);
-    require('./teacher/data-services/teacher.students.data')(progCheck);
-    require('./teacher/data-services/teacher.attempts.data')(progCheck);
-    require('./teacher/data-services/teacher.standards.data')(progCheck);
+    require('./teacher/data-services/teacher.data.service');
+    require('./teacher/data-services/teacher.students.data');
+    require('./teacher/data-services/teacher.attempts.data');
+    require('./teacher/data-services/teacher.standards.data');
 
     // Goal Progress Report
-    require('./teacher/goal-progress-report/teacher.goal-progress-report.directive')(progCheck);
-    require('./teacher/goal-progress-report/teacher.goal-progress-report.controller')(progCheck);
+    require('./teacher/goal-progress-report/teacher.goal-progress-report.directive');
+    require('./teacher/goal-progress-report/teacher.goal-progress-report.controller');
 
     // Single Standard
-    require('./teacher/single-standard/teacher.single-standard-modal.controller')(progCheck);  //  Modal Controller
+    require('./teacher/single-standard/teacher.single-standard-modal.controller');  //  Modal Controller
 
     // Single Student
-    require('./teacher/single-student/teacher.single-student.controller')(progCheck);
+    require('./teacher/single-student/teacher.single-student.controller');
 
     // Standards List
-    require('./teacher/standards-list/teacher.standards-list-modal.controller')(progCheck);
+    require('./teacher/standards-list/teacher.standards-list-modal.controller');
 
     //  Student Attempts
-    require('./teacher/student-attempts/teacher.student-attempts.directive')(progCheck);
-    require('./teacher/student-attempts/teacher.student-attempts.controller')(progCheck);
+    require('./teacher/student-attempts/teacher.student-attempts.directive');
+    require('./teacher/student-attempts/teacher.student-attempts.controller');
 
     // Student Form
-    require('./teacher/student-form/teacher.student-form.controller')(progCheck);
+    require('./teacher/student-form/teacher.student-form.controller');
 
     //  Student Goals List Directive
-    require('./teacher/student-goals-list/teacher.student-goals-list.controller')(progCheck);
-    require('./teacher/student-goals-list/teacher.student-goals-list.directive')(progCheck);
+    require('./teacher/student-goals-list/teacher.student-goals-list.controller');
+    require('./teacher/student-goals-list/teacher.student-goals-list.directive');
 
     //  Student Goal Settings
-    require('./teacher/student-goal-settings/teacher.student-goal-settings.controller')(progCheck);
+    require('./teacher/student-goal-settings/teacher.student-goal-settings.controller');
 
     // Students List
-    require('./teacher/students-list/teacher.students-list.controller')(progCheck);
+    require('./teacher/students-list/teacher.students-list.controller');
 
 
   //  Students

@@ -3,10 +3,18 @@
  * A controller for dealing with displaying a single students most recent attempts
  * Created by Jonathan Ullberg on 10/23/2015
  */
-'use strict';
 
-export = function(app) {
-  app.controller('StudentAttemptsCtrl', ['$scope', '$filter', '$routeParams', 'TeacherData', function ($scope, $filter, $routeParams, TeacherData) {
+module ProgCheck {
+  'use strict';
+
+  angular
+    .module('progCheck')
+    .controller('StudentAttemptsCtrl', ['$scope', '$filter', '$routeParams', 'TeacherData', studentAttemptsCtrl])
+
+  // export = function(app) {
+  //   app.controller('StudentAttemptsCtrl', ['$scope', '$filter', '$routeParams', 'TeacherData', studentAttemptsCtrl]);
+  // }
+  function studentAttemptsCtrl($scope, $filter, $routeParams, TeacherData) {
     $scope.init = init;
     $scope.$watch('totalAttempts');
     $scope.showAttempt = function(attempt) {
@@ -67,5 +75,6 @@ export = function(app) {
         getAttempts();
       });
     }
-  }]);
-};
+  }
+
+}

@@ -1,24 +1,31 @@
-'use strict';
+/**
+ * A Controller for the Progress Report for Teachers viewing a student's goal
+ * For use in the Prog Check testing application
+ * Created by Jonathan Ullberg on 12/15/2015
+ */
 
-var progressReportController = function(app) {
-  app.controller('ProgressReportCtrl', ['$scope', '$routeParams', 'TeacherData', function($scope, $routeParams, TeacherData) {
-    $scope.init = init;
+module ProgCheck {
+  'use strict';
+
+  angular
+    .module('progCheck')
+    .controller('ProgressReportCtrl', ['$scope', '$routeParams', 'TeacherData', progressReportCtrl])
+  function progressReportCtrl($scope, $routeParams, TeacherData) {
+    var pr = this;
     $scope.$on('results:changed', getResults);
 
-    function init() {
+    // Public Functions
+    pr.init = function() {
       getResults();
       getStudent();
-    }
+    };
 
+    // Private Functions
     function getResults() {
-      $scope.results = TeacherData.Attempts.getResults();
+      pr.results = TeacherData.Attempts.getResults();
     }
-
     function getStudent() {
-      $scope.student = TeacherData.Students.getStudent();
+      pr.student = TeacherData.Students.getStudent();
     }
-  }]);
-};
-
-export = progressReportController;
-
+  }
+}

@@ -2,14 +2,22 @@
  * A directive for displaying a students recent test attempts
  * Created by Jonathan Ullberg on 10/23/2015
  */
-'use strict';
 
-export = function(app) {
-  app.directive('pcStudentAttempts', [function () {
+module ProgCheck {
+  'use strict';
+
+  angular
+    .module('progCheck')
+    .directive('pcStudentAttempts', pcStudentAttempts)
+
+  // export = function(app) {
+  //   app.directive('pcStudentAttempts', pcStudentAttempts);
+  // }
+  function pcStudentAttempts() {
     return {
       restrict: 'E',
       replace: true,
-      templateUrl: '/templates/teacher/student_attempts.html',
+      templateUrl: '/js/teacher/student-attempts/student-attempts.html',
       controller: 'StudentAttemptsCtrl',
       scope: {
         attempts: '='
@@ -18,5 +26,5 @@ export = function(app) {
 
       }
     };
-  }]);
-};
+  }
+}

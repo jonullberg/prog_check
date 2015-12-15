@@ -1,7 +1,12 @@
-'use strict';
+module ProgCheck {
+  'use strict';
 
-export = function(app) {
-  app.factory('TeacherData', ['TeacherStudentsData', 'TeacherAttemptsData', 'TeacherStandardsData', 'AuthenticationService', function(Students, Attempts, Standards, AuthService) {
+  angular
+    .module('progCheck')
+    .factory('TeacherData', ['TeacherStudentsData', 'TeacherAttemptsData', 'TeacherStandardsData', 'AuthenticationService', teacherData])
+  // export = function(app) {
+  //   app.factory('TeacherData', ['TeacherStudentsData', 'TeacherAttemptsData', 'TeacherStandardsData', 'AuthenticationService', teacherData]);
+  function teacherData(Students, Attempts, Standards, AuthService) {
     var teacherData = {
       user: AuthService.getUser(),
       Students: Students,
@@ -12,5 +17,5 @@ export = function(app) {
       }
     };
     return teacherData;
-  }]);
-};
+  }
+}
