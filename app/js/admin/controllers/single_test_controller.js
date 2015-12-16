@@ -98,8 +98,6 @@ module.exports = function(app) {
       $scope.isDeleteShown = !$scope.isDeleteShown;
     };
 
-
-
     $scope.showAnswers = function(question) {
       $scope.test.questions.forEach(function(question) {
         question.showing = false;
@@ -134,14 +132,11 @@ module.exports = function(app) {
       }
     }
     function getTest() {
-      var test = AdminData.Tests.getTest();
-      if (test) {
-        $scope.test = AdminData.Tests.getTest();
-      } else {
-        AdminData.Tests.fetchTest($routeParams.testId, function(err, data) {
-          $scope.test = data.test;
-        });
+      if (!AdminData.Tests.getTest()) {
+        AdminData.Tests.fetchTest($routeParams.testId);
       }
+      $scope.test = AdminData.Tests.getTest();
+      console.log($scope.test);
     }
   }]);
 };
