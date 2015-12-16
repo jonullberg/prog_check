@@ -64,6 +64,7 @@ export = function(app) {
     function fetchTest(testId, cb) {
       $http.get('/api/tests/' + testId)
         .then(function(response) {
+          console.log(response);
           this.setTest(response.data.test);
           handleCallback(cb, response, null);
         }.bind(this))

@@ -3,11 +3,16 @@
 module.exports = function(app) {
   app.controller('SingleTestCtrl', ['$scope', '$uibModal', '$rootScope', '$location', '$routeParams', '$sce', 'AdminData', 'SanitizeFractions', function($scope, $uibModal, $rootScope, $location, $routeParams, $sce, AdminData, SanitizeFractions) {
     $scope.isDeleteShown = false;
-    $scope.init = init;
+
 
     $scope.trustAsHtml = $sce.trustAsHtml;
     $scope.$on('test:changed', getTest);
 
+    // Public Functions
+    $scope.init = function() {
+      getStandard();
+      getTest();
+    };
     /**
      * Will set selected test to null and send us back to test list
      */
@@ -94,13 +99,6 @@ module.exports = function(app) {
     };
 
 
-    function showAnswers(question) {
-      question.showing = true;
-    }
-
-    function hideAnswers(question) {
-      question.showing = false;
-    }
 
     $scope.showAnswers = function(question) {
       $scope.test.questions.forEach(function(question) {
@@ -117,9 +115,13 @@ module.exports = function(app) {
       AdminData.Tests.deleteQuestion($scope.test._id, question._id, function(err) {
       });
     };
-    function init() {
-      getStandard();
-      getTest();
+
+    // Private Functions
+    function showAnswers(question) {
+      question.showing = true;
+    }
+    function hideAnswers(question) {
+      question.showing = false;
     }
     function getStandard() {
       var standard = AdminData.Standards.getStandard();
