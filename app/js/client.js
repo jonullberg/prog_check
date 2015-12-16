@@ -9,7 +9,7 @@
   require('angular-jwt');
   require('ng-file-upload');
 
-  var progCheck = angular.module('progCheck', [
+  angular.module('progCheck', [
     'ngRoute',
     'ngCookies',
     'angular-jwt',
@@ -38,41 +38,41 @@
 
 
   //  controllers
-  require('./controllers/errors_controller')(progCheck);
-  require('./controllers/footer_controller')(progCheck);
-  require('./controllers/bug_form_controller')(progCheck);
-  require('./controllers/main_controller')(progCheck);
+  require('./controllers/errors.controller');
+  require('./controllers/footer.controller');
+  require('./controllers/bug-form.controller');
+  require('./controllers/main.controller')();
 
   //    Auth Controllers
-  require('./auth/controllers/student_auth_controller')(progCheck);
-  require('./auth/controllers/auth_controller')(progCheck);
-  require('./auth/controllers/account_tools_controller')(progCheck);
-  require('./controllers/terms_controller')(progCheck);
-  require('./auth/controllers/forgot_password_controller')(progCheck);
-  require('./auth/controllers/reset_password_controller')(progCheck);
+  require('./auth/controllers/student-auth.controller');
+  require('./auth/controllers/auth.controller');
+  require('./auth/controllers/account-tools.controller');
+  require('./controllers/terms.controller');
+  require('./auth/controllers/forgot-password.controller');
+  require('./auth/controllers/reset-password.controller');
 
   //    Standard Controllers
-  require('./admin/controllers/standards_controller')(progCheck);
+  require('./admin/controllers/admin.standards.controller');
 
   //  directives
-  require('./directives/header_directive')(progCheck);
-  require('./directives/pc_footer_directive')(progCheck);
-  require('./auth/directives/account_tools_directive')(progCheck);
-  require('./directives/convert_to_number')(progCheck);
+  require('./directives/header.directive');
+  require('./directives/footer.directive');
+  require('./auth/directives/account-tools.directive');
+  require('./directives/convert-to-number.directive');
 
     //  Test directives
 
   //  Global
     //  Authentication
-    require('./directives/valid_password')(progCheck);
-    require('./directives/compare_password')(progCheck);
-    require('./auth/directives/sign_up_directive')(progCheck);
-    require('./auth/services/token_interceptor')(progCheck);
-    require('./auth/services/user_service')(progCheck);
-    require('./auth/services/authentication_service')(progCheck);
+    require('./directives/valid-password.directive');
+    require('./directives/compare-password.directive');
+    require('./auth/directives/sign-up.directive');
+    require('./auth/services/token-interceptor.service');
+    require('./auth/services/user.service');
+    require('./auth/services/authentication.service');
 
     //  Error Reporting
-    require('./directives/pc_errors_directive')(progCheck);
+    require('./directives/errors.directive');
 
 
   //  Admin
