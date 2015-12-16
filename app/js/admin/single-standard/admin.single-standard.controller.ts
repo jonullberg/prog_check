@@ -58,10 +58,11 @@ module ProgCheck {
     };
 
     ss.showButtons = function(goal) {
+      var original = goal.buttons;
       ss.standard.goals.forEach(function(goal) {
         goal.buttons = false;
       });
-      goal.buttons = !goal.buttons;
+      goal.buttons = !original;
     };
 
     ss.edit = function(standard) {

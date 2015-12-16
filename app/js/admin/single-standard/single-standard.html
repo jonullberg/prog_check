@@ -17,7 +17,7 @@
         <div class="btn-group col-lg-4">
           <button type="button"
             class="btn btn-danger"
-            data-ng-click="ss.deleteStandard(standard)">Yes
+            data-ng-click="ss.deleteStandard(ss.standard)">Yes
           </button>
           <button type="button"
             class="btn btn-primary"
@@ -45,7 +45,7 @@
           </button>
           <button class="btn btn-danger" type="button"
             data-ng-click="ss.deleteGoal(goal)"
-            data-ng-if="ss.goal.buttons && ss.isAdmin()">
+            data-ng-if="goal.buttons && ss.isAdmin()">
             Delete Goal
           </button>
         </li>

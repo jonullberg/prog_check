@@ -9,6 +9,7 @@ var ProgCheck;
             getStandard();
         });
         var ss = this;
+        ss.isAdmin = true;
         ss.mainClass = 'panel panel-primary';
         ss.headingClass = 'panel-heading';
         ss.bodyClass = 'panel-body';
@@ -35,17 +36,12 @@ var ProgCheck;
                 ss.isAlertShown = true;
             }
         };
-        ss.isAdmin = function () {
-            if (AdminData.getUser().role === 'admin') {
-                return true;
-            }
-            return false;
-        };
         ss.showButtons = function (goal) {
+            var original = goal.buttons;
             ss.standard.goals.forEach(function (goal) {
                 goal.buttons = false;
             });
-            goal.buttons = !goal.buttons;
+            goal.buttons = !original;
         };
         ss.edit = function (standard) {
             var scope = $rootScope.$new();

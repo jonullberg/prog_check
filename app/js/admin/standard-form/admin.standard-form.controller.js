@@ -5,14 +5,13 @@ var ProgCheck;
         .module('progCheck')
         .controller('StandardFormCtrl', ['$scope', '$uibModalInstance', '$location', '$routeParams', 'AdminData', 'grades', 'copy', standardFormCtrl]);
     function standardFormCtrl($scope, $uibModalInstance, $location, $routeParams, AdminData, grades, copy) {
-        console.log(grades);
         var sf = this;
         var master;
         $scope.$on('standard:changed', getStandard);
         sf.init = function () {
             if ($scope.params.formType === 'editing') {
                 getStandard();
-                getGrade();
+                getGrade(sf.standard.gradeName);
                 setGrade(sf.standard);
                 master = copy(sf.standard);
             }
@@ -23,7 +22,6 @@ var ProgCheck;
             $uibModalInstance.dismiss();
         };
         sf.changeGrade = function (standard) {
-            console.log('standard', standard);
             standard.gradeName = standard._gradeName;
             standard.domain = null;
             getGrade(standard.gradeName);
@@ -52,7 +50,6 @@ var ProgCheck;
             sf.thisGrade = sf.grades.filter(function (grade) {
                 return grade.name === gradeName;
             })[0];
-            console.log(sf);
         }
         function getStandard() {
             if (!AdminData.Standards.getStandard() && $routeParams.standardId) {
@@ -61,6 +58,7 @@ var ProgCheck;
             sf.standard = AdminData.Standards.getStandard();
         }
         function setGrade(standard) {
+            console.log('setGrade', standard);
             if (standard) {
                 standard._gradeName = standard.gradeName;
                 if (Array.isArray(standard.domain)) {

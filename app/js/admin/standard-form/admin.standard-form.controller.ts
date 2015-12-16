@@ -3,7 +3,8 @@
  * A controller for the Standard Form for the admin
  * Created by Jonathan Ullberg on 10/27/2015
  */
- /// <reference path="../../../../tools/typings/angularjs/angular.d.ts" />
+ /// <reference path="../../../../tools/typings/tsd.d.ts" />
+
 module ProgCheck {
   'use strict';
 
@@ -11,12 +12,7 @@ module ProgCheck {
     .module('progCheck')
     .controller('StandardFormCtrl', ['$scope', '$uibModalInstance', '$location', '$routeParams', 'AdminData', 'grades', 'copy', standardFormCtrl]);
 
-  // export = function(app) {
-  //   app.controller('StandardFormCtrl', ['$scope', '$uibModalInstance', '$location', '$routeParams', 'AdminData', 'grades', 'copy', standardFormCtrl]);
-  // };
-
   function standardFormCtrl($scope, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, $location: ng.ILocationService, $routeParams: ng.route.IRouteParamsService, AdminData, grades, copy) {
-    console.log(grades);
     var sf = this;
     var master;
     $scope.$on('standard:changed', getStandard);
@@ -25,7 +21,7 @@ module ProgCheck {
     sf.init = function() {
       if ($scope.params.formType === 'editing') {
         getStandard();
-        getGrade();
+        getGrade(sf.standard.gradeName);
         setGrade(sf.standard);
         master = copy(sf.standard);
       }
@@ -38,7 +34,6 @@ module ProgCheck {
     };
 
     sf.changeGrade = function(standard) {
-      console.log('standard', standard);
       standard.gradeName = standard._gradeName;
       standard.domain = null;
       getGrade(standard.gradeName);
@@ -66,11 +61,10 @@ module ProgCheck {
 
     // Private Functions
 
-    function getGrade(gradeName) {
+    function getGrade(gradeName: String) {
       sf.thisGrade = sf.grades.filter(function(grade) {
         return grade.name === gradeName;
       })[0];
-      console.log(sf);
     }
     function getStandard () {
       if (!AdminData.Standards.getStandard() && $routeParams.standardId) {
@@ -79,6 +73,7 @@ module ProgCheck {
       sf.standard = AdminData.Standards.getStandard();
     }
     function setGrade(standard) {
+      console.log('setGrade', standard)
       if (standard) {
         standard._gradeName = standard.gradeName;
         if (Array.isArray(standard.domain)) {
