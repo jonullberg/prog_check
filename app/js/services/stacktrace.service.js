@@ -1,7 +1,10 @@
-'use strict';
-function stacktraceService() {
-    return StackTrace;
-}
-module.exports = function (app) {
-    app.factory('stacktraceService', stacktraceService);
-};
+var ProgCheck;
+(function (ProgCheck) {
+    'use strict';
+    angular
+        .module('progCheck')
+        .factory('stackTraceService', stacktraceService);
+    function stacktraceService() {
+        return StackTrace;
+    }
+})(ProgCheck || (ProgCheck = {}));

@@ -3,12 +3,16 @@
  * For use in the Prog Check testing application
  * Created by Jonathan Ullberg on 12/02/2015
  */
-'use strict';
+ /// <reference path="../../../tools/typings/tsd.d.ts" />
 
-export = function(app) {
-  app.factory('stacktraceService', stacktraceService);
-};
+module ProgCheck {
+  'use strict';
 
-function stacktraceService() {
-  return StackTrace;
+  angular
+    .module('progCheck')
+    .factory('stackTraceService', stacktraceService)
+
+  function stacktraceService() {
+    return StackTrace;
+  }
 }

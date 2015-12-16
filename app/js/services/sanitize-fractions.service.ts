@@ -1,7 +1,11 @@
-'use strict';
+module ProgCheck {
+  'use strict';
 
-module.exports = function(app) {
-  app.factory('SanitizeFractions', function() {
+  angular
+    .module('progCheck')
+    .factory('SanitizeFractions', sanitizeFractions)
+
+  function sanitizeFractions() {
     return {
       sanitize: function(question) {
         var createFracHTML = function(text) {
@@ -33,5 +37,6 @@ module.exports = function(app) {
         return question;
       }
     };
-  });
-};
+  }
+
+}

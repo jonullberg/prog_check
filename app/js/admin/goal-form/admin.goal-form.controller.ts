@@ -4,9 +4,7 @@
  * Created by Jonathan Ullberg on 09/20/2015
  * /app/js/admin/goal-form/admin.goal-form.controller.ts
  */
- /// <reference path="../../../../tools/typings/angularjs/angular.d.ts" />
- /// <reference path="../../../../tools/typings/angularjs/angular-route.d.ts" />
- /// <reference path="../../../../tools/typings/angular-ui-bootstrap/angular-ui-bootstrap.d.ts" />
+ /// <reference path="../../../../tools/typings/tsd.d.ts" />
 
 module ProgCheck {
   'use strict';

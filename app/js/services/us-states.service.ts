@@ -1,7 +1,10 @@
-'use strict';
+module ProgCheck {
+  'use strict';
 
-module.exports = function(app) {
-  app.factory('USStates', function() {
+  angular
+    .module('progCheck')
+    .factory('USStates', states);
+  function states() {
     var states = [
       {
           "name": "Alabama",
@@ -241,5 +244,5 @@ module.exports = function(app) {
       }
     ];
     return states;
-  });
-};
+  }
+}

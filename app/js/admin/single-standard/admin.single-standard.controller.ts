@@ -2,7 +2,7 @@
  * A controller for viewing a single standard as an admin
  * Created by Jonathan on 07/14/2015
  */
- /// <reference path="../../../../tools/typings/angularjs/angular.d.ts" />
+ /// <reference path="../../../../tools/typings/tsd.d.ts" />
 module ProgCheck {
   'use strict';
 
@@ -14,7 +14,7 @@ module ProgCheck {
   //   app.controller('SingleStandardCtrl', ['$scope', '$uibModal', '$rootScope', '$routeParams', '$location', 'AdminData', singleStandardCtrl]);
   // };
 
-  function singleStandardCtrl($scope, $uibModal: ng.ui.bootstrap.IModalService, $rootScope: ng.IRootScopeService, $routeParams, $location, AdminData) {
+  function singleStandardCtrl($scope, $uibModal, $rootScope: ng.IRootScopeService, $routeParams, $location: ng.ILocationService, AdminData) {
 
     $scope.$on('standard:changed', function() {
       getStandard();

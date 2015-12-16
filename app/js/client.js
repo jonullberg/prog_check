@@ -26,12 +26,12 @@
   //  services
   require('./services/copy.service');
   require('./services/grades.service');
-  require('./services/us_states')(progCheck);
-  require('./services/sanitize_fractions')(progCheck);
+  require('./services/us-states.service');
+  require('./services/sanitize-fractions.service');
   require('./services/shuffle.service');
-  require('./services/to_trusted')(progCheck);
-  require('./services/stacktrace.service.js')(progCheck);
-  require('./services/error-log.service.js')(progCheck);
+  require('./services/to-trusted.filter');
+  require('./services/stacktrace.service.js');
+  require('./services/error-log.service.js');
   require('./services/errors.service');
 
   // Auth Services

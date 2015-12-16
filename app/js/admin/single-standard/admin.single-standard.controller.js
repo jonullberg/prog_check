@@ -9,7 +9,6 @@ var ProgCheck;
             getStandard();
         });
         var ss = this;
-        ss.isAdmin = true;
         ss.mainClass = 'panel panel-primary';
         ss.headingClass = 'panel-heading';
         ss.bodyClass = 'panel-body';
@@ -35,6 +34,12 @@ var ProgCheck;
             else {
                 ss.isAlertShown = true;
             }
+        };
+        ss.isAdmin = function () {
+            if (AdminData.getUser().role === 'admin') {
+                return true;
+            }
+            return false;
         };
         ss.showButtons = function (goal) {
             var original = goal.buttons;
