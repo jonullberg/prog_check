@@ -136,7 +136,6 @@ module.exports = function(app) {
         AdminData.Tests.fetchTest($routeParams.testId);
       }
       $scope.test = AdminData.Tests.getTest();
-      console.log($scope.test);
     }
   }]);
 };
