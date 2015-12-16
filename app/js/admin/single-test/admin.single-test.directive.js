@@ -4,6 +4,9 @@ var ProgCheck;
     angular
         .module('progCheck')
         .directive('pcSingleTest', pcSingleTest);
+    // export = function(app) {
+    //   app.directive('pcSingleTest', pcSingleTest);
+    // };
     function pcSingleTest() {
         return {
             restrict: 'E',

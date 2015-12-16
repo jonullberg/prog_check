@@ -4,6 +4,9 @@ var ProgCheck;
     angular
         .module('progCheck')
         .directive('pcStandardForm', pcStandardForm);
+    // export = function(app) {
+    //   app.directive('pcStandardForm', pcStandardForm);
+    // };
     function pcStandardForm() {
         return {
             restrict: 'E',

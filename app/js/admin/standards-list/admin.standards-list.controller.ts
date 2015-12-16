@@ -6,9 +6,6 @@ module ProgCheck {
     .module('progCheck')
     .controller('StandardsListCtrl', ['$scope', '$uibModal', '$rootScope', '$cookies', '$location', 'AdminData', standardsListCtrl])
 
-  // export = function(app) {
-  //   app.controller('StandardsListCtrl', ['$scope', '$uibModal', '$rootScope', '$cookies', '$location', 'AdminData', standardsListCtrl]);
-
   function standardsListCtrl($scope, $uibModal, $rootScope, $cookies, $location, AdminData) {
     var sl = this;
     $scope.$on('standards:changed', getStandards);

@@ -5,9 +5,6 @@ module ProgCheck {
     .module('progCheck')
     .directive('pcStandardsList', pcStandardsList)
 
-  // export = function(app) {
-  //   app.directive('pcStandardsList', pcStandardsList);
-  // };
   function pcStandardsList() {
     return {
       restrict: 'E',

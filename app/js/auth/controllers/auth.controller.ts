@@ -78,8 +78,6 @@ module ProgCheck {
               path = '/teacher/' + user._id + '/home';
             $location.path(path);
           });
-        } else {
-          console.alert('You\'re form is invalid');
         }
 
       } else {

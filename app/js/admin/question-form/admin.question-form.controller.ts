@@ -13,11 +13,7 @@ module ProgCheck {
     .module('progCheck')
     .controller('QuestionFormCtrl', ['$scope', '$uibModalInstance', '$sce', '$routeParams', 'AdminData', questionFormCtrl]);
 
-  // export = function(app) {
-  //   app.controller('QuestionFormCtrl', ['$scope', '$uibModalInstance', '$sce', '$routeParams', 'AdminData', questionFormCtrl]);
-  // };
-
-  function questionFormCtrl($scope: ng.IScope, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, $sce: ng.ISCEService, $routeParams: ng.route.IRouteParamsService, AdminData) {
+  function questionFormCtrl($scope, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, $sce: ng.ISCEService, $routeParams, AdminData) {
 
     var qf = this;
     $scope.trustAsHtml = $sce.trustAsHtml;

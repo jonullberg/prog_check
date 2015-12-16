@@ -1,9 +1,15 @@
+/**
+ * A Directive for displaying the statistics for a student
+ */
 var ProgCheck;
 (function (ProgCheck) {
     'use strict';
     angular
         .module('progCheck')
         .directive('pcAttemptProgressReport', pcAttemptProgressReport);
+    // export = function(app) {
+    //   app.directive('pcAttemptProgressReport', pcAttemptProgressReport)
+    // }
     function pcAttemptProgressReport() {
         return {
             restrict: 'E',

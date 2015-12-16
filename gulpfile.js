@@ -34,25 +34,11 @@ var paths = {
 };
 
 gulp.task('watch', function() {
-  gulp.watch([config.ts.frontend, config.ts.backend], ['ts-lint']);
-  gulp.watch([config.js.client, config.js.server, config.html, config.css], ['build']);
+  gulp.watch(config.ts.all, ['ts-lint', 'compile-ts']);
+  gulp.watch([config.js.client, config.js.server, config.html, config.css], ['analyze', 'build']);
   gulp.watch(config.tests.backend, ['analyze', 'mocha:backend']);
   gulp.watch(config.sass, ['sass', 'sass-concat'])
 });
-
-gulp.task('sass', function() {
-
-});
-// gulp.task('watch:testing', function() {
-//   gulp.watch(paths.tests.tests, ['mocha:backend']);
-// });
-
-// gulp.task('watch:development', function() {
-//   var client = ['build'];
-//   gulp.watch(paths.clientJs, client);
-//   gulp.watch(paths.html, client);
-//   gulp.watch(paths.styles, client);
-// });
 
 gulp.task('scripts', function() {
   var tsResult = gulp.src('./app/**/*.ts')
@@ -95,15 +81,11 @@ gulp.task('ts-lint', function() {
 });
 
 gulp.task('compile-ts', function() {
-  var sourceTsFiles = [paths.allTypeScript];
-  var tsResult = gulp.src(sourceTsFiles)
-    .pipe(plug.sourcemaps.init())
-    .pipe(plug.tsc(tsProject));
-    tsResult.dts.pipe(gulp.dest(paths.tsOutputPath));
-    return tsResult.js
-      .pipe(plug.sourcemaps.write('.'))
-      .pipe(gulp.dest(paths.tsOutputPath));
-})
+  var sourceTsFiles = [config.ts.frontend, config.ts.backend];
+  gulp.src(sourceTsFiles)
+    .pipe(plug.tsc())
+    .pipe(gulp.dest('.'))
+});
 
 // Testing
 gulp.task('webpack:karma_test', function(callback) {
@@ -118,6 +100,7 @@ gulp.task('webpack:karma_test', function(callback) {
     callback();
   });
 });
+
 gulp.task('karma:test', ['webpack:karma_test'], function() {
   return gulp.src('./__tests__/frontend/bundle.js')
     .pipe(plug.karma({

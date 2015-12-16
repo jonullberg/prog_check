@@ -3,7 +3,7 @@ module ProgCheck {
 
   angular
     .module('progCheck')
-    .controller('IndexCtrl', ['$scope', '$location', '$uibModal', indxCtrl])
+    .controller('IndexCtrl', ['$scope', '$location', '$uibModal', indexCtrl])
 
   function indexCtrl($scope, $location, $uibModal) {
     $scope.changeView = function(url) {

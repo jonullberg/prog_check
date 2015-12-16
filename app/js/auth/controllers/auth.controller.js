@@ -61,7 +61,9 @@ var ProgCheck;
             }
         };
         $scope.authSubmit = function (user) {
+            // Is this is a sign-up?
             if (user.passwordConfirmation) {
+                // Is the form valid?
                 if ($scope.signUpForm.$valid) {
                     UserService.create(user, function (err, user) {
                         if (err) {
@@ -75,11 +77,9 @@ var ProgCheck;
                         $location.path(path);
                     });
                 }
-                else {
-                    console.alert('You\'re form is invalid');
-                }
             }
             else {
+                // Is the user a teacher or student?
                 if (user.type === 'teacher') {
                     UserService.signIn(user, function (err, data) {
                         if (err) {

@@ -86,7 +86,7 @@ var ProgCheck;
                         console.log('err', e);
                     }
                     AuthenticationService.setUser(tokenPayload.sub);
-                    handleCallback(cb, response);
+                    handleCallback(cb, response, null);
                 })
                     .catch(function (rejection) {
                     $cookies.remove('token');

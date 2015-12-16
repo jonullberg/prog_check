@@ -1,5 +1,9 @@
+/**
+ * The API endpoints for tests in the ProgCheck testing application
+ * Created by Jonathan Ullberg on 08/24/2015
+ */
 'use strict';
-var winston = require('winston');
+var winston = require('winston'); // Logger
 var Tests = require('../models/Test');
 var Attempt = require('../models/Attempt');
 var bodyparser = require('body-parser');
@@ -8,6 +12,9 @@ var path = require('path');
 var fs = require('fs');
 module.exports = function (router) {
     router.use(bodyparser.json());
+    /**
+     * Creates a new test
+     */
     router.post('/tests', jwtAuth, function (req, res) {
         var newTest = new Tests(req.body);
         newTest.save(function (err, test) {
@@ -26,6 +33,9 @@ module.exports = function (router) {
             });
         });
     });
+    /**
+     * Gets tests from the database
+     */
     router.get('/tests', jwtAuth, function (req, res) {
         if (req.query.standardId) {
             Tests.find({ standardId: req.query.standardId }, function (err, tests) {
@@ -79,6 +89,9 @@ module.exports = function (router) {
             });
         }
     });
+    /**
+     * Gets a single test from the database
+     */
     router.get('/tests/:testId', jwtAuth, function (req, res) {
         Tests.findById(req.params.testId, function (err, test) {
             if (err) {
@@ -96,6 +109,9 @@ module.exports = function (router) {
             });
         });
     });
+    /**
+     * Updates a test in the database
+     */
     router.put('/tests/:testId', jwtAuth, function (req, res) {
         var updatedTest = req.body;
         delete updatedTest._id;
@@ -115,6 +131,9 @@ module.exports = function (router) {
             });
         });
     });
+    /**
+     * Deletes a test from the database
+     */
     router.delete('/tests/:id', jwtAuth, function (req, res) {
         Tests.remove({ '_id': req.params.id }, function (err, data) {
             if (err) {
@@ -132,6 +151,9 @@ module.exports = function (router) {
             });
         });
     });
+    /**
+     * Adds a new text question to a test
+     */
     router.post('/tests/:testId/questions', jwtAuth, function (req, res) {
         if (req.query.type === 'image') {
         }
@@ -168,6 +190,9 @@ module.exports = function (router) {
             });
         }
     });
+    /**
+     * Adds a new image question to a test
+     */
     router.post('/tests/:id/questions', jwtAuth, function (req, res) {
         var uploadPath = null;
         req.busboy.on('file', function (fieldname, file, filename, encoding, mimetype) {
@@ -181,6 +206,9 @@ module.exports = function (router) {
             });
         });
     });
+    /**
+     * Updates a specific text question
+     */
     router.put('/tests/:testId/questions/:questionId', jwtAuth, function (req, res) {
         var updatedQuestion = req.body;
         delete updatedQuestion._id;
@@ -202,6 +230,9 @@ module.exports = function (router) {
             });
         });
     });
+    /**
+     * Deletes a specific question from a test
+     */
     router.delete('/tests/:testId/questions/:questionId', jwtAuth, function (req, res) {
         Tests.findById(req.params.testId, function (err, test) {
             if (err) {

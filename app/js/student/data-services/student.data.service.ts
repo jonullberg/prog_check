@@ -27,7 +27,7 @@ module ProgCheck {
       $http.get('/api/students/' + studentId)
         .then(function(response) {
           this.setStudent(response.data.student);
-          handleCallback(cb, response);
+          handleCallback(cb, response, null);
         }.bind(this))
         .catch(function(rejection) {
           handleCallback(cb, null, rejection);

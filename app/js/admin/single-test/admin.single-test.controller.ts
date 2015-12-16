@@ -5,10 +5,7 @@ module ProgCheck {
     .module('progCheck')
     .controller('SingleTestCtrl', ['$scope', '$uibModal', '$rootScope', '$location', '$routeParams', '$sce', 'AdminData', 'SanitizeFractions', singleTestCtrl]);
 
-  // export = function(app) {
-  //   app.controller('SingleTestCtrl', ['$scope', '$uibModal', '$rootScope', '$location', '$routeParams', '$sce', 'AdminData', 'SanitizeFractions', singleTestCtrl]);
-  // };
-  function singleTestCtrl($scope, $uibModal: ng.ui.bootstrap.IModalService, $rootScope: ng.IRootScopeService, $location: ng.ILocationService, $routeParams: ng.route.IRouteParamsService, $sce: ng.ISCEService, AdminData, SanitizeFractions) {
+  function singleTestCtrl($scope, $uibModal: ng.ui.bootstrap.IModalService, $rootScope, $location: ng.ILocationService, $routeParams, $sce: ng.ISCEService, AdminData, SanitizeFractions) {
 
     $scope.$on('test:changed', getTest);
 

@@ -10,11 +10,7 @@ module ProgCheck {
     .module('progCheck')
     .controller('SingleStandardCtrl', ['$scope', '$uibModal', '$rootScope', '$routeParams', '$location', 'AdminData', singleStandardCtrl]);
 
-  // export = function(app) {
-  //   app.controller('SingleStandardCtrl', ['$scope', '$uibModal', '$rootScope', '$routeParams', '$location', 'AdminData', singleStandardCtrl]);
-  // };
-
-  function singleStandardCtrl($scope, $uibModal, $rootScope: ng.IRootScopeService, $routeParams, $location: ng.ILocationService, AdminData) {
+  function singleStandardCtrl($scope, $uibModal, $rootScope, $routeParams, $location: ng.ILocationService, AdminData) {
 
     $scope.$on('standard:changed', function() {
       getStandard();

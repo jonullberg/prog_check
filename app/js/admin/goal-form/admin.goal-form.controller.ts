@@ -13,11 +13,7 @@ module ProgCheck {
     .module('progCheck')
     .controller('GoalFormCtrl', ['$scope', '$uibModalInstance', '$routeParams', 'AdminData', goalFormCtrl]);
 
-  // export = function(app) {
-  //   app.controller('GoalFormCtrl', ['$scope', '$uibModalInstance', '$routeParams', 'AdminData', goalFormCtrl]);
-  // };
-
-  function goalFormCtrl($scope: ng.IScope, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, $routeParams: ng.route.IRouteParamsService, AdminData) {
+  function goalFormCtrl($scope, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, $routeParams, AdminData) {
     var gf = this;
     gf.save = function(goal) {
       if ($scope.goalForm.$valid) {

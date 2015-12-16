@@ -1,9 +1,17 @@
+/**
+ * For use in the Prog Check testing application
+ * A module to store a students test data
+ * Created by Jonathan Ullberg on 10/23/2015
+ */
 var ProgCheck;
 (function (ProgCheck) {
     'use strict';
     angular
         .module('progCheck')
         .factory('StudentTestData', ['$http', '$rootScope', 'Errors', 'shuffle', studentTestData]);
+    // module.exports = function(app) {
+    //   app.factory('StudentTestData', ['$http', '$rootScope', 'Errors', 'shuffle', studentTestData])
+    // }
     function studentTestData($http, $rootScope, Errors, shuffle) {
         var studentTestData = {
             tests: null,
@@ -32,7 +40,7 @@ var ProgCheck;
             $http.get('/api/students/' + studentId + '/tests/')
                 .then(function (response) {
                 this.setTests(response.data.tests);
-                handleCallback(cb, response);
+                handleCallback(cb, response, null);
             }.bind(this))
                 .catch(function (rejection) {
                 handleCallback(cb, null, rejection);
@@ -45,11 +53,11 @@ var ProgCheck;
             $http.get('/api/tests?goalId=' + goal._id + '?questions=' + goal.numberOfQuestions)
                 .then(function (response) {
                 var studentGoalId = student.goals.filter(function (goal) {
-                    return goal.goalId === goalId;
+                    return goal.goalId === goal._id;
                 })[0]._id;
                 var test = setUpTest(response.data.test, student, studentGoalId);
                 this.setTest(test);
-                handleCallback(cb, response);
+                handleCallback(cb, response, null);
             }.bind(this))
                 .catch(function (rejection) {
                 handleCallback(cb, null, rejection);
@@ -58,11 +66,14 @@ var ProgCheck;
                 });
             });
         }
+        /**
+         *
+         */
         function createTest(studentId, test, cb) {
             $http.post('/api/students/' + studentId + '/tests/', test)
                 .then(function (response) {
                 this.setTest(response.data.test);
-                handleCallback(cb, response);
+                handleCallback(cb, response, null);
             }.bind(this))
                 .catch(function (rejection) {
                 handleCallback(cb, null, rejection);
@@ -71,16 +82,22 @@ var ProgCheck;
                 });
             });
         }
+        /**
+         * Takes a test, shuffles its questions and turnes it into a students attempt
+         * @param  {Object} test The Test object from the server
+         * @return {Object}      A process Test
+         */
         function setUpTest(test, student, goalId) {
             var max = getMaxQuestions(student, goalId);
-            var newTest = {};
-            newTest.maxQuestions = getMaxQuestions(student, goalId);
-            newTest.studentId = student._id;
-            newTest.testId = test._id;
-            newTest.correctAnswers = 0;
-            newTest.questions = createQuestions(test.questions, max);
-            newTest.directions = test.testDirections;
-            newTest.active = true;
+            var newTest = {
+                maxQuestions: getMaxQuestions(student, goalId),
+                studentId: student._id,
+                testId: test._id,
+                correctAnswers: 0,
+                questions: createQuestions(test.questions, max),
+                directions: test.testDirections,
+                active: true
+            };
             return newTest;
         }
         function getMaxQuestions(student, goalId) {
@@ -108,6 +125,13 @@ var ProgCheck;
             });
             return questions;
         }
+        /**
+         * Deals with handling callbacks, can be reused if a rejection or successful response
+         * @param  {Function} cb        A callback function to execute on data
+         * @param  {Object}   response  The response object if a successful request
+         * @param  {Object}   rejection The rejection object/error object if a failed request
+         * @return {undefined}
+         */
         function handleCallback(cb, response, rejection) {
             if (cb && typeof cb === 'function') {
                 if (response) {

@@ -11,11 +11,8 @@ module ProgCheck {
   angular
     .module('progCheck')
     .controller('ImageQuestionFormCtrl', ['$scope', '$uibModalInstance', '$sce', '$http', '$routeParams', 'AdminData', 'Upload', imageQuestionFormCtrl]);
-  // export = function(app) {
-  //   app.controller('ImageQuestionFormCtrl', ['$scope', '$uibModalInstance', '$sce', '$http', '$routeParams', 'AdminData', 'Upload', imageQuestionFormCtrl]);
-  // };
 
-  function imageQuestionFormCtrl($scope: ng.IScope, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, $sce: ng.ISCEService, $http: ng.IHttpService, $routeParams: ng.route.IRouteParamsService, AdminData, Upload) {
+  function imageQuestionFormCtrl($scope, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, $sce: ng.ISCEService, $http, $routeParams, AdminData, Upload) {
     $scope.trustAsHtml = $sce.trustAsHtml;
     $scope.$on('test:changed', getTest);
 

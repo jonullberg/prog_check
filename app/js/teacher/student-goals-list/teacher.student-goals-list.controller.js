@@ -1,9 +1,15 @@
+/**
+ * A Controller to deal with the students goal list
+ */
 var ProgCheck;
 (function (ProgCheck) {
     'use strict';
     angular
         .module('progCheck')
         .controller('StudentGoalsListCtrl', ['$scope', '$rootScope', '$routeParams', '$uibModal', 'TeacherData', studentGoalsListCtrl]);
+    // export = function(app) {
+    //   app.controller('StudentGoalsListCtrl', ['$scope', '$rootScope', '$routeParams', '$uibModal', 'TeacherData', studentGoalsListCtrl]);
+    // }
     function studentGoalsListCtrl($scope, $rootScope, $routeParams, $uibModal, TeacherData) {
         $scope.showAttempts = function (goal) {
             goal.isopen = !goal.isopen;

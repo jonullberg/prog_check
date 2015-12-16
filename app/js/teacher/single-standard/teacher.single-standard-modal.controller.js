@@ -4,6 +4,9 @@ var ProgCheck;
     angular
         .module('progCheck')
         .controller('SingleStandardModalCtrl', ['$scope', '$uibModal', '$uibModalInstance', '$cookies', '$rootScope', '$sce', 'TeacherData', singleStandardModalCtrl]);
+    // export = function(app) {
+    //   app.controller('SingleStandardModalCtrl', ['$scope', '$uibModal', '$uibModalInstance', '$cookies', '$rootScope', '$sce', 'TeacherData', singleStandardModalCtrl]);
+    // };
     function singleStandardModalCtrl($scope, $uibModal, $uibModalInstance, $cookies, $rootScope, $sce, TeacherData) {
         $scope.$on('standard:changed', getStandard);
         var ssm = this;
@@ -13,6 +16,7 @@ var ProgCheck;
         ssm.footerClass = 'modal-footer';
         $scope.showExampleQuestion = showExample;
         $scope.showDescription = showDescription;
+        // Public Functions
         $scope.init = function () {
             getStandard();
         };
@@ -43,6 +47,7 @@ var ProgCheck;
                 controller: 'StandardsListModalCtrl'
             });
         };
+        // Private Functions
         function getStandard() {
             $scope.standard = TeacherData.Standards.getStandard();
         }

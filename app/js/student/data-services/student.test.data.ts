@@ -43,7 +43,7 @@ module ProgCheck {
       $http.get('/api/students/' + studentId + '/tests/')
         .then(function(response) {
           this.setTests(response.data.tests);
-          handleCallback(cb, response);
+          handleCallback(cb, response, null);
         }.bind(this))
         .catch(function(rejection) {
           handleCallback(cb, null, rejection);
@@ -56,11 +56,11 @@ module ProgCheck {
       $http.get('/api/tests?goalId=' + goal._id + '?questions=' + goal.numberOfQuestions)
         .then(function(response) {
           var studentGoalId = student.goals.filter(function(goal) {
-            return goal.goalId === goalId;
+            return goal.goalId === goal._id;
           })[0]._id;
           var test = setUpTest(response.data.test, student, studentGoalId);
           this.setTest(test);
-          handleCallback(cb, response);
+          handleCallback(cb, response, null);
         }.bind(this))
         .catch(function(rejection) {
           handleCallback(cb, null, rejection);
@@ -77,7 +77,7 @@ module ProgCheck {
       $http.post('/api/students/' + studentId + '/tests/', test)
         .then(function(response) {
           this.setTest(response.data.test);
-          handleCallback(cb, response);
+          handleCallback(cb, response, null);
         }.bind(this))
         .catch(function(rejection) {
           handleCallback(cb, null, rejection);
@@ -93,14 +93,15 @@ module ProgCheck {
      */
     function setUpTest(test, student, goalId) {
       var max = getMaxQuestions(student, goalId);
-      var newTest = {};
-      newTest.maxQuestions = getMaxQuestions(student, goalId);
-      newTest.studentId = student._id;
-      newTest.testId = test._id;
-      newTest.correctAnswers = 0;
-      newTest.questions = createQuestions(test.questions, max);
-      newTest.directions = test.testDirections;
-      newTest.active = true;
+      var newTest = {
+        maxQuestions: getMaxQuestions(student, goalId),
+        studentId: student._id,
+        testId: test._id,
+        correctAnswers: 0,
+        questions: createQuestions(test.questions, max),
+        directions: test.testDirections,
+        active: true
+      };
       return newTest;
     }
     function getMaxQuestions(student, goalId) {

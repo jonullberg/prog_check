@@ -12,7 +12,7 @@ module ProgCheck {
     .module('progCheck')
     .controller('StandardFormCtrl', ['$scope', '$uibModalInstance', '$location', '$routeParams', 'AdminData', 'grades', 'copy', standardFormCtrl]);
 
-  function standardFormCtrl($scope, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, $location: ng.ILocationService, $routeParams: ng.route.IRouteParamsService, AdminData, grades, copy) {
+  function standardFormCtrl($scope, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, $location: ng.ILocationService, $routeParams, AdminData, grades, copy) {
     var sf = this;
     var master;
     $scope.$on('standard:changed', getStandard);

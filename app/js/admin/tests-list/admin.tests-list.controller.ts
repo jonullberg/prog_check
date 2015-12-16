@@ -10,10 +10,8 @@ module ProgCheck {
   angular
     .module('progCheck')
     .controller('TestsListCtrl', ['$scope', '$uibModal', '$rootScope', '$location', '$routeParams', 'AdminData', testsListCtrl]);
-  // export = function(app) {
-  //   app.controller('TestsListCtrl', ['$scope', '$uibModal', '$rootScope', '$location', '$routeParams', 'AdminData', testsListCtrl]);
 
-  function testsListCtrl($scope, $uibModal: ng.ui.bootstrap.IModalService, $rootScope: ng.IRootScopeService, $location: ng.ILocationService, $routeParams: ng.route.IRouteParamsService, AdminData) {
+  function testsListCtrl($scope, $uibModal: ng.ui.bootstrap.IModalService, $rootScope, $location: ng.ILocationService, $routeParams, AdminData) {
     var tl = this;
     $scope.$on('standard:changed', getStandard);
     $scope.$on('tests:changed', getTests);

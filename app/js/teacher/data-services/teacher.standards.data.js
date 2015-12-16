@@ -1,9 +1,16 @@
+/**
+ * A factory for holding an admin's standards data
+ * Created by Jonathan Ullberg on 10/23/2015
+ */
 var ProgCheck;
 (function (ProgCheck) {
     'use strict';
     angular
         .module('progCheck')
         .factory('TeacherStandardsData', ['$http', '$rootScope', 'Errors', teacherStandardsData]);
+    // export = function(app) {
+    //   app.factory('TeacherStandardsData', ['$http', '$rootScope', 'Errors', teacherStandardsData])
+    // }
     function teacherStandardsData($http, $rootScope, Errors) {
         var teacherStandardsData = {
             standards: null,

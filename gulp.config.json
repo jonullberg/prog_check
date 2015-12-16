@@ -10,7 +10,8 @@
   },
   "ts": {
     "frontend": "app/**/*.ts",
-    "backend": "server/**/*.ts"
+    "backend": "server/**/*.ts",
+    "all": "./**/*.ts"
   },
   "html": "app/**/*.html",
   "css": "app/**/*.css",

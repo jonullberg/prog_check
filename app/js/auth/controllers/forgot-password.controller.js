@@ -1,3 +1,7 @@
+/**
+ * A controller for dealing with the reset password modal
+ * Created by Jonathan Ullberg on 10/16/2015
+ */
 var ProgCheck;
 (function (ProgCheck) {
     'use strict';

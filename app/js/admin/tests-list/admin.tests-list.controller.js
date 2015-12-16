@@ -1,3 +1,9 @@
+/**
+ * The controller for the tests list
+ * For use in the Prog Check testing application
+ * Created by Jonathan Ullberg on 10/30/2015
+ */
+/// <reference path="../../../../tools/typings/tsd.d.ts" />
 var ProgCheck;
 (function (ProgCheck) {
     'use strict';
@@ -8,6 +14,7 @@ var ProgCheck;
         var tl = this;
         $scope.$on('standard:changed', getStandard);
         $scope.$on('tests:changed', getTests);
+        // Public Functions
         tl.init = function () {
             getStandard();
             getTests();
@@ -32,6 +39,7 @@ var ProgCheck;
                 scope: scope
             });
         };
+        // Private Functions
         function getStandard() {
             var standard = AdminData.Standards.getStandard();
             if (!AdminData.Standards.getStandard()) {
