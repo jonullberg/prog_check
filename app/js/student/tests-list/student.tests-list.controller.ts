@@ -1,7 +1,14 @@
-'use strict';
+module ProgCheck {
+  'use strict';
 
-export = function(app) {
-  app.controller('StudentTestsCtrl', ['$scope', '$location', '$routeParams', 'StudentData', function($scope, $location, $routeParams, StudentData) {
+  angular
+    .module('progCheck')
+    .controller('StudentTestsCtrl', ['$scope', '$location', '$routeParams', 'StudentData', studentTestsCtrl])
+  // export = function(app) {
+  //   app.controller('StudentTestsCtrl', ['$scope', '$location', '$routeParams', 'StudentData', studentTestsCtrl])
+  // }
+
+  function studentTestsCtrl($scope, $location, $routeParams, StudentData) {
     $scope.$on('student:changed', getUser);
     $scope.init = init;
     $scope.getTest = getTest;
@@ -21,5 +28,6 @@ export = function(app) {
       }
       $scope.student = StudentData.getUser();
     }
-  }]);
-};
+  }
+
+}

@@ -164,22 +164,21 @@
 
   //  Students
     //  Data Services
-    require('./student/data-services/student.data.service')(progCheck);
-    require('./student/data-services/student.test.data')(progCheck);
+    require('./student/data-services/student.data.service');
+    require('./student/data-services/student.test.data');
 
     //  Attempt Review
-    require('./student/attempt-review/student.attempt-review.controller')(progCheck);
+    require('./student/attempt-review/student.attempt-review.controller');
 
     //  Questions
-    require('./student/question/student.question.controller')(progCheck);
-    require('./student/question/student.question.directive')(progCheck);
+    require('./student/question/student.question.controller');
+    require('./student/question/student.question.directive');
 
     //  Test
-    require('./student/test/student.test.controller')(progCheck);
+    require('./student/test/student.test.controller');
 
     // Tests List
-    require('./student/tests-list/student.tests-list.controller')(progCheck);
-    require('./student/tests-list/student.tests-list.controller')(progCheck);
+    require('./student/tests-list/student.tests-list.controller');
 
 })();
 

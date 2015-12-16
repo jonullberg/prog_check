@@ -4,20 +4,26 @@
  * Created by Jonathan Ullberg on 10/03/2015
  * /app/js/student/question/student.question.controller.ts
  */
-'use strict';
 
-export = function(app: any) {
-  app.controller('QuestionCtrl', ['$sce', questionCtrl]);
-};
+module ProgCheck {
+  'use strict';
 
-function questionCtrl($sce: any) {
-  var qu = this;
-  qu.trustAsHtml = $sce.trustAsHtml;
+  angular
+    .module('progCheck')
+    .controller('QuestionCtrl', ['$sce', questionCtrl])
+  // export = function(app: any) {
+  //   app.controller('QuestionCtrl', ['$sce', questionCtrl]);
+  // };
 
-  qu.select = function(answer: string, $index: number) {
-    qu.question.selectedIndex = $index;
-    qu.selectAnswer({
-      answer: answer
-    });
-  };
+  function questionCtrl($sce: ng.ISCEService) {
+    var qu = this;
+    qu.trustAsHtml = $sce.trustAsHtml;
+
+    qu.select = function(answer: string, $index: number) {
+      qu.question.selectedIndex = $index;
+      qu.selectAnswer({
+        answer: answer
+      });
+    };
+  }
 }
