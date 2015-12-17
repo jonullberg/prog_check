@@ -20,15 +20,11 @@ var goalSchema = mongoose.Schema({
   'dateLastTaken': {
     type: Date
   },
-  'description': {
-    type: String
-  },
-  'name': {
-    type: String
-  },
   'active': {
     type: Boolean
   }
+}, {
+  _id: false
 });
 
 var studentSchema = mongoose.Schema({

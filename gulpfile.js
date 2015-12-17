@@ -12,21 +12,14 @@ var log = plug.util.log;
 var port = process.env.PORT || 7203;
 
 var paths = {
-  scripts: './app/**/*.js',
-  styles: ['./app/**/*.css', './app/**/*.scss'],
-  serverLib: './lib/**/*.js',
-  serverTests: './routes/**/*-tests.js',
-  serverFiles: ['./server.js', './routes/**/*.js'],
-  dataModels: './models/**/*.js',
-  gulpfile: './gulpfile.js',
-  // tests: {
-  //   tests: [
-  //     './__tests__/frontend/**/*.spec.js',
-  //     './__tests__/backend/**/*.spec.js'],
-    // frontend:'./__tests__/frontend/**/*.spec.js',
-    // backend: './__tests__/backend/**/*.spec.js'
-  // },
-  allTypeScript: './**/*.ts',
+  "scripts": "./app/**/*.js",
+  "styles": ["./app/**/*.css", "./app/**/*.scss"],
+  "serverLib": "./lib/**/*.js",
+  "serverTests": "./routes/**/*-tests.js",
+  "serverFiles": ["./server.js", "./routes/**/*.js"],
+  "dataModels": "./models/**/*.js",
+  "gulpfile": "./gulpfile.js",
+  "allTypeScript": "./**/*.ts",
   "client": "./app/js/client",
   "tests": {
     "frontend": "app/js/**/*.spec.js",
