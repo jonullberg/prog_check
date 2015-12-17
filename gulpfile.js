@@ -4,7 +4,6 @@ var gulp = require('gulp');
 var del = require('del');
 var webpack = require('webpack');
 var plug = require('gulp-load-plugins')();
-var plato = require('plato');
 var glob = require('glob');
 var merge = require('merge-stream');
 var config = require('./gulp.config.json');
@@ -180,6 +179,7 @@ function analyzejscs(sources) {
 }
 
 function startPlatoVisualizer() {
+  var plato = require('plato');
   log('Running Plato');
   var files = glob.sync('./app/js/**/*.js');
 
