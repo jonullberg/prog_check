@@ -1,0 +1,71 @@
+<form name="standardForm"
+  class="panel panel-primary"
+  data-ng-init="sf.init()"
+  data-ng-submit="sf.save(sf.standard)">
+  <header class="panel-heading">
+    <h3>{{standard.name || 'New Standard'}}</h3>
+  </header>
+  <div class="panel-body">
+    <div class="form-group">
+      <label for="name">What is the name of the standard?</label>
+      <input type="text"
+        class="form-control"
+        id="name"
+        name="name"
+        data-ng-model="sf.standard.name" />
+    </div>
+    <div class="form-group">
+      <label for="grade">What grade is this standard for?</label>
+      <select
+        class="form-control"
+        id="grade"
+        name="grade"
+        data-ng-change="sf.changeGrade(sf.standard)"
+        data-ng-model="sf.standard._gradeName"
+        data-ng-options="grade.name as grade.name for grade in sf.grades">
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="code">What is the standard code?</label>
+      <input type="text"
+        class="form-control"
+        name="code"
+        id="code"
+        data-ng-model="sf.standard.code" />
+    </div>
+    <div class="form-group">
+      <label for="domain">What is the domain of the standard?</label>
+      <select class="form-control"
+        name="domain" id="domain"
+        data-ng-model="sf.standard._domain"
+        data-ng-options="domain as domain for domain in sf.thisGrade.domains">
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="language">What is the language of the standard?</label>
+      <textarea class="form-control"
+        name="language"
+        id="language"
+        data-ng-model="sf.standard.language"></textarea>
+    </div>
+    <div>
+      <ul>
+        <li data-ng-repeat="goal in sf.standard.goals">{{goal.name}} -  {{goal.description}}</li>
+      </ul>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  <div class="panel-footer">
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">
+        {{params.buttonText}}
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger"
+        data-ng-click="sf.cancel()">
+        Cancel
+      </button>
+    </div>
+  </div>
+</form>

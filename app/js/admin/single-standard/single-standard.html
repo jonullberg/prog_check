@@ -1,0 +1,72 @@
+<div>
+  <section data-ng-class="ss.mainClass"
+    data-ng-init="ss.init()">
+    <header data-ng-class="ss.headingClass">
+      <h3 class="col-lg-9">
+        {{ss.standard.name}}
+      </h3>
+      <button type="button"
+        class="btn btn-default col-lg-3"
+        data-ng-click="ss.goBack()">Go Back</button>
+      <div class="clearfix"></div>
+    </header>
+    <div data-ng-class="ss.bodyClass">
+      <div class="alert alert-danger"
+        data-ng-if="ss.isAlertShown">
+        <p class="col-lg-8">Are you sure? Deleting can't be undone</p>
+        <div class="btn-group col-lg-4">
+          <button type="button"
+            class="btn btn-danger"
+            data-ng-click="ss.deleteStandard(ss.standard)">Yes
+          </button>
+          <button type="button"
+            class="btn btn-primary"
+            data-ng-click="ss.toggleAlert()">
+            No
+          </button>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+
+      <h3>Standard</h3>
+      <p>
+        {{ss.standard.language}}
+      </p>
+      <h3>Goals</h3>
+      <p data-ng-if="!ss.standard.goals.length">You have no goals. Add some below.</p>
+      <ul>
+        <li data-ng-click="ss.showButtons(goal)"
+          data-ng-repeat="goal in ss.standard.goals">
+          {{goal.name}}: {{goal.description}}
+          <button class="btn btn-info" type="button"
+            data-ng-if="goal.buttons"
+            data-ng-click="ss.selectGoal(goal)">
+            Edit Goal
+          </button>
+          <button class="btn btn-danger" type="button"
+            data-ng-click="ss.deleteGoal(goal)"
+            data-ng-if="goal.buttons && ss.isAdmin()">
+            Delete Goal
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div data-ng-class="ss.footerClass">
+      <button type="button" class="btn btn-primary"
+        data-ng-click="ss.edit(standard)"
+        data-ng-if="ss.isAdmin()">
+        Edit Standard
+      </button>
+      <button type="button" class="btn btn-danger"
+        data-ng-click="ss.toggleAlert()"
+        data-ng-if="ss.isAdmin()">
+        Delete Standard
+      </button>
+      <button type="button" class="btn btn-info"
+        data-ng-click="ss.addGoals()">
+        Add Goals
+        <span class="glyphicon glyphicon-plus"></span>
+      </button>
+    </div>
+  </section>
+</div>

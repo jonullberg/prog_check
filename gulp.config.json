@@ -1,0 +1,19 @@
+{
+  "client": "./app/js/client",
+  "tests": {
+    "frontend": "app/js/**/*.spec.js",
+    "backend": "server/**/*.spec.js"
+  },
+  "js": {
+    "client": "./app/js/**/*.js",
+    "server": ["server/**/*.js", "!server/**/*.spec.js"]
+  },
+  "ts": {
+    "frontend": "app/**/*.ts",
+    "backend": "server/**/*.ts",
+    "all": "./**/*.ts"
+  },
+  "html": "app/**/*.html",
+  "css": "app/**/*.css",
+  "sass": "app/**/*.scss"
+}

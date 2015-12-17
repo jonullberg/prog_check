@@ -7,6 +7,10 @@ karma.conf.js
 config.js
 npm-debug.log
 **/dist/
+**/report/
+**/.vscode/
+__tests__/frontend/bundle.js
+
 prog-check.sublime-project
 prog-check.sublime-workspace
 **/report/

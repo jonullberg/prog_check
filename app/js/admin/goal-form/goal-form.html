@@ -1,0 +1,53 @@
+<form
+  data-ng-init="gf.init()"
+  data-ng-submit="gf.save(gf.goal)"
+  name="goalForm">
+  <div class="modal-header">
+    <h3>Add Goals</h3>
+  </div>
+  <div class="modal-body">
+    <ul>
+      <li data-ng-repeat="goal in gf.standard.goals">
+        {{goal.description}}
+      </li>
+    </ul>
+    <div class="form-group">
+      <label for="name">What is a short name for the goal?</label>
+      <input type="text" 
+        class="form-control" 
+        required
+        name="name" 
+        id="name"
+        data-ng-model="gf.goal.name" />
+    </div>
+
+    <div class="form-group">
+      <label for="description" class="">What is a description for the goal?</label>
+      <textarea
+        class="form-control"
+        required
+        name="description"
+        id="description"
+        data-ng-model="gf.goal.description">
+      </textarea>
+    </div>
+    <div class="form-group">
+      <label for="example-question">What is an example question to display to the student?</label>
+      <textarea
+        class="form-control"
+        name="example-question"
+        id="example-question"
+        data-ng-model="gf.goal.exampleQuestion">
+      </textarea>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary">
+      {{params.buttonText}}
+    </button>
+    <button type="button" class="btn btn-danger"
+      data-ng-click="gf.cancel()">
+      Cancel
+    </button>
+  </div>
+</form>

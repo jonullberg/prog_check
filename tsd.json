@@ -1,0 +1,21 @@
+{
+  "version": "v4",
+  "repo": "borisyankov/DefinitelyTyped",
+  "ref": "master",
+  "path": "tools/typings",
+  "bundle": "tools/typings/tsd.d.ts",
+  "installed": {
+    "angularjs/angular.d.ts": {
+      "commit": "715df764419937a75a25dcd76bfc954157bc7b96"
+    },
+    "node/node.d.ts": {
+      "commit": "715df764419937a75a25dcd76bfc954157bc7b96"
+    },
+    "stacktrace-js/stacktrace-js.d.ts": {
+      "commit": "24e12a7af994afa2226af70fbfae0adc78736a9e"
+    },
+    "es6-promise/es6-promise.d.ts": {
+      "commit": "11322524f8db9cdb921427cad84cd22fe2d4f965"
+    }
+  }
+}

@@ -1,6 +1,19 @@
 {
   "compilerOptions": {
+    "target": "ES5",
+    "noImplicitAny": false,
     "module": "commonjs",
-    "removeComments": true
-  }
+    "removeComments": true,
+    "preserveConstEnums": true
+  },
+  "exclude": [
+    "node_modules",
+    "tools",
+    "typings",
+    "report",
+    "dist",
+    "dest",
+    "build",
+    "crt"
+  ]
 }
