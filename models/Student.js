@@ -29,6 +29,8 @@ var goalSchema = mongoose.Schema({
   'active': {
     type: Boolean
   }
+}, {
+  _id: false
 });
 
 var studentSchema = mongoose.Schema({
