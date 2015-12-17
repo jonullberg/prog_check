@@ -1,9 +1,3 @@
-/**
- * A Controller for the Admin Test Form
- * For use in the Prog Check testing application
- * Created by Jonathan Ullberg on 09/25/2015
- */
-/// <reference path="../../../../tools/typings/tsd.d.ts" />
 var ProgCheck;
 (function (ProgCheck) {
     'use strict';
@@ -12,7 +6,6 @@ var ProgCheck;
         .controller('TestFormCtrl', ['$scope', '$routeParams', '$uibModalInstance', 'AdminData', testFormCtrl]);
     function testFormCtrl($scope, $routeParams, $uibModalInstance, AdminData) {
         $scope.$on('test:changed', getTest);
-        // Public Functions
         this.init = function () {
             getTest();
             getStandard();
@@ -33,7 +26,6 @@ var ProgCheck;
             }
             $uibModalInstance.close();
         };
-        // Private Functions
         function getTest() {
             if ($scope.params.formType === 'editing') {
                 if (!AdminData.Tests.getTest()) {

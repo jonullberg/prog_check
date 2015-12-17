@@ -1,7 +1,7 @@
 <main class="panel panel-primary"
   data-ng-init="ss.init()">
   <header class="panel-heading">
-    <h3 class="col-lg-9">Information for {{student.firstName}} {{student.lastName}}</h3>
+    <h3 class="col-lg-9">Information for {{ss.student.firstName}} {{ss.student.lastName}}</h3>
     <button type="button" class="btn btn-default"
       data-ng-click="ss.goBack()">
       Go Back
@@ -9,8 +9,8 @@
     <div class="clearfix"></div>
   </header>
   <div class="panel-body">
-    <h4>Default Number of Questions Per Test: {{student.numberOfQuestions}}</h4>
-    <h4 data-ng-if="ss.student.goalPriority">Sort Goal Priority By: {{student.goalPriority}}</h4>
+    <h4>Default Number of Questions Per Test: {{ss.student.numberOfQuestions}}</h4>
+    <h4 data-ng-if="ss.student.goalPriority">Sort Goal Priority By: {{ss.student.goalPriority}}</h4>
     <pc-student-goals-list></pc-student-goals-list>
   </div>
   <footer class="panel-footer">
@@ -20,7 +20,7 @@
     </button>
     <button type="button" class="btn btn-info"
       data-ng-click="ss.openGoalForm()">
-      Add Goals For {{student.firstName}}
+      Add Goals For {{ss.student.firstName}}
       <span class="glyphicon glyphicon-plus"></span>
     </button>
   </footer>

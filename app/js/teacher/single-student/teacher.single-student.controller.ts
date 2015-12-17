@@ -5,10 +5,6 @@ module ProgCheck {
     .module('progCheck')
     .controller('SingleStudentCtrl', ['$scope', '$routeParams', '$uibModal', '$location', '$rootScope', '$sce', 'TeacherData', singleStudentCtrl])
 
-  // export = function(app) {
-  //   app.controller('SingleStudentCtrl', ['$scope', '$routeParams', '$uibModal', '$location', '$rootScope', '$sce', 'TeacherData', singleStudentCtrl]);
-  // };
-
   function singleStudentCtrl($scope, $routeParams, $uibModal, $location, $rootScope, $sce, TeacherData) {
     $scope.$on('student:changed', getStudent);
 
@@ -56,7 +52,7 @@ module ProgCheck {
       if (!TeacherData.Students.getStudent()) {
         TeacherData.Students.fetchStudent($routeParams.studentId);
       }
-      $scope.student = TeacherData.Students.getStudent();
+      ss.student = TeacherData.Students.getStudent();
     }
   }
 }

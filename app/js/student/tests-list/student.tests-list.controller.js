@@ -4,9 +4,6 @@ var ProgCheck;
     angular
         .module('progCheck')
         .controller('StudentTestsCtrl', ['$scope', '$location', '$routeParams', 'StudentData', studentTestsCtrl]);
-    // export = function(app) {
-    //   app.controller('StudentTestsCtrl', ['$scope', '$location', '$routeParams', 'StudentData', studentTestsCtrl])
-    // }
     function studentTestsCtrl($scope, $location, $routeParams, StudentData) {
         $scope.$on('student:changed', getUser);
         $scope.init = init;
