@@ -1,10 +1,3 @@
-/**
- * ~/js/admin/controllers/question_controller.js
- * A controller to deal with editing and adding questions
- * For use in the Prog Check testing application
- * Created by Jonathan Ullberg on 08/10/2015
- */
-/// <reference path="../../../../tools/typings/tsd.d.ts" />
 var ProgCheck;
 (function (ProgCheck) {
     'use strict';
@@ -15,7 +8,6 @@ var ProgCheck;
         var qf = this;
         qf.trustAsHtml = $sce.trustAsHtml;
         $scope.$on('test:changed', getTest);
-        // Public Functions
         qf.init = function () {
             getTest();
             if (AdminData.Tests.getQuestion()) {
@@ -41,7 +33,6 @@ var ProgCheck;
             console.log('cancel');
             $uibModalInstance.dismiss();
         };
-        // Private Functions
         function getQuestion() {
             qf.question = AdminData.Tests.getQuestion();
         }

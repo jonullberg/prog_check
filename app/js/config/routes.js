@@ -152,8 +152,7 @@
       // A teacher looking at a single student
       .when('/teacher/:teacherId/students/:studentId', {
         templateUrl: 'js/teacher/single-student/single-student.html',
-        controller: 'SingleStudentCtrl',
-        // controllerAs:'ss',
+        controller: 'SingleStudentCtrl as ss',
         access: {
           requiredLogin: true,
           requiredTeacher: true

@@ -1,7 +1,3 @@
-/**
- * A module to hold all teachers/users for the admin to see
- * Created by Jonathan Ullberg on 10/23/2015
- */
 var ProgCheck;
 (function (ProgCheck) {
     'use strict';

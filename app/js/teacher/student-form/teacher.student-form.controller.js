@@ -4,9 +4,6 @@ var ProgCheck;
     angular
         .module('progCheck')
         .controller('StudentFormCtrl', ['$scope', '$uibModalInstance', '$routeParams', '$location', 'Errors', 'TeacherData', studentFormCtrl]);
-    // export = function(app) {
-    //   app.controller('StudentFormCtrl', ['$scope', '$uibModalInstance', '$routeParams', '$location', 'Errors', 'TeacherData', studentFormCtrl]);
-    // }
     function studentFormCtrl($scope, $uibModalInstance, $routeParams, $location, Errors, TeacherData) {
         $scope.init = init;
         $scope.$on('student:changed', getStudent);

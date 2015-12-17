@@ -1,7 +1,3 @@
-/**
- * The routes for all student test attempts for the Prog Check API
- * Created by Jonathan Ullberg on 11/23/2015
- */
 'use strict';
 var Attempt = require('../models/Attempt');
 var Test = require('../models/Test');
@@ -9,9 +5,6 @@ var bodyparser = require('body-parser');
 var jwtAuth = require('../lib/jwt_auth')(process.env.APP_SECRET);
 module.exports = function (router) {
     router.use(bodyparser.json());
-    /**
-     * Adds a new test attempt for that student
-     */
     router.post('/students/:studentId/tests/', jwtAuth, function (req, res) {
         var newAttempt = new Attempt(req.body);
         newAttempt.dateTaken = Date.now();
@@ -27,9 +20,6 @@ module.exports = function (router) {
             });
         });
     });
-    /**
-     * Gets all tests for the student at that id
-     */
     router.get('/students/:studentId/attempts/', jwtAuth, function (req, res) {
         if (req.query.goalId) {
             Test.find({ 'goalId': req.query.goalId }, function (err, tests) {

@@ -4,8 +4,6 @@ var ProgCheck;
     angular
         .module('progCheck')
         .factory('TeacherData', ['TeacherStudentsData', 'TeacherAttemptsData', 'TeacherStandardsData', 'AuthenticationService', teacherData]);
-    // export = function(app) {
-    //   app.factory('TeacherData', ['TeacherStudentsData', 'TeacherAttemptsData', 'TeacherStandardsData', 'AuthenticationService', teacherData]);
     function teacherData(Students, Attempts, Standards, AuthService) {
         var teacherData = {
             user: AuthService.getUser(),

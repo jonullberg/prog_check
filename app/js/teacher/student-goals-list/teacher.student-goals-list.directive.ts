@@ -19,7 +19,7 @@ module ProgCheck {
       link: function(scope, iElement, iAttrs) {
 
       },
-      controller: 'StudentGoalsListCtrl'
+      controller: 'StudentGoalsListCtrl as sgl'
     };
   }
 

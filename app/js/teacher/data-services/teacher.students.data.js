@@ -4,9 +4,6 @@ var ProgCheck;
     angular
         .module('progCheck')
         .factory('TeacherStudentsData', ['$http', '$rootScope', 'Errors', teacherStudentsData]);
-    // export = function(app) {
-    //   app.factory('TeacherStudentsData', ['$http', '$rootScope', 'Errors', teacherStudentsData])
-    // }
     function teacherStudentsData($http, $rootScope, Errors) {
         var teacherStudentsData = {
             student: null,

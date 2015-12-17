@@ -1,49 +1,37 @@
-/**
- * A Controller to deal with the students goal list
- */
 var ProgCheck;
 (function (ProgCheck) {
     'use strict';
     angular
         .module('progCheck')
         .controller('StudentGoalsListCtrl', ['$scope', '$rootScope', '$routeParams', '$uibModal', 'TeacherData', studentGoalsListCtrl]);
-    // export = function(app) {
-    //   app.controller('StudentGoalsListCtrl', ['$scope', '$rootScope', '$routeParams', '$uibModal', 'TeacherData', studentGoalsListCtrl]);
-    // }
     function studentGoalsListCtrl($scope, $rootScope, $routeParams, $uibModal, TeacherData) {
-        $scope.showAttempts = function (goal) {
-            goal.isopen = !goal.isopen;
+        $scope.$on('student:changed', getStudent);
+        $scope.$on('attempts:changed', getAttempts);
+        var sgl = this;
+        sgl.init = function () {
+            getStudent();
+        };
+        sgl.showAttempts = function (goal) {
+            var original = goal.isOpen;
+            sgl.student.goals.forEach(function (goal) {
+                goal.isOpen = false;
+            });
+            goal.isopen = !original;
             TeacherData.Attempts.fetchAttemptsByGoal($routeParams.studentId, goal.goalId);
         };
-        $scope.deleteGoal = function (goal) {
+        sgl.deleteGoal = function (goal) {
             TeacherData.Students.deleteGoal($routeParams.studentId, goal._id);
             toggleAlert(null);
         };
-        $scope.init = init;
-        $scope.toggleAlert = toggleAlert;
-        $scope.$on('student:changed', getStudent);
-        $scope.$on('attempts:changed', getAttempts);
-        $scope.showButtons = function (goal) {
+        sgl.toggleAlert = toggleAlert;
+        sgl.showButtons = function (goal) {
             var showing = goal.buttonsShowing;
-            $scope.student.goals.forEach(function (goal) {
+            sgl.student.goals.forEach(function (goal) {
                 goal.buttonsShowing = false;
             });
             goal.buttonsShowing = !showing;
         };
-        $scope.editStudentGoal = editStudentGoal;
-        function init() {
-            getStudent();
-        }
-        function getAttempts() {
-            $scope.attempts = TeacherData.Attempts.getAttempts();
-        }
-        function getStudent() {
-            if (!TeacherData.Students.getStudent()) {
-                TeacherData.Students.fetchStudent($routeParams.studentId);
-            }
-            $scope.student = TeacherData.Students.getStudent();
-        }
-        function editStudentGoal(goal) {
+        sgl.editStudentGoal = function (goal) {
             var scope = $rootScope.$new();
             scope.params = {
                 buttonText: 'Update Goal',
@@ -58,15 +46,24 @@ var ProgCheck;
                 controller: 'StudentGoalSettingsCtrl',
                 scope: scope
             });
+        };
+        function getAttempts() {
+            sgl.attempts = TeacherData.Attempts.getAttempts();
+        }
+        function getStudent() {
+            if (!TeacherData.Students.getStudent()) {
+                TeacherData.Students.fetchStudent($routeParams.studentId);
+            }
+            sgl.student = TeacherData.Students.getStudent();
         }
         function toggleAlert(goal) {
             if ($scope.isAlertShown) {
-                $scope.isAlertShown = false;
+                sgl.isAlertShown = false;
             }
             else {
-                $scope.isAlertShown = true;
+                sgl.isAlertShown = true;
             }
-            $scope.goal = goal;
+            sgl.goal = goal;
         }
     }
 })(ProgCheck || (ProgCheck = {}));

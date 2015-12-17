@@ -9,10 +9,6 @@ module.exports = function (app) {
             $scope.standard = dataStore.standard;
             $scope.isTestShowing = false;
             $scope.isDeleteShown = false;
-            /**
-             * Will add test to display, hide the form for adding a test, and make a POST request to the API to create a new test
-             * @param  {object} test The specified test to create
-             */
             $scope.createTest = function (test) {
                 var newTest = angular.copy(test);
                 var numberOfTests = $filter('filter')($scope.tests, { standardId: $scope.standard._id });
@@ -56,15 +52,8 @@ module.exports = function (app) {
                     size: 'lg'
                 });
             };
-            ////////////////////////////////////
-            // Functions for Single Test page //
-            ////////////////////////////////////
-            /**
-             * Will set selected test to null and send us back to test list
-             */
             $scope.goBack = function () {
                 dataStore.test = null;
-                // $scope.test = dataStore.test;
                 $scope.toggleSingleTest();
                 if ($scope.isTestFormShowing) {
                     $scope.toggleTestForm();
@@ -99,9 +88,6 @@ module.exports = function (app) {
                     $scope.toggleTestForm();
                 }
             };
-            /////////////////////////////
-            // Functions for Test Form //
-            /////////////////////////////
             $scope.master = null;
             $scope.areWeAddingQuestions = false;
             $scope.getGoalId = function (test) {

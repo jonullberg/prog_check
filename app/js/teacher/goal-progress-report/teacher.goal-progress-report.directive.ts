@@ -8,15 +8,12 @@ module ProgCheck {
     .module('progCheck')
     .directive('pcAttemptProgressReport', pcAttemptProgressReport)
 
-  // export = function(app) {
-  //   app.directive('pcAttemptProgressReport', pcAttemptProgressReport)
-  // }
   function pcAttemptProgressReport() {
     return {
       restrict: 'E',
       replace: true,
       templateUrl: '/js/teacher/goal-progress-report/goal-progress-report.html',
-      controller: 'ProgressReportCtrl'
+      controller: 'ProgressReportCtrl as pr'
     };
   }
 
