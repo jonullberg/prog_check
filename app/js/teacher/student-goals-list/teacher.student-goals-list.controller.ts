@@ -4,6 +4,7 @@
 module ProgCheck {
   'use strict';
 
+<<<<<<< HEAD:app/js/teacher/student-goals-list/teacher.student-goals-list.controller.ts
   angular
     .module('progCheck')
     .controller('StudentGoalsListCtrl', ['$scope', '$rootScope', '$routeParams', '$uibModal', 'TeacherData', studentGoalsListCtrl])
