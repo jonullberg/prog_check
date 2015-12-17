@@ -1,6 +1,5 @@
-'use strict';
 
-declare function require(name: string);
+'use strict';
 
 var winston = require('winston');
 

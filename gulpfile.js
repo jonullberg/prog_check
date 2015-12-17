@@ -92,6 +92,9 @@ gulp.task('analyze', function() {
 
 });
 
+
+
+
 // TypeScript
 gulp.task('ts-lint', function() {
   return gulp.src(paths.allTypeScript).pipe(plug.tslint()).pipe(plug.tslint.report('spec'));
@@ -103,6 +106,9 @@ gulp.task('compile-ts', function() {
     .pipe(plug.tsc())
     .pipe(gulp.dest('.'))
 });
+
+
+
 
 // Testing
 gulp.task('webpack:karma_test', function(callback) {
@@ -133,7 +139,7 @@ gulp.task('mocha:backend', function() {
 gulp.task('test', ['mocha:backend', 'karma:test']);
 
 
-var workingFiles = ['gulpfile.js', './lib/**/*.js', './routes/**/*.js', './app/**/*.js', './test/**/*.js', './models/**/*.js'];
+
 // Build
 gulp.task('clean:build', function (cb) {
   del.sync([
