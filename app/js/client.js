@@ -41,7 +41,7 @@
   require('./controllers/errors.controller');
   require('./controllers/footer.controller');
   require('./controllers/bug-form.controller');
-  require('./controllers/main.controller')();
+  require('./controllers/main.controller');
 
   //    Auth Controllers
   require('./auth/controllers/student-auth.controller');

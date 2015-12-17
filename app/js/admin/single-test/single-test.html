@@ -4,12 +4,12 @@
   <header class="panel-heading">
     <h3 class="col-lg-9">{{st.test.testName}} : {{st.test.questions.length}} Question(s)</h3>
     <button class="btn btn-default col-lg-3"
-      data-ng-click="goBack()">Go Back</button>
+      data-ng-click="st.goBack()">Go Back</button>
     <div class="clearfix"></div>
   </header>
   <section class="panel-body">
     <div class="alert alert-danger"
-      data-ng-if="isDeleteShown">
+      data-ng-if="st.isDeleteShown">
       <p class="col-lg-8">Are you sure? Deleting can't be undone</p>
       <div class="btn-group col-lg-4">
         <button type="button"
@@ -27,10 +27,12 @@
     </div>
 
     <h4>Directions:</h4>
-    <p>{{test.testDirections}}</p>
-    <p>{{test.goal}}</p>
+    <p>{{st.test.testDirections}}</p>
+    <p>{{st.test.goal}}</p>
     <h4>Questions: </h4>
-    <p data-ng-if="!st.test.questions.length">You have no questions, please add some</p>
+    <p data-ng-if="!st.test.questions.length">
+      You have no questions, please add some
+    </p>
     <ul data-ng-if="st.test.questions.length">
       <li data-ng-repeat="question in st.test.questions"
         data-ng-click="st.showAnswerImages(question)"
@@ -41,33 +43,37 @@
           data-ng-click="st.editQuestion(question)">
           Edit Question
         </button>
-        <button class="btn btn-danger" type="button"
+        <button type="button"
+          class="btn btn-danger"
           data-ng-if="question.imageButtonsShowing"
-          data-ng-click="deleteQuestion(question)">
+          data-ng-click="st.deleteQuestion(question)">
           Delete Question
         </button>
 
       </li>
-      <li data-ng-repeat="question in test.questions"
-        data-ng-click="showAnswers(question)"
-        data-ng-if="test.questionType === 'text'">
-        <span class="fraction angular-with-newlines" data-ng-bind-html="trustAsHtml(question.question)">
+      <li data-ng-repeat="question in st.test.questions"
+        data-ng-click="st.showAnswers(question)"
+        data-ng-if="st.test.questionType === 'text'">
+        <span class="fraction angular-with-newlines"
+          data-ng-bind-html="st.trustAsHtml(question.question)">
         {{question.question}}
         </span>
         <button class="btn btn-primary" type="button"
           data-ng-if="question.showing"
-          data-ng-click="editQuestion(question)">
+          data-ng-click="st.editQuestion(question)">
           Edit Question
         </button>
-        <button class="btn btn-danger" type="button"
+        <button type="button"
+          class="btn btn-danger"
           data-ng-if="question.showing"
-          data-ng-click="deleteQuestion(question)">
+          data-ng-click="st.deleteQuestion(question)">
           Delete Question
         </button>
         <ul data-ng-if="question.showing">
 
-          <li data-ng-repeat="answer in question.answers">
-            <span class="fraction angular-with-newlines" data-ng-bind-html="trustAsHtml(answer)">
+          <li data-ng-repeat="answer in question.answers track by $index">
+            <span class="fraction angular-with-newlines"
+              data-ng-bind-html="st.trustAsHtml(answer)">
               {{answer}}
             </span>
           </li>
@@ -78,14 +84,15 @@
   <footer class="panel-footer">
     <button type="button"
       class="btn btn-primary"
-      data-ng-click="editTest(test)">Edit Test</button>
+      data-ng-click="st.editTest(test)">Edit Test</button>
     <button type="button"
       class="btn btn-danger"
-      data-ng-click="toggleDelete()">
+      data-ng-click="st.toggleDelete()">
       Delete Test
     </button>
-    <button class="btn btn-info"
-      data-ng-click="addQuestion()">
+    <button type="button"
+      class="btn btn-info"
+      data-ng-click="st.addQuestion()">
       Add Question
       <span class="glyphicon glyphicon-plus"></span>
     </button>

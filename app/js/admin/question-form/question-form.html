@@ -1,47 +1,52 @@
 <form
-  data-ng-init="init()"
-  data-ng-submit="save(question)">
+  data-ng-init="qf.init()"
+  data-ng-submit="qf.save(qf.question)">
   <div class="modal-header">
     <h3>Add Questions</h3>
   </div>
   <div class="modal-body">
-    <ul data-ng-if="test.questionType === 'text'">
-      <li data-ng-repeat="question in test.questions">
-        <span class="fraction" data-ng-bind-html="trustAsHtml(question.question)">
+    <ul data-ng-if="qf.test.questionType === 'text'">
+      <li data-ng-repeat="question in qf.test.questions">
+        <span class="fraction"
+          data-ng-bind-html="qf.trustAsHtml(question.question)">
           {{question.question}}
         </span>
       </li>
     </ul>
-    <div class="form-group" data-ng-if="test.questionType === 'text'">
+    <div class="form-group"
+      data-ng-if="qf.test.questionType === 'text'">
       <label for="question">Question: </label>
       <textarea class="form-control"
-        name="question" id="question"
-        data-ng-model="question.question"></textarea>
+        name="question"
+        id="question"
+        data-ng-model="qf.question.question">
+      </textarea>
     </div>
 
-    <div class="form-group" data-ng-if="test.answerType === 'text'">
+    <div class="form-group" data-ng-if="qf.test.answerType === 'text'">
       <label for="correctAnswer">Correct answer: </label>
       <textarea class="form-control"
         name="correctAnswer" id="correctAnswer"
-        data-ng-model="question.correct"
-        data-ng-change="question.answers[0] = question.correct"></textarea>
+        data-ng-model="qf.question.correct"
+        data-ng-change="qf.question.answers[0] = qf.question.correct"></textarea>
     </div>
-    <div class="form-group" data-ng-if="test.answerType === 'text'">
+    <div class="form-group"
+      data-ng-if="qf.test.answerType === 'text'">
       <label for="answers">Additional (Wrong) Answers: </label>
       <textarea
         name="wrongAnswer1"
         id="wrongAnswer1"
-        data-ng-model="question.answers[1]"
+        data-ng-model="qf.question.answers[1]"
         class="form-control"></textarea>
       <textarea
         name="wrongAnswer2"
         id="wrongAnswer2"
-        data-ng-model="question.answers[2]"
+        data-ng-model="qf.question.answers[2]"
         class="form-control"></textarea>
       <textarea
         name="wrongAnswer3"
         id="wrongAnswer3"
-        data-ng-model="question.answers[3]"
+        data-ng-model="qf.question.answers[3]"
         class="form-control"></textarea>
     </div>
   </div>
@@ -53,7 +58,7 @@
       </button>
       <button type="button"
         class="btn btn-danger"
-        data-ng-click="cancel()">
+        data-ng-click="qf.cancel()">
         Cancel
       </button>
     </div>

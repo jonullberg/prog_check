@@ -13,40 +13,40 @@ var ProgCheck;
         .controller('QuestionFormCtrl', ['$scope', '$uibModalInstance', '$sce', '$routeParams', 'AdminData', questionFormCtrl]);
     function questionFormCtrl($scope, $uibModalInstance, $sce, $routeParams, AdminData) {
         var qf = this;
-        $scope.trustAsHtml = $sce.trustAsHtml;
+        qf.trustAsHtml = $sce.trustAsHtml;
         $scope.$on('test:changed', getTest);
         // Public Functions
-        $scope.init = function () {
+        qf.init = function () {
             getTest();
-            getQuestion();
+            if (AdminData.Tests.getQuestion()) {
+                getQuestion();
+            }
         };
-        if ($scope.params.formType === 'creating') {
-            $scope.save = function (question) {
+        qf.save = function (question) {
+            if ($scope.params.formType === 'creating') {
                 question.answers = Object.keys(question.answers)
                     .map(function (key) {
                     return question.answers[key];
                 });
                 createQuestion(question);
                 AdminData.Tests.setQuestion(null);
-                $uibModalInstance.close();
-            };
-        }
-        if ($scope.params.formType === 'editing') {
-            $scope.save = function (question) {
+            }
+            else if ($scope.params.formType === 'editing') {
                 updateQuestion(question);
                 AdminData.Tests.setQuestion(null);
-                $uibModalInstance.close();
-            };
-        }
-        $scope.cancel = function () {
+            }
+            $uibModalInstance.close();
+        };
+        qf.cancel = function () {
+            console.log('cancel');
             $uibModalInstance.dismiss();
         };
         // Private Functions
         function getQuestion() {
-            $scope.question = AdminData.Tests.getQuestion();
+            qf.question = AdminData.Tests.getQuestion();
         }
         function getTest() {
-            $scope.test = AdminData.Tests.getTest();
+            qf.test = AdminData.Tests.getTest();
         }
         function createQuestion(question) {
             AdminData.Tests.createQuestion($routeParams.testId, question);

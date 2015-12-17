@@ -40,7 +40,7 @@ var ProgCheck;
                 scope: scope
             });
         };
-        $scope.addQuestion = function () {
+        st.addQuestion = function () {
             AdminData.Tests.setQuestion(null);
             var scope = $rootScope.$new();
             scope.params = {
@@ -50,11 +50,11 @@ var ProgCheck;
             var templateUrl;
             var controller;
             if (st.test.questionType === 'text') {
-                templateUrl = '/templates/admin/modals/question_form_modal.html';
-                controller = 'QuestionFormCtrl';
+                templateUrl = '/js/admin/question-form/question-form.html';
+                controller = 'QuestionFormCtrl as qf';
             }
             else if (st.test.questionType === 'image') {
-                templateUrl = '/templates/admin/modals/image_question_form_modal.html';
+                templateUrl = '/js/admin/question-form/image-question-form.html';
                 controller = 'ImageQuestionFormCtrl';
             }
             $uibModal.open({
@@ -75,11 +75,11 @@ var ProgCheck;
             var templateUrl;
             var controller;
             if (st.test.questionType === 'text') {
-                templateUrl = '/templates/admin/modals/question_form_modal.html';
-                controller = 'QuestionFormCtrl';
+                templateUrl = '/js/admin/question-form/question-form.html';
+                controller = 'QuestionFormCtrl as qf';
             }
             else if (st.test.questionType === 'image') {
-                templateUrl = '/templates/admin/modals/image_question_form_modal.html';
+                templateUrl = '/js/admin/question-form/image-question-form.html';
                 controller = 'ImageQuestionFormCtrl';
             }
             $uibModal.open({
@@ -94,49 +94,41 @@ var ProgCheck;
             AdminData.Tests.deleteTest(test._id);
             $location.path('/admin/standards/' + st.standard._id);
         };
-        $scope.toggleDelete = function () {
-            $scope.isDeleteShown = !$scope.isDeleteShown;
+        st.toggleDelete = function () {
+            st.isDeleteShown = !st.isDeleteShown;
         };
+        st.showAnswers = function (question) {
+            var original = question.showing;
+            st.test.questions.forEach(function (question) {
+                question.showing = false;
+            });
+            question.showing = !original;
+        };
+        st.showAnswerImages = function (question) {
+            question.imageButtonsShowing = !question.imageButtonsShowing;
+        };
+        st.deleteQuestion = function (question) {
+            AdminData.Tests.deleteQuestion(st.test._id, question._id, function (err) {
+            });
+        };
+        // Private Functions
         function showAnswers(question) {
             question.showing = true;
         }
         function hideAnswers(question) {
             question.showing = false;
         }
-        $scope.showAnswers = function (question) {
-            $scope.test.questions.forEach(function (question) {
-                question.showing = false;
-            });
-            question.showing = !question.showing;
-        };
-        $scope.showAnswerImages = function (question) {
-            question.imageButtonsShowing = !question.imageButtonsShowing;
-        };
-        $scope.deleteQuestion = function (question) {
-            AdminData.Tests.deleteQuestion($scope.test._id, question._id, function (err) {
-            });
-        };
         function getStandard() {
-            var standard = AdminData.Standards.getStandard();
-            if (standard) {
-                $scope.standard = standard;
+            if (!AdminData.Standards.getStandard()) {
+                AdminData.Standards.fetchStandard($routeParams.standardId);
             }
-            else {
-                AdminData.Standards.fetchStandard($routeParams.standardId, function (err, data) {
-                    $scope.standard = data.standard;
-                });
-            }
+            st.standards = AdminData.Standards.getStandard();
         }
         function getTest() {
-            var test = AdminData.Tests.getTest();
-            if (test) {
-                $scope.test = AdminData.Tests.getTest();
+            if (!AdminData.Tests.getTest()) {
+                AdminData.Tests.fetchTest($routeParams.testId);
             }
-            else {
-                AdminData.Tests.fetchTest($routeParams.testId, function (err, data) {
-                    $scope.test = data.test;
-                });
-            }
+            st.test = AdminData.Tests.getTest();
         }
     }
 })(ProgCheck || (ProgCheck = {}));

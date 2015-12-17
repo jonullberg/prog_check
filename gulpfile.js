@@ -35,7 +35,7 @@ var paths = {
 
 gulp.task('watch', function() {
   gulp.watch(config.ts.all, ['ts-lint', 'compile-ts']);
-  gulp.watch([config.js.client, config.js.server, config.html, config.css], ['analyze', 'build']);
+  gulp.watch([config.js.client, config.js.server, config.html, config.css], ['build']);
   gulp.watch(config.tests.backend, ['analyze', 'mocha:backend']);
   gulp.watch(config.sass, ['sass', 'sass-concat'])
 });

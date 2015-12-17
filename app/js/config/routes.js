@@ -116,6 +116,7 @@
       .when('/admin/standards/:standardId/tests/:testId', {
         templateUrl: 'js/admin/single-test/single-test.html',
         controller: 'SingleTestCtrl',
+        controllerAs: 'st',
         access: {
           requiredLogin: true,
           requiredAdmin: true,

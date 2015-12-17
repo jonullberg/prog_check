@@ -10,10 +10,8 @@ var ProgCheck;
     angular
         .module('progCheck')
         .controller('TestFormCtrl', ['$scope', '$routeParams', '$uibModalInstance', 'AdminData', testFormCtrl]);
-    // export = function(app) {
-    //   app.controller('TestFormCtrl', ['$scope', '$routeParams', '$uibModalInstance', 'AdminData', testFormCtrl]);
     function testFormCtrl($scope, $routeParams, $uibModalInstance, AdminData) {
-        this.$on('test:changed', getTest);
+        $scope.$on('test:changed', getTest);
         // Public Functions
         this.init = function () {
             getTest();
@@ -27,17 +25,17 @@ var ProgCheck;
         };
         this.save = function (test) {
             test.standardId = $routeParams.standardId;
-            if (this.params.formType === 'editing') {
+            if ($scope.params.formType === 'editing') {
                 updateTest(test);
             }
-            else if (this.params.formType === 'creating') {
+            else if ($scope.params.formType === 'creating') {
                 createTest(test);
             }
             $uibModalInstance.close();
         };
         // Private Functions
         function getTest() {
-            if (this.params.formType === 'editing') {
+            if ($scope.params.formType === 'editing') {
                 if (!AdminData.Tests.getTest()) {
                     AdminData.Tests.fetchTest($routeParams.testId);
                 }

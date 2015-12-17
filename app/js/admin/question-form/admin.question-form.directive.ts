@@ -11,21 +11,15 @@ module ProgCheck {
     .module('progCheck')
     .directive('pcQuestionForm', pcQuestionForm);
 
-  // export = function(app) {
-  //   app
-  // };
-
   function pcQuestionForm() {
     return {
       restrict: 'E',
       replace: true,
-      templateUrl: './question-form.html',
+      templateUrl: '/js/admin/question-form/question-form.html',
       scope: {
-        question: '=',
-        save: '&',
-        addQuestion: '&',
+        formType: '=',
         buttonText: '=',
-        cancel: '&'
+        test: '='
       },
       link: function(scope, iElement, iAttr) {
 
