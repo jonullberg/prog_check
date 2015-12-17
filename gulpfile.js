@@ -4,7 +4,7 @@ var gulp = require('gulp');
 var del = require('del');
 var webpack = require('webpack');
 var plug = require('gulp-load-plugins')();
-var config = require('./gulp.config.json');
+var config = require('./gulp.config');
 
 var colors = plug.util.colors;
 var env = plug.util.env;
@@ -14,27 +14,44 @@ var port = process.env.PORT || 7203;
 var paths = {
   scripts: './app/**/*.js',
   styles: ['./app/**/*.css', './app/**/*.scss'],
-  html: './app/**/*.html',
   serverLib: './lib/**/*.js',
   serverTests: './routes/**/*-tests.js',
   serverFiles: ['./server.js', './routes/**/*.js'],
   dataModels: './models/**/*.js',
   gulpfile: './gulpfile.js',
-  tests: {
-    tests: [
-      './__tests__/frontend/**/*.spec.js',
-      './__tests__/backend/**/*.spec.js'],
-    frontend:'./__tests__/frontend/**/*.spec.js',
-    backend: './__tests__/backend/**/*.spec.js'
+  // tests: {
+  //   tests: [
+  //     './__tests__/frontend/**/*.spec.js',
+  //     './__tests__/backend/**/*.spec.js'],
+    // frontend:'./__tests__/frontend/**/*.spec.js',
+    // backend: './__tests__/backend/**/*.spec.js'
+  // },
+  allTypeScript: './**/*.ts',
+  "client": "./app/js/client",
+  "tests": {
+    "frontend": "app/js/**/*.spec.js",
+    "backend": "server/**/*.spec.js"
   },
-  allTypeScript: './**/*.ts'
+  "js": {
+    "client": "./app/js/**/*.js",
+    "server": ["server/**/*.js", "!server/**/*.spec.js"]
+  },
+  "ts": {
+    "frontend": "app/**/*.ts",
+    "backend": "server/**/*.ts",
+    "all": "./**/*.ts"
+  },
+  "html": "app/**/*.html",
+  "css": "app/**/*.css",
+  "cssOutput": "app/css/",
+  "sass": "app/stylesheets/**/*.scss"
 };
 
 gulp.task('watch', function() {
-  gulp.watch(config.ts.all, ['ts-lint', 'compile-ts']);
-  gulp.watch([config.js.client, config.js.server, config.html, config.css], ['build']);
-  gulp.watch(config.tests.backend, ['analyze', 'mocha:backend']);
-  gulp.watch(config.sass, ['sass', 'sass-concat'])
+  gulp.watch(paths.ts.all, ['ts-lint', 'compile-ts']);
+  gulp.watch([paths.js.client, paths.js.server, paths.html, paths.css], ['build']);
+  gulp.watch(paths.tests.backend, ['analyze', 'mocha:backend']);
+  gulp.watch(paths.sass, ['sass'])
 });
 
 gulp.task('scripts', function() {
@@ -81,7 +98,7 @@ gulp.task('ts-lint', function() {
 });
 
 gulp.task('compile-ts', function() {
-  var sourceTsFiles = [config.ts.frontend, config.ts.backend];
+  var sourceTsFiles = [paths.ts.frontend, paths.ts.backend];
   gulp.src(sourceTsFiles)
     .pipe(plug.tsc())
     .pipe(gulp.dest('.'))
@@ -117,8 +134,6 @@ gulp.task('test', ['mocha:backend', 'karma:test']);
 
 
 var workingFiles = ['gulpfile.js', './lib/**/*.js', './routes/**/*.js', './app/**/*.js', './test/**/*.js', './models/**/*.js'];
-
-
 // Build
 gulp.task('clean:build', function (cb) {
   del.sync([
@@ -159,7 +174,16 @@ gulp.task('uglify:build', ['webpack:build'], function() {
     .pipe(plug.uglify())
     .pipe(gulp.dest('build/'));
 });
+
 gulp.task('build', ['webpack:build']);
+
+// SASS
+gulp.task('sass', function() {
+  gulp.src(paths.sass)
+    .pipe(plug.sass().on('error', plug.sass.logError))
+    .pipe(plug.concat('app.css'))
+    .pipe(gulp.dest(paths.cssOutput));
+});
 
 // Private Functions
 function analyzejshint(sources, overrideRcFile) {
@@ -197,3 +221,4 @@ function startPlatoVisualizer() {
     log(overview.summary);
   }
 }
+
