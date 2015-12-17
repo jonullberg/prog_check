@@ -4,8 +4,6 @@
  */
 'use strict';
 
-declare function require(name: string);
-
 var winston = require('winston'); // Logger
 var Tests = require('../models/Test');
 var Attempt = require('../models/Attempt');

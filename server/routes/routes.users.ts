@@ -4,8 +4,6 @@
  */
 'use strict';
 
-declare function require(name: string);
-
 var winston = require('winston');
 
 var User = require('../models/User');
