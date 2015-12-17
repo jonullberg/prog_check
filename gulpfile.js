@@ -4,7 +4,6 @@ var gulp = require('gulp');
 var del = require('del');
 var webpack = require('webpack');
 var plug = require('gulp-load-plugins')();
-var merge = require('merge-stream');
 var config = require('./gulp.config.json');
 
 var colors = plug.util.colors;
@@ -39,6 +38,7 @@ gulp.task('watch', function() {
 });
 
 gulp.task('scripts', function() {
+  var merge = require('merge-stream');
   var tsResult = gulp.src('./app/**/*.ts')
     .pipe(plug.typescript({
       declarationFiles: true,
@@ -62,6 +62,8 @@ gulp.task('help', plug.taskListing);
  * @return {Stream}
  */
 gulp.task('analyze', function() {
+
+  var merge = require('merge-stream');
   log('Analyzing source with JSHint, JSCS and Plato');
 
   var jshint = analyzejshint([].concat(paths.scripts));
@@ -180,6 +182,7 @@ function analyzejscs(sources) {
 function startPlatoVisualizer() {
   var plato = require('plato');
   var glob = require('glob');
+
   log('Running Plato');
   var files = glob.sync('./app/js/**/*.js');
 
