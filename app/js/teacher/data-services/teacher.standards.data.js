@@ -45,7 +45,6 @@ var ProgCheck;
         function fetchStandards(cb) {
             $http.get('/api/standards')
                 .then(function (response) {
-                console.log(response);
                 this.setStandards(response.data.standards);
                 handleCallback(cb, response, null);
             }.bind(this))
