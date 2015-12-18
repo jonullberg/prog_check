@@ -7,7 +7,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .logo {
   text-indent: -9999px;
-  background-image: url("../img/assets/transparent-bg-logo.png");
+  background-image: url("//s3.amazonaws.com/progcheck/assets/img/transparent-bg-logo.png");
   background-size: contain;
   background-repeat: no-repeat; }
 
@@ -321,8 +321,8 @@ th {
 
 @font-face {
   font-family: 'Glyphicons Halflings';
-  src: url("../fonts/bootstrap/glyphicons-halflings-regular.eot");
-  src: url("../fonts/bootstrap/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/bootstrap/glyphicons-halflings-regular.woff2") format("woff2"), url("../fonts/bootstrap/glyphicons-halflings-regular.woff") format("woff"), url("../fonts/bootstrap/glyphicons-halflings-regular.ttf") format("truetype"), url("../fonts/bootstrap/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg"); }
+  src: url("//s3.amazonaws.com/progcheck/assets/fonts/bootstrap/glyphicons-halflings-regular.eot");
+  src: url("//s3.amazonaws.com/progcheck/assets/fonts/bootstrap/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("//s3.amazonaws.com/progcheck/assets/fonts/bootstrap/glyphicons-halflings-regular.woff2") format("woff2"), url("//s3.amazonaws.com/progcheck/assets/fonts/bootstrap/glyphicons-halflings-regular.woff") format("woff"), url("//s3.amazonaws.com/progcheck/assets/fonts/bootstrap/glyphicons-halflings-regular.ttf") format("truetype"), url("//s3.amazonaws.com/progcheck/assets/fonts/bootstrap/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg"); }
 
 .glyphicon {
   position: relative;
@@ -5908,7 +5908,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .logo {
   text-indent: -9999px;
-  background-image: url("../img/assets/transparent-bg-logo.png");
+  background-image: url("//s3.amazonaws.com/progcheck/assets/img/transparent-bg-logo.png");
   background-size: contain;
   background-repeat: no-repeat; }
 
