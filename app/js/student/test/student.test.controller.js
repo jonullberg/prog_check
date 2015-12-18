@@ -1,3 +1,9 @@
+/**
+ * The Controller for a students test
+ * For use in the Prog Check testing Application
+ * Created by Jonathan Ullberg on 11/02/2015
+ * /app/js/student/test/student.test.controller.ts
+ */
 var ProgCheck;
 (function (ProgCheck) {
     'use strict';

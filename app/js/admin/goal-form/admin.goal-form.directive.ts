@@ -12,14 +12,11 @@ module ProgCheck {
     .module('progCheck')
     .directive('pcGoalForm', pcGoalForm)
 
-  // export = function(app) {
-  //   app.directive;
-  // };
   function pcGoalForm() {
     return {
       restrict: 'E',
       replace: true,
-      templateUrl: '/js/admin/goal-form/goal_form.html',
+      templateUrl: '/templates/admin/goal-form.html',
       controller: 'GoalFormCtrl',
       controllerAs: 'gf'
     };

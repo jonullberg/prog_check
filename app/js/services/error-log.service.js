@@ -1,3 +1,10 @@
+/**
+ * A service for passing errors to the Angular $log service
+ * Then we handle our own error handling in the application
+ * For use in the Prog Check testing application
+ * Created by Jonathan Ullberg on 12/02/2015
+ */
+/// <reference path="../../../tools/typings/tsd.d.ts" />
 var ProgCheck;
 (function (ProgCheck) {
     'use strict';
@@ -8,6 +15,15 @@ var ProgCheck;
         return function ($delegate) {
             return function (exception, cause) {
                 var $http = $injector.get('$http');
+                /**
+                 * Pass off the error to the default error handler
+                 * on the AngularJS logger. This will output the
+                 * error to the console (and let the application
+                 * keep running normally for the user).
+                 * @param {[type]} $log      The native Angular log service
+                 * @param {[type]} arguments [description]
+                 */
+                // $log.error.apply($log, arguments);
                 try {
                     var errorMessage = exception.toString();
                     StackTrace

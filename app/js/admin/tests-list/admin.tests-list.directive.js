@@ -8,7 +8,7 @@ var ProgCheck;
         return {
             restrict: 'E',
             replace: true,
-            templateUrl: '/js/admin/tests-list/tests-list.html',
+            templateUrl: '/templates/admin/tests-list.html',
             controller: 'TestsListCtrl',
             controllerAs: 'tl'
         };

@@ -1,3 +1,10 @@
+/**
+ * ~/js/admin/controllers/question_controller.js
+ * A controller to deal with editing and adding image questions
+ * For use in the Prog Check testing application
+ * Created by Jonathan Ullberg on 10/20/2015
+ */
+/// <reference path="../../../../tools/typings/tsd.d.ts" />
 var ProgCheck;
 (function (ProgCheck) {
     'use strict';
@@ -33,6 +40,7 @@ var ProgCheck;
                 $scope.question.answers[3] = process.env.AWS_GET_URL + filePath;
             });
         });
+        // Public functions
         $scope.init = function () {
             getTest();
             getQuestion();
@@ -53,6 +61,7 @@ var ProgCheck;
         $scope.cancel = function () {
             $uibModalInstance.dismiss();
         };
+        // Private Functions
         function upload(file, cb) {
             var storeAuth = $http.defaults.headers.common.Authorization;
             delete $http.defaults.headers.common.Authorization;

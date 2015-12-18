@@ -11,9 +11,6 @@ module ProgCheck {
   angular
     .module('progCheck')
     .controller('QuestionCtrl', ['$sce', questionCtrl])
-  // export = function(app: any) {
-  //   app.controller('QuestionCtrl', ['$sce', questionCtrl]);
-  // };
 
   function questionCtrl($sce: ng.ISCEService) {
     var qu = this;

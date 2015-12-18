@@ -15,7 +15,7 @@ module ProgCheck {
     return {
       restrict: 'E',
       replace: true,
-      templateUrl: '/js/admin/question-form/question-form.html',
+      templateUrl: '/templates/admin/question-form.html',
       scope: {
         formType: '=',
         buttonText: '=',

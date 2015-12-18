@@ -1,12 +1,12 @@
 <section
-  data-ng-init="init()">
+  data-ng-init="sgs.init()">
   <header class="modal-header">
     <h3 class="col-lg-9">
       Edit the Settings For This Goal
     </h3>
     <button type="button"
       class="btn btn-primary"
-      data-ng-click="goBack()">
+      data-ng-click="sgs.goBack()">
       Go Back
     </button>
   </header>
@@ -18,7 +18,7 @@
         name="numberOfQuestions"
         id="numberOfQuestions"
         class="form-control"
-        data-ng-model="goal.numberOfQuestions"
+        data-ng-model="sgs.goal.numberOfQuestions"
         data-convert-to-number>
         <option value="" disabled selected="selected">Please Select An Option</option>
         <option value="5">Five</option>
@@ -30,12 +30,12 @@
   <footer class="modal-footer">
     <button type="button"
       class="btn btn-primary"
-      data-ng-click="save(goal)">
+      data-ng-click="sgs.save(sgs.goal)">
       {{params.buttonText}}
     </button>
     <button type="button"
       class="btn btn-danger"
-      data-ng-click="cancel()">
+      data-ng-click="sgs.cancel()">
       Cancel
     </button>
   </footer>

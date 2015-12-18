@@ -1,9 +1,18 @@
+/**
+ * The Grades Service
+ * For use in the ProgCheck Testing application
+ * A Service that provides an array of Grades, their name, shortname, and their domains
+ * Created by Jonathan Ullberg on 12/15/2015
+ */
 var ProgCheck;
 (function (ProgCheck) {
     'use strict';
     angular
         .module('progCheck')
         .factory('grades', grades);
+    // module.exports = function grades(app) {
+    //   app.factory('grades', grades)
+    // }
     function grades() {
         return [
             {

@@ -8,18 +8,16 @@ module ProgCheck {
     .module('progCheck')
     .directive('pcStudentGoalsList', pcStudentGoalsList)
 
-  // export = function(app) {
-  //   app.directive('pcStudentGoalsList', pcStudentGoalsList)
-  // }
   function pcStudentGoalsList() {
     return {
       restrict: 'E',
       replace: true,
-      templateUrl: '/js/teacher/student-goals-list/student-goals-list.html',
+      templateUrl: '/templates/teacher/student-goals-list.html',
       link: function(scope, iElement, iAttrs) {
 
       },
-      controller: 'StudentGoalsListCtrl as sgl'
+      controller: 'StudentGoalsListCtrl',
+      controllerAs: 'sgl'
     };
   }
 

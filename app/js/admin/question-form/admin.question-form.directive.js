@@ -1,3 +1,9 @@
+/**
+ * A Directive for the Question Form
+ * For use in the Prog Check testing application
+ * Created by Jonathan Ullberg on 10/20/2015
+ */
+/// <reference path="../../../../tools/typings/tsd.d.ts" />
 var ProgCheck;
 (function (ProgCheck) {
     'use strict';
@@ -8,7 +14,7 @@ var ProgCheck;
         return {
             restrict: 'E',
             replace: true,
-            templateUrl: '/js/admin/question-form/question-form.html',
+            templateUrl: '/templates/admin/question-form.html',
             scope: {
                 formType: '=',
                 buttonText: '=',

@@ -12,7 +12,7 @@ module ProgCheck {
     return {
       restrict: 'E',
       replace: true,
-      templateUrl: '/js/teacher/goal-progress-report/goal-progress-report.html',
+      templateUrl: '/templates/teacher/goal-progress-report.html',
       controller: 'ProgressReportCtrl as pr'
     };
   }

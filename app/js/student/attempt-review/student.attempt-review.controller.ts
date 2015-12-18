@@ -12,21 +12,18 @@ module ProgCheck {
     .module('progCheck')
     .controller('AttemptReviewCtrl', ['$scope', '$sce', '$location', '$routeParams', 'StudentData', attemptReviewCtrl])
 
-  // export = function(app: any) {
-  //   app.controller('AttemptReviewCtrl', ['$scope', '$sce', '$location', '$routeParams', 'StudentData', attemptReviewCtrl]);
-  // };
-
   function attemptReviewCtrl($scope: any, $sce: any, $location: any, $routeParams: any, StudentData: any) {
 
     $scope.$on('test:changed', getTest);
 
+    var ar = this;
     // Public Functions
-    $scope.backToTests = function() {
+    ar.backToTests = function() {
       StudentData.Tests.setTest(null);
       $location.url('/student/' + $routeParams.studentId + '/tests');
     };
 
-    $scope.init = function() {
+    ar.init = function() {
       getTest();
     };
 
@@ -35,7 +32,7 @@ module ProgCheck {
       if (!StudentData.Tests.getTest()) {
         return $location.path('/test-expired');
       }
-      $scope.attempt = StudentData.Tests.getTest();
+      ar.attempt = StudentData.Tests.getTest();
     }
   }
 }

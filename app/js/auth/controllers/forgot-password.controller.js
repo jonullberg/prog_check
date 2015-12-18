@@ -1,3 +1,7 @@
+/**
+ * A controller for dealing with the reset password modal
+ * Created by Jonathan Ullberg on 10/16/2015
+ */
 var ProgCheck;
 (function (ProgCheck) {
     'use strict';
@@ -12,7 +16,7 @@ var ProgCheck;
                 $uibModal.open({
                     animation: true,
                     size: 'lg',
-                    templateUrl: '/templates/auth/forgot_thanks.html'
+                    templateUrl: '/templates/auth/forgot-thanks.html'
                 });
             }, function (err) {
                 return Errors.addError({

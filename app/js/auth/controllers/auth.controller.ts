@@ -111,7 +111,7 @@ module ProgCheck {
     $scope.resetPassword = function() {
       $uibModal.open({
         animation: true,
-        templateUrl: '/templates/auth/forgot_password.html',
+        templateUrl: '/templates/auth/forgot-password.html',
         controller: 'ForgotPasswordCtrl',
         size: 'lg'
       });

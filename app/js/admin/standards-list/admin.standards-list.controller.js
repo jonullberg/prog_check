@@ -7,6 +7,7 @@ var ProgCheck;
     function standardsListCtrl($scope, $uibModal, $rootScope, $cookies, $location, AdminData) {
         var sl = this;
         $scope.$on('standards:changed', getStandards);
+        // Public Functions
         sl.init = function () {
             getStandards();
         };
@@ -16,6 +17,9 @@ var ProgCheck;
             }
             return false;
         };
+        /**
+         * Opens modal with ability to add a new standard
+         */
         sl.newStandardModal = function () {
             var scope = $rootScope.$new();
             AdminData.Standards.setStandard(null);
@@ -25,7 +29,7 @@ var ProgCheck;
             };
             $uibModal.open({
                 animation: true,
-                templateUrl: '/js/admin/standard-form/standard-form.html',
+                templateUrl: '/templates/admin/standard-form.html',
                 size: 'lg',
                 controller: 'StandardFormCtrl',
                 controllerAs: 'sf',
@@ -37,6 +41,7 @@ var ProgCheck;
             $location.path('/admin/standards/' + standard._id);
             return;
         };
+        // Private Functions
         function getStandards() {
             if (!AdminData.Standards.getStandards()) {
                 AdminData.Standards.fetchStandards();

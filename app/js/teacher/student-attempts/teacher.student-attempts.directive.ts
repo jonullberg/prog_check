@@ -10,14 +10,11 @@ module ProgCheck {
     .module('progCheck')
     .directive('pcStudentAttempts', pcStudentAttempts)
 
-  // export = function(app) {
-  //   app.directive('pcStudentAttempts', pcStudentAttempts);
-  // }
   function pcStudentAttempts() {
     return {
       restrict: 'E',
       replace: true,
-      templateUrl: '/js/teacher/student-attempts/student-attempts.html',
+      templateUrl: '/templates/teacher/student-attempts.html',
       controller: 'StudentAttemptsCtrl',
       scope: {
         attempts: '='

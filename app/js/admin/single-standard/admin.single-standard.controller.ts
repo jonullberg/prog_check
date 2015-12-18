@@ -69,7 +69,7 @@ module ProgCheck {
       };
       $uibModal.open({
         animation:true,
-        templateUrl: '/js/admin/standard-form/standard-form.html',
+        templateUrl: '/templates/admin/standard-form.html',
         size:'lg',
         controller: 'StandardFormCtrl',
         controllerAs: 'sf',
@@ -86,7 +86,7 @@ module ProgCheck {
       };
       $uibModal.open({
         animation:true,
-        templateUrl: '/js/admin/goal-form/goal-form.html',
+        templateUrl: '/templates/admin/goal-form.html',
         controller: 'GoalFormCtrl',
         controllerAs: 'gf',
         size:'lg',
@@ -103,7 +103,7 @@ module ProgCheck {
       AdminData.Standards.setGoal(goal);
       $uibModal.open({
         animation:true,
-        templateUrl: '/js/admin/goal-form/goal-form.html',
+        templateUrl: '/templates/admin/goal-form.html',
         controller: 'GoalFormCtrl',
         controllerAs: 'gf',
         size:'lg',

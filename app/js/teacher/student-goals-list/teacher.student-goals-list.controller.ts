@@ -4,7 +4,6 @@
 module ProgCheck {
   'use strict';
 
-<<<<<<< HEAD:app/js/teacher/student-goals-list/teacher.student-goals-list.controller.ts
   angular
     .module('progCheck')
     .controller('StudentGoalsListCtrl', ['$scope', '$rootScope', '$routeParams', '$uibModal', 'TeacherData', studentGoalsListCtrl])
@@ -52,9 +51,10 @@ module ProgCheck {
       TeacherData.Students.setGoal(goal);
       $uibModal.open({
         animation: true,
-        templateUrl: '/js/teacher/student-goal-settings/student-goal-settings.html',
+        templateUrl: '/templates/teacher/student-goal-settings.html',
         size: 'lg',
         controller: 'StudentGoalSettingsCtrl',
+        controllerAs: 'sgs',
         scope: scope
 
       });

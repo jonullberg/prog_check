@@ -5,18 +5,19 @@ module ProgCheck {
     .module('progCheck')
     .controller('StudentFormCtrl', ['$scope', '$uibModalInstance', '$routeParams', '$location', 'Errors', 'TeacherData', studentFormCtrl])
 
-  // export = function(app) {
-  //   app.controller('StudentFormCtrl', ['$scope', '$uibModalInstance', '$routeParams', '$location', 'Errors', 'TeacherData', studentFormCtrl]);
-  // }
   function studentFormCtrl($scope, $uibModalInstance, $routeParams, $location, Errors, TeacherData) {
 
-    $scope.init = init;
     $scope.$on('student:changed', getStudent);
 
-    $scope.questionOptions = [5, 10];
-    $scope.isDeleteShown = false;
+    var sf = this;
+    sf.init = function() {
+      getStudent();
+    };
 
-    $scope.saveStudent = function(student) {
+    sf.questionOptions = [5, 10];
+    sf.isDeleteShown = false;
+
+    sf.saveStudent = function(student) {
       student.teacherId = $routeParams.teacherId;
       if ($scope.studentForm.$valid) {
         if ($scope.params.formType === 'editing') {
@@ -28,15 +29,15 @@ module ProgCheck {
       $uibModalInstance.close();
     };
 
-    $scope.cancel = function() {
+    sf.cancel = function() {
       $uibModalInstance.dismiss('cancel');
     };
 
-    $scope.toggleDelete = function() {
-      $scope.isDeleteShown = !$scope.isDeleteShown;
+    sf.toggleDelete = function() {
+      sf.isDeleteShown = !sf.isDeleteShown;
     };
 
-    $scope.deleteStudent = function(student) {
+    sf.deleteStudent = function(student) {
       TeacherData.Students.deleteStudent(student._id, function(err) {
         TeacherData.Students.setStudent(null);
         $uibModalInstance.close();
@@ -44,15 +45,11 @@ module ProgCheck {
       });
     };
 
-    function init() {
-      getStudent();
-    }
-
     function getStudent() {
       if (!TeacherData.Students.getStudent() && $scope.params.formType === 'editing') {
         TeacherData.Students.fetchStudent($routeParams.studentId);
       }
-      $scope.student = TeacherData.Students.getStudent();
+      sf.student = TeacherData.Students.getStudent();
     }
 
     function createStudent(student) {
@@ -63,7 +60,7 @@ module ProgCheck {
 
     function updateStudent(student) {
       TeacherData.Students.updateStudent(student, function() {
-        $location.path('/teacher/' + $routeParams.teacherId + '/students/' + $scope.student._id);
+        $location.path('/teacher/' + $routeParams.teacherId + '/students/' + student._id);
       });
     }
   }

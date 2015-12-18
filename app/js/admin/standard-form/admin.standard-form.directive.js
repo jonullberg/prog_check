@@ -8,7 +8,7 @@ var ProgCheck;
         return {
             restrict: 'E',
             replace: true,
-            templateUrl: '/js/admin/standard-form/standard-form.html',
+            templateUrl: '/templates/admin/standard-form.html',
             controller: 'StandardFormCtrl',
             controllerAs: 'sf',
             scope: {

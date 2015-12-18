@@ -1,3 +1,10 @@
+/**
+ * A controller for the Admin Goal Form
+ * For use in the Prog Check Testing application
+ * Created by Jonathan Ullberg on 09/20/2015
+ * /app/js/admin/goal-form/admin.goal-form.controller.ts
+ */
+/// <reference path="../../../../tools/typings/tsd.d.ts" />
 var ProgCheck;
 (function (ProgCheck) {
     'use strict';
