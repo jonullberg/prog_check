@@ -61,7 +61,9 @@ var ProgCheck;
             }
         };
         $scope.authSubmit = function (user) {
+            // Is this is a sign-up?
             if (user.passwordConfirmation) {
+                // Is the form valid?
                 if ($scope.signUpForm.$valid) {
                     UserService.create(user, function (err, user) {
                         if (err) {
@@ -77,6 +79,7 @@ var ProgCheck;
                 }
             }
             else {
+                // Is the user a teacher or student?
                 if (user.type === 'teacher') {
                     UserService.signIn(user, function (err, data) {
                         if (err) {
@@ -105,7 +108,7 @@ var ProgCheck;
         $scope.resetPassword = function () {
             $uibModal.open({
                 animation: true,
-                templateUrl: '/templates/auth/forgot_password.html',
+                templateUrl: '/templates/auth/forgot-password.html',
                 controller: 'ForgotPasswordCtrl',
                 size: 'lg'
             });

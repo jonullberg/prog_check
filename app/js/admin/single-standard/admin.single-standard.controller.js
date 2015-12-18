@@ -1,3 +1,8 @@
+/**
+ * A controller for viewing a single standard as an admin
+ * Created by Jonathan on 07/14/2015
+ */
+/// <reference path="../../../../tools/typings/tsd.d.ts" />
 var ProgCheck;
 (function (ProgCheck) {
     'use strict';
@@ -8,6 +13,7 @@ var ProgCheck;
         $scope.$on('standard:changed', function () {
             getStandard();
         });
+        // Public Functions
         var ss = this;
         ss.mainClass = 'panel panel-primary';
         ss.headingClass = 'panel-heading';
@@ -56,7 +62,7 @@ var ProgCheck;
             };
             $uibModal.open({
                 animation: true,
-                templateUrl: '/js/admin/standard-form/standard-form.html',
+                templateUrl: '/templates/admin/standard-form.html',
                 size: 'lg',
                 controller: 'StandardFormCtrl',
                 controllerAs: 'sf',
@@ -72,7 +78,7 @@ var ProgCheck;
             };
             $uibModal.open({
                 animation: true,
-                templateUrl: '/js/admin/goal-form/goal-form.html',
+                templateUrl: '/templates/admin/goal-form.html',
                 controller: 'GoalFormCtrl',
                 controllerAs: 'gf',
                 size: 'lg',
@@ -88,7 +94,7 @@ var ProgCheck;
             AdminData.Standards.setGoal(goal);
             $uibModal.open({
                 animation: true,
-                templateUrl: '/js/admin/goal-form/goal-form.html',
+                templateUrl: '/templates/admin/goal-form.html',
                 controller: 'GoalFormCtrl',
                 controllerAs: 'gf',
                 size: 'lg',
@@ -99,6 +105,7 @@ var ProgCheck;
             AdminData.Standards.deleteGoal(ss.standard, goal);
         };
         ss.getStandard = getStandard;
+        // Private Functions
         function getStandard() {
             if (!AdminData.Standards.getStandard()) {
                 AdminData.Standards.fetchStandard($routeParams.standardId);

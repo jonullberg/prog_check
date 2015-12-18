@@ -35,7 +35,7 @@ module ProgCheck {
       };
       $uibModal.open({
         animation:true,
-        templateUrl: '/js/admin/standard-form/standard-form.html',
+        templateUrl: '/templates/admin/standard-form.html',
         size: 'lg',
         controller: 'StandardFormCtrl',
         controllerAs: 'sf',

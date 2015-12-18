@@ -1,9 +1,17 @@
+/**
+ * For use in the Prog Check testing application
+ * A module to store a students test data
+ * Created by Jonathan Ullberg on 10/23/2015
+ */
 var ProgCheck;
 (function (ProgCheck) {
     'use strict';
     angular
         .module('progCheck')
         .factory('StudentTestData', ['$http', '$rootScope', 'Errors', 'shuffle', studentTestData]);
+    // module.exports = function(app) {
+    //   app.factory('StudentTestData', ['$http', '$rootScope', 'Errors', 'shuffle', studentTestData])
+    // }
     function studentTestData($http, $rootScope, Errors, shuffle) {
         var studentTestData = {
             tests: null,
@@ -58,6 +66,9 @@ var ProgCheck;
                 });
             });
         }
+        /**
+         *
+         */
         function createTest(studentId, test, cb) {
             $http.post('/api/students/' + studentId + '/tests/', test)
                 .then(function (response) {
@@ -71,6 +82,11 @@ var ProgCheck;
                 });
             });
         }
+        /**
+         * Takes a test, shuffles its questions and turnes it into a students attempt
+         * @param  {Object} test The Test object from the server
+         * @return {Object}      A process Test
+         */
         function setUpTest(test, student, goalId) {
             var max = getMaxQuestions(student, goalId);
             var newTest = {
@@ -109,6 +125,13 @@ var ProgCheck;
             });
             return questions;
         }
+        /**
+         * Deals with handling callbacks, can be reused if a rejection or successful response
+         * @param  {Function} cb        A callback function to execute on data
+         * @param  {Object}   response  The response object if a successful request
+         * @param  {Object}   rejection The rejection object/error object if a failed request
+         * @return {undefined}
+         */
         function handleCallback(cb, response, rejection) {
             if (cb && typeof cb === 'function') {
                 if (response) {

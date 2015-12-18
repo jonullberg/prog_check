@@ -10,6 +10,8 @@ var Tests = require('../models/Test');
 var bodyparser = require('body-parser');
 var jwtAuth = require('../lib/jwt_auth')(process.env.APP_SECRET);
 
+var getGoals = require('./students/controllers/get_goals');
+
 export = function(router, passport) {
   router.use(bodyparser.json());
 
@@ -51,6 +53,7 @@ export = function(router, passport) {
           'msg': 'Internal Server Error'
         });
       }
+      student = student.toObject();
       res.json({
         'student': student
       }); // end res.json
@@ -61,21 +64,14 @@ export = function(router, passport) {
    * Gets a specific student from the server based on their ID
    */
   router.get('/students/:studentId', jwtAuth, function(req, res) {
-    Students.findById(req.params.studentId, function(err, student) {
-      if (err) {
-        winston.log('error', {
-          'Error': err,
-          timestamp: Date.now(),
-          pid: process.pid
+    Students.findOne({ _id: req.params.studentId })
+      .then(function(student) {
+        getGoals(student.toObject(), function(student) {
+          return res.json({
+            student: student
+          })
         });
-        return res.status(500).json({
-          'msg': 'Internal Server Error'
-        });
-      }
-      res.json({
-        'student': student
-      });
-    });
+      })
   });
 
   /**
@@ -104,7 +100,6 @@ export = function(router, passport) {
    */
   router.put('/students/:studentId', jwtAuth, function(req, res) {
     var updatedStudent = req.body;
-    // delete updatedStudent._id;
     Students.update({ '_id': req.params.studentId }, updatedStudent, function(err, response) {
       if (err) {
         winston.log('error', {
@@ -116,8 +111,10 @@ export = function(router, passport) {
           'msg': 'Internal Server Error'
         });
       }
-      res.json({
-        'student': updatedStudent
+      getGoals(updatedStudent, function(student) {
+        res.json({
+          'student': student
+        });
       });
     });
   });
@@ -164,8 +161,11 @@ export = function(router, passport) {
           'msg': 'Internal Server Error'
         });
       }
+      student = student.toObject();
       student.goals.push(goal);
-      student.save(function(err, data) {
+      Students.update({
+        _id: student._id
+      }, student, function(err, data) {
         if (err) {
           winston.log('error', {
             'Error': err,
@@ -176,16 +176,18 @@ export = function(router, passport) {
             'msg': 'Internal Server Error'
           });
         }
-        res.json({
-          'student': data
-        });
+        getGoals(student, function(newStudent) {
+          res.json({
+            'student': newStudent
+          });
+        })
       });
     });
   });
   /**
    * Updates a students goal by id
    */
-  router.put('/students/:studentId/goals/:goalId', jwtAuth, function(req, res) {
+  router.put('/students/:studentId/goals', jwtAuth, function(req, res) {
     var goal = req.body;
     Students.findById(req.params.studentId, function(err, student) {
       if (err) {
@@ -198,8 +200,9 @@ export = function(router, passport) {
           'msg': 'Internal Server Error'
         });
       }
+      student = student.toObject();
       student.goals.splice(student.goals.indexOf(goal), 1, goal);
-      student.save(function(err, data) {
+      Students.update({ _id: student._id }, student, function(err, data) {
         if (err) {
           winston.log('error', {
             'Error': err,
@@ -210,12 +213,15 @@ export = function(router, passport) {
             'msg': 'Internal Server Error'
           });
         }
-        res.json({
-          'student': data
+        getGoals(student, function(newStudent) {
+          res.json({
+            'student': newStudent
+          });
         });
       });
     });
   });
+
   /**
    * Deletes/Archives a goal for a student
    */
@@ -247,9 +253,11 @@ export = function(router, passport) {
             'msg': 'Internal Server Error'
           });
         }
-        res.json({
-          'student': student
-        });
+        getGoals(data.toObject(), function(updatedStudent) {
+          res.json({
+            'student': updatedStudent
+          });
+        })
       });
     });
   });

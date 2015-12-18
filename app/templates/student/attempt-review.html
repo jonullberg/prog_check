@@ -1,15 +1,15 @@
 <div
-  data-ng-init="init()"
+  data-ng-init="ar.init()"
   class="panel panel-primary">
   <header class="panel-heading">
-    <h2 class="col-lg-8">Congratulations! You got {{attempt.correctAnswers}} out of {{attempt.questions.length}}</h2>
+    <h2 class="col-lg-8">Congratulations! You got {{ar.attempt.correctAnswers}} out of {{ar.attempt.questions.length}}</h2>
     <button class="btn btn-default col-lg-offset-2 col-lg-2"
-      data-ng-click="backToTests()">Back To Tests</button>
+      data-ng-click="ar.backToTests()">Back To Tests</button>
     <div class="clearfix"></div>
   </header>
   <div class="panel-body">
     <uib-accordion data-class-others="oneAtATime">
-      <uib-accordion-group data-ng-repeat="question in attempt.questions">
+      <uib-accordion-group data-ng-repeat="question in ar.attempt.questions">
         <uib-accordion-heading>
           <span data-ng-bind-html="question.question | to_trusted">{{question.question}}</span> <span class="pull-right">{{question.result}}</span>
         </uib-accordion-heading>

@@ -1,3 +1,6 @@
+/**
+ * A simple directive to convert values to an integer rather than a string
+ */
 var ProgCheck;
 (function (ProgCheck) {
     'use strict';

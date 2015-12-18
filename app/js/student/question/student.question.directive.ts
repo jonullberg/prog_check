@@ -11,14 +11,11 @@ module ProgCheck {
   angular
     .module('progCheck')
     .directive('pcQuestion', pcQuestion)
-  // export = function(app: any) {
-  //   app.directive('pcQuestion', pcQuestion);
-  // };
 
   function pcQuestion() {
     return {
       restrict: 'E',
-      templateUrl: '/templates/directives/student/question.html',
+      templateUrl: '/templates/student/question.html',
       replace:true,
       controller: 'QuestionCtrl',
       controllerAs: 'qu',

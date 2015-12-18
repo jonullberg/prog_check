@@ -17,7 +17,7 @@ module ProgCheck {
           $uibModal.open({
             animation:true,
             size:'lg',
-            templateUrl:'/templates/auth/forgot_thanks.html'
+            templateUrl:'/templates/auth/forgot-thanks.html'
           });
         }, function(err) {
           return Errors.addError({

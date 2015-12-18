@@ -71,8 +71,7 @@ var ProgCheck;
         function createStudent(student, cb) {
             $http.post('/api/students', student)
                 .then(function (response) {
-                this.student = response.data.student;
-                $rootScope.$broadcast('student:changed', this.student);
+                this.setStudent(response.data.student);
                 handleCallback(cb, response, null);
             }.bind(this))
                 .catch(function (rejection) {
@@ -85,8 +84,7 @@ var ProgCheck;
         function updateStudent(student, cb) {
             $http.put('/api/students/' + student._id, student)
                 .then(function (response) {
-                this.student = response.data.student;
-                $rootScope.$broadcast('student:changed', this.student);
+                this.setStudent(response.data.student);
                 handleCallback(cb, response, null);
             }.bind(this))
                 .catch(function (rejection) {
@@ -99,8 +97,7 @@ var ProgCheck;
         function deleteStudent(studentId, cb) {
             $http.delete('/api/students/' + studentId)
                 .then(function (response) {
-                this.student = null;
-                $rootScope.$broadcast('student:changed', this.student);
+                this.setStudent(null);
                 handleCallback(cb, response, null);
             }.bind(this))
                 .catch(function (rejection) {
@@ -113,8 +110,8 @@ var ProgCheck;
         function createGoal(studentId, goal, cb) {
             $http.post('/api/students/' + studentId + '/goals/', goal)
                 .then(function (response) {
-                this.student = response.data.student;
-                $rootScope.$broadcast('student:changed', this.student);
+                console.log(response);
+                this.setStudent(response.data.student);
                 handleCallback(cb, response, null);
             }.bind(this))
                 .catch(function (rejection) {
@@ -125,10 +122,9 @@ var ProgCheck;
             });
         }
         function updateGoal(studentId, goal, cb) {
-            $http.put('/api/students/' + studentId + '/goals/' + goal._id, goal)
+            $http.put('/api/students/' + studentId + '/goals/', goal)
                 .then(function (response) {
-                this.student = response.data.student;
-                $rootScope.$broadcast('student:changed', this.student);
+                this.setStudent(response.data.student);
                 handleCallback(cb, response, null);
             }.bind(this))
                 .catch(function (rejection) {
@@ -141,8 +137,7 @@ var ProgCheck;
         function deleteGoal(studentId, goalId, cb) {
             $http.delete('/api/students/' + studentId + '/goals/' + goalId)
                 .then(function (response) {
-                this.student = response.data.student;
-                $rootScope.$broadcast('student:changed', this.student);
+                this.setStudent(response.data.student);
                 handleCallback(cb, response, null);
             }.bind(this))
                 .catch(function (rejection) {

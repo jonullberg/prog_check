@@ -1,3 +1,6 @@
+/**
+ * A Directive for displaying the statistics for a student
+ */
 var ProgCheck;
 (function (ProgCheck) {
     'use strict';
@@ -8,7 +11,7 @@ var ProgCheck;
         return {
             restrict: 'E',
             replace: true,
-            templateUrl: '/js/teacher/goal-progress-report/goal-progress-report.html',
+            templateUrl: '/templates/teacher/goal-progress-report.html',
             controller: 'ProgressReportCtrl as pr'
         };
     }

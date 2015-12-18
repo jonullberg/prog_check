@@ -8,7 +8,7 @@ var ProgCheck;
         return {
             restrict: 'ECA',
             replace: true,
-            templateUrl: '/templates/directives/sign_up.html'
+            templateUrl: '/templates/auth/sign-up.html'
         };
     }
 })(ProgCheck || (ProgCheck = {}));

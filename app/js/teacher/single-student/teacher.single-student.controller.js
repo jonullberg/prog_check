@@ -6,6 +6,7 @@ var ProgCheck;
         .controller('SingleStudentCtrl', ['$scope', '$routeParams', '$uibModal', '$location', '$rootScope', '$sce', 'TeacherData', singleStudentCtrl]);
     function singleStudentCtrl($scope, $routeParams, $uibModal, $location, $rootScope, $sce, TeacherData) {
         $scope.$on('student:changed', getStudent);
+        // Public Methods
         var ss = this;
         ss.init = function () {
             getStudent();
@@ -19,9 +20,10 @@ var ProgCheck;
         ss.openGoalForm = function () {
             $uibModal.open({
                 animation: true,
-                templateUrl: '/js/admin/standards-list/standards-list.html',
+                templateUrl: '/templates/admin/standards-list.html',
                 size: 'lg',
-                controller: 'StandardsListModalCtrl'
+                controller: 'StandardsListModalCtrl',
+                controllerAs: 'sl'
             });
         };
         ss.editStudentModal = function (student) {
@@ -33,12 +35,14 @@ var ProgCheck;
             };
             $uibModal.open({
                 animation: true,
-                templateUrl: '/js/teacher/student-form/student-form.html',
+                templateUrl: '/templates/teacher/student-form.html',
                 size: 'lg',
                 controller: 'StudentFormCtrl',
+                controllerAs: 'sf',
                 scope: scope
             });
         };
+        // Private Functions
         function getStudent() {
             if (!TeacherData.Students.getStudent()) {
                 TeacherData.Students.fetchStudent($routeParams.studentId);

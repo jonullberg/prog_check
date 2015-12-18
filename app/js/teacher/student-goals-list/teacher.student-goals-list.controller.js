@@ -1,3 +1,6 @@
+/**
+ * A Controller to deal with the students goal list
+ */
 var ProgCheck;
 (function (ProgCheck) {
     'use strict';
@@ -7,6 +10,7 @@ var ProgCheck;
     function studentGoalsListCtrl($scope, $rootScope, $routeParams, $uibModal, TeacherData) {
         $scope.$on('student:changed', getStudent);
         $scope.$on('attempts:changed', getAttempts);
+        // Public Functions
         var sgl = this;
         sgl.init = function () {
             getStudent();
@@ -41,12 +45,14 @@ var ProgCheck;
             TeacherData.Students.setGoal(goal);
             $uibModal.open({
                 animation: true,
-                templateUrl: '/js/teacher/student-goal-settings/student-goal-settings.html',
+                templateUrl: '/templates/teacher/student-goal-settings.html',
                 size: 'lg',
                 controller: 'StudentGoalSettingsCtrl',
+                controllerAs: 'sgs',
                 scope: scope
             });
         };
+        // Private Functions
         function getAttempts() {
             sgl.attempts = TeacherData.Attempts.getAttempts();
         }

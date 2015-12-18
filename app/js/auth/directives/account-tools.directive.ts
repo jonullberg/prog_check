@@ -9,7 +9,7 @@ module ProgCheck {
     return {
       restrict: 'E',
       replace: true,
-      templateUrl: '/templates/directives/account_tools.html',
+      templateUrl: '/templates/auth/account-tools.html',
       scope: {
         getHeaders: '&'
       },

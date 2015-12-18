@@ -41,8 +41,9 @@ module ProgCheck {
       };
       $uibModal.open({
         animation: true,
-        templateUrl: '/js/admin/test-form/test-form.html',
+        templateUrl: '/templates/admin/test-form.html',
         controller: 'TestFormCtrl',
+        controllerAs: 'tf',
         size: 'lg',
         scope: scope
       });
@@ -57,10 +58,10 @@ module ProgCheck {
       var templateUrl;
       var controller;
       if (st.test.questionType === 'text') {
-        templateUrl = '/js/admin/question-form/question-form.html';
+        templateUrl = '/templates/admin/question-form.html';
         controller = 'QuestionFormCtrl as qf';
       } else if (st.test.questionType === 'image') {
-        templateUrl = '/js/admin/question-form/image-question-form.html';
+        templateUrl = '/templates/admin/image-question-form.html';
         controller = 'ImageQuestionFormCtrl';
       }
       $uibModal.open({
@@ -82,10 +83,10 @@ module ProgCheck {
       var templateUrl;
       var controller;
       if (st.test.questionType === 'text') {
-        templateUrl = '/js/admin/question-form/question-form.html';
+        templateUrl = '/templates/admin/question-form.html';
         controller = 'QuestionFormCtrl as qf';
       } else if (st.test.questionType === 'image') {
-        templateUrl = '/js/admin/question-form/image-question-form.html';
+        templateUrl = '/templates/admin/image-question-form.html';
         controller = 'ImageQuestionFormCtrl';
       }
       $uibModal.open({

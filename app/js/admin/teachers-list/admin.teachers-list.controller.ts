@@ -10,10 +10,6 @@ module ProgCheck {
     .module('progCheck')
     .controller('AdminTeachersListCtrl', ['$scope', 'AdminData', adminTeachersListCtrl])
 
-  // export = function(app) {
-  //   app.controller('AdminTeachersListCtrl', ['$scope', 'AdminData', adminTeachersListCtrl]);
-  // };
-
   function adminTeachersListCtrl($scope, AdminData) {
     $scope.$on('teachers:changed', getTeachers);
 

@@ -24,9 +24,10 @@ module ProgCheck {
     ss.openGoalForm = function() {
       $uibModal.open({
         animation: true,
-        templateUrl: '/js/admin/standards-list/standards-list.html',
+        templateUrl: '/templates/admin/standards-list.html',
         size: 'lg',
-        controller: 'StandardsListModalCtrl'
+        controller: 'StandardsListModalCtrl',
+        controllerAs: 'sl'
       });
     };
 
@@ -39,9 +40,10 @@ module ProgCheck {
       };
       $uibModal.open({
         animation:true,
-        templateUrl: '/js/teacher/student-form/student-form.html',
+        templateUrl: '/templates/teacher/student-form.html',
         size:'lg',
         controller: 'StudentFormCtrl',
+        controllerAs: 'sf',
         scope: scope
       });
     };

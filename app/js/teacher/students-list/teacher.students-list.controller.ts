@@ -10,9 +10,6 @@ module ProgCheck {
   angular
     .module('progCheck')
     .controller('StudentsListCtrl', ['$scope', '$location', '$uibModal', '$rootScope', '$routeParams', 'TeacherData', studentsListCtrl])
-  // export = function(app) {
-  //   app.controller('StudentsListCtrl', ['$scope', '$location', '$uibModal', '$rootScope', '$routeParams', 'TeacherData', studentsListCtrl]);
-  // };
 
   function studentsListCtrl($scope, $location, $uibModal, $rootScope, $routeParams, TeacherData) {
 
@@ -38,9 +35,10 @@ module ProgCheck {
       };
       $uibModal.open({
         animation:true,
-        templateUrl: '/js/teacher/student-form/student-form.html',
+        templateUrl: '/templates/teacher/student-form.html',
         size: 'lg',
         controller: 'StudentFormCtrl',
+        controllerAs: 'sf',
         scope: scope
       });
     };

@@ -7,16 +7,24 @@ var ProgCheck;
     function singleTestCtrl($scope, $uibModal, $rootScope, $location, $routeParams, $sce, AdminData, SanitizeFractions) {
         $scope.$on('test:changed', getTest);
         var st = this;
+        // Public Functions
         st.isDeleteShown = false;
         st.init = function () {
             getStandard();
             getTest();
         };
         st.trustAsHtml = $sce.trustAsHtml;
+        /**
+          * Will set selected test to null and send us back to test list
+          */
         st.goBack = function () {
             AdminData.Tests.setTest(null);
             $location.path('/admin/standards/' + $routeParams.standardId);
         };
+        /**
+          * Will open a modal that allows user to input a new test
+          * @param  {object} test The test that will be edited in form
+          */
         st.editTest = function (test) {
             AdminData.Tests.setTest(test);
             var scope = $rootScope.$new();
@@ -26,8 +34,9 @@ var ProgCheck;
             };
             $uibModal.open({
                 animation: true,
-                templateUrl: '/js/admin/test-form/test-form.html',
+                templateUrl: '/templates/admin/test-form.html',
                 controller: 'TestFormCtrl',
+                controllerAs: 'tf',
                 size: 'lg',
                 scope: scope
             });
@@ -42,11 +51,11 @@ var ProgCheck;
             var templateUrl;
             var controller;
             if (st.test.questionType === 'text') {
-                templateUrl = '/js/admin/question-form/question-form.html';
+                templateUrl = '/templates/admin/question-form.html';
                 controller = 'QuestionFormCtrl as qf';
             }
             else if (st.test.questionType === 'image') {
-                templateUrl = '/js/admin/question-form/image-question-form.html';
+                templateUrl = '/templates/admin/image-question-form.html';
                 controller = 'ImageQuestionFormCtrl';
             }
             $uibModal.open({
@@ -67,11 +76,11 @@ var ProgCheck;
             var templateUrl;
             var controller;
             if (st.test.questionType === 'text') {
-                templateUrl = '/js/admin/question-form/question-form.html';
+                templateUrl = '/templates/admin/question-form.html';
                 controller = 'QuestionFormCtrl as qf';
             }
             else if (st.test.questionType === 'image') {
-                templateUrl = '/js/admin/question-form/image-question-form.html';
+                templateUrl = '/templates/admin/image-question-form.html';
                 controller = 'ImageQuestionFormCtrl';
             }
             $uibModal.open({
@@ -103,6 +112,7 @@ var ProgCheck;
             AdminData.Tests.deleteQuestion(st.test._id, question._id, function (err) {
             });
         };
+        // Private Functions
         function showAnswers(question) {
             question.showing = true;
         }

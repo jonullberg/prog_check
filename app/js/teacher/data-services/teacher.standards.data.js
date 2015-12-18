@@ -1,3 +1,7 @@
+/**
+ * A factory for holding an admin's standards data
+ * Created by Jonathan Ullberg on 10/23/2015
+ */
 var ProgCheck;
 (function (ProgCheck) {
     'use strict';
@@ -13,9 +17,8 @@ var ProgCheck;
                 return this.standards;
             },
             setStandards: function (standards) {
-                if (Array.isArray(standards)) {
-                    this.standards = standards;
-                }
+                this.standards = standards;
+                $rootScope.$broadcast('standards:changed');
                 return;
             },
             getStandard: function () {

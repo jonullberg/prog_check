@@ -11,14 +11,12 @@ module ProgCheck {
   angular
     .module('progCheck')
     .directive('pcTestForm', pcTestForm)
-  // export = function(app) {
-  //   app.directive('pcTestForm', pcTestForm);
 
   function pcTestForm() {
     return {
       restrict: 'E',
       replace: true,
-      templateUrl: '/js/admin/test-form/test-form.html',
+      templateUrl: '/templates/admin/test-form.html',
       scope: {
         buttonText: '='
       },

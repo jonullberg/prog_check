@@ -1,3 +1,6 @@
+/**
+ * A controller to deal with the view that edits a single students selected goal
+ */
 var ProgCheck;
 (function (ProgCheck) {
     'use strict';
@@ -5,9 +8,13 @@ var ProgCheck;
         .module('progCheck')
         .controller('StudentGoalSettingsCtrl', ['$scope', '$uibModalInstance', '$routeParams', 'TeacherData', studentGoalSettingsCtrl]);
     function studentGoalSettingsCtrl($scope, $uibModalInstance, $routeParams, TeacherData) {
-        $scope.init = init;
         $scope.$on('goal:changed', getGoal);
-        $scope.save = function (goal) {
+        // Public Functions
+        var sgs = this;
+        sgs.init = function () {
+            getGoal();
+        };
+        sgs.save = function (goal) {
             if ($scope.params.formType === 'editing') {
                 updateGoal(goal);
             }
@@ -16,14 +23,11 @@ var ProgCheck;
             }
             $uibModalInstance.close();
         };
-        $scope.cancel = function () {
+        sgs.cancel = function () {
             $uibModalInstance.dismiss();
         };
-        function init() {
-            getGoal();
-        }
         function getGoal() {
-            $scope.goal = TeacherData.Students.getGoal();
+            sgs.goal = TeacherData.Students.getGoal();
         }
         function updateGoal(goal) {
             TeacherData.Students.updateGoal($routeParams.studentId, goal);

@@ -12,10 +12,6 @@ module ProgCheck {
     .module('progCheck')
     .controller('StudentTestCtrl', ['$scope', '$routeParams', '$location', 'StudentData', studentTestCtrl])
 
-  // export = function(app:any) {
-  //   app.controller('StudentTestCtrl', ['$scope', '$routeParams', '$location', 'StudentData', studentTestCtrl]);
-  // };
-
   function studentTestCtrl($scope:any, $routeParams:any, $location:any, StudentData:any) {
     $scope.$on('user:changed', getUser);
     $scope.$on('test:changed', getTest);

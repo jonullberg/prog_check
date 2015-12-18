@@ -11,9 +11,6 @@ module ProgCheck {
     .module('progCheck')
     .controller('StudentAttemptsCtrl', ['$scope', '$filter', '$routeParams', 'TeacherData', studentAttemptsCtrl])
 
-  // export = function(app) {
-  //   app.controller('StudentAttemptsCtrl', ['$scope', '$filter', '$routeParams', 'TeacherData', studentAttemptsCtrl]);
-  // }
   function studentAttemptsCtrl($scope, $filter, $routeParams, TeacherData) {
     $scope.init = init;
     $scope.$watch('totalAttempts');

@@ -38,7 +38,7 @@
         }
       })
       .when('/sign-in', {
-        templateUrl: 'templates/views/sign_in.html',
+        templateUrl: 'templates/auth/sign-in.html',
         controller: 'AuthCtrl',
         access: {
           requiredLogin: false,
@@ -48,7 +48,7 @@
         }
       })
       .when('/sign-up', {
-        templateUrl: 'templates/views/sign_up.html',
+        templateUrl: 'templates/auth/sign-up.html',
         controller: 'AuthCtrl',
         access: {
           requiredLogin: false,
@@ -58,16 +58,16 @@
         }
       })
       .when('/reset/success', {
-        templateUrl: 'templates/auth/reset_success.html',
+        templateUrl: 'templates/auth/reset-success.html',
         access: {}
       })
       .when('/reset/:resetToken', {
-        templateUrl: 'templates/auth/reset_password.html',
+        templateUrl: 'templates/auth/reset-password.html',
         access: {},
         controller: 'ResetPasswordCtrl'
       })
       .when('/not-authorized', {
-        templateUrl: 'templates/views/not-authorized.html',
+        templateUrl: 'templates/auth/not-authorized.html',
         access: {
           requiredLogin: false,
           requiredAdmin: false,
@@ -76,7 +76,7 @@
         }
       })
       .when('/student-sign-in', {
-        templateUrl: 'templates/views/student_sign_in.html',
+        templateUrl: 'templates/student/student-sign-in.html',
         controller: 'StudentAuthCtrl',
         access: {
           requiredLogin: false,
@@ -86,7 +86,7 @@
         }
       })
       .when('/admin/home', {
-        templateUrl: 'templates/views/admin/home.html',
+        templateUrl: 'templates/admin/home.html',
         access: {
           requiredLogin: true,
           requiredAdmin: true
@@ -94,7 +94,7 @@
         // No controller needed as of now
       })
       .when('/admin/standards', {
-        templateUrl: 'js/admin/standards-list/standards-list.html',
+        templateUrl: 'templates/admin/standards-list.html',
         controller: 'StandardsListCtrl',
         controllerAs: 'sl',
         access: {
@@ -114,7 +114,7 @@
         }
       })
       .when('/admin/standards/:standardId/tests/:testId', {
-        templateUrl: 'js/admin/single-test/single-test.html',
+        templateUrl: 'templates/admin/single-test.html',
         controller: 'SingleTestCtrl',
         controllerAs: 'st',
         access: {
@@ -125,7 +125,7 @@
         }
       })
       .when('/admin/teachers', {
-        templateUrl: 'templates/admin/teachers_list.html',
+        templateUrl: 'templates/admin/teachers-list.html',
         controller: 'AdminTeachersListCtrl',
         access: {
           requiredLogin: true,
@@ -133,7 +133,7 @@
         }
       })
       .when('/teacher/:teacherId/home', {
-        templateUrl: 'templates/views/teacher/home.html',
+        templateUrl: 'templates/teacher/home.html',
         access: {
           requiredLogin: true,
           requiredTeacher: true
@@ -141,7 +141,7 @@
       })
       // A teacher looking at all of their students
       .when('/teacher/:teacherId/students', {
-        templateUrl: 'js/teacher/students-list/students-list.html',
+        templateUrl: 'templates/teacher/students-list.html',
         controller: 'StudentsListCtrl',
         controllerAs: 'sl',
         access: {
@@ -151,8 +151,9 @@
       })
       // A teacher looking at a single student
       .when('/teacher/:teacherId/students/:studentId', {
-        templateUrl: 'js/teacher/single-student/single-student.html',
-        controller: 'SingleStudentCtrl as ss',
+        templateUrl: 'templates/teacher/single-student.html',
+        controller: 'SingleStudentCtrl',
+        controllerAs: 'ss',
         access: {
           requiredLogin: true,
           requiredTeacher: true
@@ -160,7 +161,7 @@
       })
       // A student homepage
       .when('/student/:studentId/home', {
-        templateUrl: 'templates/views/student/home.html',
+        templateUrl: 'templates/student/home.html',
         controller: 'StudentHomeCtrl',
         access: {
           requiredLogin: true,
@@ -169,7 +170,7 @@
       })
       // A student looking at all of their tests available
       .when('/student/:studentId/tests', {
-        templateUrl: 'templates/student/student_tests.html',
+        templateUrl: 'templates/student/student-tests.html',
         controller: 'StudentTestsCtrl',
         access: {
           requiredLogin: true,
@@ -186,7 +187,7 @@
         }
       })
       .when('/student/:studentId/scores', {
-        templateUrl: 'templates/views/student/scores.html',
+        templateUrl: 'templates/student/scores.html',
         access: {
           requiredLogin: true,
           requiredStudent: true
@@ -195,6 +196,7 @@
       .when('/student/:studentId/attempt/:attemptId', {
         templateUrl: 'templates/views/student/attempt_review.html',
         controller: 'AttemptReviewCtrl',
+        controllerAs: 'ar',
         access: {
           requiredLogin: true,
           requiredStudent: true

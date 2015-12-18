@@ -7,9 +7,6 @@ module ProgCheck {
   angular
     .module('progCheck')
     .factory('TeacherStandardsData', ['$http', '$rootScope', 'Errors', teacherStandardsData])
-  // export = function(app) {
-  //   app.factory('TeacherStandardsData', ['$http', '$rootScope', 'Errors', teacherStandardsData])
-  // }
 
   function teacherStandardsData($http, $rootScope, Errors) {
 
@@ -21,9 +18,8 @@ module ProgCheck {
         return this.standards;
       },
       setStandards: function(standards) {
-        if (Array.isArray(standards)) {
-          this.standards = standards;
-        }
+        this.standards = standards;
+        $rootScope.$broadcast('standards:changed');
         return;
       },
       getStandard: function() {
