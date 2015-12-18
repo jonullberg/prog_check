@@ -1,7 +1,3 @@
-/**
- * A Controller for the Teachers List for an Admin
- * Created by Jonathan Ullberg on 11/23/2015
- */
 'use strict';
 module.exports = function (app) {
     app.controller('AdminTeachersListCtrl', ['$scope', 'AdminData', function ($scope, AdminData) {

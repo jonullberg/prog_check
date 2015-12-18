@@ -1,7 +1,3 @@
-/**
- * A factory for holding an admin's standards data
- * Created by Jonathan Ullberg on 10/23/2015
- */
 var ProgCheck;
 (function (ProgCheck) {
     'use strict';
@@ -49,6 +45,7 @@ var ProgCheck;
         function fetchStandards(cb) {
             $http.get('/api/standards')
                 .then(function (response) {
+                console.log(response);
                 this.setStandards(response.data.standards);
                 handleCallback(cb, response, null);
             }.bind(this))

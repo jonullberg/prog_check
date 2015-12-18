@@ -1,7 +1,3 @@
-/**
- * A controller for dealing with resetting a users password
- * Created by Jonathan Ullberg on 10/16/2015
- */
 var ProgCheck;
 (function (ProgCheck) {
     'use strict';

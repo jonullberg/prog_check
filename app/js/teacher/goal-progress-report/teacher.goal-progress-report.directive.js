@@ -1,6 +1,3 @@
-/**
- * A Directive for displaying the statistics for a student
- */
 var ProgCheck;
 (function (ProgCheck) {
     'use strict';

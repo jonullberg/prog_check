@@ -29,7 +29,7 @@ module ProgCheck {
       $uibModalInstance.dismiss();
     };
 
-
+    // Private Functions
     function getGoal() {
       sgs.goal = TeacherData.Students.getGoal();
     }

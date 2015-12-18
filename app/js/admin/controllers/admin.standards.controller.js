@@ -11,9 +11,6 @@ var ProgChec;
         $scope.isTestShowing = false;
         $scope.isTestFormShowing = false;
         $scope.isAlertShown = false;
-        /**
-         * On event 'standard:changed' sets scope to model
-         */
         $scope.$on('standard:changed', function () {
             $scope.standard = AdminData.Standards.getStandard();
         });
@@ -40,10 +37,6 @@ var ProgChec;
         var toggleSingleStandard = function () {
             $scope.isStandardShowing = !$scope.isStandardShowing;
         };
-        /**
-         * Will set a standard to be displayed to the user
-         * @param {Object} standard The specificed standard to be displayed
-         */
         $scope.showStandard = function () {
             if (!$scope.isStandardShowing) {
                 toggleSingleStandard();

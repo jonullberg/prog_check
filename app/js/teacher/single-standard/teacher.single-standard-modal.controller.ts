@@ -12,7 +12,6 @@ module ProgCheck {
 
     // Public Functions
     ss.init = function() {
-      console.log('init');
       getStandard();
     };
 
