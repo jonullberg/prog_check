@@ -1,6 +1,3 @@
-/**
- * A Directive that displays a list of student goals on repeat
- */
 var ProgCheck;
 (function (ProgCheck) {
     'use strict';

@@ -1,8 +1,3 @@
-/**
- * A Controller for the Progress Report for Teachers viewing a student's goal
- * For use in the Prog Check testing application
- * Created by Jonathan Ullberg on 12/15/2015
- */
 var ProgCheck;
 (function (ProgCheck) {
     'use strict';
@@ -12,12 +7,10 @@ var ProgCheck;
     function progressReportCtrl($scope, $routeParams, TeacherData) {
         var pr = this;
         $scope.$on('results:changed', getResults);
-        // Public Functions
         pr.init = function () {
             getResults();
             getStudent();
         };
-        // Private Functions
         function getResults() {
             pr.results = TeacherData.Attempts.getResults();
         }

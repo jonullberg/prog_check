@@ -1,9 +1,3 @@
-/**
- * For use in the Prog Check testing application
- * A controller for the Standard Form for the admin
- * Created by Jonathan Ullberg on 10/27/2015
- */
-/// <reference path="../../../../tools/typings/tsd.d.ts" />
 var ProgCheck;
 (function (ProgCheck) {
     'use strict';
@@ -14,7 +8,6 @@ var ProgCheck;
         var sf = this;
         var master;
         $scope.$on('standard:changed', getStandard);
-        // Public Functions
         sf.init = function () {
             if ($scope.params.formType === 'editing') {
                 getStandard();
@@ -53,7 +46,6 @@ var ProgCheck;
                 }
             }
         };
-        // Private Functions
         function getGrade(gradeName) {
             sf.thisGrade = sf.grades.filter(function (grade) {
                 return grade.name === gradeName;

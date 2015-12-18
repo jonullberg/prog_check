@@ -10,7 +10,7 @@ var winston = require('winston');
 var Standard = require('../models/Standard');
 var bodyparser = require('body-parser');
 var jwtAuth = require('../lib/jwt_auth')(process.env.APP_SECRET);
-
+var getExampleQuestions = require('./standards/controllers/get_example_questions');
 export = function(router) {
   router.use(bodyparser.json());
 
@@ -29,8 +29,10 @@ export = function(router) {
           'msg': 'Internal Server Error'
         });
       }
-      res.json({
-        'standards': data
+      getExampleQuestions(data, function(standards) {
+        res.json({
+          'standards': standards
+        });
       });
     });
   });
@@ -50,9 +52,11 @@ export = function(router) {
           'msg': 'Internal Server Error'
         });
       }
-      res.json({
-        standard: standard
-      });
+      getExampleQuestions([standard], function(updatedStandard) {
+        res.json({
+          standard: updatedStandard[0]
+        });
+      })
     });
   });
 
@@ -72,10 +76,11 @@ export = function(router) {
           'msg': 'Internal Server Error'
         });
       }
-
-      res.json({
-        'standard': data
-      });
+      getExampleQuestions([data], function(updatedStandard) {
+        res.json({
+          standard: updatedStandard[0]
+        });
+      })
     });
   });
   /**
@@ -153,9 +158,11 @@ export = function(router) {
               'msg': 'Internal Server Error'
             });
           }
-          res.json({
-            'standard': data
-          });
+          getExampleQuestions([data], function(updatedStandard) {
+            res.json({
+              standard: updatedStandard[0]
+            });
+          })
         });
       }
     });
@@ -219,9 +226,11 @@ export = function(router) {
             'msg': 'Internal Server Error'
           });
         }
-        res.json({
-          'standard': data
-        });
+        getExampleQuestions([data], function(updatedStandard) {
+          res.json({
+            standard: updatedStandard[0]
+          });
+        })
       });
     });
   });

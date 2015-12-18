@@ -1,8 +1,3 @@
-/**
- * For use in the Prog Check testing application
- * A controller for dealing with displaying a single students most recent attempts
- * Created by Jonathan Ullberg on 10/23/2015
- */
 var ProgCheck;
 (function (ProgCheck) {
     'use strict';

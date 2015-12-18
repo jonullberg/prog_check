@@ -6,7 +6,6 @@ var ProgCheck;
         .controller('StandardsListModalCtrl', ['$scope', '$uibModal', '$uibModalInstance', '$rootScope', '$cookies', 'TeacherData', standardsListModalCtrl]);
     function standardsListModalCtrl($scope, $uibModal, $uibModalInstance, $rootScope, $cookies, TeacherData) {
         $scope.$on('standards:changed', getStandards);
-        // Public Functions
         var sl = this;
         sl.init = function () {
             getStandards();
@@ -27,7 +26,6 @@ var ProgCheck;
                 scope: scope
             });
         };
-        // Private Functions
         function getStandards() {
             if (!TeacherData.Standards.getStandards()) {
                 TeacherData.Standards.fetchStandards();

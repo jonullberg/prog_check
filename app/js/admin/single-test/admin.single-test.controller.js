@@ -7,24 +7,16 @@ var ProgCheck;
     function singleTestCtrl($scope, $uibModal, $rootScope, $location, $routeParams, $sce, AdminData, SanitizeFractions) {
         $scope.$on('test:changed', getTest);
         var st = this;
-        // Public Functions
         st.isDeleteShown = false;
         st.init = function () {
             getStandard();
             getTest();
         };
         st.trustAsHtml = $sce.trustAsHtml;
-        /**
-          * Will set selected test to null and send us back to test list
-          */
         st.goBack = function () {
             AdminData.Tests.setTest(null);
             $location.path('/admin/standards/' + $routeParams.standardId);
         };
-        /**
-          * Will open a modal that allows user to input a new test
-          * @param  {object} test The test that will be edited in form
-          */
         st.editTest = function (test) {
             AdminData.Tests.setTest(test);
             var scope = $rootScope.$new();
@@ -112,7 +104,6 @@ var ProgCheck;
             AdminData.Tests.deleteQuestion(st.test._id, question._id, function (err) {
             });
         };
-        // Private Functions
         function showAnswers(question) {
             question.showing = true;
         }

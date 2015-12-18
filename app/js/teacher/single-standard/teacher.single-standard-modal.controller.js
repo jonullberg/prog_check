@@ -7,9 +7,7 @@ var ProgCheck;
     function singleStandardModalCtrl($scope, $uibModal, $uibModalInstance, $cookies, $rootScope, $sce, TeacherData) {
         $scope.$on('standard:changed', getStandard);
         var ss = this;
-        // Public Functions
         ss.init = function () {
-            console.log('init');
             getStandard();
         };
         ss.addGoal = function (goal) {
@@ -55,7 +53,6 @@ var ProgCheck;
             });
             goal.descriptionShowing = !original;
         };
-        // Private Functions
         function getStandard() {
             ss.standard = TeacherData.Standards.getStandard();
         }

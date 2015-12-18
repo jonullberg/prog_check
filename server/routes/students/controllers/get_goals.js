@@ -1,7 +1,6 @@
 'use strict';
 
 var Standard = require('../../../models/Standard');
-var mongoose = require('mongoose');
 
 function getGoal(student, cb) {
 

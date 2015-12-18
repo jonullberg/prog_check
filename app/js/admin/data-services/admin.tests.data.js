@@ -1,7 +1,3 @@
-/**
- * A module for holding all tests for the admin
- * Created by Jonathan Ullberg on 10/23/2015
- */
 var ProgCheck;
 (function (ProgCheck) {
     'use strict';

@@ -1,6 +1,3 @@
-/**
- * A controller to deal with the view that edits a single students selected goal
- */
 var ProgCheck;
 (function (ProgCheck) {
     'use strict';
@@ -9,7 +6,6 @@ var ProgCheck;
         .controller('StudentGoalSettingsCtrl', ['$scope', '$uibModalInstance', '$routeParams', 'TeacherData', studentGoalSettingsCtrl]);
     function studentGoalSettingsCtrl($scope, $uibModalInstance, $routeParams, TeacherData) {
         $scope.$on('goal:changed', getGoal);
-        // Public Functions
         var sgs = this;
         sgs.init = function () {
             getGoal();
