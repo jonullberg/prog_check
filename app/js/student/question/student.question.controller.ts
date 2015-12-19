@@ -10,15 +10,13 @@ module ProgCheck {
 
   angular
     .module('progCheck')
-    .controller('QuestionCtrl', ['$sce', questionCtrl])
+    .controller('QuestionCtrl', ['$scope', '$sce', questionCtrl])
 
-  function questionCtrl($sce: ng.ISCEService) {
-    var qu = this;
-    qu.trustAsHtml = $sce.trustAsHtml;
-
-    qu.select = function(answer: string, $index: number) {
-      qu.question.selectedIndex = $index;
-      qu.selectAnswer({
+  function questionCtrl($scope, $sce: ng.ISCEService) {
+    $scope.trustAsHtml = $sce.trustAsHtml;
+    $scope.select = function(answer: string, $index: number) {
+      $scope.question.selectedIndex = $index;
+      $scope.selectAnswer({
         answer: answer
       });
     };

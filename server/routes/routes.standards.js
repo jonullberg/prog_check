@@ -57,8 +57,10 @@ module.exports = function (router) {
                     'msg': 'Internal Server Error'
                 });
             }
-            res.json({
-                'standard': data
+            getExampleQuestions([data], function (updatedStandard) {
+                res.json({
+                    standard: updatedStandard[0]
+                });
             });
         });
     });
@@ -124,8 +126,10 @@ module.exports = function (router) {
                             'msg': 'Internal Server Error'
                         });
                     }
-                    res.json({
-                        'standard': data
+                    getExampleQuestions([data], function (updatedStandard) {
+                        res.json({
+                            standard: updatedStandard[0]
+                        });
                     });
                 });
             }
@@ -180,8 +184,10 @@ module.exports = function (router) {
                         'msg': 'Internal Server Error'
                     });
                 }
-                res.json({
-                    'standard': data
+                getExampleQuestions([data], function (updatedStandard) {
+                    res.json({
+                        standard: updatedStandard[0]
+                    });
                 });
             });
         });

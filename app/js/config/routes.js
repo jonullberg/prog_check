@@ -194,7 +194,7 @@
         }
       })
       .when('/student/:studentId/attempt/:attemptId', {
-        templateUrl: 'templates/views/student/attempt_review.html',
+        templateUrl: 'templates/student/attempt-review.html',
         controller: 'AttemptReviewCtrl',
         controllerAs: 'ar',
         access: {

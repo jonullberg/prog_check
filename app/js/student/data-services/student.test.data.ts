@@ -11,9 +11,6 @@ module ProgCheck {
     .module('progCheck')
     .factory('StudentTestData', ['$http', '$rootScope', 'Errors', 'shuffle', studentTestData])
 
-  // module.exports = function(app) {
-  //   app.factory('StudentTestData', ['$http', '$rootScope', 'Errors', 'shuffle', studentTestData])
-  // }
   function studentTestData($http, $rootScope, Errors, shuffle) {
     var studentTestData = {
       tests: null,
@@ -53,13 +50,15 @@ module ProgCheck {
         });
     }
     function fetchTest(goal, student, cb) {
-      $http.get('/api/tests?goalId=' + goal._id + '?questions=' + goal.numberOfQuestions)
+      var numberOfQuestions;
+      if (goal.numberOfQuestions) {
+        numberOfQuestions = goal.numberOfQuestions;
+      } else {
+        numberOfQuestions = student.numberOfQuestions;
+      }
+      $http.get('/api/tests?goalId=' + goal.goalId + '&questions=' + numberOfQuestions)
         .then(function(response) {
-          var studentGoalId = student.goals.filter(function(goal) {
-            return goal.goalId === goal._id;
-          })[0]._id;
-          var test = setUpTest(response.data.test, student, studentGoalId);
-          this.setTest(test);
+          this.setTest(response.data.test);
           handleCallback(cb, response, null);
         }.bind(this))
         .catch(function(rejection) {

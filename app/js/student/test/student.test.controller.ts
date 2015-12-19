@@ -15,13 +15,20 @@ module ProgCheck {
   function studentTestCtrl($scope:any, $routeParams:any, $location:any, StudentData:any) {
     $scope.$on('user:changed', getUser);
     $scope.$on('test:changed', getTest);
-    $scope.init = init;
+    $scope.init = function() {
+      getUser();
+      getTest();
+      $scope.current = 1;
+      $scope.question = $scope.test.questions[0];
+    };
     $scope.nextText = 'Next';
 
     $scope.nextQuestion = function() {
+      console.log($scope.test);
+      console.log($scope.current);
       var currentQuestion = $scope.test.questions[$scope.current - 1];
       var nextQuestion = $scope.test.questions[$scope.current];
-      if ($scope.current === $scope.test.maxQuestions) {
+      if ($scope.current == $scope.test.maxQuestions) {
         checkAnswer(currentQuestion);
         return submitTest($scope.test);
       } else {
@@ -59,12 +66,7 @@ module ProgCheck {
       $scope.test.questions[($scope.current - 1)].submitted = answer;
     };
 
-    function init() {
-      getUser();
-      getTest();
-      $scope.current = 1;
-      $scope.question = $scope.test.questions[0];
-    }
+
     function getTest() {
       if (!StudentData.Tests.getTest()) {
         return $location.path('/test-expired');
