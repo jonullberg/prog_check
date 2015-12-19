@@ -46,7 +46,6 @@ module.exports = function (router) {
             });
         }
         else if (req.query.goalId) {
-            console.log(req.query.goalId);
             Tests.findOne({ goalId: req.query.goalId }, function (err, test) {
                 if (err) {
                     winston.log('error', {
