@@ -11,6 +11,7 @@ var bodyparser = require('body-parser');
 var jwtAuth = require('../lib/jwt_auth')(process.env.APP_SECRET);
 var path = require('path');
 var fs = require('fs');
+var setUpTest = require('./tests/controllers/set_up_test');
 
 export = function(router) {
   router.use(bodyparser.json());
@@ -58,7 +59,8 @@ export = function(router) {
         });
       });
     } else if (req.query.goalId) {
-      Tests.find({goalId: req.query.goalId}, function(err, tests) {
+      console.log(req.query.goalId);
+      Tests.findOne({goalId: req.query.goalId}, function(err, test) {
         if (err) {
           winston.log('error', {
             'Error': err,
@@ -69,8 +71,9 @@ export = function(router) {
             'msg': 'Internal Server Error'
           });
         }
+        var attempt = setUpTest(test, req.query.questions);
         res.json({
-          'test': tests[0]
+          'test': attempt
         });
       });
     } else {

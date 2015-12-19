@@ -1,12 +1,12 @@
-<div class="panel-body" data-ng-init="qu.initQuestion()">
+<div class="panel-body">
   <h3>Question: </h3>
-  <p class="angular-with-newlines" data-ng-bind-html="qu.trustAsHtml(question.question)">{{question.question}}</p>
+  <p class="angular-with-newlines" data-ng-bind-html="trustAsHtml(question.question)">{{question.question}}</p>
   <h3>Answers: </h3>
   <button class="btn btn-lg btn-default angular-with-newlines"
-    data-ng-class="{ 'btn-primary': $index == qu.question.selectedIndex }"
-    data-ng-repeat="answer in qu.question.answers"
-    data-ng-click="qu.select(answer, $index)"
-    data-ng-bind-html="qu.trustAsHtml(answer)">
+    data-ng-class="{ 'btn-primary': $index == question.selectedIndex }"
+    data-ng-repeat="answer in question.answers"
+    data-ng-click="select(answer, $index)"
+    data-ng-bind-html="trustAsHtml(answer)">
     {{answer}}
   </button>
 </div>

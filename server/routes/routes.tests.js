@@ -6,6 +6,7 @@ var bodyparser = require('body-parser');
 var jwtAuth = require('../lib/jwt_auth')(process.env.APP_SECRET);
 var path = require('path');
 var fs = require('fs');
+var setUpTest = require('./tests/controllers/set_up_test');
 module.exports = function (router) {
     router.use(bodyparser.json());
     router.post('/tests', jwtAuth, function (req, res) {
@@ -45,7 +46,8 @@ module.exports = function (router) {
             });
         }
         else if (req.query.goalId) {
-            Tests.find({ goalId: req.query.goalId }, function (err, tests) {
+            console.log(req.query.goalId);
+            Tests.findOne({ goalId: req.query.goalId }, function (err, test) {
                 if (err) {
                     winston.log('error', {
                         'Error': err,
@@ -56,8 +58,9 @@ module.exports = function (router) {
                         'msg': 'Internal Server Error'
                     });
                 }
+                var attempt = setUpTest(test, req.query.questions);
                 res.json({
-                    'test': tests[0]
+                    'test': attempt
                 });
             });
         }

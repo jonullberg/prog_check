@@ -12,7 +12,7 @@ var ProgCheck;
             getUser($routeParams.studentId);
         }
         function getTest(goal) {
-            StudentData.Tests.fetchTest(goal.goalId, StudentData.getUser(), function (err, data) {
+            StudentData.Tests.fetchTest(goal, StudentData.getUser(), function (err, data) {
                 $location.path('/student/' + $routeParams.studentId + '/tests/' + data.test._id);
             });
         }

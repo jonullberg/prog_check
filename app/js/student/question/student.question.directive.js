@@ -10,10 +10,11 @@ var ProgCheck;
             templateUrl: '/templates/student/question.html',
             replace: true,
             controller: 'QuestionCtrl',
-            controllerAs: 'qu',
             scope: {
                 question: '=',
                 selectAnswer: '&'
+            },
+            link: function (scope, iEl, iAttr) {
             }
         };
     }

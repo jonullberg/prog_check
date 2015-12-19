@@ -3,13 +3,12 @@ var ProgCheck;
     'use strict';
     angular
         .module('progCheck')
-        .controller('QuestionCtrl', ['$sce', questionCtrl]);
-    function questionCtrl($sce) {
-        var qu = this;
-        qu.trustAsHtml = $sce.trustAsHtml;
-        qu.select = function (answer, $index) {
-            qu.question.selectedIndex = $index;
-            qu.selectAnswer({
+        .controller('QuestionCtrl', ['$scope', '$sce', questionCtrl]);
+    function questionCtrl($scope, $sce) {
+        $scope.trustAsHtml = $sce.trustAsHtml;
+        $scope.select = function (answer, $index) {
+            $scope.question.selectedIndex = $index;
+            $scope.selectAnswer({
                 answer: answer
             });
         };
