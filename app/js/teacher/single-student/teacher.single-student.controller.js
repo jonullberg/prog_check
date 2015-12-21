@@ -8,7 +8,9 @@ var ProgCheck;
         $scope.$on('student:changed', getStudent);
         var ss = this;
         ss.init = function () {
-            getStudent();
+            TeacherData.Students.fetchStudent($routeParams.studentId, function (err, data) {
+                ss.student = data.student;
+            });
         };
         ss.trustAsHtml = $sce.trustAsHtml;
         ss.goBack = function () {
@@ -42,9 +44,6 @@ var ProgCheck;
             });
         };
         function getStudent() {
-            if (!TeacherData.Students.getStudent()) {
-                TeacherData.Students.fetchStudent($routeParams.studentId);
-            }
             ss.student = TeacherData.Students.getStudent();
         }
     }

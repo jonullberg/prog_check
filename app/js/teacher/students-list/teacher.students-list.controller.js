@@ -11,7 +11,6 @@ var ProgCheck;
             getStudents();
         };
         sl.showStudent = function (student) {
-            TeacherData.Students.setStudent(student);
             $location.path('/teacher/' + $routeParams.teacherId + '/students/' + student._id);
         };
         sl.addStudent = function () {

@@ -70,6 +70,7 @@
     require('./auth/services/token-interceptor.service');
     require('./auth/services/user.service');
     require('./auth/services/authentication.service');
+    require('./services/clear-data.service');
 
     //  Error Reporting
     require('./directives/errors.directive');

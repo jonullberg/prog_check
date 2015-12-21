@@ -1,5 +1,5 @@
-var ProgChec;
-(function (ProgChec) {
+var ProgCheck;
+(function (ProgCheck) {
     'use strict';
     angular
         .module('progCheck')
@@ -51,4 +51,4 @@ var ProgChec;
             $scope.isTestShowing = !$scope.isTestShowing;
         };
     }
-})(ProgChec || (ProgChec = {}));
+})(ProgCheck || (ProgCheck = {}));

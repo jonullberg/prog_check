@@ -1,4 +1,4 @@
-module ProgChec {
+module ProgCheck {
   'use strict';
 
   angular

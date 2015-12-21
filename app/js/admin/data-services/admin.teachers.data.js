@@ -5,7 +5,7 @@ var ProgCheck;
         .module('progCheck')
         .factory('AdminTeachersData', ['$http', '$rootScope', 'Errors', adminTeachersData]);
     function adminTeachersData($http, $rootScope, Errors) {
-        var adminTeachersData = {
+        return {
             teachers: null,
             teacher: null,
             getTeachers: function () {
@@ -54,6 +54,5 @@ var ProgCheck;
                 cb(rejection);
             }
         }
-        return adminTeachersData;
     }
 })(ProgCheck || (ProgCheck = {}));

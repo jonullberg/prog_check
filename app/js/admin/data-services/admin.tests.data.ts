@@ -12,7 +12,7 @@ module ProgCheck {
 
   function adminTestsData($http, $rootScope, Errors) {
 
-    var adminTestsData = {
+    return {
       tests: null,
       test: null,
       question: null,
@@ -161,7 +161,6 @@ module ProgCheck {
         cb(rejection);
       }
     }
-    return adminTestsData;
   }
 
 }

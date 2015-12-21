@@ -5,7 +5,7 @@ var ProgCheck;
         .module('progCheck')
         .factory('TeacherStudentsData', ['$http', '$rootScope', 'Errors', teacherStudentsData]);
     function teacherStudentsData($http, $rootScope, Errors) {
-        var teacherStudentsData = {
+        return {
             student: null,
             students: null,
             goal: null,
@@ -110,7 +110,6 @@ var ProgCheck;
         function createGoal(studentId, goal, cb) {
             $http.post('/api/students/' + studentId + '/goals/', goal)
                 .then(function (response) {
-                console.log(response);
                 this.setStudent(response.data.student);
                 handleCallback(cb, response, null);
             }.bind(this))
@@ -155,7 +154,5 @@ var ProgCheck;
                 cb(rejection);
             }
         }
-        return teacherStudentsData;
     }
-    ;
 })(ProgCheck || (ProgCheck = {}));

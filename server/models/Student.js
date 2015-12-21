@@ -6,6 +6,7 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
 var jwt = require('jsonwebtoken');
+var getGoals = require('../routes/students/controllers/get_goals');
 
 var goalSchema = mongoose.Schema({
   'goalId': {
@@ -69,6 +70,7 @@ var studentSchema = mongoose.Schema({
 
 studentSchema.pre('save', function(next) {
   var doc = this;
+  doc.role = 'student';
   var userName = doc.firstName.slice(0,1).toLowerCase() + doc.lastName.slice(0, 5).toLowerCase();
   var num = 1;
   if (!doc.basic.username) {
@@ -92,12 +94,6 @@ studentSchema.pre('save', function(next) {
   }
 });
 
-studentSchema.pre('save', function(next) {
-  var doc = this;
-  doc.role = 'student';
-  next();
-});
-
 studentSchema.methods.generateHash = function(password, callback) {
   bcrypt.genSalt(8, function(err, salt) {
     bcrypt.hash(password, salt, null, function(err, hash) {
@@ -109,11 +105,14 @@ studentSchema.methods.generateHash = function(password, callback) {
 studentSchema.methods.generateToken = function(secret, callback) {
   var user = this;
   delete user.basic.pin;
-  jwt.sign({}, secret, {
-    expiresIn: '1d',
-    subject: user,
-    issuer: 'progcheck'
-  }, callback);
+  getGoals(user, function(user) {
+    jwt.sign({}, secret, {
+      expiresIn: '1d',
+      subject: user,
+      issuer: 'progcheck'
+    }, callback);
+
+  });
 };
 
 studentSchema.methods.checkPin = function(pin, callback) {

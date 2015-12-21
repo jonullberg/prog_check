@@ -6,11 +6,8 @@ module ProgCheck {
     .module('progCheck')
     .factory('StudentData', ['$rootScope', '$http', 'Errors', 'StudentTestData', 'AuthenticationService', studentData])
 
-  // module.exports = function(app) {
-  //   app.factory('StudentData', ['$rootScope', '$http', 'Errors', 'StudentTestData', 'AuthenticationService', studentData])
-  // }
   function studentData($rootScope, $http, Errors, Tests, Auth) {
-    var studentData = {
+    return {
       Tests: Tests,
       user: Auth.getUser(),
       getUser: function() {
@@ -36,7 +33,12 @@ module ProgCheck {
           });
         });
     }
-
+    function clearData() {
+      console.log('data being cleared');
+      this.setUser = null;
+      this.Tests.setTest(null);
+      this.Tests.setTests(null);
+    }
     function handleCallback(cb, response, rejection) {
       if (cb && typeof cb === 'function') {
         if (response) {
@@ -45,7 +47,6 @@ module ProgCheck {
         cb(rejection);
       }
     }
-    return studentData;
   }
 
 }

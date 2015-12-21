@@ -3,10 +3,10 @@ var ProgCheck;
     'use strict';
     angular
         .module('progCheck')
-        .factory('AdminData', ['$cookies', 'AdminStandardsData', 'AdminTestsData', 'AdminTeachersData', 'jwtHelper', adminData]);
-    function adminData($cookies, Standards, Tests, Teachers, jwtHelper) {
+        .factory('AdminData', ['AuthenticationService', 'AdminStandardsData', 'AdminTestsData', 'AdminTeachersData', 'jwtHelper', adminData]);
+    function adminData(Auth, Standards, Tests, Teachers, jwtHelper) {
         return {
-            user: jwtHelper.decodeToken($cookies.get('token')).sub,
+            user: Auth.getUser(),
             Standards: Standards,
             Tests: Tests,
             Teachers: Teachers,

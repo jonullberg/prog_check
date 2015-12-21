@@ -5,7 +5,7 @@ var ProgCheck;
         .module('progCheck')
         .factory('TeacherStandardsData', ['$http', '$rootScope', 'Errors', teacherStandardsData]);
     function teacherStandardsData($http, $rootScope, Errors) {
-        var teacherStandardsData = {
+        return {
             standards: null,
             standard: null,
             goal: null,
@@ -41,7 +41,6 @@ var ProgCheck;
             updateGoal: updateGoal,
             deleteGoal: deleteGoal
         };
-        return teacherStandardsData;
         function fetchStandards(cb) {
             $http.get('/api/standards')
                 .then(function (response) {

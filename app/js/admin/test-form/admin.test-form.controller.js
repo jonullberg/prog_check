@@ -47,5 +47,4 @@ var ProgCheck;
             AdminData.Tests.createTest(test);
         }
     }
-    ;
 })(ProgCheck || (ProgCheck = {}));

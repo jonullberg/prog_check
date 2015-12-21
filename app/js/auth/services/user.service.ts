@@ -3,9 +3,9 @@ module ProgCheck {
 
   angular
     .module('progCheck')
-    .factory('UserService', ['$http', '$base64', '$cookies', 'AuthenticationService', 'jwtHelper', userService])
+    .factory('UserService', ['$http', '$base64', '$window', 'AuthenticationService', 'jwtHelper', 'clearData', userService])
 
-  function userService($http, $base64, $cookies, AuthenticationService, jwtHelper) {
+  function userService($http, $base64, $window, AuthenticationService, jwtHelper, clearData) {
     return {
       signIn: function(user, callback) {
         var encoded = $base64.encode(user.email + ':' + user.password);
@@ -24,7 +24,7 @@ module ProgCheck {
             catch (e) {
               console.log('That token was invalid');
             }
-            $cookies.put('token', data.token);
+            $window.localStorage['token'] = data.token;
             AuthenticationService.setUser(tokenPayload.sub);
             callback(null, response);
           })
@@ -42,8 +42,16 @@ module ProgCheck {
           })
           .then(function(response) {
             var data = response.data;
-            $cookies.put('token', data.token);
-            var tokenPayload = jwtHelper.decodeToken(data.token);
+            $window.localStorage['token'] = data.token;
+
+            var tokenPayload;
+            try {
+              tokenPayload = jwtHelper.decodeToken(data.token);
+            }
+            catch (e) {
+              console.log('That token was invalid');
+              $window.localStorage.removeItem('token');
+            }
             AuthenticationService.setUser(tokenPayload.sub);
             callback(null, response);
           })
@@ -56,8 +64,14 @@ module ProgCheck {
           .post('/api/create_user', user)
           .then(function(response) {
             var data = response.data;
-            $cookies.put('token', response.data.token);
-            var tokenPayload = jwtHelper.decodeToken(data.token);
+            $window.localStorage['token'] = response.data.token;
+            var tokenPayload
+            try {
+              tokenPayload = jwtHelper.decodeToken(data.token);
+            }
+            catch (e) {
+              console.log('Invalid token');
+            }
             AuthenticationService.setUser(tokenPayload.sub);
             callback(null, response);
           })
@@ -67,8 +81,9 @@ module ProgCheck {
       },
 
       logout: function() {
-        $cookies.remove('token');
+        $window.localStorage.removeItem('token');
         AuthenticationService.setUser(null);
+        clearData.clear();
       },
       authToken: function(token, cb) {
         $http
@@ -79,7 +94,7 @@ module ProgCheck {
           })
           .then(function(response) {
             var data = response.data;
-            $cookies.put('token', data.token);
+            $window.localStorage['token'] = data.token;
             var tokenPayload;
             try {
               tokenPayload = jwtHelper.decodeToken(data.token);
@@ -90,7 +105,7 @@ module ProgCheck {
             handleCallback(cb, response, null);
           })
           .catch(function(rejection) {
-            $cookies.remove('token');
+            $window.localStorage.removeItem('token');
             AuthenticationService.setUser(null);
             handleCallback(cb, null, rejection);
           });

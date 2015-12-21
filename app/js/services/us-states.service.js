@@ -5,7 +5,7 @@ var ProgCheck;
         .module('progCheck')
         .factory('USStates', states);
     function states() {
-        var states = [
+        return [
             {
                 "name": "Alabama",
                 "abbreviation": "AL"
@@ -243,6 +243,5 @@ var ProgCheck;
                 "abbreviation": "WY"
             }
         ];
-        return states;
     }
 })(ProgCheck || (ProgCheck = {}));

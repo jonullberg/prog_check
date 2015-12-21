@@ -238,11 +238,12 @@ export = function(router, passport) {
         });
       }
       var results = student.goals.filter(function(goal) {
-        return goal._id == req.params.goalId;
+        return goal.goalId == req.params.goalId;
       });
+      student = student.toObject();
       student.archivedGoals.push(results[0]);
       student.goals.splice(student.goals.indexOf(results[0]), 1);
-      student.save(function(err, data) {
+      Students.update({ _id: req.params.studentId }, student, function(err, data) {
         if (err) {
           winston.log('error', {
             'Error': err,
@@ -253,7 +254,7 @@ export = function(router, passport) {
             'msg': 'Internal Server Error'
           });
         }
-        getGoals(data.toObject(), function(updatedStudent) {
+        getGoals(student, function(updatedStudent) {
           res.json({
             'student': updatedStudent
           });

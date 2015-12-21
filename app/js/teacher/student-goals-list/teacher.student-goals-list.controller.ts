@@ -15,6 +15,7 @@ module ProgCheck {
 
     // Public Functions
     var sgl = this;
+    sgl.isGoalAlertShown = false;
     sgl.init = function() {
       getStudent();
     };
@@ -23,15 +24,15 @@ module ProgCheck {
       sgl.student.goals.forEach(function(goal) {
         goal.isOpen = false;
       });
-      goal.isopen = !original;
+      goal.isOpen = !original;
       TeacherData.Attempts.fetchAttemptsByGoal($routeParams.studentId, goal.goalId);
     };
     sgl.deleteGoal = function(goal) {
-      TeacherData.Students.deleteGoal($routeParams.studentId, goal._id);
-      toggleAlert(null);
+      TeacherData.Students.deleteGoal($routeParams.studentId, goal.goalId);
+      toggleGoalAlert(null);
     };
 
-    sgl.toggleAlert = toggleAlert;
+    sgl.toggleGoalAlert = toggleGoalAlert;
 
     sgl.showButtons = function(goal) {
       var showing = goal.buttonsShowing;
@@ -72,11 +73,12 @@ module ProgCheck {
       sgl.student = TeacherData.Students.getStudent();
     }
 
-    function toggleAlert(goal) {
-      if ($scope.isAlertShown) {
-        sgl.isAlertShown = false;
+    function toggleGoalAlert(goal) {
+      console.log('toggle');
+      if (sgl.isGoalAlertShown) {
+        sgl.isGoalAlertShown = false;
       } else {
-        sgl.isAlertShown = true;
+        sgl.isGoalAlertShown = true;
       }
       sgl.goal = goal;
     }

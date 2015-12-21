@@ -22,7 +22,6 @@ module ProgCheck {
     };
 
     sl.showStudent = function(student) {
-      TeacherData.Students.setStudent(student);
       $location.path('/teacher/' + $routeParams.teacherId + '/students/' + student._id);
     };
 

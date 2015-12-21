@@ -3,19 +3,19 @@ var ProgCheck;
     'use strict';
     angular
         .module('progCheck')
-        .factory('AuthenticationService', ['$cookies', '$rootScope', '$location', 'jwtHelper', authenticationService]);
-    function authenticationService($cookies, $rootScope, $location, jwtHelper) {
+        .factory('AuthenticationService', ['$window', '$rootScope', '$location', 'jwtHelper', authenticationService]);
+    function authenticationService($window, $rootScope, $location, jwtHelper) {
         var user;
         var token;
         try {
-            token = jwtHelper.decodeToken($cookies.get('token'));
+            token = jwtHelper.decodeToken($window.localStorage['token']);
         }
         catch (e) {
             console.log('That token was invalid', e);
-            $cookies.remove('token');
+            $window.localStorage.removeItem('token');
             $location.path('/sign-in');
         }
-        if ($cookies.get('token') && token) {
+        if ($window.localStorage['token'] && token) {
             user = token.sub;
         }
         else {
