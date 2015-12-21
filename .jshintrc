@@ -9,5 +9,6 @@
     "afterEach": true,
     "angular": true
   },
-  "validthis": true
+  "validthis": true,
+  "sub": true
 }

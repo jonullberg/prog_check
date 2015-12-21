@@ -25,7 +25,9 @@ module.exports = function(app) {
      */
     $scope.createTest = function(test) {
       var newTest = angular.copy(test);
-      var numberOfTests = $filter('filter')($scope.tests, {standardId: $scope.standard._id});
+      var numberOfTests = $filter('filter')($scope.tests, {
+        standardId: $scope.standard._id
+      });
       test = {};
       newTest.testName = 'Test ' + (numberOfTests.length + 1);
       dataStore.tests.push(newTest);

@@ -11,7 +11,7 @@ module ProgCheck {
 
   function adminTeachersData($http, $rootScope, Errors) {
 
-    var adminTeachersData = {
+    return {
       teachers: null,
       teacher: null,
       getTeachers: function() {
@@ -61,8 +61,5 @@ module ProgCheck {
         cb(rejection);
       }
     }
-
-    return adminTeachersData;
   }
-
 }

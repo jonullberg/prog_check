@@ -12,7 +12,7 @@ module ProgCheck {
     .factory('StudentTestData', ['$http', '$rootScope', 'Errors', 'shuffle', studentTestData])
 
   function studentTestData($http, $rootScope, Errors, shuffle) {
-    var studentTestData = {
+    return {
       tests: null,
       test: null,
       getTest: function() {
@@ -142,6 +142,5 @@ module ProgCheck {
         cb(rejection);
       }
     }
-    return studentTestData;
   }
 }

@@ -7,7 +7,7 @@ module ProgCheck {
 
   function teacherStudentsData($http, $rootScope, Errors) {
 
-    var teacherStudentsData = {
+    return {
       student: null,
       students: null,
       goal: null,
@@ -118,7 +118,6 @@ module ProgCheck {
     function createGoal(studentId, goal, cb) {
       $http.post('/api/students/' + studentId + '/goals/', goal)
         .then(function(response) {
-          console.log(response);
           this.setStudent(response.data.student);
           handleCallback(cb, response, null);
         }.bind(this))
@@ -163,6 +162,5 @@ module ProgCheck {
         cb(rejection);
       }
     }
-    return teacherStudentsData;
-  };
+  }
 }

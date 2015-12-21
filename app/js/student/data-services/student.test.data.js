@@ -5,7 +5,7 @@ var ProgCheck;
         .module('progCheck')
         .factory('StudentTestData', ['$http', '$rootScope', 'Errors', 'shuffle', studentTestData]);
     function studentTestData($http, $rootScope, Errors, shuffle) {
-        var studentTestData = {
+        return {
             tests: null,
             test: null,
             getTest: function () {
@@ -120,6 +120,5 @@ var ProgCheck;
                 cb(rejection);
             }
         }
-        return studentTestData;
     }
 })(ProgCheck || (ProgCheck = {}));

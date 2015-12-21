@@ -78,7 +78,6 @@ var ProgCheck;
                 $http.defaults.headers.common.Authorization = storeAuth;
             }
         }
-        ;
         function getQuestion() {
             if ($scope.params.formType === 'creating') {
                 $scope.question = {

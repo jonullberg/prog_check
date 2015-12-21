@@ -19,7 +19,6 @@ var paths = {
   "serverFiles": ["./server.js", "./routes/**/*.js"],
   "dataModels": "./models/**/*.js",
   "gulpfile": "./gulpfile.js",
-  "allTypeScript": "./**/*.ts",
   "client": "./app/js/client",
   "tests": {
     "frontend": "app/js/**/*.spec.js",
@@ -41,9 +40,9 @@ var paths = {
 };
 
 gulp.task('watch', function() {
-  gulp.watch(paths.ts.all, ['ts-lint', 'compile-ts']);
+  gulp.watch(paths.ts.frontend, ['ts-lint:frontend', 'compile-ts:frontend']);
+  // gulp.watch(paths.ts.backend, ['ts-lint:backend', 'compile-ts:backend']);
   gulp.watch([paths.js.client, paths.js.server, paths.html, paths.css], ['build']);
-  gulp.watch(paths.tests.backend, ['analyze', 'mocha:backend']);
   gulp.watch(paths.sass, ['sass'])
 });
 
@@ -87,19 +86,34 @@ gulp.task('analyze', function() {
 
 
 
-
 // TypeScript
-gulp.task('ts-lint', function() {
-  return gulp.src(paths.allTypeScript).pipe(plug.tslint()).pipe(plug.tslint.report('spec'));
+gulp.task('ts-lint:backend', function() {
+  return gulp.src(paths.ts.backend)
+    .pipe(plug.tslint())
+    .pipe(plug.tslint.report('spec'));
 });
 
-gulp.task('compile-ts', function() {
-  var sourceTsFiles = [paths.ts.frontend, paths.ts.backend];
-  gulp.src(sourceTsFiles)
+gulp.task('compile-ts:backend', function() {
+  gulp.src(paths.ts.backend)
     .pipe(plug.tsc())
     .pipe(gulp.dest('.'))
 });
 
+gulp.task('ts-lint:frontend', function() {
+  return gulp.src(paths.ts.frontend)
+    .pipe(plug.tslint())
+    .pipe(plug.tslint.report('spec'));
+});
+
+gulp.task('compile-ts:frontend', function() {
+  gulp.src(paths.ts.frontend)
+    .pipe(plug.typescript({
+      noImplicitAny:false,
+      outDir: './ts/',
+      removeComments: true
+    }))
+    .pipe(gulp.dest('./app/'))
+});
 
 
 

@@ -231,5 +231,5 @@
           $location.path('/not-authorized');
         }
       });
-    }])
+    }]);
 })();

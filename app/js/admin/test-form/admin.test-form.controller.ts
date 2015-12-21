@@ -60,6 +60,6 @@ module ProgCheck {
     function createTest(test) {
       AdminData.Tests.createTest(test);
     }
-  };
+  }
 
 }

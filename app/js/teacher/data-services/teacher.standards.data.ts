@@ -10,7 +10,7 @@ module ProgCheck {
 
   function teacherStandardsData($http, $rootScope, Errors) {
 
-    var teacherStandardsData = {
+    return {
       standards: null,
       standard: null,
       goal: null,
@@ -46,7 +46,6 @@ module ProgCheck {
       updateGoal: updateGoal,
       deleteGoal: deleteGoal
     };
-    return teacherStandardsData;
 
     function fetchStandards(cb) {
       $http.get('/api/standards')

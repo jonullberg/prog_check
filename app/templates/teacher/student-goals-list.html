@@ -2,29 +2,29 @@
   data-ng-init="sgl.init()">
   <h4>Goals</h4>
   <p data-ng-if="!sgl.student.goals.length">You have no goals for your student. Feel free to add some below.</p>
-  <div class="alert alert-danger"
-    data-ng-if="isAlertShown">
-    <p class="col-lg-8">Are you sure? Deleting can't be undone</p>
-    <div class="btn-group col-lg-4">
-      <button type="button"
-        class="btn btn-danger"
-        data-ng-click="deleteGoal(goal)">Yes
-      </button>
-      <button type="button"
-        class="btn btn-primary"
-        data-ng-click="toggleAlert(null)">
-        No
-      </button>
-    </div>
-    <div class="clearfix"></div>
-  </div>
   <uib-accordion close-others="true">
     <uib-accordion-group class="list-group-item"
-      is-open="goal.isopen"
+      is-open="goal.isOpen"
       data-ng-repeat="goal in sgl.student.goals"
       data-ng-click="sgl.showAttempts(goal)"
       data-panel-class="panel-primary"
-      data-heading="{{goal.name}}">
+      data-heading="{{goal.name || '**No Name For This Goal**'}}">
+      <div class="alert alert-danger"
+        data-ng-if="sgl.isGoalAlertShown">
+        <p class="col-lg-8">Are you sure? Deleting can't be undone</p>
+        <div class="btn-group col-lg-4">
+          <button type="button"
+            class="btn btn-danger"
+            data-ng-click="sgl.deleteGoal(goal)">Yes
+          </button>
+          <button type="button"
+            class="btn btn-primary"
+            data-ng-click="sgl.toggleGoalAlert(null)">
+            No
+          </button>
+        </div>
+        <div class="clearfix"></div>
+      </div>
       <div class="col-lg-6">
       <p>{{goal.description}}</p>
       <button class="btn btn-primary"
@@ -32,7 +32,7 @@
         Edit Goal
       </button>
       <button class="btn btn-danger"
-        data-ng-click="sgl.toggleAlert(goal)">
+        data-ng-click="sgl.toggleGoalAlert(goal)">
         Delete Goal
       </button>
        <pc-attempt-progress-report data-ng-if="sgl.attempts && sgl.attempts.length">
