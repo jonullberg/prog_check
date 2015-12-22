@@ -14,7 +14,7 @@ module ProgCheck {
     sl.init = function() {
       getStandards();
     };
-
+    sl.dataLoaded = false;
     /**
      * Opens modal with ability to add a new standard
      */
@@ -45,7 +45,9 @@ module ProgCheck {
     // Private Functions
     function getStandards() {
       if (!AdminData.Standards.getStandards()) {
-        AdminData.Standards.fetchStandards();
+        AdminData.Standards.fetchStandards(function(err, data) {
+          sl.dataLoaded = true;
+        });
       }
       sl.standards = AdminData.Standards.getStandards();
     }

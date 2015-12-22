@@ -10,6 +10,7 @@ var ProgCheck;
         sl.init = function () {
             getStandards();
         };
+        sl.dataLoaded = false;
         sl.newStandardModal = function () {
             var scope = $rootScope.$new();
             AdminData.Standards.setStandard(null);
@@ -33,7 +34,9 @@ var ProgCheck;
         };
         function getStandards() {
             if (!AdminData.Standards.getStandards()) {
-                AdminData.Standards.fetchStandards();
+                AdminData.Standards.fetchStandards(function (err, data) {
+                    sl.dataLoaded = true;
+                });
             }
             sl.standards = AdminData.Standards.getStandards();
         }
