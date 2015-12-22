@@ -11,10 +11,12 @@ module ProgCheck {
 
     // Public Functions
     var sl = this;
+
+    sl.dataLoaded = false;
+
     sl.init = function() {
       getStandards();
     };
-
     sl.select = function(standard) {
       TeacherData.Standards.setStandard(standard);
       var scope = $rootScope.$new();
@@ -35,7 +37,9 @@ module ProgCheck {
     // Private Functions
     function getStandards() {
       if (!TeacherData.Standards.getStandards()) {
-        TeacherData.Standards.fetchStandards();
+        TeacherData.Standards.fetchStandards(function(err, data) {
+          sl.dataLoaded = true;
+        });
       }
       sl.standards = TeacherData.Standards.getStandards();
     }

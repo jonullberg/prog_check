@@ -7,6 +7,7 @@ var ProgCheck;
     function standardsListModalCtrl($scope, $uibModal, $uibModalInstance, $rootScope, $cookies, TeacherData) {
         $scope.$on('standards:changed', getStandards);
         var sl = this;
+        sl.dataLoaded = false;
         sl.init = function () {
             getStandards();
         };
@@ -28,7 +29,9 @@ var ProgCheck;
         };
         function getStandards() {
             if (!TeacherData.Standards.getStandards()) {
-                TeacherData.Standards.fetchStandards();
+                TeacherData.Standards.fetchStandards(function (err, data) {
+                    sl.dataLoaded = true;
+                });
             }
             sl.standards = TeacherData.Standards.getStandards();
         }
