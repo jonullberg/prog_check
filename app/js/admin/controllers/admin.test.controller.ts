@@ -130,9 +130,7 @@ module.exports = function(app) {
     $scope.master = null;
     $scope.areWeAddingQuestions = false;
     $scope.getGoalId = function(test) {
-      console.log($scope.standard);
       if (test) {
-        console.log(test);
       }
     };
     $scope.addQuestion = function(question) {

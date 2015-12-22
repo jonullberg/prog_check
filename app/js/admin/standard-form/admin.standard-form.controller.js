@@ -58,7 +58,6 @@ var ProgCheck;
             sf.standard = AdminData.Standards.getStandard();
         }
         function setGrade(standard) {
-            console.log('setGrade', standard);
             if (standard) {
                 standard._gradeName = standard.gradeName;
                 if (Array.isArray(standard.domain)) {

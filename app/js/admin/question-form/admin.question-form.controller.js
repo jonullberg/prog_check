@@ -30,7 +30,6 @@ var ProgCheck;
             $uibModalInstance.close();
         };
         qf.cancel = function () {
-            console.log('cancel');
             $uibModalInstance.dismiss();
         };
         function getQuestion() {

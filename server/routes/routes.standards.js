@@ -7,7 +7,7 @@ var getExampleQuestions = require('./standards/controllers/get_example_questions
 module.exports = function (router) {
     router.use(bodyparser.json());
     router.get('/standards', function (req, res) {
-        Standard.find({}, function (err, data) {
+        Standard.find({}, function (err, standards) {
             if (err) {
                 winston.log('error', {
                     'Error': err,
@@ -18,7 +18,7 @@ module.exports = function (router) {
                     'msg': 'Internal Server Error'
                 });
             }
-            getExampleQuestions(data, function (standards) {
+            getExampleQuestions(standards, function (standards) {
                 res.json({
                     'standards': standards
                 });

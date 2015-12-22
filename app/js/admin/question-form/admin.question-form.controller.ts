@@ -43,7 +43,6 @@ module ProgCheck {
     }
 
     qf.cancel = function() {
-      console.log('cancel');
       $uibModalInstance.dismiss();
     };
 
