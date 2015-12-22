@@ -47,10 +47,10 @@ module.exports = function (router, passport) {
         });
     });
     router.get('/students/:studentId', jwtAuth, function (req, res) {
-        Students.findOne({ _id: req.params.studentId })
-            .then(function (student) {
+        Students.findOne({ _id: req.params.studentId }, function (err, student) {
             getGoals(student.toObject(), function (student) {
-                return res.json({
+                console.log('getting student', student);
+                res.json({
                     student: student
                 });
             });

@@ -64,14 +64,13 @@ export = function(router, passport) {
    * Gets a specific student from the server based on their ID
    */
   router.get('/students/:studentId', jwtAuth, function(req, res) {
-    Students.findOne({ _id: req.params.studentId })
-      .then(function(student) {
-        getGoals(student.toObject(), function(student) {
-          return res.json({
-            student: student
-          })
+    Students.findOne({ _id: req.params.studentId }, function(err, student) {
+      getGoals(student.toObject(), function(student) {
+        res.json({
+          student: student
         });
-      })
+      });
+    });
   });
 
   /**

@@ -18,7 +18,7 @@ export = function(router) {
    * Gets all standards
    */
   router.get('/standards', function(req, res) {
-    Standard.find({}, function(err, data) {
+    Standard.find({}, function(err, standards) {
       if (err) {
         winston.log('error', {
           'Error': err,
@@ -29,7 +29,7 @@ export = function(router) {
           'msg': 'Internal Server Error'
         });
       }
-      getExampleQuestions(data, function(standards) {
+      getExampleQuestions(standards, function(standards) {
         res.json({
           'standards': standards
         });
