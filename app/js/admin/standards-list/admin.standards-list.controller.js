@@ -10,12 +10,6 @@ var ProgCheck;
         sl.init = function () {
             getStandards();
         };
-        sl.isAdmin = function () {
-            if (AdminData.getUser().role === 'admin') {
-                return true;
-            }
-            return false;
-        };
         sl.newStandardModal = function () {
             var scope = $rootScope.$new();
             AdminData.Standards.setStandard(null);

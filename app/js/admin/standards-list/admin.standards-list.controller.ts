@@ -15,13 +15,6 @@ module ProgCheck {
       getStandards();
     };
 
-    sl.isAdmin = function() {
-      if (AdminData.getUser().role === 'admin') {
-        return true;
-      }
-      return false;
-    };
-
     /**
      * Opens modal with ability to add a new standard
      */
