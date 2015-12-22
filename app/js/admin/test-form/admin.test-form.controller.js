@@ -6,22 +6,24 @@ var ProgCheck;
         .controller('TestFormCtrl', ['$scope', '$routeParams', '$uibModalInstance', 'AdminData', testFormCtrl]);
     function testFormCtrl($scope, $routeParams, $uibModalInstance, AdminData) {
         $scope.$on('test:changed', getTest);
-        this.init = function () {
+        var tf = this;
+        tf.init = function () {
             getTest();
             getStandard();
         };
-        this.boolToString = function (arg) {
+        tf.boolToString = function (arg) {
             return arg ? 'Yes' : 'No';
         };
-        this.cancel = function (test) {
+        tf.cancel = function (test) {
             $uibModalInstance.dismiss();
         };
-        this.save = function (test) {
+        tf.save = function (test) {
             test.standardId = $routeParams.standardId;
             if ($scope.params.formType === 'editing') {
                 updateTest(test);
             }
             else if ($scope.params.formType === 'creating') {
+                console.log('creating');
                 createTest(test);
             }
             $uibModalInstance.close();
@@ -31,14 +33,14 @@ var ProgCheck;
                 if (!AdminData.Tests.getTest()) {
                     AdminData.Tests.fetchTest($routeParams.testId);
                 }
-                this.test = AdminData.Tests.getTest();
-                this.test._goal = this.test.goalId;
+                tf.test = AdminData.Tests.getTest();
+                tf.test._goal = tf.test.goalId;
                 return;
             }
-            this.test = AdminData.Tests.getTest();
+            tf.test = AdminData.Tests.getTest();
         }
         function getStandard() {
-            this.standard = AdminData.Standards.getStandard();
+            tf.standard = AdminData.Standards.getStandard();
         }
         function updateTest(test) {
             AdminData.Tests.updateTest(test);

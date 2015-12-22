@@ -142,8 +142,8 @@ export = function(router) {
   /**
    * Deletes a test from the database
    */
-  router.delete('/tests/:id', jwtAuth, function(req, res) {
-    Tests.remove({'_id': req.params.id},
+  router.delete('/tests/:testId', jwtAuth, function(req, res) {
+    Tests.remove({'_id': req.params.testId},
       function(err, data) {
         if (err) {
           winston.log('error', {

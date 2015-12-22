@@ -45,7 +45,7 @@
           </button>
           <button class="btn btn-danger" type="button"
             data-ng-click="ss.deleteGoal(goal)"
-            data-ng-if="goal.buttons && ss.isAdmin()">
+            data-ng-if="goal.buttons">
             Delete Goal
           </button>
         </li>
@@ -53,13 +53,11 @@
     </div>
     <div data-ng-class="ss.footerClass">
       <button type="button" class="btn btn-primary"
-        data-ng-click="ss.edit(standard)"
-        data-ng-if="ss.isAdmin()">
+        data-ng-click="ss.edit(standard)">
         Edit Standard
       </button>
       <button type="button" class="btn btn-danger"
-        data-ng-click="ss.toggleAlert()"
-        data-ng-if="ss.isAdmin()">
+        data-ng-click="ss.toggleAlert()">
         Delete Standard
       </button>
       <button type="button" class="btn btn-info"

@@ -73,6 +73,9 @@ var ProgCheck;
             $http.post('/api/tests/', test)
                 .then(function (response) {
                 this.setTest(response.data.test);
+                var newTests = this.tests;
+                newTests.push(response.data.test);
+                this.setTests(newTests);
                 handleCallback(cb, response, null);
             }.bind(this))
                 .catch(function (rejection) {
@@ -95,7 +98,24 @@ var ProgCheck;
                 });
             });
         }
-        function deleteTest() { }
+        function deleteTest(testId, cb) {
+            $http.delete('/api/tests/' + testId)
+                .then(function (response) {
+                var newTests = this.tests.filter(function (test) {
+                    if (test._id !== testId) {
+                        return test;
+                    }
+                });
+                this.setTests(newTests);
+                handleCallback(cb, response, null);
+            }.bind(this))
+                .catch(function (rejection) {
+                handleCallback(cb, null, rejection);
+                return Errors.addError({
+                    'msg': 'There was an error deleting that test.'
+                });
+            });
+        }
         function fetchQuestion() { }
         function createQuestion(testId, question, cb) {
             $http.post('/api/tests/' + testId + '/questions/', question)
