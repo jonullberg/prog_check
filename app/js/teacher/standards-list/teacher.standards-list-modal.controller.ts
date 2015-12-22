@@ -42,6 +42,7 @@ module ProgCheck {
         });
       }
       sl.standards = TeacherData.Standards.getStandards();
+      sl.dataLoaded = true;
     }
 
   }

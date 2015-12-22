@@ -50,6 +50,7 @@ module ProgCheck {
         });
       }
       sl.standards = AdminData.Standards.getStandards();
+      sl.dataLoaded = true;
     }
   }
 }

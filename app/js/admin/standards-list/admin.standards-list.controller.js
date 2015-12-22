@@ -39,6 +39,7 @@ var ProgCheck;
                 });
             }
             sl.standards = AdminData.Standards.getStandards();
+            sl.dataLoaded = true;
         }
     }
 })(ProgCheck || (ProgCheck = {}));
