@@ -76,6 +76,9 @@ module ProgCheck {
       $http.post('/api/students', student)
         .then(function(response) {
           this.setStudent(response.data.student);
+          var newStudents = this.getStudents();
+          newStudents.push(response.data.student);
+          this.setStudents(newStudents);
           handleCallback(cb, response, null);
         }.bind(this))
         .catch(function(rejection) {
@@ -104,6 +107,12 @@ module ProgCheck {
       $http.delete('/api/students/' + studentId)
         .then(function(response) {
           this.setStudent(null);
+          var newStudents = this.students.filter(function(student) {
+            if (student._id !== studentId) {
+              return student;
+            }
+          });
+          this.setStudents(newStudents);
           handleCallback(cb, response, null);
         }.bind(this))
         .catch(function(rejection) {

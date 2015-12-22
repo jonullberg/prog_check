@@ -53,7 +53,6 @@ export = function(router, passport) {
           'msg': 'Internal Server Error'
         });
       }
-      student = student.toObject();
       res.json({
         'student': student
       }); // end res.json
@@ -65,11 +64,15 @@ export = function(router, passport) {
    */
   router.get('/students/:studentId', jwtAuth, function(req, res) {
     Students.findOne({ _id: req.params.studentId }, function(err, student) {
-      getGoals(student.toObject(), function(student) {
-        res.json({
-          student: student
+      if (student) {
+        getGoals(student, function(student) {
+          res.json({
+            student: student
+          });
         });
-      });
+      } else {
+        res.end();
+      }
     });
   });
 

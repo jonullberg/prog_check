@@ -40,7 +40,6 @@ module.exports = function (router, passport) {
                     'msg': 'Internal Server Error'
                 });
             }
-            student = student.toObject();
             res.json({
                 'student': student
             });
@@ -48,8 +47,7 @@ module.exports = function (router, passport) {
     });
     router.get('/students/:studentId', jwtAuth, function (req, res) {
         Students.findOne({ _id: req.params.studentId }, function (err, student) {
-            getGoals(student.toObject(), function (student) {
-                console.log('getting student', student);
+            getGoals(student, function (student) {
                 res.json({
                     student: student
                 });

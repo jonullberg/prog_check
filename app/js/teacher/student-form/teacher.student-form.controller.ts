@@ -15,7 +15,7 @@ module ProgCheck {
     };
 
     sf.questionOptions = [5, 10];
-    sf.isDeleteShown = false;
+    sf.isStudentDeleteShown = false;
 
     sf.saveStudent = function(student) {
       student.teacherId = $routeParams.teacherId;
@@ -33,15 +33,15 @@ module ProgCheck {
       $uibModalInstance.dismiss('cancel');
     };
 
-    sf.toggleDelete = function() {
-      sf.isDeleteShown = !sf.isDeleteShown;
+    sf.toggleStudentDelete = function() {
+      sf.isStudentDeleteShown = !sf.isStudentDeleteShown;
     };
 
     sf.deleteStudent = function(student) {
+      $location.path('/teacher/' + $routeParams.teacherId + '/students');
       TeacherData.Students.deleteStudent(student._id, function(err) {
         TeacherData.Students.setStudent(null);
         $uibModalInstance.close();
-        $location.path('/teacher/' + $routeParams.teacherId + '/students');
       });
     };
 

@@ -6,12 +6,12 @@
   </header>
   <div class="modal-body">
     <div class="alert alert-danger"
-      data-ng-if="isDeleteShown">
+      data-ng-if="sf.isStudentDeleteShown">
       <p class="col-lg-8">Are you sure? Deleting can't be undone. You will lose all data for this student.</p>
       <div class="btn-group col-lg-4">
         <button type="button"
           class="btn btn-danger"
-          data-ng-click="sf.deleteStudent(student)">
+          data-ng-click="sf.deleteStudent(sf.student)">
           Yes
         </button>
         <button type="button"
@@ -93,7 +93,7 @@
       {{params.buttonText}}
     </button>
     <button type="button" class="btn btn-danger"
-      data-ng-click="sf.toggleDelete()"
+      data-ng-click="sf.toggleStudentDelete()"
       data-ng-if="params.formType === 'editing'">
       Delete Student
     </button>
