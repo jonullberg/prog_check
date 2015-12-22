@@ -3,8 +3,8 @@ var ProgCheck;
     'use strict';
     angular
         .module('progCheck')
-        .directive('pcHeader', ['$location', '$cookies', pcHeader]);
-    function pcHeader($location, $cookies) {
+        .directive('pcHeader', ['$location', pcHeader]);
+    function pcHeader($location) {
         var controller = ['$scope', 'AuthenticationService', function ($scope, AuthService) {
                 $scope.tabs = [{
                         header: 'Home',

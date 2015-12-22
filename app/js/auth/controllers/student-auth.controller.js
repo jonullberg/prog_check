@@ -3,8 +3,8 @@ var ProgCheck;
     'use strict';
     angular
         .module('progCheck')
-        .controller('StudentAuthCtrl', ['$scope', '$cookies', '$location', 'UserService', 'Errors', studentAuthCtrl]);
-    function studentAuthCtrl($scope, $cookies, $location, UserService, Errors) {
+        .controller('StudentAuthCtrl', ['$scope', '$location', 'UserService', 'Errors', studentAuthCtrl]);
+    function studentAuthCtrl($scope, $location, UserService, Errors) {
         $scope.authSubmit = function (student) {
             UserService.studentSignIn(student, function (err) {
                 if (err) {

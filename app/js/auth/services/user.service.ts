@@ -3,9 +3,9 @@ module ProgCheck {
 
   angular
     .module('progCheck')
-    .factory('UserService', ['$http', '$base64', '$window', 'AuthenticationService', 'jwtHelper', 'clearData', userService])
+    .factory('UserService', ['$http', '$base64', '$window', '$location', 'AuthenticationService', 'jwtHelper', 'clearData', userService])
 
-  function userService($http, $base64, $window, AuthenticationService, jwtHelper, clearData) {
+  function userService($http, $base64, $window, $location, AuthenticationService, jwtHelper, clearData) {
     return {
       signIn: function(user, callback) {
         var encoded = $base64.encode(user.email + ':' + user.password);
@@ -20,12 +20,12 @@ module ProgCheck {
             var tokenPayload;
             try {
               tokenPayload = jwtHelper.decodeToken(data.token);
+              AuthenticationService.setUser(tokenPayload.sub);
             }
             catch (e) {
               console.log('That token was invalid');
             }
             $window.localStorage['token'] = data.token;
-            AuthenticationService.setUser(tokenPayload.sub);
             callback(null, response);
           })
           .catch(function(rejection) {
@@ -47,12 +47,12 @@ module ProgCheck {
             var tokenPayload;
             try {
               tokenPayload = jwtHelper.decodeToken(data.token);
+              AuthenticationService.setUser(tokenPayload.sub);
+              console.log(tokenPayload.sub);
             }
             catch (e) {
               console.log('That token was invalid');
-              $window.localStorage.removeItem('token');
             }
-            AuthenticationService.setUser(tokenPayload.sub);
             callback(null, response);
           })
           .catch(function(rejection) {
@@ -81,9 +81,9 @@ module ProgCheck {
       },
 
       logout: function() {
-        $window.localStorage.removeItem('token');
-        AuthenticationService.setUser(null);
+        $location.path('/sign-in');
         clearData.clear();
+        $window.localStorage.removeItem('token');
       },
       authToken: function(token, cb) {
         $http
@@ -98,10 +98,10 @@ module ProgCheck {
             var tokenPayload;
             try {
               tokenPayload = jwtHelper.decodeToken(data.token);
+              AuthenticationService.setUser(tokenPayload.sub);
             } catch (e) {
               console.log('err', e);
             }
-            AuthenticationService.setUser(tokenPayload.sub);
             handleCallback(cb, response, null);
           })
           .catch(function(rejection) {

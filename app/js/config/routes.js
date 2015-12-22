@@ -210,11 +210,11 @@
       });
     }])
 
-    .run(['$rootScope', '$location', '$cookies', 'AuthenticationService', 'UserService', function($rootScope, $location, $cookies, Auth, UserService) {
+    .run(['$rootScope', '$location', '$window', 'AuthenticationService', 'UserService', function($rootScope, $location, $window, Auth, UserService) {
       $rootScope.$on('$routeChangeStart', function(event, next, current) {
         if (next.access && next.access.requiredLogin && !Auth.getUser()) {
-          if ($cookies.get('token')) {
-            UserService.authToken($cookies.get('token'));
+          if ($window.localStorage['token']) {
+            UserService.authToken($window.localStorage['token']);
           } else {
             event.preventDefault();
             $location.path('/sign-in');

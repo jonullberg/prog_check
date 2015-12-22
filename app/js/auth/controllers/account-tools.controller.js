@@ -3,8 +3,8 @@ var ProgCheck;
     'use strict';
     angular
         .module('progCheck')
-        .controller('AccountToolsCtrl', ['$scope', '$uibModal', '$cookies', '$location', 'UserService', 'AuthenticationService', accountToolsCtrl]);
-    function accountToolsCtrl($scope, $uibModal, $cookies, $location, UserService, Auth) {
+        .controller('AccountToolsCtrl', ['$scope', '$uibModal', '$location', 'UserService', 'AuthenticationService', accountToolsCtrl]);
+    function accountToolsCtrl($scope, $uibModal, $location, UserService, Auth) {
         $scope.$on('user:changed', getUsername);
         $scope.signedIn = function () {
             return Auth.user;

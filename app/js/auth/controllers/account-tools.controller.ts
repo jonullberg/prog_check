@@ -3,9 +3,9 @@ module ProgCheck {
 
   angular
     .module('progCheck')
-    .controller('AccountToolsCtrl', ['$scope', '$uibModal', '$cookies', '$location', 'UserService', 'AuthenticationService', accountToolsCtrl])
+    .controller('AccountToolsCtrl', ['$scope', '$uibModal', '$location', 'UserService', 'AuthenticationService', accountToolsCtrl])
 
-  function accountToolsCtrl($scope, $uibModal, $cookies, $location, UserService, Auth) {
+  function accountToolsCtrl($scope, $uibModal, $location, UserService, Auth) {
 
     $scope.$on('user:changed', getUsername);
     $scope.signedIn = function() {

@@ -47,11 +47,16 @@ module.exports = function (router, passport) {
     });
     router.get('/students/:studentId', jwtAuth, function (req, res) {
         Students.findOne({ _id: req.params.studentId }, function (err, student) {
-            getGoals(student, function (student) {
-                res.json({
-                    student: student
+            if (student) {
+                getGoals(student, function (student) {
+                    res.json({
+                        student: student
+                    });
                 });
-            });
+            }
+            else {
+                res.end();
+            }
         });
     });
     router.get('/students', jwtAuth, function (req, res) {

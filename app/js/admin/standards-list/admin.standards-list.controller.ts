@@ -4,9 +4,9 @@ module ProgCheck {
 
   angular
     .module('progCheck')
-    .controller('StandardsListCtrl', ['$scope', '$uibModal', '$rootScope', '$cookies', '$location', 'AdminData', standardsListCtrl])
+    .controller('StandardsListCtrl', ['$scope', '$uibModal', '$rootScope', '$location', 'AdminData', standardsListCtrl])
 
-  function standardsListCtrl($scope, $uibModal, $rootScope, $cookies, $location, AdminData) {
+  function standardsListCtrl($scope, $uibModal, $rootScope, $location, AdminData) {
     var sl = this;
     $scope.$on('standards:changed', getStandards);
 
@@ -48,9 +48,10 @@ module ProgCheck {
         AdminData.Standards.fetchStandards(function(err, data) {
           sl.dataLoaded = true;
         });
+      } else {
+        sl.dataLoaded = true;
       }
       sl.standards = AdminData.Standards.getStandards();
-      sl.dataLoaded = true;
     }
   }
 }

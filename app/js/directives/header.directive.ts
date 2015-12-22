@@ -3,9 +3,9 @@ module ProgCheck {
 
   angular
     .module('progCheck')
-    .directive('pcHeader', ['$location', '$cookies', pcHeader])
+    .directive('pcHeader', ['$location', pcHeader])
 
-  function pcHeader($location, $cookies) {
+  function pcHeader($location) {
       var controller = ['$scope', 'AuthenticationService', function($scope, AuthService) {
       $scope.tabs = [{
         header: 'Home',

@@ -7,17 +7,9 @@ module ProgCheck {
 
   function teacherData(Students, Attempts, Standards, AuthService) {
     return {
-      user: AuthService.getUser(),
       Students: Students,
       Attempts: Attempts,
-      Standards: Standards,
-      getUser: function() {
-        return this.user;
-      },
-      setUser: function(user) {
-        this.user = user;
-        return;
-      }
+      Standards: Standards
     };
   }
 }

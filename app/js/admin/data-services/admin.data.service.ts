@@ -12,17 +12,9 @@ module ProgCheck {
 
   function adminData(Auth, Standards, Tests, Teachers, jwtHelper) {
     return {
-      user: Auth.getUser(),
       Standards: Standards,
       Tests: Tests,
-      Teachers: Teachers,
-      getUser: function() {
-        return this.user;
-      },
-      setUser: function(user: Object) {
-        this.user = user;
-        return;
-      }
+      Teachers: Teachers
     };
 
   }

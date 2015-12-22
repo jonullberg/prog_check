@@ -3,8 +3,8 @@ var ProgCheck;
     'use strict';
     angular
         .module('progCheck')
-        .controller('StudentTestCtrl', ['$scope', '$routeParams', '$location', 'StudentData', studentTestCtrl]);
-    function studentTestCtrl($scope, $routeParams, $location, StudentData) {
+        .controller('StudentTestCtrl', ['$scope', '$routeParams', '$location', 'StudentData', 'AuthenticationService', studentTestCtrl]);
+    function studentTestCtrl($scope, $routeParams, $location, StudentData, AuthenticationService) {
         $scope.$on('user:changed', getUser);
         $scope.$on('test:changed', getTest);
         $scope.init = function () {
@@ -15,8 +15,6 @@ var ProgCheck;
         };
         $scope.nextText = 'Next';
         $scope.nextQuestion = function () {
-            console.log($scope.test);
-            console.log($scope.current);
             var currentQuestion = $scope.test.questions[$scope.current - 1];
             var nextQuestion = $scope.test.questions[$scope.current];
             if ($scope.current == $scope.test.maxQuestions) {
@@ -59,10 +57,10 @@ var ProgCheck;
             $scope.test = StudentData.Tests.getTest();
         }
         function getUser() {
-            if (!StudentData.getUser()) {
+            if (!AuthenticationService.getUser() || AuthenticationService.getUser().role !== 'student') {
                 return $location.path('/test-expired');
             }
-            $scope.student = StudentData.getUser();
+            $scope.student = AuthenticationService.getUser();
         }
         function submitTest(test) {
             $scope.disabled = true;

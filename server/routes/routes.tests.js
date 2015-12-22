@@ -117,8 +117,8 @@ module.exports = function (router) {
             });
         });
     });
-    router.delete('/tests/:id', jwtAuth, function (req, res) {
-        Tests.remove({ '_id': req.params.id }, function (err, data) {
+    router.delete('/tests/:testId', jwtAuth, function (req, res) {
+        Tests.remove({ '_id': req.params.testId }, function (err, data) {
             if (err) {
                 winston.log('error', {
                     'Error': err,

@@ -105,7 +105,7 @@ studentSchema.methods.generateHash = function(password, callback) {
 studentSchema.methods.generateToken = function(secret, callback) {
   var user = this;
   delete user.basic.pin;
-  getGoals(user, function(user) {
+  getGoals(user.toObject(), function(user) {
     jwt.sign({}, secret, {
       expiresIn: '1d',
       subject: user,

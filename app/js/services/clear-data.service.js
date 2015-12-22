@@ -2,13 +2,12 @@ var ProgCheck;
 (function (ProgCheck) {
     angular
         .module('progCheck')
-        .factory('clearData', ['AdminData', 'TeacherData', 'StudentData', clearData]);
-    function clearData(Admin, Teacher, Student) {
+        .factory('clearData', ['AdminData', 'TeacherData', 'StudentData', 'AuthenticationService', clearData]);
+    function clearData(Admin, Teacher, Student, Auth) {
         return {
             clear: clear
         };
         function clear() {
-            Admin.setUser(null);
             Admin.Standards.setStandards(null);
             Admin.Standards.setStandard(null);
             Admin.Standards.setGoal(null);
@@ -16,7 +15,6 @@ var ProgCheck;
             Admin.Tests.setTest(null);
             Admin.Tests.setQuestion(null);
             Admin.Teachers.setTeachers(null);
-            Teacher.setUser(null);
             Teacher.Students.setStudent(null);
             Teacher.Students.setStudents(null);
             Teacher.Students.setGoal(null);
@@ -26,9 +24,9 @@ var ProgCheck;
             Teacher.Attempts.setAttempts(null);
             Teacher.Attempts.setAttempt(null);
             Teacher.Attempts.setResults(null);
-            Student.setUser(null);
             Student.Tests.setTests(null);
             Student.Tests.setTest(null);
+            Auth.setUser(null);
         }
     }
 })(ProgCheck || (ProgCheck = {}));

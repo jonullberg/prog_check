@@ -12,8 +12,10 @@ function getGoal(student, cb) {
           'goals.$': 1
         }, function(err, results) {
           if (results) {
-            goal.name = results.goals[0].name;
-            goal.description = results.goals[0].description;
+            goal.name = results.goals[0].name ?
+              results.goals[0].name : null;
+            goal.description = results.goals[0].description ?
+              results.goals[0].description : null;
           }
           if (i == arr.length - 1) {
             cb(student);
