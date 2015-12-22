@@ -46,7 +46,6 @@ var ProgCheck;
                     try {
                         tokenPayload = jwtHelper.decodeToken(data.token);
                         AuthenticationService.setUser(tokenPayload.sub);
-                        console.log(tokenPayload.sub);
                     }
                     catch (e) {
                         console.log('That token was invalid');
