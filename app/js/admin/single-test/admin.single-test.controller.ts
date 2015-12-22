@@ -134,7 +134,7 @@ module ProgCheck {
       if (!AdminData.Standards.getStandard()) {
         AdminData.Standards.fetchStandard($routeParams.standardId);
       }
-      st.standards = AdminData.Standards.getStandard()
+      st.standard = AdminData.Standards.getStandard()
     }
     function getTest() {
       if (!AdminData.Tests.getTest()) {

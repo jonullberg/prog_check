@@ -46,13 +46,6 @@ module ProgCheck {
       }
     };
 
-    ss.isAdmin = function() {
-      if (AdminData.getUser().role === 'admin') {
-        return true;
-      }
-      return false;
-    };
-
     ss.showButtons = function(goal) {
       var original = goal.buttons;
       ss.standard.goals.forEach(function(goal) {
