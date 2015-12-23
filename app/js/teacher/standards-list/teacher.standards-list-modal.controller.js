@@ -12,6 +12,7 @@ var ProgCheck;
             getStandards();
         };
         sl.select = function (standard) {
+            console.log(standard);
             TeacherData.Standards.setStandard(standard);
             var scope = $rootScope.$new();
             scope.params = {
