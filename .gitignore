@@ -12,3 +12,5 @@ __tests__/frontend/bundle.js
 karma.conf.js
 prog-check.sublime-project
 prog-check.sublime-workspace
+**/.vscode/
+**/report/

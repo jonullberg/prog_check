@@ -1,0 +1,49 @@
+<section
+  data-ng-init="init()">
+  <h4>Goals</h4>
+  <p data-ng-if="!student.goals.length">You have no goals for your student. Feel free to add some below.</p>
+  <div class="alert alert-danger"
+    data-ng-if="isAlertShown">
+    <p class="col-lg-8">Are you sure? Deleting can't be undone</p>
+    <div class="btn-group col-lg-4">
+      <button type="button"
+        class="btn btn-danger"
+        data-ng-click="deleteGoal(goal)">Yes
+      </button>
+      <button type="button"
+        class="btn btn-primary"
+        data-ng-click="toggleAlert(null)">
+        No
+      </button>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  <uib-accordion>
+    <uib-accordion-group
+      data-ng-repeat="goal in student.goals"
+      data-ng-click="showAttempts(goal)"
+      data-panel-class="panel-primary"
+      data-heading="{{goal.name || 'goal'}}">
+      <div class="col-lg-6">
+      <p>{{goal.description}}</p>
+      <button class="btn btn-primary"
+        data-ng-click="editStudentGoal(goal)">
+        Edit Goal
+      </button>
+      <button class="btn btn-danger"
+        data-ng-click="toggleAlert(goal)">
+        Delete Goal
+      </button>
+       <pc-attempt-progress-report>
+       </pc-attempt-progress-report>
+      </div>
+      <div class="col-lg-6">
+        <pc-student-attempts
+          data-attempts="attempts"
+          data-ng-if="attempts && attempts.length">
+        </pc-student-attempts>
+      </div>
+      <div class="clearfix"></div>
+    </uib-accordion-group>
+  </uib-accordion>
+</section>

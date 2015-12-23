@@ -85,48 +85,7 @@ module ProgCheck {
           });
         });
     }
-    /**
-     * Takes a test, shuffles its questions and turnes it into a students attempt
-     * @param  {Object} test The Test object from the server
-     * @return {Object}      A process Test
-     */
-    function setUpTest(test, student, goalId) {
-      var max = getMaxQuestions(student, goalId);
-      var newTest = {
-        maxQuestions: getMaxQuestions(student, goalId),
-        studentId: student._id,
-        testId: test._id,
-        correctAnswers: 0,
-        questions: createQuestions(test.questions, max),
-        directions: test.testDirections,
-        active: true
-      };
-      return newTest;
-    }
-    function getMaxQuestions(student, goalId) {
-      var max;
-      var selectedGoal = student.goals.filter(function(goal) {
-        if (goal._id === goalId) {
-          return goal;
-        }
-      })[0];
-      if (selectedGoal.numberOfQuestions) {
-        max = selectedGoal.numberOfQuestions;
-      } else {
-        max = student.numberOfQuestions;
-      }
-      return max;
-    }
-    function createQuestions(questions, num) {
-        questions = shuffle.shuffle(questions);
-        questions = questions.slice(0, num);
-        questions.forEach(function(question) {
-          question.answers = shuffle.shuffle(question.answers);
-          question.type = 'info';
-          return question;
-        });
-        return questions;
-    }
+
     /**
      * Deals with handling callbacks, can be reused if a rejection or successful response
      * @param  {Function} cb        A callback function to execute on data

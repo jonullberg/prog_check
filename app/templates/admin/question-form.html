@@ -5,25 +5,17 @@
     <h3>Add Questions</h3>
   </div>
   <div class="modal-body">
-    <ul data-ng-if="qf.test.questionType === 'text'">
-      <li data-ng-repeat="question in qf.test.questions">
-        <span class="fraction"
-          data-ng-bind-html="qf.trustAsHtml(question.question)">
-          {{question.question}}
-        </span>
-      </li>
-    </ul>
-    <div class="form-group"
-      data-ng-if="qf.test.questionType === 'text'">
+    <div class="form-group">
       <label for="question">Question: </label>
-      <textarea class="form-control"
+      <textarea
+        class="form-control"
         name="question"
         id="question"
-        data-ng-model="qf.question.question">
+        data-ng-model="question.question">
       </textarea>
     </div>
 
-    <div class="form-group" data-ng-if="qf.test.answerType === 'text'">
+    <div class="form-group">
       <label for="correctAnswer">Correct answer: </label>
       <textarea class="form-control"
         name="correctAnswer" id="correctAnswer"
