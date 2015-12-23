@@ -1,0 +1,12 @@
+<section
+  data-ng-init="sgl.init()">
+  <h4>Goals</h4>
+  <p data-ng-if="!sgl.student.goals.length">You have no goals for your student. Feel free to add some below.</p>
+  <uib-accordion>
+    <pc-student-goal
+      data-ng-repeat="goal in sgl.student.goals"
+      goal="goal"
+      edit-student-goal="sgl.editStudentGoal(goal)">
+    </pc-student-goal>
+  </uib-accordion>
+</section>

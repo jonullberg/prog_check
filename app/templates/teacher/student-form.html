@@ -1,0 +1,106 @@
+<form name="studentForm"
+  data-ng-submit="sf.saveStudent(sf.student)"
+  data-ng-init="sf.init()">
+  <header class="modal-header">
+    <h3>Add A Student</h3>
+  </header>
+  <div class="modal-body">
+    <div class="alert alert-danger"
+      data-ng-if="sf.isStudentDeleteShown">
+      <p class="col-lg-8">Are you sure? Deleting can't be undone. You will lose all data for this student.</p>
+      <div class="btn-group col-lg-4">
+        <button type="button"
+          class="btn btn-danger"
+          data-ng-click="sf.deleteStudent(sf.student)">
+          Yes
+        </button>
+        <button type="button"
+          class="btn btn-primary"
+          data-ng-click="sf.toggleDelete()">
+          No
+        </button>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="firstName"
+        name="firstName"
+        placeholder="Jane..."
+        required
+        data-ng-model="sf.student.firstName">
+    </div>
+    <div class="form-group">
+      <label for="lastName">Last Name</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Doe..."
+        required
+        id="lastName"
+        name="lastName"
+        data-ng-model="sf.student.lastName">
+    </div>
+    <div class="form-inline">
+      <div class="form-group">
+        <label for="pin">PIN</label>
+        <input
+          type="text"
+          minlength=4
+          maxlength=4
+          class="form-control"
+          required
+          placeholder="PIN" r
+          id="pin"
+          name="pin"
+          data-ng-model="sf.student.basic.pin">
+
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="numberOfQuestions">How many questions would you like to have them answer per test? (Default)</label><br />
+      <span>If you set a number on that specific test, this will be overridden</span>
+      <select name="numberOfQuestions"
+        id="numberOfQuestions"
+        class="form-control col-lg-6"
+        required
+        data-ng-options="number for number in sf.questionOptions"
+        data-ng-model="sf.student.numberOfQuestions">
+        <option></option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="goalPriority">How would you like to set a goal priority?</label>
+      <span data-ng-if="student.goalPriority">{{priorityMessage}}</span>
+      <select name="goalPriority" id="goalPriority"
+        class="form-control col-lg-6"
+        data-ng-model="sf.student.goalPriority">
+        <option value="" disabled>Select an Option</option>
+        <option value="date">Prioritize By Date</option>
+        <option value="manual">Prioritize Manually</option>
+      </select>
+    </div>
+
+
+  </div>
+  <footer class="modal-footer">
+    <button type="submit"
+      class="btn btn-primary">
+      {{params.buttonText}}
+    </button>
+    <button type="button" class="btn btn-danger"
+      data-ng-click="sf.toggleStudentDelete()"
+      data-ng-if="params.formType === 'editing'">
+      Delete Student
+    </button>
+    <button type="button"
+      class="btn btn-info"
+      data-ng-click="sf.cancel()">
+      Cancel
+    </button>
+  </footer>
+</form>

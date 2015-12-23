@@ -1,0 +1,99 @@
+* {
+  font-family: 'Calibri Light', 'Open Sans', 'Helvetica', 'Arial', 'Lato', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Happy Monkey', cursive;
+}
+
+.logo {
+  text-indent: -9999px;
+  background-image: url('//s3.amazonaws.com/progcheck/assets/img/transparent-bg-logo.png');
+  background-size:contain;
+  background-repeat:no-repeat;
+}
+#header .navbar-nav {
+  margin-bottom:20px;
+}
+#header-logo {
+  height:125px;
+}
+
+.container {
+  margin-left:auto;
+  margin-right: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* Styling for the user tabs */
+.auth-view {
+  width: 50%;
+  margin: 0 auto;
+}
+
+
+/**==================
+ * Fraction Styling
+ ====================*/
+
+div.fraction {
+  display:inline-block;
+  padding:5px 10px;
+  box-sizing:border-box;
+  margin-top:5px;
+  margin-bottom:5px;
+}
+span.frac-whole {
+  font-size:2em;
+}
+
+span.frac {
+  box-sizing:border-box;
+  display:inline-block;
+  font-size:100%;
+  text-align:center;
+  padding:5px;
+}
+
+span.frac > sup {
+  display:block;
+  border-bottom: 1px solid;
+  margin-top:10px;
+  font:inherit;
+  top:0;
+}
+
+span.frac > span {
+  display:none;
+  bottom:0;
+}
+
+span.frac > sub {
+  padding-top:0;
+  display:block;
+  font:inherit;
+}
+
+/**
+ * Footer Styling
+ */
+
+.footer {
+  position:absolute;
+  bottom:0;
+  width:100%;
+  height:80px;
+}
+
+.green {
+  color: green;
+}
+
+.red {
+  color:red;
+}
+
+.angular-with-newlines {
+  white-space: pre-wrap;
+}

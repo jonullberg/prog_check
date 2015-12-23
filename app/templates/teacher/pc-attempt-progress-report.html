@@ -1,8 +1,0 @@
-<div
-  data-ng-init="init()">
-  <h4>Progress Report for {{student.firstName + ' ' + student.lastName}}</h4>
-  <p>
-    On {{results.testsTaken}} progress checks based on {{goal.name}}, {{student.firstName}} {{student.lastName}} has been averaging {{results.averageCorrect}} out of 10* problems correct, or {{(results.correct / results.possible * 100).toFixed(1) + '%'}}, from {{results.earliestTest | date: 'MMM d, yyyy'}} to {{results.latestTest | date: 'MMM d, yyyy'}}. On the most recent progress check, taken {{results.latestTest | date: 'MMM d, yyyy'}}, {{student.firstName}} {{student.lastName}} correctly answered {{ results.recent.correctAnswers}} out of {{results.recent.questions.length}} problems, or {{(results.recent.correctAnswers / results.recent.questions.length * 100).toFixed(1) + '%'}}.
-  </p>
-  <sup>* As your student may have taken tests with five or ten questions, all results have been averaged out to assume the tests had ten questions. That means if your student has taken tests with five questions, halve their score to see what they are actually averaging per test.</sup>
-</div>

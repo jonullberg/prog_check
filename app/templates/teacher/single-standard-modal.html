@@ -1,0 +1,61 @@
+<section
+  data-ng-init="ss.init()">
+  <header class="modal-header">
+    <h3 class="col-lg-9">
+      {{ss.standard.name}}
+    </h3>
+    <button type="button"
+      class="btn btn-default col-lg-3"
+      data-ng-click="ss.goBack()">Go Back</button>
+    <div class="clearfix"></div>
+  </header>
+  <div class="modal-body">
+    <h3>Standard</h3>
+    <p>
+      {{ss.standard.language}}
+    </p>
+    <h3>Goals</h3>
+    <p data-ng-if="!ss.standard.goals || !ss.standard.goals.length">
+      There are no goals for this standard. Please send a request to the administrator.
+    </p>
+    <ul>
+      <li
+        data-ng-repeat="goal in ss.standard.goals"
+        data-ng-click="ss.showDescription(goal)">
+          <h4><strong>{{goal.name || goal.description}}</strong></h4>
+        <p>
+          {{goal.description}}
+        </p>
+        <p
+          data-ng-if="goal.enableExample">
+          <strong>Directions: </strong><br>
+          <span>{{goal.exampleDirections}}</span><br>
+          <strong>Example:</strong><br>
+          <span data-ng-bind-html="goal.exampleQuestion | to_trusted">
+            {{goal.exampleQuestion}}
+          </span>
+
+          <p
+            data-ng-if="!goal.exampleQuestion && goal.enableExample">
+            Sorry, there was no example question. Please ask the Administrator to add one.
+          </p>
+
+        </p>
+
+        <div>
+          <button class="btn btn-primary text-right" type="button"
+            data-ng-click="ss.addGoal(goal)">
+            Add Goal
+            <span class="glyphicon glyphicon-plus"></span>
+          </button>
+          <button class="btn btn-info text-right" type="button"
+            data-ng-click="ss.showExampleQuestion(goal)">
+            View Example Question
+          </button>
+
+        </div>
+      </li>
+    </ul>
+    <div class="clearfix"></div>
+  </div>
+</section>

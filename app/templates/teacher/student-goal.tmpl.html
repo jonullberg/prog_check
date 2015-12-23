@@ -1,0 +1,43 @@
+<div>
+  <uib-accordion-group class="list-group-item"
+    is-open="goal.isOpen"
+    data-panel-class="panel-primary">
+    <uib-accordion-heading>
+      <span
+        data-ng-click="selectGoal(goal)">
+        {{goal.name || '**No Name For This Goal**'}}
+      </span>
+    </uib-accordion-heading>
+    <pc-delete-alert
+      data-ng-if="isAlertShown"
+      delete="deleteGoal(item)"
+      item="goal"
+      toggle="toggleAlert()">
+    </pc-delete-alert>
+    <div class="col-lg-6">
+      <p>{{goal.description}}</p>
+      <button class="btn btn-primary"
+        data-ng-click="editStudentGoal({goal: goal})">
+        Edit Goal
+      </button>
+      <button class="btn btn-danger"
+        data-ng-click="toggleAlert()">
+        Delete Goal
+      </button>
+
+      <pc-attempt-progress-report
+        results="results"
+        goal="goal"
+        data-ng-if="attempts.length">
+      </pc-attempt-progress-report>
+
+    </div>
+    <div class="col-lg-6">
+      <pc-student-attempts
+        attempts="attempts"
+        data-ng-if="attempts.length">
+      </pc-student-attempts>
+    </div>
+    <div class="clearfix"></div>
+  </uib-accordion-group>
+</div>
