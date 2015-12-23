@@ -4,7 +4,6 @@ var Test = require('../../../models/Test');
 
 function getExampleQuestions(standards, cb) {
   standards.forEach(function(standard, i, arr1) {
-    standard = standard.toObject();
     standard.goals.forEach(function(goal, j, arr2) {
       Test.findOne({
         'goalId': goal._id
@@ -12,6 +11,7 @@ function getExampleQuestions(standards, cb) {
         if (test && test.questions) {
           var question = test.questions[0];
           if (test && question) {
+            goal.exampleDirections = test.testDirections;
             goal.exampleQuestion = test.questions[0].question;
           } else {
             goal.exampleQuestion = null;

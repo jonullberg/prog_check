@@ -27,9 +27,14 @@
           {{goal.description}}
         </p>
         <p
-          data-ng-if="goal.enableExample"
-          data-ng-bind-html="goal.exampleQuestion | to_trusted">
-          Example - {{goal.exampleQuestion}}
+          data-ng-if="goal.enableExample">
+          <strong>Directions: </strong><br>
+          <span>{{goal.exampleDirections}}</span><br>
+          <strong>Example:</strong><br>
+          <span data-ng-bind-html="goal.exampleQuestion | to_trusted">
+            {{goal.exampleQuestion}}
+          </span>
+
           <p
             data-ng-if="!goal.exampleQuestion && goal.enableExample">
             Sorry, there was no example question. Please ask the Administrator to add one.

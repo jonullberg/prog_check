@@ -18,7 +18,8 @@ export = function(router) {
    * Gets all standards
    */
   router.get('/standards', function(req, res) {
-    Standard.find({}, function(err, standards) {
+    Standard.find({}).lean().exec(function(err, standards) {
+      console.log(err);
       if (err) {
         winston.log('error', {
           'Error': err,

@@ -26,7 +26,7 @@ module ProgCheck {
     ss.openGoalForm = function() {
       $uibModal.open({
         animation: true,
-        templateUrl: '/templates/admin/standards-list.html',
+        templateUrl: '/templates/teacher/standards-list-modal.tmpl.html',
         size: 'lg',
         controller: 'StandardsListModalCtrl',
         controllerAs: 'sl'
