@@ -12,7 +12,7 @@ module ProgCheck {
     return {
       restrict: 'E',
       replace: true,
-      templateUrl: '/templates/teacher/student-goals-list.html',
+      templateUrl: '/templates/teacher/student-goals-list.tmpl.html',
       link: function(scope, iElement, iAttrs) {
 
       },
