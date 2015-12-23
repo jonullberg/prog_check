@@ -155,7 +155,7 @@ module.exports = function (router, passport) {
     });
     router.put('/students/:studentId/goals', jwtAuth, function (req, res) {
         var goal = req.body;
-        Students.findById(req.params.studentId, function (err, student) {
+        Students.findById(req.params.studentId).lean().exec(function (err, student) {
             if (err) {
                 winston.log('error', {
                     'Error': err,
@@ -166,9 +166,14 @@ module.exports = function (router, passport) {
                     'msg': 'Internal Server Error'
                 });
             }
-            student = student.toObject();
-            student.goals.splice(student.goals.indexOf(goal), 1, goal);
-            Students.update({ _id: student._id }, student, function (err, data) {
+            Students.update({
+                _id: student._id,
+                'goals.goalId': goal.goalId
+            }, {
+                $set: {
+                    'goals.$': goal
+                }
+            }, function (err, data) {
                 if (err) {
                     winston.log('error', {
                         'Error': err,

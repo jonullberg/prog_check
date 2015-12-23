@@ -8,7 +8,6 @@ module.exports = function (router) {
     router.use(bodyparser.json());
     router.get('/standards', function (req, res) {
         Standard.find({}).lean().exec(function (err, standards) {
-            console.log(err);
             if (err) {
                 winston.log('error', {
                     'Error': err,
