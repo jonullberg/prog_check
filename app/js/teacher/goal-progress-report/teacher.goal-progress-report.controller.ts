@@ -12,18 +12,13 @@ module ProgCheck {
     .controller('ProgressReportCtrl', ['$scope', '$routeParams', 'TeacherData', progressReportCtrl])
   function progressReportCtrl($scope, $routeParams, TeacherData) {
     var pr = this;
-    $scope.$on('results:changed', getResults);
 
     // Public Functions
     pr.init = function() {
-      getResults();
       getStudent();
     };
 
     // Private Functions
-    function getResults() {
-      pr.results = TeacherData.Attempts.getResults();
-    }
     function getStudent() {
       pr.student = TeacherData.Students.getStudent();
     }

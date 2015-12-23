@@ -8,7 +8,11 @@ var ProgCheck;
         return {
             restrict: 'E',
             replace: true,
-            templateUrl: '/templates/teacher/goal-progress-report.html',
+            templateUrl: '/templates/teacher/goal-progress-report.tmpl.html',
+            scope: {
+                results: '=',
+                goal: '='
+            },
             controller: 'ProgressReportCtrl as pr'
         };
     }
