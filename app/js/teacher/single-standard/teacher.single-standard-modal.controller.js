@@ -55,7 +55,6 @@ var ProgCheck;
         };
         function getStandard() {
             ss.standard = TeacherData.Standards.getStandard();
-            console.log(ss.standard);
         }
     }
 })(ProgCheck || (ProgCheck = {}));
