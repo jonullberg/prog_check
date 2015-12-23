@@ -40,9 +40,10 @@ module ProgCheck {
         TeacherData.Standards.fetchStandards(function(err, data) {
           sl.dataLoaded = true;
         });
+      } else {
+        sl.dataLoaded = true;
       }
       sl.standards = TeacherData.Standards.getStandards();
-      sl.dataLoaded = true;
     }
 
   }

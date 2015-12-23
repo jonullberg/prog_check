@@ -9,6 +9,7 @@ var ProgCheck;
         $scope.$on('attempts:changed', getAttempts);
         var sgl = this;
         sgl.isGoalAlertShown = false;
+        sgl.closeOthers = true;
         sgl.init = function () {
             getStudent();
         };
@@ -17,8 +18,6 @@ var ProgCheck;
             sgl.student.goals.forEach(function (goal) {
                 goal.isOpen = false;
             });
-            console.log(goal);
-            console.log(sgl.student.goals);
             goal.isOpen = !original;
             TeacherData.Attempts.fetchAttemptsByGoal($routeParams.studentId, goal.goalId);
         };

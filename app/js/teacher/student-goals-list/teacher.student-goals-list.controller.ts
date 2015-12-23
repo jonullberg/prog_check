@@ -16,6 +16,7 @@ module ProgCheck {
     // Public Functions
     var sgl = this;
     sgl.isGoalAlertShown = false;
+    sgl.closeOthers = true;
     sgl.init = function() {
       getStudent();
     };
@@ -24,8 +25,6 @@ module ProgCheck {
       sgl.student.goals.forEach(function(goal) {
         goal.isOpen = false;
       });
-      console.log(goal);
-      console.log(sgl.student.goals);
       goal.isOpen = !original;
       TeacherData.Attempts.fetchAttemptsByGoal($routeParams.studentId, goal.goalId);
     };

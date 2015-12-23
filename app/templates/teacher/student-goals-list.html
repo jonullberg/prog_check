@@ -2,13 +2,15 @@
   data-ng-init="sgl.init()">
   <h4>Goals</h4>
   <p data-ng-if="!sgl.student.goals.length">You have no goals for your student. Feel free to add some below.</p>
-  <uib-accordion close-others="true">
+  <uib-accordion close-others="sgl.closeOthers">
     <uib-accordion-group class="list-group-item"
       is-open="goal.isOpen"
       data-ng-repeat="goal in sgl.student.goals"
-      data-ng-click="sgl.showAttempts(goal)"
       data-panel-class="panel-primary"
-      data-heading="{{goal.name || '**No Name For This Goal**'}}">
+      data-ng-click="sgl.showAttempts(goal)">
+      <uib-accordion-heading>
+        {{goal.name || goal.description || '**No Name For This Goal**'}}
+      </uib-accordion-heading>
       <div class="alert alert-danger"
         data-ng-if="sgl.isGoalAlertShown">
         <p class="col-lg-8">Are you sure? Deleting can't be undone</p>

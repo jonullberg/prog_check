@@ -65,7 +65,7 @@ export = function(router, passport) {
   router.get('/students/:studentId', jwtAuth, function(req, res) {
     Students.findOne({ _id: req.params.studentId }, function(err, student) {
       if (student) {
-        getGoals(student, function(student) {
+        getGoals(student.toObject(), function(student) {
           res.json({
             student: student
           });

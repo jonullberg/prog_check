@@ -33,8 +33,10 @@ var ProgCheck;
                     sl.dataLoaded = true;
                 });
             }
+            else {
+                sl.dataLoaded = true;
+            }
             sl.standards = TeacherData.Standards.getStandards();
-            sl.dataLoaded = true;
         }
     }
 })(ProgCheck || (ProgCheck = {}));
