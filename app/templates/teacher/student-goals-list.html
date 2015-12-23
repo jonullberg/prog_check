@@ -2,14 +2,13 @@
   data-ng-init="sgl.init()">
   <h4>Goals</h4>
   <p data-ng-if="!sgl.student.goals.length">You have no goals for your student. Feel free to add some below.</p>
-  <uib-accordion close-others="sgl.closeOthers">
+  <uib-accordion>
     <uib-accordion-group class="list-group-item"
       is-open="goal.isOpen"
       data-ng-repeat="goal in sgl.student.goals"
-      data-panel-class="panel-primary"
-      data-ng-click="sgl.showAttempts(goal)">
+      data-panel-class="panel-primary">
       <uib-accordion-heading>
-        {{goal.name || goal.description || '**No Name For This Goal**'}}
+        <span data-ng-click="sgl.showAttempts(goal)">{{goal.name || goal.description || '**No Name For This Goal**'}}</span>
       </uib-accordion-heading>
       <div class="alert alert-danger"
         data-ng-if="sgl.isGoalAlertShown">

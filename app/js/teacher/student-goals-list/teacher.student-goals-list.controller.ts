@@ -12,11 +12,11 @@ module ProgCheck {
 
     $scope.$on('student:changed', getStudent);
     $scope.$on('attempts:changed', getAttempts);
+    $scope.$on('results:changed', getResults);
 
     // Public Functions
     var sgl = this;
     sgl.isGoalAlertShown = false;
-    sgl.closeOthers = true;
     sgl.init = function() {
       getStudent();
     };
@@ -82,6 +82,10 @@ module ProgCheck {
         sgl.isGoalAlertShown = true;
       }
       sgl.goal = goal;
+    }
+
+    function getResults() {
+      sgl.results = TeacherData.Attempts.getResults();
     }
 
   }

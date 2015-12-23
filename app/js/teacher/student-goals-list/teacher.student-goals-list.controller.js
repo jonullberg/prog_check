@@ -7,9 +7,9 @@ var ProgCheck;
     function studentGoalsListCtrl($scope, $rootScope, $routeParams, $uibModal, TeacherData) {
         $scope.$on('student:changed', getStudent);
         $scope.$on('attempts:changed', getAttempts);
+        $scope.$on('results:changed', getResults);
         var sgl = this;
         sgl.isGoalAlertShown = false;
-        sgl.closeOthers = true;
         sgl.init = function () {
             getStudent();
         };
@@ -68,6 +68,9 @@ var ProgCheck;
                 sgl.isGoalAlertShown = true;
             }
             sgl.goal = goal;
+        }
+        function getResults() {
+            sgl.results = TeacherData.Attempts.getResults();
         }
     }
 })(ProgCheck || (ProgCheck = {}));
