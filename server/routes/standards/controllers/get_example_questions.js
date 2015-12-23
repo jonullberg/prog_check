@@ -18,7 +18,6 @@ function getExampleQuestions(standards, cb) {
           }
         }
         if (i == arr1.length - 1 && j == arr2.length - 1) {
-          console.log(standards);
           cb(standards);
         }
       })
