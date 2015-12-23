@@ -162,7 +162,6 @@
       // A student homepage
       .when('/student/:studentId/home', {
         templateUrl: 'templates/student/home.html',
-        controller: 'StudentHomeCtrl',
         access: {
           requiredLogin: true,
           requiredStudent: true

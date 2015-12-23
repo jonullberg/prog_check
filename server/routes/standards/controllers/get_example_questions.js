@@ -12,7 +12,7 @@ function getExampleQuestions(standards, cb) {
         if (test && test.questions) {
           var question = test.questions[0];
           if (test && question) {
-            goal.exampleQuestion = test.questions[Math.floor(Math.random() * test.questions.length)].question;
+            goal.exampleQuestion = test.questions[0].question;
           } else {
             goal.exampleQuestion = null;
           }

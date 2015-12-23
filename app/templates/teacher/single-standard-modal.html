@@ -12,7 +12,7 @@
   <div class="modal-body">
     <h3>Standard</h3>
     <p>
-      {{standard.language}}
+      {{ss.standard.language}}
     </p>
     <h3>Goals</h3>
     <p data-ng-if="!ss.standard.goals || !ss.standard.goals.length">
@@ -22,9 +22,9 @@
       <li
         data-ng-repeat="goal in ss.standard.goals"
         data-ng-click="ss.showDescription(goal)">
-          Name - {{goal.name || goal.description}}
-        <p data-ng-if="goal.descriptionShowing && goal.name">
-          Description - {{goal.description}}
+          <h5>{{goal.name || goal.description}}</h5>
+        <p>
+          {{goal.description}}
         </p>
         <p
           data-ng-if="goal.enableExample"

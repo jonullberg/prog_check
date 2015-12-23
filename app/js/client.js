@@ -59,6 +59,7 @@
   require('./directives/footer.directive');
   require('./auth/directives/account-tools.directive');
   require('./directives/convert-to-number.directive');
+  require('./directives/delete-alert.directive');
 
     //  Test directives
 
@@ -155,6 +156,7 @@
     //  Student Goals List Directive
     require('./teacher/student-goals-list/teacher.student-goals-list.controller');
     require('./teacher/student-goals-list/teacher.student-goals-list.directive');
+    require('./teacher/student-goals-list/student-goal/teacher.student-goal.directive.js');
 
     //  Student Goal Settings
     require('./teacher/student-goal-settings/teacher.student-goal-settings.controller');
