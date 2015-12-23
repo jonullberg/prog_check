@@ -3,12 +3,19 @@ var ProgCheck;
     'use strict';
     angular
         .module('progCheck')
-        .directive('deleteAlert', deleteAlert);
-    function deleteAlert() {
+        .directive('pcDeleteAlert', pcDeleteAlert);
+    function pcDeleteAlert() {
         return {
             restrict: 'E',
             replace: true,
-            templateUrl: '/templates/directives/delete_alert.html'
+            templateUrl: '/templates/directives/delete-alert.tmpl.html',
+            scope: {
+                item: '=',
+                delete: '&',
+                toggle: '&'
+            },
+            link: function (scope, iEl, iAttr) {
+            }
         };
     }
 })(ProgCheck || (ProgCheck = {}));

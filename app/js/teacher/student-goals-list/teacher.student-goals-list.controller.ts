@@ -11,36 +11,11 @@ module ProgCheck {
   function studentGoalsListCtrl($scope, $rootScope, $routeParams, $uibModal, TeacherData) {
 
     $scope.$on('student:changed', getStudent);
-    $scope.$on('attempts:changed', getAttempts);
-    $scope.$on('results:changed', getResults);
 
     // Public Functions
     var sgl = this;
-    sgl.isGoalAlertShown = false;
     sgl.init = function() {
       getStudent();
-    };
-    sgl.showAttempts = function(goal) {
-      var original = goal.isOpen;
-      sgl.student.goals.forEach(function(goal) {
-        goal.isOpen = false;
-      });
-      goal.isOpen = !original;
-      TeacherData.Attempts.fetchAttemptsByGoal($routeParams.studentId, goal.goalId);
-    };
-    sgl.deleteGoal = function(goal) {
-      TeacherData.Students.deleteGoal($routeParams.studentId, goal.goalId);
-      toggleGoalAlert(null);
-    };
-
-    sgl.toggleGoalAlert = toggleGoalAlert;
-
-    sgl.showButtons = function(goal) {
-      var showing = goal.buttonsShowing;
-      sgl.student.goals.forEach(function(goal) {
-        goal.buttonsShowing = false;
-      });
-      goal.buttonsShowing = !showing;
     };
 
     sgl.editStudentGoal = function(goal) {
@@ -49,7 +24,7 @@ module ProgCheck {
         buttonText: 'Update Goal',
         formType: 'editing'
       };
-      scope.student = $scope.student;
+      scope.student = sgl.student;
       TeacherData.Students.setGoal(goal);
       $uibModal.open({
         animation: true,
@@ -58,34 +33,15 @@ module ProgCheck {
         controller: 'StudentGoalSettingsCtrl',
         controllerAs: 'sgs',
         scope: scope
-
       });
     };
 
     // Private Functions
-    function getAttempts() {
-      sgl.attempts = TeacherData.Attempts.getAttempts();
-    }
-
     function getStudent() {
       if (!TeacherData.Students.getStudent()) {
         TeacherData.Students.fetchStudent($routeParams.studentId);
       }
       sgl.student = TeacherData.Students.getStudent();
-    }
-
-    function toggleGoalAlert(goal) {
-      console.log('toggle');
-      if (sgl.isGoalAlertShown) {
-        sgl.isGoalAlertShown = false;
-      } else {
-        sgl.isGoalAlertShown = true;
-      }
-      sgl.goal = goal;
-    }
-
-    function getResults() {
-      sgl.results = TeacherData.Attempts.getResults();
     }
 
   }

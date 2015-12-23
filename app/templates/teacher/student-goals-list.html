@@ -3,49 +3,10 @@
   <h4>Goals</h4>
   <p data-ng-if="!sgl.student.goals.length">You have no goals for your student. Feel free to add some below.</p>
   <uib-accordion>
-    <uib-accordion-group class="list-group-item"
-      is-open="goal.isOpen"
+    <pc-student-goal
       data-ng-repeat="goal in sgl.student.goals"
-      data-panel-class="panel-primary">
-      <uib-accordion-heading>
-        <span data-ng-click="sgl.showAttempts(goal)">{{goal.name || goal.description || '**No Name For This Goal**'}}</span>
-      </uib-accordion-heading>
-      <div class="alert alert-danger"
-        data-ng-if="sgl.isGoalAlertShown">
-        <p class="col-lg-8">Are you sure? Deleting can't be undone</p>
-        <div class="btn-group col-lg-4">
-          <button type="button"
-            class="btn btn-danger"
-            data-ng-click="sgl.deleteGoal(goal)">Yes
-          </button>
-          <button type="button"
-            class="btn btn-primary"
-            data-ng-click="sgl.toggleGoalAlert(null)">
-            No
-          </button>
-        </div>
-        <div class="clearfix"></div>
-      </div>
-      <div class="col-lg-6">
-      <p>{{goal.description}}</p>
-      <button class="btn btn-primary"
-        data-ng-click="sgl.editStudentGoal(goal)">
-        Edit Goal
-      </button>
-      <button class="btn btn-danger"
-        data-ng-click="sgl.toggleGoalAlert(goal)">
-        Delete Goal
-      </button>
-       <pc-attempt-progress-report data-ng-if="sgl.attempts && sgl.attempts.length">
-       </pc-attempt-progress-report>
-      </div>
-      <div class="col-lg-6">
-        <pc-student-attempts
-          data-attempts="attempts"
-          data-ng-if="sgl.attempts && sgl.attempts.length">
-        </pc-student-attempts>
-      </div>
-      <div class="clearfix"></div>
-    </uib-accordion-group>
+      goal="goal"
+      edit-student-goal="sgl.editStudentGoal(goal)">
+    </pc-student-goal>
   </uib-accordion>
 </section>

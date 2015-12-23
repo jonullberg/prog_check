@@ -19,6 +19,7 @@ export = function(router) {
   router.post('/students/:studentId/tests/', jwtAuth, function(req, res) {
     var newAttempt = new Attempt(req.body);
     newAttempt.dateTaken = Date.now();
+    newAttempt.studentId = req.params.studentId;
     newAttempt.save(function(err, data) {
       if (err) {
         console.log(err);
@@ -26,7 +27,6 @@ export = function(router) {
           'msg': 'Internal Server Error'
         });
       }
-
       res.json({
         'test': data
       });

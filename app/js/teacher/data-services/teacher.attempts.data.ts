@@ -56,7 +56,6 @@ module ProgCheck {
     function fetchAttemptsByGoal(studentId, goalId, cb) {
       $http.get('/api/students/' + studentId + '/attempts?goalId=' + goalId)
         .then(function(response) {
-          console.log(response);
           this.setAttempts(response.data.attempts);
           this.setResults(response.data.results);
           handleCallback(cb, response, null);

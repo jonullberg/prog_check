@@ -70,7 +70,8 @@ export = function(router) {
             'msg': 'Internal Server Error'
           });
         }
-        var attempt = setUpTest(test, req.query.questions);
+        var attempt = test ?
+          setUpTest(test.toObject(), req.query.questions) : null;
         res.json({
           'test': attempt
         });
