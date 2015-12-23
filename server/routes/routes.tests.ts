@@ -59,7 +59,7 @@ export = function(router) {
         });
       });
     } else if (req.query.goalId) {
-      Tests.findOne({goalId: req.query.goalId}, function(err, test) {
+      Tests.findOne({goalId: req.query.goalId}).lean().exec(function(err, test) {
         if (err) {
           winston.log('error', {
             'Error': err,
@@ -71,7 +71,7 @@ export = function(router) {
           });
         }
         var attempt = test ?
-          setUpTest(test.toObject(), req.query.questions) : null;
+          setUpTest(test, req.query.questions) : null;
         res.json({
           'test': attempt
         });

@@ -13,7 +13,7 @@ function setUpTest(test, number) {
     directions: test.testDirections,
     testId: test._id,
     maxQuestions: number,
-    questions: shuffle(test.questions).slice(0, number)
+    questions: questions
   }
   return attempt;
 }
