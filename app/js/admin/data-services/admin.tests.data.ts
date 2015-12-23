@@ -48,8 +48,15 @@ module ProgCheck {
       fetchQuestion: fetchQuestion,
       createQuestion: createQuestion,
       updateQuestion: updateQuestion,
-      deleteQuestion: deleteQuestion
+      deleteQuestion: deleteQuestion,
+      clear: clear
     };
+
+    function clear() {
+      this.question = null;
+      this.tests = null;
+      this.tests = null;
+    }
 
     function fetchTests(standardId, cb) {
       $http.get('/api/tests?standardId=' + standardId)

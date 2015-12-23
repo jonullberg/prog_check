@@ -33,7 +33,11 @@ module ProgCheck {
       },
       fetchTests: fetchTests,
       fetchTest: fetchTest,
-      createTest: createTest
+      createTest: createTest,
+      clear: function() {
+        this.tests = null;
+        this.test = null;
+      }
     };
 
     function fetchTests(studentId, cb) {

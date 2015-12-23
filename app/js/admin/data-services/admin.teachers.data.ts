@@ -23,7 +23,13 @@ module ProgCheck {
         return;
       },
       fetchTeachers: fetchTeachers,
-      updateTeacher: updateTeacher
+      updateTeacher: updateTeacher,
+      clear: clear
+    }
+
+    function clear() {
+      this.teachers = null;
+      this.teacher = null;
     }
 
     function fetchTeachers(cb) {

@@ -41,8 +41,14 @@ var ProgCheck;
             deleteStandard: deleteStandard,
             createGoal: createGoal,
             updateGoal: updateGoal,
-            deleteGoal: deleteGoal
+            deleteGoal: deleteGoal,
+            clear: clear
         };
+        function clear() {
+            this.standards = null;
+            this.standard = null;
+            this.goal = null;
+        }
         function fetchStandards(cb) {
             $http.get('/api/standards')
                 .then(function (response) {

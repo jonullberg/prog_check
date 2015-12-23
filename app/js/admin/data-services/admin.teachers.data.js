@@ -17,8 +17,13 @@ var ProgCheck;
                 return;
             },
             fetchTeachers: fetchTeachers,
-            updateTeacher: updateTeacher
+            updateTeacher: updateTeacher,
+            clear: clear
         };
+        function clear() {
+            this.teachers = null;
+            this.teacher = null;
+        }
         function fetchTeachers(cb) {
             $http.get('/api/users')
                 .then(function (response) {

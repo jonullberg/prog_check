@@ -36,7 +36,12 @@ var ProgCheck;
             fetchAttempts: fetchAttempts,
             fetchAttemptsByGoal: fetchAttemptsByGoal,
             fetchAttempt: fetchAttempt,
-            archiveAttempt: archiveAttempt
+            archiveAttempt: archiveAttempt,
+            clear: function () {
+                this.attempts = null;
+                this.attempt = null;
+                this.results = null;
+            }
         };
         function fetchAttempts(studentId, cb) {
             $http.get('/api/students/' + studentId + '/attempts/')

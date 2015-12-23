@@ -40,7 +40,12 @@ var ProgCheck;
             deleteStudent: deleteStudent,
             createGoal: createGoal,
             updateGoal: updateGoal,
-            deleteGoal: deleteGoal
+            deleteGoal: deleteGoal,
+            clear: function () {
+                this.students = null;
+                this.student = null;
+                this.goal = null;
+            }
         };
         function fetchStudents(teacherId, cb) {
             $http.get('/api/students')

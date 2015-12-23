@@ -30,6 +30,9 @@ var ProgCheck;
                 this.user = user;
                 $rootScope.$broadcast('user:changed', this.user);
                 return;
+            },
+            clear: function () {
+                this.user = null;
             }
         };
         return auth;
