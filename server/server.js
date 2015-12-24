@@ -12,11 +12,14 @@ var env = process.env.NODE_ENV || 'DEVELOPMENT';
 // Winston Logging
 var winston = require('winston');
 var MongoDB = require('winston-mongodb').MongoDB;
-var PaperTrail = require('winston-papertrail').Papertrail
+var PaperTrail = require('winston-papertrail').Papertrail;
+
+// Add Winston Transports
 winston.add(MongoDB, {
   level: 'info',
   db: process.env.MONGOLAB_URI || 'mongodb://localhost/progcheck_dev'
 });
+
 winston.add(PaperTrail, {
   host: 'logs3.papertrailapp.com',
   port: 32135
@@ -42,12 +45,12 @@ app.use(busboy({immediate:true}));
 process.env.APP_SECRET = process.env.APP_SECRET || config.secret;
 
 // Create routers
-var usersRoutes = express.Router();
-var standardsRoutes = express.Router();
-var testsRoutes = express.Router();
-var studentsRoutes = express.Router();
-var bugsRoutes = express.Router();
-var attemptsRoutes = express.Router();
+var userRoutes = express.Router();
+var standardRoutes = express.Router();
+var testRoutes = express.Router();
+var studentRoutes = express.Router();
+var bugRoutes = express.Router();
+var attemptRoutes = express.Router();
 
 //  The database URI to connect to for saving information
 mongoose.connect(process.env.MONGOLAB_URI || config.database);
@@ -57,20 +60,20 @@ require('./lib/passport_strat')(passport);
 require('./lib/student_passport_strat')(passport);
 
 // Initialize routes
-require('./routes/routes.users.js')(usersRoutes, passport);
-require('./routes/routes.standards.js')(standardsRoutes);
-require('./routes/routes.tests.js')(testsRoutes);
-require('./routes/routes.students.js')(studentsRoutes, passport);
-require('./routes/routes.bugs.js')(bugsRoutes);
-require('./routes/routes.attempts.js')(attemptsRoutes);
+require('./routes/user.routes.js')(userRoutes, passport);
+require('./routes/standard.routes.js')(standardRoutes);
+require('./routes/test.routes.js')(testRoutes);
+require('./routes/student.routes.js')(studentRoutes, passport);
+require('./routes/bug.routes.js')(bugRoutes);
+require('./routes/attempt.routes.js')(attemptRoutes);
 
 // Use prefixes for routes
-app.use('/api', usersRoutes);
-app.use('/api', standardsRoutes);
-app.use('/api', testsRoutes);
-app.use('/api', studentsRoutes);
-app.use('/api', bugsRoutes);
-app.use('/api', attemptsRoutes)
+app.use('/api', userRoutes);
+app.use('/api', standardRoutes);
+app.use('/api', testRoutes);
+app.use('/api', studentRoutes);
+app.use('/api', bugRoutes);
+app.use('/api', attemptRoutes)
 
 app.listen(port, function() {
 	console.log('Your server is running on port ' + port);
