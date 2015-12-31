@@ -14,6 +14,7 @@ module ProgCheck {
 
     // Public Functions
     var sgl = this;
+
     sgl.init = function() {
       getStudent();
     };

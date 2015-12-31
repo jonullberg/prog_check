@@ -24,17 +24,18 @@
         data-ng-click="toggleAlert()">
         Delete Goal
       </button>
-
-      <pc-attempt-progress-report
+      <pc-goal-progress-report
         results="results"
         goal="goal"
-        data-ng-if="attempts.length">
-      </pc-attempt-progress-report>
+        data-ng-if="attempts.length"
+        results-loaded="resultsLoaded">
+      </pc-goal-progress-report>
 
     </div>
     <div class="col-lg-6">
       <pc-student-attempts
         attempts="attempts"
+        loaded="loaded"
         data-ng-if="attempts.length">
       </pc-student-attempts>
     </div>

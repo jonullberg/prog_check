@@ -6,9 +6,7 @@
     <div class="clearfix"></div>
   </header>
   <div class="panel-body">
-    <p class="text-center" ng-hide="sl.dataLoaded">
-        <i class="fa fa-spinner fa-spin fa-5x"></i>
-    </p>
+    <pc-data-loading data-ng-if="!sl.dataLoaded"></pc-data-loading>
     <div class="input-group col-md-12">
       <input type="text"
         class="form-control input-lg"
