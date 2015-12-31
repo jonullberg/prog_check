@@ -1,4 +1,4 @@
-module ProgCheck {
+module ProgCheck.Directives {
   'use strict';
 
   angular
@@ -13,7 +13,8 @@ module ProgCheck {
       scope: {
         item: '=',
         delete: '&',
-        toggle: '&'
+        toggle: '&',
+        text: '='
       },
       link: function(scope, iEl, iAttr) {
       }
