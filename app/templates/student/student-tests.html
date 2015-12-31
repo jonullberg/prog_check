@@ -2,7 +2,7 @@
   <h2>Hello {{studentTestsCtrl.student.firstName}}! <br />Here are the tests you can take next</h2>
   <ul class="list-group">
     <li class="list-group-item"
-      data-ng-repeat="goal in studentTestsCtrl.student.goals | orderBy: '-dateLastTaken'">
+      data-ng-repeat="goal in studentTestsCtrl.student.goals | orderBy: 'dateLastTaken'">
       <h3 class="col-lg-6">{{goal.name}}</h3>
       <div class="col-lg-2">
         <button class="btn btn-primary btn-lg"
