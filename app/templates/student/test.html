@@ -1,6 +1,8 @@
 <main data-ng-init="init()">
   <header class="panel-heading">
-    <h3>Instructions: </h3>
+    <h3 class="col-lg-6">Instructions: </h3>
+    <button class="col-lg-4"
+      data-ng-click="goBackToTests()">Go Back To Tests</button>
     <p>{{test.directions}}</p>
     <h3>Progress</h3>
     <uib-progress max="test.maxQuestions"><uib-bar data-ng-repeat="question in test.questions" value="1" type="{{question.type}}"><span style="color:white; white-space:no-wrap;">{{$index + 1}}</span></uib-bar></uib-progress>

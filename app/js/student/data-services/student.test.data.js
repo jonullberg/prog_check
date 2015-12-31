@@ -3,8 +3,8 @@ var ProgCheck;
     'use strict';
     angular
         .module('progCheck')
-        .factory('StudentTestData', ['$http', '$rootScope', 'Errors', 'shuffle', studentTestData]);
-    function studentTestData($http, $rootScope, Errors, shuffle) {
+        .factory('StudentTestData', ['$http', '$rootScope', 'Errors', 'AuthenticationService', 'shuffle', studentTestData]);
+    function studentTestData($http, $rootScope, Errors, AuthService, shuffle) {
         return {
             tests: null,
             test: null,
@@ -65,10 +65,11 @@ var ProgCheck;
                 });
             });
         }
-        function createTest(studentId, test, cb) {
-            $http.post('/api/students/' + studentId + '/tests/', test)
+        function createTest(studentId, test, goalId, cb) {
+            $http.post('/api/students/' + studentId + '/tests?goalId=' + goalId, test)
                 .then(function (response) {
                 this.setTest(response.data.test);
+                AuthService.setUser(response.data.student);
                 handleCallback(cb, response, null);
             }.bind(this))
                 .catch(function (rejection) {

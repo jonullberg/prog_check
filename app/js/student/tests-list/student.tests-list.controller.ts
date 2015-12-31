@@ -7,23 +7,22 @@ module ProgCheck {
 
   function studentTestsCtrl($scope, $location, $routeParams, StudentData, AuthenticationService) {
     $scope.$on('student:changed', getUser);
-    $scope.init = init;
-    $scope.getTest = getTest;
-    function init() {
-      getUser($routeParams.studentId);
-    }
 
-    function getTest(goal) {
+    var studentTestsCtrl = this;
+    studentTestsCtrl.init = function init() {
+      getUser($routeParams.studentId);
+    };
+    studentTestsCtrl.getTest = function getTest(goal) {
       StudentData.Tests.fetchTest(goal, AuthenticationService.getUser(), function(err, data) {
-        $location.path('/student/' + $routeParams.studentId + '/tests/' + data.test._id);
+        $location.path('/student/' + $routeParams.studentId + '/tests/' + data.test.testId).search('goalId', goal.goalId);
       });
-    }
+    };
 
     function getUser(studentId) {
       if (!AuthenticationService.getUser() || AuthenticationService.getUser().role !== 'student') {
         $location.path('/sign-in')
       }
-      $scope.student = AuthenticationService.getUser();
+      studentTestsCtrl.student = AuthenticationService.getUser();
     }
   }
 

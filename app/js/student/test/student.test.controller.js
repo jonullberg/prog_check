@@ -50,6 +50,9 @@ var ProgCheck;
         $scope.selectAnswer = function (answer) {
             $scope.test.questions[($scope.current - 1)].submitted = answer;
         };
+        $scope.goBackToTests = function () {
+            $location.path('/student/' + $routeParams.studentId + '/tests/');
+        };
         function getTest() {
             if (!StudentData.Tests.getTest()) {
                 return $location.path('/test-expired');
@@ -64,7 +67,7 @@ var ProgCheck;
         }
         function submitTest(test) {
             $scope.disabled = true;
-            StudentData.Tests.createTest($routeParams.studentId, test, function (err, data) {
+            StudentData.Tests.createTest($routeParams.studentId, test, $routeParams.goalId, function (err, data) {
                 $location.path('/student/' + $routeParams.studentId + '/attempt/' + data.test._id);
             });
         }

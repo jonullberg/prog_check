@@ -93,12 +93,15 @@ module ProgCheck {
         } else if (user.type === 'student') {
           user.pin = user.password;
           user.username = user.email;
-          UserService.studentSignIn(user, function(err) {
+          UserService.studentSignIn(user, function(err, token) {
             if (err) {
               $scope.errorMessage = 'Wrong Username or PIN';
               return;
             }
-            $location.path('/student/home');
+            var path = token
+              ? '/student/' + token.sub._id + '/tests'
+              : '/sign-in';
+            $location.path(path);
           });
         }
       }
