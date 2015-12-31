@@ -40,6 +40,17 @@ function userRouter(router, passport) {
   // Gets all users in the DB
   router.get('/users', jwtAuth, getAllUsers);
 
+  return {
+    createUser: createUser,
+    signInUser: signInUser,
+    sendToken: sendToken,
+    sendForgotPasswordEmail: sendForgotPasswordEmail,
+    generateResetToken: generateResetToken,
+    checkResetToken: checkResetToken,
+    getAllUsers: getAllUsers,
+    updateUserById: updateUserById,
+    createExpirationDate: createExpirationDate
+  };
   function createUser(req, res) {
     var newUserData = JSON.parse(JSON.stringify(req.body));
     delete newUserData.email;
@@ -187,6 +198,7 @@ function userRouter(router, passport) {
       });
     }
   }
+
   function updateUserById(req, res) {
     var newUser = req.body;
     User.update({ '_id': req.params.userId }, newUser, sendNewUser);
@@ -201,12 +213,14 @@ function userRouter(router, passport) {
     }
   }
 
+
+  // Takes the date, adds 7 days onto it and returns the new token expiration date
+  // @return {Date} The new expiration date for the token
+  function createExpirationDate() {
+    var expDate = new Date();
+    expDate.setDate(expDate.getDate() + 7);
+    return expDate;
+  }
 };
 
-// Takes the date, adds 7 days onto it and returns the new token expiration date
-// @return {Date} The new expiration date for the token
-function createExpirationDate() {
-  var expDate = new Date();
-  expDate.setDate(expDate.getDate() + 7);
-  return expDate;
-}
+

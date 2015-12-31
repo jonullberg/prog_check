@@ -7,13 +7,13 @@ var getExampleQuestions = require('./standards/controllers/get_example_questions
 function standardRouter(router) {
     router.use(bodyparser.json());
     router.get('/standards', getStandards);
-    router.delete('/standards/:standardId/goals/:goalId', jwtAuth, deleteGoalFromStandard);
-    router.get('/standards/:id', jwtAuth, getStandardById);
+    router.get('/standards/:standardId', jwtAuth, getStandardById);
     router.post('/standards', jwtAuth, createNewStandard);
-    router.put('/standards/:id', jwtAuth, updateStandardById);
-    router.delete('/standards/:id', jwtAuth, deleteStandardById);
-    router.put('/standards/:standardId/goals/:goalId', jwtAuth, updateGoal);
     router.post('/standards/:standardId/goals', jwtAuth, createNewGoal);
+    router.put('/standards/:standardId', jwtAuth, updateStandardById);
+    router.put('/standards/:standardId/goals/:goalId', jwtAuth, updateGoal);
+    router.delete('/standards/:standardId', jwtAuth, deleteStandardById);
+    router.delete('/standards/:standardId/goals/:goalId', jwtAuth, deleteGoalFromStandard);
     function getStandards(req, res) {
         Standard.find({}).lean().exec(processStandards);
         function processStandards(err, standards) {
@@ -29,7 +29,9 @@ function standardRouter(router) {
         }
     }
     function getStandardById(req, res) {
-        Standard.findById(req.params.id).lean().exec(processStandard);
+        Standard.findById(req.params.standardId)
+            .lean()
+            .exec(processStandard);
         function processStandard(err, standard) {
             if (err) {
                 logError(err, 500, 'Internal Server Error');
@@ -45,11 +47,11 @@ function standardRouter(router) {
     function createNewStandard(req, res) {
         var newStandard = new Standard(req.body);
         newStandard.save(processStandard);
-        function processStandard(err, data) {
+        function processStandard(err, standard) {
             if (err) {
                 logError(err, 500, 'Internal Server Error');
             }
-            getExampleQuestions([data], sendUpdatedStandard);
+            getExampleQuestions([standard], sendUpdatedStandard);
             function sendUpdatedStandard(updatedStandard) {
                 res.json({
                     standard: updatedStandard[0]
@@ -60,7 +62,7 @@ function standardRouter(router) {
     function updateStandardById(req, res) {
         var updatedStandard = req.body;
         delete updatedStandard._id;
-        Standard.update({ _id: req.params.id }, updatedStandard, sendUpdateMessage);
+        Standard.update({ _id: req.params.standardId }, updatedStandard, sendUpdateMessage);
         function sendUpdateMessage(err) {
             if (err) {
                 logError(err, 500, 'Internal Server Error');
@@ -71,7 +73,7 @@ function standardRouter(router) {
         }
     }
     function deleteStandardById(req, res) {
-        Standard.remove({ '_id': req.params.id }, sendUpdateMessage);
+        Standard.remove({ '_id': req.params.standardId }, sendUpdateMessage);
         function sendUpdateMessage(err, data) {
             if (err) {
                 logError(err, 500, 'Internal Server Error');

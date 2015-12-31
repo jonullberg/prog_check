@@ -14,16 +14,6 @@ var winston = require('winston');
 var MongoDB = require('winston-mongodb').MongoDB;
 var PaperTrail = require('winston-papertrail').Papertrail;
 
-// Add Winston Transports
-winston.add(MongoDB, {
-  level: 'info',
-  db: process.env.MONGOLAB_URI || 'mongodb://localhost/progcheck_dev'
-});
-
-winston.add(PaperTrail, {
-  host: 'logs3.papertrailapp.com',
-  port: 32135
-});
 
 // Redirect requests to https if in Production mode
 var forceSsl = function(req, res, next) {
@@ -33,7 +23,21 @@ var forceSsl = function(req, res, next) {
   return next();
 };
 
+if (env === 'TEST') {
+  port = 3002;
+}
 if (env === 'PRODUCTION') {
+  // Add Winston Transports
+  winston.add(MongoDB, {
+    level: 'info',
+    db: process.env.MONGOLAB_URI || 'mongodb://localhost/progcheck_dev'
+  });
+
+  winston.add(PaperTrail, {
+    host: 'logs3.papertrailapp.com',
+    port: 32135
+  });
+
   app.use(forceSsl);
 }
 

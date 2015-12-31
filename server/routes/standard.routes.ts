@@ -17,26 +17,26 @@ function standardRouter(router) {
   // Gets all standards
   router.get('/standards', getStandards);
 
-  // Deletes a specific goal from a standard
-  router.delete('/standards/:standardId/goals/:goalId', jwtAuth, deleteGoalFromStandard);
-
   // Reads a specific standard
-  router.get('/standards/:id', jwtAuth, getStandardById);
+  router.get('/standards/:standardId', jwtAuth, getStandardById);
 
   // Creates a new standard
   router.post('/standards', jwtAuth, createNewStandard);
 
-  // Updates a specific standard
-  router.put('/standards/:id', jwtAuth, updateStandardById);
+  // Creates a goal for a specific standard
+  router.post('/standards/:standardId/goals', jwtAuth, createNewGoal);
 
-  // Deletes a specific standard
-  router.delete('/standards/:id', jwtAuth, deleteStandardById);
+  // Updates a specific standard
+  router.put('/standards/:standardId', jwtAuth, updateStandardById);
 
   // Updates a specific goal on a standard
   router.put('/standards/:standardId/goals/:goalId', jwtAuth, updateGoal);
 
-  // Creates a goal for a specific standard
-  router.post('/standards/:standardId/goals', jwtAuth, createNewGoal);
+  // Deletes a specific standard
+  router.delete('/standards/:standardId', jwtAuth, deleteStandardById);
+
+  // Deletes a specific goal from a standard
+  router.delete('/standards/:standardId/goals/:goalId', jwtAuth, deleteGoalFromStandard);
 
   function getStandards(req, res) {
     Standard.find({}).lean().exec(processStandards);
@@ -54,7 +54,9 @@ function standardRouter(router) {
   }
 
   function getStandardById(req, res) {
-    Standard.findById(req.params.id).lean().exec(processStandard);
+    Standard.findById(req.params.standardId)
+      .lean()
+      .exec(processStandard);
     function processStandard(err, standard) {
       if (err) {
         logError(err, 500, 'Internal Server Error');
@@ -71,11 +73,11 @@ function standardRouter(router) {
   function createNewStandard(req, res) {
     var newStandard = new Standard(req.body);
     newStandard.save(processStandard);
-    function processStandard(err, data) {
+    function processStandard(err, standard) {
       if (err) {
         logError(err, 500, 'Internal Server Error');
       }
-      getExampleQuestions([data], sendUpdatedStandard);
+      getExampleQuestions([standard], sendUpdatedStandard);
       function sendUpdatedStandard(updatedStandard) {
         res.json({
           standard: updatedStandard[0]
@@ -87,7 +89,7 @@ function standardRouter(router) {
   function updateStandardById(req, res) {
     var updatedStandard = req.body;
     delete updatedStandard._id;
-    Standard.update({ _id: req.params.id },
+    Standard.update({ _id: req.params.standardId },
       updatedStandard, sendUpdateMessage);
     function sendUpdateMessage(err) {
       if (err) {
@@ -100,7 +102,7 @@ function standardRouter(router) {
   }
 
   function deleteStandardById(req, res) {
-    Standard.remove({ '_id': req.params.id }, sendUpdateMessage);
+    Standard.remove({ '_id': req.params.standardId }, sendUpdateMessage);
     function sendUpdateMessage(err, data) {
       if (err) {
         logError(err, 500, 'Internal Server Error');
