@@ -32,6 +32,9 @@ module ProgCheck {
         var totalAttempts = scope.attempts;
         scope.attempts = $filter('orderBy')(totalAttempts, '-dateTaken').slice(((scope.currentPage - 1) * scope.itemsPerPage), (scope.currentPage * scope.itemsPerPage));
 
+        // Would like to turn this into an HTTP call to the server.
+        // Request first five then next five, etc, rather than
+        // requesting all tests at the same time
         scope.changePage = function setPage(num) {
           scope.currentPage = num;
           var attempts = $filter('orderBy')(totalAttempts, '-dateTaken');

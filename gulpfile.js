@@ -21,8 +21,8 @@ var paths = {
   "gulpfile": "./gulpfile.js",
   "client": "./app/js/client",
   "tests": {
-    "frontend": "app/js/**/*.spec.js",
-    "backend": "server/**/*.spec.js"
+    "frontend": "./app/js/**/*.spec.js",
+    "backend": "./server/**/*.spec.js"
   },
   "js": {
     "client": "./app/js/**/*.js",
@@ -43,7 +43,8 @@ gulp.task('watch', function() {
   gulp.watch(paths.ts.frontend, ['ts-lint:frontend', 'compile-ts:frontend']);
   // gulp.watch(paths.ts.backend, ['ts-lint:backend', 'compile-ts:backend']);
   gulp.watch([paths.js.client, paths.js.server, paths.html, paths.css], ['build']);
-  gulp.watch(paths.sass, ['sass'])
+  gulp.watch(paths.tests.backend, ['mocha:backend']);
+  gulp.watch(paths.sass, ['sass']);
 });
 
 gulp.task('scripts', function() {
@@ -143,7 +144,7 @@ gulp.task('mocha:backend', function() {
     .pipe(plug.mocha({reporter: 'spec', growl: true}));
 });
 
-gulp.task('test', ['mocha:backend', 'karma:test']);
+gulp.task('test', ['mocha:backend']);
 
 
 

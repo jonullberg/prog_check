@@ -11,13 +11,11 @@ var jwtAuth = require('../lib/jwt_auth')(process.env.APP_SECRET);
 var logError = require('../lib/log_error');
 
 export = function(router) {
-  router.use(bodyparser.json())
-  ;
+  router.use(bodyparser.json());
   // Adds a new test attempt for that student
   router.post('/students/:studentId/tests/', jwtAuth, createAttempt);
   // Gets all tests for the student at that id
   router.get('/students/:studentId/attempts/', jwtAuth, getStudentAttempts);
-
   // Deletes an attempt for a student
   router.delete('/students/:studentId/attempts/:attemptId', jwtAuth, deleteAttempt);
 
@@ -95,10 +93,6 @@ export = function(router) {
           'results': results,
           'attempts': attempts
         });
-
-        function filterActiveAttempts(attempt) {
-          return attempt.active;
-        }
         function processAttempt(attempt) {
           if (attempt.questions.length === 5) {
               totalCorrect += (attempt.correctAnswers * 2);
