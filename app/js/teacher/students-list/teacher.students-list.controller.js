@@ -7,6 +7,7 @@ var ProgCheck;
     function studentsListCtrl($scope, $location, $uibModal, $rootScope, $routeParams, TeacherData) {
         $scope.$on('students:changed', getStudents);
         var sl = this;
+        sl.dataLoaded = false;
         sl.init = function () {
             getStudents();
         };
@@ -30,8 +31,14 @@ var ProgCheck;
             });
         };
         function getStudents() {
+            sl.dataLoaded = false;
             if (!TeacherData.Students.getStudents()) {
-                TeacherData.Students.fetchStudents($routeParams.teacherId);
+                TeacherData.Students.fetchStudents($routeParams.teacherId, function () {
+                    sl.dataLoaded = true;
+                });
+            }
+            else {
+                sl.dataLoaded = true;
             }
             sl.students = TeacherData.Students.getStudents();
         }

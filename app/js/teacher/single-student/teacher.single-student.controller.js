@@ -7,10 +7,9 @@ var ProgCheck;
     function singleStudentCtrl($scope, $routeParams, $uibModal, $location, $rootScope, $sce, TeacherData) {
         $scope.$on('student:changed', getStudent);
         var ss = this;
+        ss.dataLoaded = false;
         ss.init = function () {
-            TeacherData.Students.fetchStudent($routeParams.studentId, function (err, data) {
-                ss.student = data.student;
-            });
+            getStudent();
         };
         ss.trustAsHtml = $sce.trustAsHtml;
         ss.goBack = function () {
@@ -44,6 +43,15 @@ var ProgCheck;
             });
         };
         function getStudent() {
+            if (!TeacherData.Students.getStudent()) {
+                TeacherData.Students.fetchStudent($routeParams.studentId, function (err, data) {
+                    ss.dataLoaded = true;
+                });
+            }
+            else {
+                ss.dataLoaded = false;
+            }
+            ss.dataLoaded = true;
             ss.student = TeacherData.Students.getStudent();
         }
     }

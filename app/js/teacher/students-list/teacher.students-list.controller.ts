@@ -16,7 +16,10 @@ module ProgCheck {
     $scope.$on('students:changed', getStudents);
 
     // Public Methods
+
     var sl = this;
+    sl.dataLoaded = false;
+
     sl.init = function() {
       getStudents();
     };
@@ -44,8 +47,14 @@ module ProgCheck {
 
     // Private Function
     function getStudents() {
+      sl.dataLoaded = false;
       if (!TeacherData.Students.getStudents()) {
-        TeacherData.Students.fetchStudents($routeParams.teacherId);
+        TeacherData.Students.fetchStudents($routeParams.teacherId, function() {
+        sl.dataLoaded = true;
+
+        });
+      } else {
+        sl.dataLoaded = true;
       }
       sl.students = TeacherData.Students.getStudents();
     }

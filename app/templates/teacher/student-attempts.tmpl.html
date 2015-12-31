@@ -1,0 +1,20 @@
+<div>
+  <h4>Recent Tests</h4>
+  <pc-data-loading data-ng-if="!loaded">
+  </pc-data-loading>
+  <p data-ng-if="!attempts.length">{{student.firstName}} has not taken any tests yet.</p>
+  <uib-accordion close-others="true"
+    data-ng-if="attempts.length">
+    <pc-student-attempt
+      data-ng-repeat="attempt in attempts"
+      attempt="attempt">
+    </pc-student-attempt>
+    <uib-pagination
+      total-items="totalItems"
+      items-per-page="viewBy"
+      max-size="maxSize"
+      data-ng-model="currentPage"
+      data-ng-change="changePage(currentPage)">
+    </uib-pagination>
+  </uib-accordion>
+</div>
