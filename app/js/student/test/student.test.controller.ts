@@ -65,6 +65,7 @@ module ProgCheck {
     };
 
     $scope.goBackToTests = function() {
+      StudentData.Tests.setTest(null);
       $location.path('/student/' + $routeParams.studentId + '/tests/');
     }
 

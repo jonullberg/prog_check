@@ -51,6 +51,7 @@ var ProgCheck;
             $scope.test.questions[($scope.current - 1)].submitted = answer;
         };
         $scope.goBackToTests = function () {
+            StudentData.Tests.setTest(null);
             $location.path('/student/' + $routeParams.studentId + '/tests/');
         };
         function getTest() {

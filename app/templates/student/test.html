@@ -4,7 +4,6 @@
     <button class="col-lg-4"
       data-ng-click="goBackToTests()">Go Back To Tests</button>
     <p>{{test.directions}}</p>
-    <h3>Progress</h3>
     <uib-progress max="test.maxQuestions"><uib-bar data-ng-repeat="question in test.questions" value="1" type="{{question.type}}"><span style="color:white; white-space:no-wrap;">{{$index + 1}}</span></uib-bar></uib-progress>
 
   </header>
