@@ -22,7 +22,8 @@ var paths = {
   "client": "./app/js/client",
   "tests": {
     "frontend": "./app/js/**/*.spec.js",
-    "backend": "./server/**/*.spec.js"
+    // Need to change this back to catch all server tests
+    "backend": "./server/**/attempt.routes.spec.js"
   },
   "js": {
     "client": "./app/js/**/*.js",

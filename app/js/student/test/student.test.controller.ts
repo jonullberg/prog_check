@@ -64,6 +64,11 @@ module ProgCheck {
       $scope.test.questions[($scope.current - 1)].submitted = answer;
     };
 
+    $scope.goBackToTests = function() {
+      StudentData.Tests.setTest(null);
+      $location.path('/student/' + $routeParams.studentId + '/tests/');
+    }
+
 
     function getTest() {
       if (!StudentData.Tests.getTest()) {
@@ -80,7 +85,7 @@ module ProgCheck {
 
     function submitTest(test) {
       $scope.disabled = true;
-      StudentData.Tests.createTest($routeParams.studentId, test, function(err, data) {
+      StudentData.Tests.createTest($routeParams.studentId, test, $routeParams.goalId, function(err, data) {
         $location.path('/student/' + $routeParams.studentId + '/attempt/' + data.test._id);
       });
     }

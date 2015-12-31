@@ -31,7 +31,7 @@ var ProgCheck;
                     callback(rejection);
                 });
             },
-            studentSignIn: function (student, callback) {
+            studentSignIn: function studentSignIn(student, callback) {
                 var encoded = $base64.encode(student.username + ':' + student.pin);
                 $http
                     .get('/api/students/sign_in', {
@@ -50,7 +50,7 @@ var ProgCheck;
                     catch (e) {
                         console.log('That token was invalid');
                     }
-                    callback(null, response);
+                    callback(null, tokenPayload);
                 })
                     .catch(function (rejection) {
                     callback(rejection);

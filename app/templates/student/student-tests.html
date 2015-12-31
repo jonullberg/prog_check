@@ -1,10 +1,18 @@
-<div data-ng-init="init()">
-  <h2>Here are the tests you can take next</h2>
-  <uib-accordion close-others="true">
-    <uib-accordion-group data-ng-repeat="goal in student.goals" heading="{{goal.name || goal.description}}">
-      <p data-ng-if="goal.name">{{goal.description}}</p>
-      <button class="btn btn-primary btn-lg"
-        data-ng-click="getTest(goal)">Take Test</button>
-    </uib-accordion-group>
-  </uib-accordion>
+<div data-ng-init="studentTestsCtrl.init()">
+  <h2>Hello {{studentTestsCtrl.student.firstName}}! <br />Here are the tests you can take next</h2>
+  <ul class="list-group">
+    <li class="list-group-item"
+      data-ng-repeat="goal in studentTestsCtrl.student.goals | orderBy: '-dateLastTaken'">
+      <h3 class="col-lg-6">{{goal.name}}</h3>
+      <div class="col-lg-2">
+        <button class="btn btn-primary btn-lg"
+          data-ng-click="studentTestsCtrl.getTest(goal)">Take Test
+        </button>
+      </div>
+      <div class="col-lg-2">
+        <p>Date Last Taken: {{goal.dateLastTaken | date : "short"}}</p>
+      </div>
+      <div class="clearfix"></div>
+    </li>
+  </ul>
 </div>
