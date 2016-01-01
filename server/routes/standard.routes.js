@@ -93,16 +93,16 @@ function standardRouter(router) {
             if (standard.goals && Array.isArray(standard.goals)) {
                 standard.goals.push(newGoal);
                 standard.save(getGoalExampleQuestions);
-                function getGoalExampleQuestions(err, data) {
-                    if (err) {
-                        logError(err, 500, 'Internal Server Error');
-                    }
-                    getExampleQuestions([data], sendUpdatedStandard);
-                    function sendUpdatedStandard(updatedStandard) {
-                        res.json({
-                            standard: updatedStandard[0]
-                        });
-                    }
+            }
+            function getGoalExampleQuestions(err, data) {
+                if (err) {
+                    logError(err, 500, 'Internal Server Error');
+                }
+                getExampleQuestions([data], sendUpdatedStandard);
+                function sendUpdatedStandard(updatedStandard) {
+                    res.json({
+                        standard: updatedStandard[0]
+                    });
                 }
             }
         }
