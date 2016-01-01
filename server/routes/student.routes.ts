@@ -76,13 +76,13 @@ function studentRouter(router, passport) {
       if (student) {
         getGoals(student, sendStudent);
 
-        function sendStudent(student) {
-          res.json({
-            student: student
-          });
-        }
       } else {
         res.end();
+      }
+      function sendStudent(student) {
+        res.json({
+          student: student
+        });
       }
     }
   }
