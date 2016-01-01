@@ -130,20 +130,20 @@ function userRouter(router, passport) {
             var resetData = user.reset;
             if (resetData && resetData.resetToken === req.params.idToken && currentTime <= resetData.expiration) {
                 user.generateHash(req.body.newPassword, nullResetToken);
-                function nullResetToken(err, hash) {
+            }
+            function nullResetToken(err, hash) {
+                if (err) {
+                    logError(err, 500, 'Internal Server Error');
+                }
+                user.basic.password = hash;
+                user.reset.resetToken = null;
+                user.reset.resetToken = null;
+                user.save(checkForError);
+                function checkForError(err, data) {
                     if (err) {
                         logError(err, 500, 'Internal Server Error');
                     }
-                    user.basic.password = hash;
-                    user.reset.resetToken = null;
-                    user.reset.resetToken = null;
-                    user.save(checkForError);
-                    function checkForError(err, data) {
-                        if (err) {
-                            logError(err, 500, 'Internal Server Error');
-                        }
-                        return res.end();
-                    }
+                    return res.end();
                 }
             }
         }
