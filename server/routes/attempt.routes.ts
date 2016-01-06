@@ -10,10 +10,13 @@ var attemptsController = require('./attempts/controllers/attempts_controller');
 
 export = function(router) {
   router.use(bodyparser.json());
+
   // Adds a new test attempt for that student
   router.post('/students/:studentId/tests/', jwtAuth, attemptsController.createAttempt);
+
   // Gets all tests for the student at that id
   router.get('/students/:studentId/attempts/', jwtAuth, attemptsController.getStudentAttempts);
+
   // Deletes an attempt for a student
   router.delete('/students/:studentId/attempts/:attemptId', jwtAuth, attemptsController.deleteAttempt);
 };
