@@ -79,7 +79,7 @@ module ProgCheck {
     function createTest(studentId, test, goalId, cb) {
       $http.post('/api/students/' + studentId + '/tests?goalId=' + goalId, test)
         .then(function(response) {
-          this.setTest(response.data.test);
+          this.setTest(response.data.attempt);
           AuthService.setUser(response.data.student);
           handleCallback(cb, response, null);
         }.bind(this))

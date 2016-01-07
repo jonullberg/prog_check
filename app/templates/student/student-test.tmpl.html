@@ -1,0 +1,30 @@
+<main data-ng-init="studentTestCtrl.init()">
+  <header class="panel-heading">
+    <h3 class="col-lg-6">Instructions: </h3>
+    <button class="btn btn-primary col-lg-4"
+      data-ng-click="studentTestCtrl.goBackToTests()">Go Back To Tests</button>
+    <p>{{studentTestCtrl.test.directions}}</p>
+    <uib-progress max="studentTestCtrl.test.maxQuestions"><uib-bar data-ng-repeat="question in studentTestCtrl.test.questions" value="1" type="{{question.type}}"><span style="color:white; white-space:no-wrap;">{{$index + 1}}</span></uib-bar></uib-progress>
+
+  </header>
+  <pc-question
+    question="studentTestCtrl.activeQuestion"
+    select-answer="studentTestCtrl.selectAnswer(answer)">
+  </pc-question>
+  <footer class="panel-footer">
+    <button
+      class="btn btn-lg btn-primary"
+      data-ng-if="nope"
+      data-ng-click="studentTestCtrl.previousQuestion()">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+      Previous
+    </button>
+    <button class="btn btn-lg btn-primary pull-right"
+      data-ng-disabled="studentTestCtrl.disabled"
+      data-ng-click="studentTestCtrl.nextQuestion()">
+      {{studentTestCtrl.nextText}}
+      <span class="glyphicon glyphicon-chevron-right"
+        data-ng-if="studentTestCtrl.urrent !== studentTestCtrl.test.maxQuestions"></span>
+    </button>
+  </footer>
+</main>

@@ -50,11 +50,7 @@ function getStudentById(req, res) {
     .lean()
     .exec(processStudent);
   function processStudent(err, student) {
-    if (student) {
-      getGoals(student, sendStudent);
-    } else {
-      res.end();
-    }
+    getGoals(student, sendStudent);
     function sendStudent(student) {
       res.json({
         student: student

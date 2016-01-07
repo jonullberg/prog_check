@@ -29,9 +29,6 @@ module ProgCheck {
 
     // Private Functions
     function getTest() {
-      if (!StudentData.Tests.getTest()) {
-        return $location.path('/test-expired');
-      }
       ar.attempt = StudentData.Tests.getTest();
     }
   }
