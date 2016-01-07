@@ -6,23 +6,20 @@ module ProgCheck {
     .controller('StudentTestsCtrl', ['$scope', '$location', '$routeParams', 'StudentData', 'AuthenticationService', studentTestsCtrl])
 
   function studentTestsCtrl($scope, $location, $routeParams, StudentData, AuthenticationService) {
-    $scope.$on('student:changed', getUser);
+    $scope.$on('student:changed', getStudent);
 
     var studentTestsCtrl = this;
     studentTestsCtrl.init = function init() {
-      getUser($routeParams.studentId);
+      StudentData.fetchStudent($routeParams.studentId);
     };
     studentTestsCtrl.getTest = function getTest(goal) {
-      StudentData.Tests.fetchTest(goal, AuthenticationService.getUser(), function(err, data) {
+      StudentData.Tests.fetchTest(goal, StudentData.getStudent(), function(err, data) {
         $location.path('/student/' + $routeParams.studentId + '/tests/' + data.test.testId).search('goalId', goal.goalId);
       });
     };
 
-    function getUser(studentId) {
-      if (!AuthenticationService.getUser() || AuthenticationService.getUser().role !== 'student') {
-        $location.path('/sign-in')
-      }
-      studentTestsCtrl.student = AuthenticationService.getUser();
+    function getStudent(studentId) {
+      studentTestsCtrl.student = StudentData.getStudent();
     }
   }
 

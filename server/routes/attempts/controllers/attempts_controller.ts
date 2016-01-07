@@ -5,6 +5,7 @@ var Attempt = require('../../../models/Attempt');
 var Test = require('../../../models/Test');
 var logError = require('../../../lib/log_error');
 var getGoals = require('../../students/controllers/get_goals');
+var scoreTest = require('./score_test');
 
 var attemptsController = {
   createAttempt: createAttempt,
@@ -18,41 +19,42 @@ function createAttempt(req, res) {
   var dateTaken = Date.now();
   newAttempt.dateTaken = dateTaken;
   newAttempt.studentId = req.params.studentId;
-
+  newAttempt = scoreTest(newAttempt);
   Student.findOneAndUpdate({
     '_id': req.params.studentId,
     'goals.goalId': req.query.goalId
   },
-    {
-      '$set': {
-        'goals.$.dateLastTaken': dateTaken
-      }
-    },
-    function(err, student) {
-      if (err) {
-        logError(err, 500, 'Internal Server Error');
-      }
-      student = student.toObject();
-      student.goals.forEach(updateGoal);
-      getGoals(student, function(newStudent) {
-        newAttempt.save(sendAttempt);
-        function sendAttempt(err, attempt) {
-          if (err) {
-            logError(err, 500, 'Internal Server Error');
-          }
-          res.json({
-            'test': attempt,
-            'student': newStudent
-          });
+  {
+    '$set': {
+      'goals.$.dateLastTaken': dateTaken
+    }
+  },
+  function(err, student) {
+    if (err) {
+      logError(err, 500, 'Internal Server Error');
+    }
+    student = student.toObject();
+    student.goals.forEach(updateGoal);
+    getGoals(student, function(newStudent) {
+      newAttempt.save(sendAttempt);
+      function sendAttempt(err, attempt) {
+        if (err) {
+          logError(err, 500, 'Internal Server Error');
         }
+        res.json({
+          'attempt': attempt,
+          'student': newStudent,
+          'token': req.token
+        });
+      }
 
-      })
-      function updateGoal(goal) {
-        if (goal.goalId === req.query.goalId) {
-          goal.dateLastTaken = dateTaken;
-        }
+    })
+    function updateGoal(goal) {
+      if (goal.goalId === req.query.goalId) {
+        goal.dateLastTaken = dateTaken;
       }
-    });
+    }
+  });
 }
 function getStudentAttempts(req, res) {
   if (req.query.goalId) {

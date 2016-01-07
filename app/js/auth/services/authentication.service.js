@@ -35,6 +35,13 @@ var ProgCheck;
                 this.user = null;
             }
         };
+        function setToken(token) {
+            if (token) {
+                $window.localStorage['token'] = token;
+                var parsedToken = jwtHelper.decodeToken(token);
+                this.setUser(token.sub);
+            }
+        }
         return auth;
     }
 })(ProgCheck || (ProgCheck = {}));

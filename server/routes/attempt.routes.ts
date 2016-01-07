@@ -11,7 +11,7 @@ var attemptsController = require('./attempts/controllers/attempts_controller');
 export = function(router) {
   router.use(bodyparser.json());
 
-  // Adds a new test attempt for that student
+  // Create a new test attempt
   router.post('/students/:studentId/tests/', jwtAuth, attemptsController.createAttempt);
 
   // Gets all tests for the student at that id

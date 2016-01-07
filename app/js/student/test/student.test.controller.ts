@@ -10,93 +10,80 @@ module ProgCheck {
 
   angular
     .module('progCheck')
-    .controller('StudentTestCtrl', ['$scope', '$routeParams', '$location', 'StudentData', 'AuthenticationService', studentTestCtrl])
+    .controller('StudentTestCtrl', ['$scope', '$routeParams', '$location', 'StudentData', 'AuthenticationService', 'UserService', studentTestCtrl])
 
-  function studentTestCtrl($scope, $routeParams, $location, StudentData, AuthenticationService) {
-    $scope.$on('user:changed', getUser);
+  function studentTestCtrl($scope, $routeParams, $location, StudentData, AuthenticationService, UserService) {
+    $scope.$on('student:changed', getStudent);
     $scope.$on('test:changed', getTest);
-    $scope.init = function() {
-      getUser();
-      getTest();
-      $scope.current = 1;
-      $scope.question = $scope.test.questions[0];
-    };
-    $scope.nextText = 'Next';
 
-    $scope.nextQuestion = function() {
-      var currentQuestion = $scope.test.questions[$scope.current - 1];
-      var nextQuestion = $scope.test.questions[$scope.current];
-      if ($scope.current == $scope.test.maxQuestions) {
-        checkAnswer(currentQuestion);
-        return submitTest($scope.test);
+    var studentTestCtrl = this;
+    var current = 1;
+    studentTestCtrl.nextText = 'Next';
+    studentTestCtrl.init = function() {
+      getStudent();
+      getTest();
+      studentTestCtrl.activeQuestion = studentTestCtrl.test.questions[0];
+    };
+
+    studentTestCtrl.nextQuestion = nextQuestion;
+
+    function nextQuestion() {
+      var currentQuestion = studentTestCtrl.test.questions[current - 1];
+      var nextQuestion = studentTestCtrl.test.questions[current];
+
+      if (current == studentTestCtrl.test.maxQuestions) {
+        return submitTest(studentTestCtrl.test);
       } else {
         if (currentQuestion.submitted) {
-          checkAnswer(currentQuestion);
-
           currentQuestion.type = 'success';
           nextQuestion.type = '';
 
-          $scope.current += 1;
-          if ($scope.current === $scope.test.maxQuestions) {
-            $scope.nextText = 'Submit';
+          current += 1;
+          if (current === studentTestCtrl.test.maxQuestions) {
+            studentTestCtrl.nextText = 'Submit';
           } else {
-            $scope.nextText = 'Next';
+            studentTestCtrl.nextText = 'Next';
           }
-
-          $scope.question = nextQuestion;
+          studentTestCtrl.activeQuestion = nextQuestion;
         }
       }
-    };
+    }
 
-    $scope.previousQuestion = function() {
-      $scope.current--;
-      if ($scope.current !== $scope.test.maxQuestions) {
-        $scope.nextText = 'Next';
+    studentTestCtrl.previousQuestion = function() {
+      current--;
+      if (current !== studentTestCtrl.test.maxQuestions) {
+        studentTestCtrl.nextText = 'Next';
       } else {
-        $scope.nextText = 'Submit';
+        studentTestCtrl.nextText = 'Submit';
       }
 
-      $scope.question = $scope.test.questions[($scope.current - 1)];
+      studentTestCtrl.activeQuestion = studentTestCtrl.test.questions[current - 1];
 
     };
 
-    $scope.selectAnswer = function(answer) {
-      $scope.test.questions[($scope.current - 1)].submitted = answer;
+    studentTestCtrl.selectAnswer = function(answer) {
+      studentTestCtrl.test.questions[(current - 1)].submitted = answer;
     };
 
-    $scope.goBackToTests = function() {
+    studentTestCtrl.goBackToTests = function goBackToTestsList() {
       StudentData.Tests.setTest(null);
       $location.path('/student/' + $routeParams.studentId + '/tests/');
     }
 
 
     function getTest() {
-      if (!StudentData.Tests.getTest()) {
-        return $location.path('/test-expired');
-      }
-      $scope.test = StudentData.Tests.getTest();
+      studentTestCtrl.test = StudentData.Tests.getTest();
     }
-    function getUser() {
-      if (!AuthenticationService.getUser() || AuthenticationService.getUser().role !== 'student') {
-        return $location.path('/test-expired');
-      }
-      $scope.student = AuthenticationService.getUser();
+    function getStudent() {
+      studentTestCtrl.student = StudentData.getStudent();
     }
 
     function submitTest(test) {
-      $scope.disabled = true;
-      StudentData.Tests.createTest($routeParams.studentId, test, $routeParams.goalId, function(err, data) {
-        $location.path('/student/' + $routeParams.studentId + '/attempt/' + data.test._id);
+      studentTestCtrl.disabled = true;
+      StudentData.Tests.createTest($routeParams.studentId, test, $routeParams.goalId, function goToAttemptReview(err, data) {
+        $location.path('/student/' + $routeParams.studentId + '/attempt/' + data.attempt._id);
+        StudentData.setStudent(data.student);
       });
-    }
-
-    function checkAnswer(question) {
-      if (question.submitted === question.correct) {
-        question.result = 'correct';
-        $scope.test.correctAnswers += 1;
-      } else {
-        question.result = 'incorrect';
-      }
     }
   }
 }

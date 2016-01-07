@@ -15,9 +15,6 @@ var ProgCheck;
             getTest();
         };
         function getTest() {
-            if (!StudentData.Tests.getTest()) {
-                return $location.path('/test-expired');
-            }
             ar.attempt = StudentData.Tests.getTest();
         }
     }

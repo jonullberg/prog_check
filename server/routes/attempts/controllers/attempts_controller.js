@@ -4,6 +4,7 @@ var Attempt = require('../../../models/Attempt');
 var Test = require('../../../models/Test');
 var logError = require('../../../lib/log_error');
 var getGoals = require('../../students/controllers/get_goals');
+var scoreTest = require('./score_test');
 var attemptsController = {
     createAttempt: createAttempt,
     getStudentAttempts: getStudentAttempts,
@@ -14,6 +15,7 @@ function createAttempt(req, res) {
     var dateTaken = Date.now();
     newAttempt.dateTaken = dateTaken;
     newAttempt.studentId = req.params.studentId;
+    newAttempt = scoreTest(newAttempt);
     Student.findOneAndUpdate({
         '_id': req.params.studentId,
         'goals.goalId': req.query.goalId
@@ -34,8 +36,9 @@ function createAttempt(req, res) {
                     logError(err, 500, 'Internal Server Error');
                 }
                 res.json({
-                    'test': attempt,
-                    'student': newStudent
+                    'attempt': attempt,
+                    'student': newStudent,
+                    'token': req.token
                 });
             }
         });

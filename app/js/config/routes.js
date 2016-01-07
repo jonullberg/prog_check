@@ -171,8 +171,9 @@
       })
       // A student looking at a singular test/goal
       .when('/student/:studentId/tests/:testId', {
-        templateUrl: 'templates/student/test.html',
+        templateUrl: 'templates/student/student-test.tmpl.html',
         controller: 'StudentTestCtrl',
+        controllerAs: 'studentTestCtrl',
         access: {
           requiredLogin: true,
           requiredStudent: true
