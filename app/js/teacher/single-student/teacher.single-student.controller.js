@@ -9,7 +9,9 @@ var ProgCheck;
         var ss = this;
         ss.dataLoaded = false;
         ss.init = function () {
-            getStudent();
+            TeacherData.Students.fetchStudent($routeParams.studentId, function (err, data) {
+                ss.dataLoaded = true;
+            });
         };
         ss.trustAsHtml = $sce.trustAsHtml;
         ss.goBack = function () {
@@ -43,15 +45,7 @@ var ProgCheck;
             });
         };
         function getStudent() {
-            if (!TeacherData.Students.getStudent()) {
-                TeacherData.Students.fetchStudent($routeParams.studentId, function (err, data) {
-                    ss.dataLoaded = true;
-                });
-            }
-            else {
-                ss.dataLoaded = false;
-            }
-            ss.dataLoaded = true;
+            ss.dataLoaded = TeacherData.Students.getStudent();
             ss.student = TeacherData.Students.getStudent();
         }
     }
