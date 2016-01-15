@@ -1,9 +1,9 @@
 @charset "UTF-8";
 * {
-  font-family: 'Calibri Light', 'Open Sans', 'Helvetica', 'Arial', 'Lato', sans-serif; }
+  font-family: "Calibri Light", "Open Sans", "Helvetica", "Arial", "Lato", sans-serif; }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Happy Monkey', cursive; }
+  font-family: "Happy Monkey", cursive; }
 
 .logo {
   text-indent: -9999px;
@@ -5901,10 +5901,10 @@ button.close {
     display: none !important; } }
 
 * {
-  font-family: 'Calibri Light', 'Open Sans', 'Helvetica', 'Arial', 'Lato', sans-serif; }
+  font-family: "Calibri Light", "Open Sans", "Helvetica", "Arial", "Lato", sans-serif; }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Happy Monkey', cursive; }
+  font-family: "Happy Monkey", cursive; }
 
 .logo {
   text-indent: -9999px;
@@ -5982,3 +5982,25 @@ span.frac > sub {
 
 .angular-with-newlines {
   white-space: pre-wrap; }
+
+/**
+ * This is all styles for the Student Test template/directive
+ * Created by Jonathan Ullberg on 01/15/2016
+ */
+.pc-Student-Test_Back-Button {
+  margin-bottom: 3rem; }
+
+.pc-Student-Test_Test-Directions {
+  font-size: 1.4em; }
+
+.pc-Student-Test h3 {
+  font-size: 3rem; }
+
+/**
+ * This is all styles for the Student Test template/directive
+ * Created by Jonathan Ullberg on 01/15/2016
+ */
+.pc-Test-Question_question {
+  font-family: "Calibri Light", "Open Sans", "Helvetica", "Arial", "Lato", sans-serif;
+  font-weight: bold;
+  text-align: center; }

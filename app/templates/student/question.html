@@ -1,7 +1,7 @@
-<div class="panel-body">
-  <h3 class="angular-with-newlines" data-ng-bind-html="trustAsHtml(question.question)"><strong>{{question.question}}</strong></h3>
+<div class="pc-Test-Question panel-body">
+  <h3 class="pc-Test-Question_question angular-with-newlines" data-ng-bind-html="trustAsHtml(question.question)"><strong style>{{question.question}}</strong></h3>
   <div class="answers col-lg-4 col-lg-offset-4">
-    <button class="btn btn-lg btn-default angular-with-newlines"
+    <button class="btn btn-lg btn-default angular-with-newlines col-lg-12 col-md-12 col-sm-12 col-xs-12"
       data-ng-class="{ 'btn-primary': $index == question.selectedIndex }"
       data-ng-repeat="answer in question.answers"
       data-ng-click="select(answer, $index)"

@@ -1,0 +1,17 @@
+/**
+ * This is all styles for the Student Test template/directive
+ * Created by Jonathan Ullberg on 01/15/2016
+ */
+
+.pc-Student-Test {
+  &_Back-Button {
+    margin-bottom: 3rem;
+  }
+  &_Test-Directions {
+    font-size: 1.4em;
+
+  }
+  h3 {
+    font-size: 3rem;
+  }
+}
