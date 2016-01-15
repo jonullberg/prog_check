@@ -1,0 +1,13 @@
+/**
+ * This is all styles for the Student Test template/directive
+ * Created by Jonathan Ullberg on 01/15/2016
+ */
+$text-font-family: 'Calibri Light', 'Open Sans', 'Helvetica', 'Arial', 'Lato', sans-serif;
+
+.pc-Test-Question {
+  &_question {
+    font-family: $text-font-family;
+    font-weight: bold;
+    text-align: center;
+  }
+}

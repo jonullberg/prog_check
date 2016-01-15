@@ -1,15 +1,32 @@
-<main data-ng-init="studentTestCtrl.init()">
+<div data-ng-init="studentTestCtrl.init()"
+  class="pc-Student-Test">
   <header class="panel-heading">
+    <div class="row">
+      <button class="btn btn-primary col-lg-4 col-lg-offset-8 col-md-6 col-md-offset-6 col-sm-6 col-sm-offset-6 col-xs-12 pc-Student-Test_Back-Button"
+        data-ng-click="studentTestCtrl.goBackToTests()">Go Back To Tests
+      </button>
+    </div>
+    <div class="row m-t-3">
+      <uib-progress
+        max="studentTestCtrl.test.maxQuestions"
+        class="col-lg-12 col-md-12 col-sm-12">
+        <uib-bar
+          data-ng-repeat="question in studentTestCtrl.test.questions"
+          value="1"
+          type="{{question.type}}">
+          <span style="color:white; white-space:no-wrap;">{{$index + 1}}
+          </span>
+        </uib-bar>
+      </uib-progress>
 
-    <button class="btn btn-primary col-lg-4 col-lg-offset-8"
-      data-ng-click="studentTestCtrl.goBackToTests()">Go Back To Tests</button>
-    <uib-progress max="studentTestCtrl.test.maxQuestions"><uib-bar data-ng-repeat="question in studentTestCtrl.test.questions" value="1" type="{{question.type}}"><span style="color:white; white-space:no-wrap;">{{$index + 1}}</span></uib-bar></uib-progress>
+    </div>
 
   </header>
   <div class="panel-main">
-    <h3>Directions: </h3>
 
-    <p>{{studentTestCtrl.test.directions}}</p>
+    <p class="pc-Student-Test_Test-Directions">
+      <span class="pc-Student-Test_Directions-Header">Directions: </span>{{studentTestCtrl.test.directions}}
+    </p>
     <pc-question
       question="studentTestCtrl.activeQuestion"
       select-answer="studentTestCtrl.selectAnswer(answer)">
@@ -31,4 +48,4 @@
         data-ng-if="studentTestCtrl.urrent !== studentTestCtrl.test.maxQuestions"></span>
     </button>
   </footer>
-</main>
+</div>
