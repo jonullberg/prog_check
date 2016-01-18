@@ -14,10 +14,6 @@ var attemptSchema = mongoose.Schema({
   'dateTaken': {
     type: Date
   },
-  'lastUpdated': {
-    type: Date,
-    default: Date.now
-  },
   'directions': {
     type: String
   },

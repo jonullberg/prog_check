@@ -48,15 +48,7 @@ var ProgCheck;
                             ];
                         }
                         else if (newVal.role === 'student') {
-                            scope.tabs = [{
-                                    header: 'Home',
-                                    url: 'student/' + newVal._id + '/home'
-                                },
-                                {
-                                    header: 'Tests',
-                                    url: 'student/' + newVal._id + '/tests'
-                                }
-                            ];
+                            scope.tabs = [];
                         }
                     }
                     else {

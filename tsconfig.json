@@ -7,13 +7,13 @@
     "preserveConstEnums": true
   },
   "exclude": [
-    "node_modules",
-    "tools",
-    "typings",
-    "report",
-    "dist",
-    "dest",
+    ".vscode",
+    "__tests__",
     "build",
-    "crt"
+    "crt",
+    "db",
+    "node_modules",
+    "report",
+    "tools"
   ]
 }

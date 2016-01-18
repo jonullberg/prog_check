@@ -1,0 +1,51 @@
+<div data-ng-init="studentTestCtrl.init()"
+  class="pc-Student-Test">
+  <header class="panel-heading">
+    <div class="row">
+      <button class="btn btn-primary col-lg-4 col-lg-offset-8 col-md-6 col-md-offset-6 col-sm-6 col-sm-offset-6 col-xs-12 pc-Student-Test_Back-Button"
+        data-ng-click="studentTestCtrl.goBackToTests()">Go Back To Tests
+      </button>
+    </div>
+    <div class="row m-t-3">
+      <uib-progress
+        max="studentTestCtrl.test.maxQuestions"
+        class="col-lg-12 col-md-12 col-sm-12">
+        <uib-bar
+          data-ng-repeat="question in studentTestCtrl.test.questions"
+          value="1"
+          type="{{question.type}}">
+          <span style="color:white; white-space:no-wrap;">{{$index + 1}}
+          </span>
+        </uib-bar>
+      </uib-progress>
+
+    </div>
+
+  </header>
+  <div class="panel-main">
+
+    <p class="pc-Student-Test_Test-Directions">
+      <span class="pc-Student-Test_Directions-Header">Directions: </span>{{studentTestCtrl.test.directions}}
+    </p>
+    <pc-question
+      question="studentTestCtrl.activeQuestion"
+      select-answer="studentTestCtrl.selectAnswer(answer)">
+    </pc-question>
+  </div>
+  <footer class="panel-footer">
+    <button
+      class="btn btn-lg btn-primary"
+      data-ng-if="nope"
+      data-ng-click="studentTestCtrl.previousQuestion()">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+      Previous
+    </button>
+    <button class="btn btn-lg btn-primary pull-right"
+      data-ng-disabled="studentTestCtrl.disabled"
+      data-ng-click="studentTestCtrl.nextQuestion()">
+      {{studentTestCtrl.nextText}}
+      <span class="glyphicon glyphicon-chevron-right"
+        data-ng-if="studentTestCtrl.urrent !== studentTestCtrl.test.maxQuestions"></span>
+    </button>
+  </footer>
+</div>

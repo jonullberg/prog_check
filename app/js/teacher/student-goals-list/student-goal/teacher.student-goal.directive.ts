@@ -15,18 +15,23 @@ module ProgCheck {
         editStudentGoal: '&'
       },
       link: function(scope, iElement, iAttr) {
+        scope.loaded = false;
+
         scope.isAlertShown = false;
 
         scope.selectGoal = function(goal) {
           if (goal.isOpen) {
             scope.isAlertShown = false;
             goal.isOpen = false;
+            scope.loaded = true;
           } else {
             scope.isAlertShown = false;
             goal.isOpen = true;
             TeacherData.Attempts.fetchAttemptsByGoal($routeParams.studentId, scope.goal.goalId, function(err, data) {
               scope.attempts = data.attempts;
               scope.results = data.results;
+              scope.loaded = true;
+              scope.resultsLoaded = true;
             });
           }
         };

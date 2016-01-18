@@ -60,6 +60,7 @@
   require('./auth/directives/account-tools.directive');
   require('./directives/convert-to-number.directive');
   require('./directives/delete-alert.directive');
+  require('./directives/data-loading.directive');
 
     //  Test directives
 
@@ -149,6 +150,10 @@
     //  Student Attempts
     require('./teacher/student-attempts/teacher.student-attempts.directive');
     require('./teacher/student-attempts/teacher.student-attempts.controller');
+    // Student Attempt
+    require('./teacher/student-attempts/student-attempt/teacher.student-attempt.directive');
+    // Attempt Question
+    require('./teacher/student-attempts/attempt-question/teacher.attempt-question.directive');
 
     // Student Form
     require('./teacher/student-form/teacher.student-form.controller');

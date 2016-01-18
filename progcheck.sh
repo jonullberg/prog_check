@@ -2,6 +2,7 @@
 # ProgCheck startup
 
 tmux new -sprogcheck \; \
+  send-keys -t 0 'subl .' Enter \; \
   new-window -n mongo \; \
   new-window -n dev \; \
   select-window -t 1 \; \
@@ -11,7 +12,6 @@ tmux new -sprogcheck \; \
   select-window -t 2 \; \
   send-keys -t 2 'gulp build' Enter \; \
   split-window -h \; \
-  send-keys -t 2 'node server/server' Enter \; \
+  send-keys -t 2 'nodemon server/server -w ./server' Enter \; \
   split-window -v \; \
   send-keys -t 2 'gulp watch' Enter
-  send-keys -t 0 'mongo-express -u admin -p pass -d progcheck_dev'

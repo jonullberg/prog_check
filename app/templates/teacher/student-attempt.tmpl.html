@@ -1,0 +1,24 @@
+<div>
+  <uib-accordion-group
+    data-panel-class="panel-info">
+    <uib-accordion-heading>
+      <span data-ng-click="setStyling(attempt)">{{attempt.correctAnswers}}/{{attempt.questions.length}} - {{attempt.dateTaken | date}}</span>
+    </uib-accordion-heading>
+    <pc-delete-alert
+      data-ng-if="attemptAlertShowing"
+      toggle="toggleArchiveAttemptAlert()"
+      delete="archiveAttempt(item)"
+      item="attempt">
+    </pc-delete-alert>
+    <ul>
+      <pc-attempt-question data-ng-repeat="question in attempt.questions"
+        data-ng-click="showAnswers(attempt, question)"
+        question="question">
+      </pc-attempt-question>
+    </ul>
+    <button
+      type="button"
+      class="btn btn-danger"
+      data-ng-click="toggleArchiveAttemptAlert()">Archive Attempt</button>
+  </uib-accordion-group>
+</div>

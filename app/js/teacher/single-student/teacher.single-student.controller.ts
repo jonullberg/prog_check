@@ -9,10 +9,13 @@ module ProgCheck {
     $scope.$on('student:changed', getStudent);
 
     // Public Methods
+
     var ss = this;
+
+    ss.dataLoaded = false;
     ss.init = function() {
       TeacherData.Students.fetchStudent($routeParams.studentId, function(err, data) {
-        ss.student = data.student;
+        ss.dataLoaded = true;
       });
     };
     ss.trustAsHtml = $sce.trustAsHtml;
@@ -53,6 +56,7 @@ module ProgCheck {
 
     // Private Functions
     function getStudent() {
+      ss.dataLoaded = TeacherData.Students.getStudent();
       ss.student = TeacherData.Students.getStudent();
     }
   }

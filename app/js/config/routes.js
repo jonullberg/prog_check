@@ -159,18 +159,11 @@
           requiredTeacher: true
         }
       })
-      // A student homepage
-      .when('/student/:studentId/home', {
-        templateUrl: 'templates/student/home.html',
-        access: {
-          requiredLogin: true,
-          requiredStudent: true
-        }
-      })
       // A student looking at all of their tests available
       .when('/student/:studentId/tests', {
         templateUrl: 'templates/student/student-tests.html',
         controller: 'StudentTestsCtrl',
+        controllerAs: 'studentTestsCtrl',
         access: {
           requiredLogin: true,
           requiredStudent: true
@@ -178,8 +171,9 @@
       })
       // A student looking at a singular test/goal
       .when('/student/:studentId/tests/:testId', {
-        templateUrl: 'templates/student/test.html',
+        templateUrl: 'templates/student/student-test.tmpl.html',
         controller: 'StudentTestCtrl',
+        controllerAs: 'studentTestCtrl',
         access: {
           requiredLogin: true,
           requiredStudent: true

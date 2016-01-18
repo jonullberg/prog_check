@@ -1,6 +1,4 @@
-/**
- * The data structure for a student
- */
+// The Student Model
 'use strict';
 
 var mongoose = require('mongoose');

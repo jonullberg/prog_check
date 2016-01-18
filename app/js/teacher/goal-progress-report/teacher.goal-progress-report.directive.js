@@ -3,17 +3,20 @@ var ProgCheck;
     'use strict';
     angular
         .module('progCheck')
-        .directive('pcAttemptProgressReport', pcAttemptProgressReport);
-    function pcAttemptProgressReport() {
+        .directive('pcGoalProgressReport', pcGoalProgressReport);
+    function pcGoalProgressReport() {
         return {
             restrict: 'E',
             replace: true,
             templateUrl: '/templates/teacher/goal-progress-report.tmpl.html',
             scope: {
                 results: '=',
-                goal: '='
+                goal: '=',
+                loaded: '=resultsLoaded'
             },
-            controller: 'ProgressReportCtrl as pr'
+            controller: 'ProgressReportCtrl as pr',
+            link: function (scope, iElement, iAttrs) {
+            }
         };
     }
 })(ProgCheck || (ProgCheck = {}));
