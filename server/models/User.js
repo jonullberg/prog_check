@@ -2,7 +2,6 @@
 
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
-// var eat = require('eat');
 var jwt = require('jsonwebtoken');
 
 var userSchema = mongoose.Schema({

@@ -4,10 +4,10 @@ var mongoose = require('mongoose');
 
 var attemptSchema = mongoose.Schema({
   'studentId': {
-    type: String
+    type: mongoose.Schema.Types.ObjectId
   },
   'testId': {
-    type: String
+    type: mongoose.Schema.Types.ObjectId
   },
   'correctAnswers': Number,
   'questions': Array,

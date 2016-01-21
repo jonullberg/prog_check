@@ -8,7 +8,7 @@ var getGoals = require('../routes/students/controllers/get_goals');
 
 var goalSchema = mongoose.Schema({
   'goalId': {
-    type: String
+    type: mongoose.Schema.Types.ObjectId
   },
   'numberOfQuestions': {
     type: Number
@@ -45,10 +45,10 @@ var studentSchema = mongoose.Schema({
     }
   },
   'groupId': {
-    type: String
+    type: mongoose.Schema.Types.ObjectId
   },
   'teacherId': {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
     required: true
   },
   'goals': [goalSchema],

@@ -30,7 +30,7 @@ function createAttempt(req, res) {
   newAttempt = scoreTest(newAttempt);
   Student.findOneAndUpdate({
     '_id': req.params.studentId,
-    'goals.goalId': new ObjectId(req.query.goalId)
+    'goals.goalId': checkObjectId(req.query.goalId)
   },
   {
     '$set': {
@@ -63,6 +63,14 @@ function createAttempt(req, res) {
       }
     }
   });
+  // This is hacky and there should be a better version with Mongoose or Mongo
+  // to check a string as an ID.
+  // TODO: Implement better function to check if ObjectId or string
+  function checkObjectId(id) {
+    return (typeof id === 'string') ?
+      'ObjectId(' + id + ')' :
+      id;
+  }
 }
 function getStudentAttempts(req, res) {
   if (req.query.goalId) {
