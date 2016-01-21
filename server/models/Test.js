@@ -19,7 +19,7 @@ var questionSchema = mongoose.Schema({
 
 var testSchema = mongoose.Schema({
   'standardId': {
-    type: mongoose.Schema.Types.ObjectId
+    type: String
   },
   'testName': {
     type: String
@@ -31,7 +31,7 @@ var testSchema = mongoose.Schema({
     type: String
   },
   'goalId': {
-    type: mongoose.Schema.Types.ObjectId
+    type: String
   },
   'questionType': {
     type: String

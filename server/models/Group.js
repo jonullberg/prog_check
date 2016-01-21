@@ -10,7 +10,7 @@ var groupSchema = mongoose.Schema({
     type: String
   },
   'teacherId': {
-    type: Schema.Type.ObjectId
+    type: String
   },
   'students': {
     type: Array
