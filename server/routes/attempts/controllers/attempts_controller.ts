@@ -30,7 +30,7 @@ function createAttempt(req, res) {
   newAttempt = scoreTest(newAttempt);
   Student.findOneAndUpdate({
     '_id': req.params.studentId,
-    'goals.goalId': checkObjectId(req.query.goalId)
+    'goals.goalId': req.query.goalId
   },
   {
     '$set': {
