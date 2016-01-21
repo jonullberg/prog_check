@@ -6,6 +6,8 @@ var Test = require('../../../models/Test');
 var logError = require('../../../lib/log_error');
 var getGoals = require('../../students/controllers/get_goals');
 var scoreTest = require('./score_test');
+var mongoose = require('mongoose');
+var ObjectId = mongoose.Types.ObjectId;
 
 var attemptsController = {
   createAttempt: createAttempt,
@@ -14,6 +16,12 @@ var attemptsController = {
 };
 
 export = attemptsController;
+
+/**
+ * When a student takes a test attempt, the results are sent to this endpoint.
+ * @param {[type]} req [description]
+ * @param {[type]} res [description]
+ */
 function createAttempt(req, res) {
   var newAttempt = new Attempt(req.body);
   var dateTaken = Date.now();
@@ -22,7 +30,7 @@ function createAttempt(req, res) {
   newAttempt = scoreTest(newAttempt);
   Student.findOneAndUpdate({
     '_id': req.params.studentId,
-    'goals.goalId': req.query.goalId
+    'goals.goalId': new ObjectId(req.query.goalId)
   },
   {
     '$set': {
