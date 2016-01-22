@@ -59,11 +59,9 @@
       })
       .when('/reset/success', {
         templateUrl: 'templates/auth/reset-success.html',
-        access: {}
       })
       .when('/reset/:resetToken', {
         templateUrl: 'templates/auth/reset-password.html',
-        access: {},
         controller: 'ResetPasswordCtrl'
       })
       .when('/not-authorized', {
