@@ -20,6 +20,7 @@
 
 
   //  Configuration
+  require('./config/reload');
   require('./config/routes');
   require('./config/config');
 
