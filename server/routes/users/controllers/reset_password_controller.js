@@ -36,11 +36,11 @@ function sendForgotPasswordEmail(req, res) {
         'reset.expiration': expiration
     }, writeAndSendEmail);
     function writeAndSendEmail(err, data) {
-        var emailText = '<h1>Prog Check Password Reset Request</h2>';
+        var emailText = '<h1>Prog Check Password Reset Request</h1>';
         emailText += '<p>Someone has requested a password reset for this email account on progcheck.com</p>';
-        emailText += '<p>If this was not you, do not worry. Simply ignore this email and your email and password are secure.</p>';
-        emailText += '<p>If this was you, please copy and past this link and follow the instructions to reset your password</p>';
-        emailText += '<p>https://prog-check-beta.herokuapp.com/#/reset/' + encodeURIComponent(token) + '</p>';
+        emailText += '<p>If this was not you, do not worry. Simply ignore this email and your email and password are secure.<br />';
+        emailText += 'If this was you, please copy and past this link and follow the instructions to reset your password<br />';
+        emailText += '<a rel="nofolow" style="text-decoration:none">https://prog-check-beta.herokuapp.com/#/reset/' + encodeURIComponent(token) + '</a></p>';
         emailText += '<p>Thank you for using Prog Check</p>';
         var mailOptions = {
             from: 'reset.password@progcheck.com',
