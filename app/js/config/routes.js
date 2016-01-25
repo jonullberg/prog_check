@@ -201,7 +201,7 @@
       });
     }])
 
-    .run(['$rootScope', '$location', '$window', 'AuthenticationService', 'UserService', function($rootScope, $location, $window, Auth, UserService) {
+    .run(['$rootScope', '$route', '$location', '$window', 'AuthenticationService', 'UserService', function($rootScope, $route, $location, $window, Auth, UserService) {
       $rootScope.$on('$routeChangeStart', function(event, next, current) {
         if (next.access && next.access.requiredLogin && !Auth.getUser()) {
           if ($window.localStorage['token']) {
@@ -222,5 +222,37 @@
           $location.path('/not-authorized');
         }
       });
+    }])
+
+    .run(['$rootScope', '$location', '$browser', function($rootScope, $location, $browser) {
+      var changeCounter = 0;
+
+      $rootScope.$watch(function $locationWatch() {
+        var oldUrl = $browser.url();
+        var currentReplace = $location.$$replace;
+
+        if (!changeCounter || oldUrl != $location.absUrl()) {
+          changeCounter ++;
+          $rootScope.$evalAsync(function() {
+            if ($rootScope.$broadcast('$locationChangeStart', $location.absUrl(), oldUrl).defaultPrevented) {
+              $location.$$parse(oldUrl);
+            } else {
+              $browser.url($location.absUrl(), currentReplace);
+              afterLocationChange(oldUrl);
+            }
+          });
+        }
+        $location.$$replace = false;
+
+        return changeCounter;
+      })
+
+      return $location;
+
+      function afterLocationChange(oldUrl) {
+        $rootScope.$broadcast('$locationChangeSuccess', $location.absUrl(), oldUrl);
+      }
+
     }]);
+
 })();
