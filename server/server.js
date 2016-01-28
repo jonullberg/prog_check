@@ -79,7 +79,7 @@ app.use('/api', bugRoutes);
 app.use('/api', attemptRoutes)
 
 app.get('*', function(request, response, next) {
-  response.sendfile('/build/index.html');
+  response.sendFile('/build/index.html');
 });
 
 app.listen(port, function() {
