@@ -11,7 +11,6 @@ module ProgCheck {
   function studentGoalsListCtrl($scope, $rootScope, $routeParams, $uibModal, TeacherData) {
 
     $scope.$on('student:changed', getStudent);
-
     // Public Functions
     var sgl = this;
 
@@ -44,6 +43,5 @@ module ProgCheck {
       }
       sgl.student = TeacherData.Students.getStudent();
     }
-
   }
 }

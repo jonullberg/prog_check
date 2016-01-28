@@ -26,7 +26,7 @@ module ProgCheck {
 
         scope.archiveAttempt = function archiveAttempt(attempt) {
           TeacherData.Attempts.archiveAttempt($routeParams.studentId, attempt._id, function(err, data) {
-            scope.attemptAlertShown = false;
+            scope.attemptAlertShowing = false;
           });
         };
 
