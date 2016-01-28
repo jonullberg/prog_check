@@ -42,7 +42,9 @@ if (env === 'PRODUCTION') {
 }
 
 //  Serve up static pages from our build
-app.use(express.static(__dirname + '/../build/'));
+app.use('/css', express.static(__dirname + '/../build/css'));
+app.use('/js', express.static(__dirname + '/../build/js'));
+app.use('/templates', express.static(__dirname + '/../build/templates'))
 app.use(busboy({immediate:true}));
 //  Set the application secret to be checked on token confirmation
 process.env.APP_SECRET = process.env.APP_SECRET || config.secret;
@@ -78,8 +80,8 @@ app.use('/api', studentRoutes);
 app.use('/api', bugRoutes);
 app.use('/api', attemptRoutes)
 
-app.get('*', function(request, response, next) {
-  response.sendFile('/build/index.html');
+app.get('/*', function(request, response, next) {
+  response.sendFile('index.html', { root: __dirname + '/../build' });
 });
 
 app.listen(port, function() {
