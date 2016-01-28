@@ -44,9 +44,6 @@ if (env === 'PRODUCTION') {
 //  Serve up static pages from our build
 app.use(express.static(__dirname + '/../build/'));
 app.use(busboy({immediate:true}));
-app.get('*', function(request, response, next) {
-  response.sendfile(__dirname + '/../build/index.html');
-});
 //  Set the application secret to be checked on token confirmation
 process.env.APP_SECRET = process.env.APP_SECRET || config.secret;
 
@@ -80,6 +77,10 @@ app.use('/api', testRoutes);
 app.use('/api', studentRoutes);
 app.use('/api', bugRoutes);
 app.use('/api', attemptRoutes)
+
+app.get('*', function(request, response, next) {
+  response.sendfile('/build/index.html');
+});
 
 app.listen(port, function() {
 	console.log('Your server is running on port ' + port);

@@ -50,7 +50,7 @@ function sendForgotPasswordEmail(req, res) {
     emailText += '<p>Someone has requested a password reset for this email account on progcheck.com</p>';
     emailText += '<p>If this was not you, do not worry. Simply ignore this email and your email and password are secure.<br />';
     emailText += 'If this was you, please follow these instructions:</p><ol><li>Go to <a href="https://progcheck.com">Prog Check</a></li><li>Copy and past this link in your browser</li><br />';
-    emailText += '<a rel="nofolow" style="text-decoration:none">https://progcheck.com/#/reset/' + encodeURIComponent(token) + '</a><br /><li>Follow the instructions to reset your password</li></p>';
+    emailText += '<a href="https://progcheck.com/#/reset/' + encodeURIComponent(token) + '">Reset Password</a><br /><li>Follow the instructions to reset your password</li></p>';
     emailText += '<p>Thank you for using Prog Check</p>';
     var mailOptions = {
       from: 'reset.password@progcheck.com',
