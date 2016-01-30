@@ -7,7 +7,7 @@
       $httpProvider.interceptors.push('TokenInterceptor');
     }])
 
-  .config(['$routeProvider', function($routeProvider) {
+  .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
     $routeProvider
       .when('/about', {
         templateUrl: 'templates/views/about.html',
@@ -29,13 +29,7 @@
         }
       })
       .when('/home', {
-        templateUrl: 'templates/views/home.html',
-        access: {
-          requiredLogin: false,
-          requiredAdmin: false,
-          requiredTeacher: false,
-          requiredStudent: false
-        }
+        templateUrl: 'templates/views/home.html'
       })
       .when('/sign-in', {
         templateUrl: 'templates/auth/sign-in.html',
@@ -62,7 +56,8 @@
       })
       .when('/reset/:resetToken', {
         templateUrl: 'templates/auth/reset-password.html',
-        controller: 'ResetPasswordCtrl'
+        controller: 'ResetPasswordCtrl',
+        access: {}
       })
       .when('/not-authorized', {
         templateUrl: 'templates/auth/not-authorized.html',
@@ -199,11 +194,14 @@
       .otherwise({
         redirectTo: '/home'
       });
+
     }])
 
     .run(['$rootScope', '$route', '$location', '$window', 'AuthenticationService', 'UserService', function($rootScope, $route, $location, $window, Auth, UserService) {
       $rootScope.$on('$routeChangeStart', function(event, next, current) {
-        if (next.access && next.access.requiredLogin && !Auth.getUser()) {
+        if (next.access &&
+          next.access.requiredLogin &&
+          !Auth.getUser()) {
           if ($window.localStorage['token']) {
             UserService.authToken($window.localStorage['token']);
           } else {

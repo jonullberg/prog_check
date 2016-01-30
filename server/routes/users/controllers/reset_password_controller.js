@@ -2,6 +2,10 @@
 var User = require('../../../models/User');
 var logError = require('../../../lib/log_error');
 var nodemailer = require('nodemailer');
+var rootUrl = process.env.NODE_ENV === 'production' ?
+    'https://progcheck.com' :
+    'localhost:3000';
+var emailTemplate = require('../templates/reset_password_email_template');
 module.exports = {
     sendForgotPasswordEmail: sendForgotPasswordEmail,
     generateResetToken: generateResetToken,
@@ -36,12 +40,7 @@ function sendForgotPasswordEmail(req, res) {
         'reset.expiration': expiration
     }, writeAndSendEmail);
     function writeAndSendEmail(err, data) {
-        var emailText = '<h1>Prog Check Password Reset Request</h1>';
-        emailText += '<p>Someone has requested a password reset for this email account on progcheck.com</p>';
-        emailText += '<p>If this was not you, do not worry. Simply ignore this email and your email and password are secure.<br />';
-        emailText += 'If this was you, please follow these instructions:</p><ol><li>Go to <a href="https://progcheck.com">Prog Check</a></li><li>Copy and past this link in your browser</li><br />';
-        emailText += '<a href="https://progcheck.com/api/reset/' + encodeURIComponent(token) + '">Reset Password</a><br /><li>Follow the instructions to reset your password</li></p>';
-        emailText += '<p>Thank you for using Prog Check</p>';
+        var emailText = emailTemplate(token);
         var mailOptions = {
             from: 'reset.password@progcheck.com',
             to: req.body.email,

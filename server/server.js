@@ -1,6 +1,7 @@
 'use strict';
 
 var config = require('./lib/config_variables');
+var path = require('path');
 var mongoose = require('mongoose');
 var express = require('express');
 var passport = require('passport');
@@ -23,10 +24,10 @@ var forceSsl = function(req, res, next) {
   return next();
 };
 
-if (env === 'TEST') {
+if (env === 'test') {
   port = 3002;
 }
-if (env === 'PRODUCTION') {
+if (env === 'production') {
   // Add Winston Transports
   winston.add(MongoDB, {
     level: 'info',
@@ -42,10 +43,9 @@ if (env === 'PRODUCTION') {
 }
 
 //  Serve up static pages from our build
-app.use('/css', express.static(__dirname + '/../build/css'));
-app.use('/js', express.static(__dirname + '/../build/js'));
-app.use('/templates', express.static(__dirname + '/../build/templates'))
+app.use(express.static(__dirname + '/../build'));
 app.use(busboy({immediate:true}));
+
 //  Set the application secret to be checked on token confirmation
 process.env.APP_SECRET = process.env.APP_SECRET || config.secret;
 
@@ -79,10 +79,6 @@ app.use('/api', testRoutes);
 app.use('/api', studentRoutes);
 app.use('/api', bugRoutes);
 app.use('/api', attemptRoutes)
-
-app.get('/*', function(request, response, next) {
-  response.sendFile('index.html', { root: __dirname + '/../build' });
-});
 
 app.listen(port, function() {
 	console.log('Your server is running on port ' + port);

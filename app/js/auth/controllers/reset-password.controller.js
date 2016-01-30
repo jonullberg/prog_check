@@ -9,7 +9,6 @@ var ProgCheck;
             if (data.newPassword === data.confirmPassword) {
                 $http.post('/api/reset/' + $routeParams.resetToken, data)
                     .then(function (data) {
-                    console.log('you successfully reset your password');
                     $location.url('/reset/success');
                 }, function (err) {
                     console.log(err);
