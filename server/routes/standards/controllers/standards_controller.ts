@@ -1,3 +1,6 @@
+/**
+ * This is the controller for the Standards
+ */
 'use strict'
 
 var Standard = require('../../../models/Standard');
@@ -41,8 +44,11 @@ function getStandardById(req, res) {
     }
     getExampleQuestions([standard], sendUpdatedStandard);
     function sendUpdatedStandard(updatedStandard) {
+      var sentStandard = updatedStandard ?
+        updatedStandard[0] :
+        null;
       res.json({
-        standard: updatedStandard[0]
+        standard: sentStandard
       });
     }
   }
@@ -55,12 +61,9 @@ function createNewStandard(req, res) {
     if (err) {
       logError(err, 500, 'Internal Server Error');
     }
-    getExampleQuestions([standard], sendUpdatedStandard);
-    function sendUpdatedStandard(updatedStandard) {
-      res.json({
-        standard: updatedStandard[0]
-      });
-    }
+    res.json({
+      standard: standard
+    });
   }
 }
 
