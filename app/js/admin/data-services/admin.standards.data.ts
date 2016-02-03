@@ -102,7 +102,7 @@ module ProgCheck {
           }
         }.bind(this))
         .catch(function(rejection) {
-          handleCallback(cb, null, rejection);
+          handleCallback(cb, null, rejection)
           return Errors.addError({
             'msg': 'There was an error getting the standard from the server. Please contact the administrator'
           });

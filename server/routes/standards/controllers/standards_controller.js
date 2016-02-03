@@ -36,8 +36,11 @@ function getStandardById(req, res) {
         }
         getExampleQuestions([standard], sendUpdatedStandard);
         function sendUpdatedStandard(updatedStandard) {
+            var sentStandard = updatedStandard ?
+                updatedStandard[0] :
+                null;
             res.json({
-                standard: updatedStandard[0]
+                standard: sentStandard
             });
         }
     }
@@ -49,12 +52,9 @@ function createNewStandard(req, res) {
         if (err) {
             logError(err, 500, 'Internal Server Error');
         }
-        getExampleQuestions([standard], sendUpdatedStandard);
-        function sendUpdatedStandard(updatedStandard) {
-            res.json({
-                standard: updatedStandard[0]
-            });
-        }
+        res.json({
+            standard: standard
+        });
     }
 }
 function updateStandardById(req, res) {

@@ -4,6 +4,7 @@ var Test = require('../../../models/Test');
 
 function getExampleQuestions(standards, cb) {
   standards.forEach(function(standard, i, arr1) {
+    if (!standard) return cb(null);
     standard.goals.forEach(function(goal, j, arr2) {
       Test.findOne({
         'goalId': goal._id

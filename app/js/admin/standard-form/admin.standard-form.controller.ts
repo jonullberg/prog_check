@@ -67,10 +67,12 @@ module ProgCheck {
       })[0];
     }
     function getStandard () {
+      sf.standard = AdminData.Standards.getStandard();
+    }
+    function fetchStandard() {
       if (!AdminData.Standards.getStandard() && $routeParams.standardId) {
         AdminData.Standards.fetchStandard($routeParams.standardId);
       }
-      sf.standard = AdminData.Standards.getStandard();
     }
     function setGrade(standard) {
       if (standard) {

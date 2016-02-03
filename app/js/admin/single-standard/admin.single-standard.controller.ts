@@ -104,7 +104,7 @@ module ProgCheck {
       });
     };
 
-    ss.deleteGoal = function(goal) {
+    ss.deleteGoal = function deleteGoal(goal) {
       AdminData.Standards.deleteGoal(ss.standard, goal);
     };
 
@@ -112,10 +112,12 @@ module ProgCheck {
 
     // Private Functions
     function getStandard() {
+      ss.standard = AdminData.Standards.getStandard();
+    }
+    function fetchStandard() {
       if (!AdminData.Standards.getStandard()) {
         AdminData.Standards.fetchStandard($routeParams.standardId);
       }
-      ss.standard = AdminData.Standards.getStandard();
     }
   }
 

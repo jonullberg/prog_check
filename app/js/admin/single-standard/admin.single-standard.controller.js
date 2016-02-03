@@ -89,15 +89,17 @@ var ProgCheck;
                 scope: scope
             });
         };
-        ss.deleteGoal = function (goal) {
+        ss.deleteGoal = function deleteGoal(goal) {
             AdminData.Standards.deleteGoal(ss.standard, goal);
         };
         ss.getStandard = getStandard;
         function getStandard() {
+            ss.standard = AdminData.Standards.getStandard();
+        }
+        function fetchStandard() {
             if (!AdminData.Standards.getStandard()) {
                 AdminData.Standards.fetchStandard($routeParams.standardId);
             }
-            ss.standard = AdminData.Standards.getStandard();
         }
     }
 })(ProgCheck || (ProgCheck = {}));
