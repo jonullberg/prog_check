@@ -14,7 +14,6 @@ var ProgCheck;
                 editStudentGoal: '&'
             },
             link: function (scope, iElement, iAttr) {
-                scope.$on('attempts:changed', getAttempts);
                 scope.loaded = false;
                 scope.isAlertShown = false;
                 scope.selectGoal = function (goal) {
@@ -40,10 +39,6 @@ var ProgCheck;
                 scope.toggleAlert = function () {
                     scope.isAlertShown = !scope.isAlertShown;
                 };
-                function getAttempts(attempts) {
-                    console.log('your attempts changed');
-                    scope.attempts = TeacherData.Attempts.getAttempts();
-                }
             }
         };
     }

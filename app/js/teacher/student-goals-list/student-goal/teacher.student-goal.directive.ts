@@ -15,11 +15,8 @@ module ProgCheck {
         editStudentGoal: '&'
       },
       link: function(scope, iElement, iAttr) {
-        scope.$on('attempts:changed', getAttempts);
         scope.loaded = false;
-
         scope.isAlertShown = false;
-
         scope.selectGoal = function(goal) {
           if (goal.isOpen) {
             scope.isAlertShown = false;
@@ -36,19 +33,12 @@ module ProgCheck {
             });
           }
         };
-
         scope.deleteGoal = function(goal) {
           TeacherData.Students.deleteGoal($routeParams.studentId, goal.goalId);
         };
-
         scope.toggleAlert = function() {
           scope.isAlertShown = !scope.isAlertShown;
         };
-
-        function getAttempts(attempts) {
-          console.log('your attempts changed');
-          scope.attempts = TeacherData.Attempts.getAttempts();
-        }
       }
     }
   }
