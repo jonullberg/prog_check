@@ -45,8 +45,7 @@ var ProgCheck;
         }
         function fetchTests() {
             AdminData.Tests.fetchTests($routeParams.standardId, function (err, data) {
-                console.log('data', data);
-                console.log('err', err);
+                tl.tests = data.tests;
             });
         }
         function numberTests(tests) {
