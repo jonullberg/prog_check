@@ -40,10 +40,12 @@ var ProgCheck;
             tl.standard = AdminData.Standards.getStandard();
         }
         function getTests() {
-            if (!AdminData.Tests.getTests()) {
-                AdminData.Tests.fetchTests($routeParams.standardId);
-            }
             tl.tests = numberTests(AdminData.Tests.getTests());
+        }
+        function fetchTests() {
+            AdminData.Tests.fetchTests($routeParams.standardId, function (err, data) {
+                tl.tests = numberTests(data.tests);
+            });
         }
         function numberTests(tests) {
             if (tests && tests.length) {
