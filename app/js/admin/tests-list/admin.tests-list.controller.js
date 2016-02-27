@@ -9,6 +9,7 @@ var ProgCheck;
         $scope.$on('standard:changed', getStandard);
         $scope.$on('tests:changed', getTests);
         tl.init = function () {
+            fetchTests();
             getStandard();
             getTests();
         };
@@ -43,9 +44,10 @@ var ProgCheck;
             tl.tests = numberTests(AdminData.Tests.getTests());
         }
         function fetchTests() {
-            if (!AdminData.Tests.getTests()) {
-                AdminData.Tests.fetchTests($routeParams.standardId);
-            }
+            AdminData.Tests.fetchTests($routeParams.standardId, function (err, data) {
+                console.log('data', data);
+                console.log('err', err);
+            });
         }
         function numberTests(tests) {
             if (tests && tests.length) {

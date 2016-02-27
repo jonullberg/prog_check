@@ -12,7 +12,9 @@
     "postinstall": "NODE_ENV=PRODUCTION gulp build",
     "start": "NODE_ENV=DEVELOPMENT gulp build && gulp watch:development",
     "development": "NODE_ENV=DEVELOPMENT mongod --dbpath=./db --smallfiles & nodemon server & gulp build & gulp watch",
-    "test": "NODE_ENV=TEST gulp watch:testing"
+    "test": "NODE_ENV=TEST gulp watch:testing",
+    "db-connect:sandbox": "mongo-express -u jonullberg -p Remington112214 -d heroku_h6x5hjmn",
+    "db-connect:production": "mongo-express -u jonullberg -p Remington112214 -d heroku_nrb98fk5"
   },
   "repository": {
     "type": "git",
@@ -86,12 +88,15 @@
     "karma-spec-reporter": "0.0.23",
     "merge-stream": "^1.0.0",
     "mocha": "^2.2.5",
+    "mongo-express": "^0.30.25",
     "node-libs-browser": "^0.5.2",
     "phantomjs": "^1.9.17",
     "plato": "^1.5.0",
     "rewire": "^2.5.1",
     "sinon": "^1.17.2",
+    "ts-loader": "^0.8.1",
     "tslint": "^3.1.1",
-    "typescript": "^1.7.3"
+    "typescript": "^1.7.3",
+    "webpack": "^1.12.14"
   }
 }
