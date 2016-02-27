@@ -18,6 +18,7 @@ module ProgCheck {
 
     // Public Functions
     tl.init = function() {
+      fetchTests()
       getStandard();
       getTests();
     };
@@ -52,6 +53,11 @@ module ProgCheck {
     }
     function getTests() {
       tl.tests = numberTests(AdminData.Tests.getTests());
+    }
+    function fetchTests() {
+      if (!AdminData.Tests.getTests()) {
+        AdminData.Tests.fetchTests($routeParams.standardId);
+      }
     }
     function fetchTests() {
       AdminData.Tests.fetchTests($routeParams.standardId, function(err, data) {

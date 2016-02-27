@@ -111,10 +111,12 @@ var ProgCheck;
             question.showing = false;
         }
         function getStandard() {
+            st.standard = AdminData.Standards.getStandard();
+        }
+        function fetchStandard() {
             if (!AdminData.Standards.getStandard()) {
                 AdminData.Standards.fetchStandard($routeParams.standardId);
             }
-            st.standard = AdminData.Standards.getStandard();
         }
         function getTest() {
             if (!AdminData.Tests.getTest()) {
