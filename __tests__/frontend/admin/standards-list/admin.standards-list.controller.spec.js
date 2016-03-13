@@ -3,7 +3,7 @@
  */
 'use strict'
 
-require('../../client')
+require('../../../../app/js/client')
 require('angular-mocks')
 
 describe('The Admin Standards-list controller', function(){
