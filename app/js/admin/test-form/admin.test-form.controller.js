@@ -7,7 +7,7 @@ var ProgCheck;
     function testFormCtrl($scope, $routeParams, $uibModalInstance, AdminData) {
         $scope.$on('test:changed', getTest);
         var tf = this;
-        tf.init = function () {
+        tf.init = function init() {
             getTest();
             getStandard();
         };
@@ -38,6 +38,8 @@ var ProgCheck;
                 return;
             }
             tf.test = AdminData.Tests.getTest();
+            tf.test = AdminData.Tests.getTest();
+            tf.test._goal = tf.test.goalId;
         }
         function getStandard() {
             tf.standard = AdminData.Standards.getStandard();

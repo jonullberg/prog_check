@@ -59,6 +59,11 @@ module ProgCheck {
         tl.tests = data.tests
       });
     }
+    function fetchTests() {
+      AdminData.Tests.fetchTests($routeParams.standardId, function(err, data) {
+        tl.tests = numberTests(data.tests)
+      });
+    }
     function numberTests(tests) {
       if (tests && tests.length) {
         tests.forEach(function(test, i) {

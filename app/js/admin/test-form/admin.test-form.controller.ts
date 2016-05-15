@@ -18,7 +18,7 @@ module ProgCheck {
 
     // Public Functions
     var tf = this;
-    tf.init = function() {
+    tf.init = function init() {
       getTest();
       getStandard();
     };
@@ -51,6 +51,8 @@ module ProgCheck {
         return;
       }
       tf.test = AdminData.Tests.getTest();
+      tf.test = AdminData.Tests.getTest();
+      tf.test._goal = tf.test.goalId;
     }
     function getStandard() {
       tf.standard = AdminData.Standards.getStandard();

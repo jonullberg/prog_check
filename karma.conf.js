@@ -1,6 +1,8 @@
 // Karma configuration
 // Generated on Wed Nov 25 2015 20:13:47 GMT-0800 (PST)
 
+var webpackConfig = require('./webpack.test.config.js')
+
 module.exports = function(config) {
   config.set({
 
@@ -10,13 +12,12 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['mocha', 'chai', 'sinon'],
+    frameworks: ['jasmine'],
 
 
     // list of files / patterns to load in the browser
     files: [
-        'app/js/**/*.spec.js',
-        '__tests__/**/*.spec.js'
+        '__tests__/frontend/bundle.js'
     ],
 
 
@@ -28,13 +29,16 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+        '__tests__/frontend/test_entry.js': ['webpack']
     },
 
+
+    webpack: {},
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['spec'],
+    reporters: ['dots'],
 
 
     // web server port
@@ -47,7 +51,7 @@ module.exports = function(config) {
 
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_DISABLE,
+    logLevel: config.LOG_INFO,
 
 
     // enable / disable watching file and executing tests whenever any file changes
