@@ -14,7 +14,7 @@
     "development": "NODE_ENV=DEVELOPMENT mongod --dbpath=./db --smallfiles & nodemon server & gulp build & gulp watch",
     "test": "NODE_ENV=TEST gulp watch:testing",
     "db-connect:sandbox": "mongo-express -u jonullberg -p Remington112214 -d heroku_h6x5hjmn",
-    "db-connect:production": "mongo-express -u jonullberg -p Remington112214 -d heroku_nrb98fk5",
+    "db-connect:production": "mongo-express -u jonullberg -p Remington112214 -d heroku_nrb98fk5"
   },
   "repository": {
     "type": "git",
