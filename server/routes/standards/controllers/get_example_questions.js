@@ -1,29 +1,35 @@
 'use strict';
 
 var Test = require('../../../models/Test');
+var copy = require('deepcopy');
+var async = require('async');
 
 function getExampleQuestions(standards, cb) {
-  standards.forEach(function(standard, i, arr1) {
-    if (!standard) return cb(null);
-    standard.goals.forEach(function(goal, j, arr2) {
+  var newStandards = [];
+  async.map(standards, function(standard, next) {
+    var newStandard = copy(standard);
+    async.map(standard.goals, function(goal, next) {
+      var newGoal = copy(goal);
       Test.findOne({
         'goalId': goal._id
-      }, function(err, test) {
-        if (test && test.questions) {
-          var question = test.questions[0];
-          if (test && question) {
-            goal.exampleDirections = test.testDirections;
-            goal.exampleQuestion = test.questions[0].question;
-          } else {
-            goal.exampleQuestion = null;
-          }
-        }
-        if (i == arr1.length - 1 && j == arr2.length - 1) {
-          cb(standards);
-        }
       })
+      .exec(function(err, test) {
+        if (test && test.questions && test.questions.length) {
+          newGoal.exampleDirections = test.testDirections;
+          newGoal.exampleQuestion = test.questions[0].question;
+        } else {
+          newGoal.exampleDirections = "No Example Question For This Test."
+          newGoal.exampleQuestion = "No Example Question For This Test.";
+        }
+        next(null, newGoal);
+      })
+    }, function(err, goals) {
+      newStandard.goals = goals;
+      next(null, newStandard);
     })
-  })
+  }, function(err, standards) {
+    cb(standards);
+  });
 }
 
 module.exports = getExampleQuestions;

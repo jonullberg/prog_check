@@ -1,6 +1,6 @@
 <form
   data-ng-init="qf.init()"
-  data-ng-submit="qf.save(qf.question)">
+  data-ng-submit="qf.save(qf.testQuestion)">
   <div class="modal-header">
     <h3>Add Questions</h3>
   </div>
@@ -11,7 +11,7 @@
         class="form-control"
         name="question"
         id="question"
-        data-ng-model="question.question">
+        data-ng-model="qf.testQuestion.question">
       </textarea>
     </div>
 
@@ -19,8 +19,8 @@
       <label for="correctAnswer">Correct answer: </label>
       <textarea class="form-control"
         name="correctAnswer" id="correctAnswer"
-        data-ng-model="qf.question.correct"
-        data-ng-change="qf.question.answers[0] = qf.question.correct"></textarea>
+        data-ng-model="qf.testQuestion.correct"
+        data-ng-change="qf.testQuestion.answers[0] = qf.testQuestion.correct"></textarea>
     </div>
     <div class="form-group"
       data-ng-if="qf.test.answerType === 'text'">
@@ -28,17 +28,17 @@
       <textarea
         name="wrongAnswer1"
         id="wrongAnswer1"
-        data-ng-model="qf.question.answers[1]"
+        data-ng-model="qf.testQuestion.answers[1]"
         class="form-control"></textarea>
       <textarea
         name="wrongAnswer2"
         id="wrongAnswer2"
-        data-ng-model="qf.question.answers[2]"
+        data-ng-model="qf.testQuestion.answers[2]"
         class="form-control"></textarea>
       <textarea
         name="wrongAnswer3"
         id="wrongAnswer3"
-        data-ng-model="qf.question.answers[3]"
+        data-ng-model="qf.testQuestion.answers[3]"
         class="form-control"></textarea>
     </div>
   </div>

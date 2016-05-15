@@ -18,32 +18,32 @@ function getStandards(req, res) {
         if (err) {
             logError(err, 500, 'Internal Server Error');
         }
-        getExampleQuestions(standards, sendStandards);
-        function sendStandards(standards) {
-            res.json({
-                'standards': standards
-            });
-        }
+        res.json({
+            'standards': standards
+        });
     }
 }
 function getStandardById(req, res) {
     Standard.findById(req.params.standardId)
         .lean()
-        .exec(processStandard);
-    function processStandard(err, standard) {
+        .exec(function processStandard(err, standard) {
         if (err) {
             logError(err, 500, 'Internal Server Error');
         }
-        getExampleQuestions([standard], sendUpdatedStandard);
-        function sendUpdatedStandard(updatedStandard) {
-            var sentStandard = updatedStandard ?
-                updatedStandard[0] :
-                null;
-            res.json({
-                standard: sentStandard
+        if (standard && standard.goals && standard.goals.length) {
+            getExampleQuestions([standard], function sendUpdatedStandard(updatedStandards) {
+                var sentStandard = updatedStandards.length ?
+                    updatedStandards[0] :
+                    null;
+                res.json({
+                    standard: sentStandard
+                });
             });
         }
-    }
+        else {
+            res.json({ standard: null });
+        }
+    });
 }
 function createNewStandard(req, res) {
     var newStandard = new Standard(req.body);

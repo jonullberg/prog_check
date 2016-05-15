@@ -99,7 +99,7 @@ module ProgCheck {
     };
     st.deleteTest = function(test) {
       AdminData.Tests.deleteTest(test._id);
-      $location.path('/admin/standards/' + st.standard._id);
+      $location.path('/admin/standards/' + $routeParams.standardId);
     };
 
     st.toggleDelete = function() {

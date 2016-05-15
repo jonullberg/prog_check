@@ -5,10 +5,9 @@ var ProgCheck;
         .module('progCheck')
         .controller('SingleStandardModalCtrl', ['$scope', '$uibModal', '$uibModalInstance', '$cookies', '$rootScope', '$sce', 'TeacherData', singleStandardModalCtrl]);
     function singleStandardModalCtrl($scope, $uibModal, $uibModalInstance, $cookies, $rootScope, $sce, TeacherData) {
-        $scope.$on('standard:changed', getStandard);
         var ss = this;
         ss.init = function () {
-            getStandard();
+            fetchStandard();
         };
         ss.addGoal = function (goal) {
             var scope = $rootScope.$new();
@@ -40,6 +39,7 @@ var ProgCheck;
             });
         };
         ss.showExampleQuestion = function (goal) {
+            console.log('goal', goal);
             var original = goal.enableExample;
             ss.standard.goals.forEach(function (goal) {
                 goal.enableExample = false;
@@ -53,8 +53,11 @@ var ProgCheck;
             });
             goal.descriptionShowing = !original;
         };
-        function getStandard() {
-            ss.standard = TeacherData.Standards.getStandard();
+        function fetchStandard() {
+            TeacherData.Standards.fetchStandard(TeacherData.Standards.getStandard()._id, function (err, response) {
+                console.log('standard', response.standard);
+                ss.standard = response.standard;
+            });
         }
     }
 })(ProgCheck || (ProgCheck = {}));

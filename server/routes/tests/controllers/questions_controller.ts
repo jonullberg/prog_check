@@ -48,7 +48,7 @@ function deleteQuestionByTestId(req, res) {
     test.questions = test.questions.filter(filterQuestion);
     test.save(sendTest);
     function filterQuestion(question) {
-      if (question._id !== req.params.questionId) {
+      if (question._id != req.params.questionId) {
         return question;
       }
     }
@@ -56,4 +56,13 @@ function deleteQuestionByTestId(req, res) {
       sendData(err, 'test', data, res);
     }
   }
+}
+
+function sendData(err, key, value, res) {
+  if (err) {
+    logError(err, 500, 'Internal Server Error');
+  }
+  var responseObject = {};
+  responseObject[key] = value;
+  res.json(responseObject);
 }

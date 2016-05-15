@@ -9,6 +9,7 @@ var	app = express();
 var port = process.env.PORT || config.port;
 var busboy = require('connect-busboy');
 var env = process.env.NODE_ENV || 'DEVELOPMENT';
+var db = process.env.PROGCHECK_DEV_MONGOLAB_URI || config.MONGOLAB_URI || 'mongodb://localhost/progcheck_dev';
 
 // Winston Logging
 var winston = require('winston');
@@ -31,7 +32,7 @@ if (env === 'production') {
   // Add Winston Transports
   winston.add(MongoDB, {
     level: 'info',
-    db: process.env.MONGOLAB_URI || 'mongodb://localhost/progcheck_dev'
+    db: db
   });
 
   winston.add(PaperTrail, {
@@ -58,7 +59,7 @@ var bugRoutes = express.Router();
 var attemptRoutes = express.Router();
 
 //  The database URI to connect to for saving information
-mongoose.connect(process.env.MONGOLAB_URI || config.database);
+mongoose.connect(db);
 
 app.use(passport.initialize());
 require('./lib/passport_strat')(passport);
