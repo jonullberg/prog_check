@@ -9,7 +9,7 @@ var	app = express();
 var port = process.env.PORT || config.port;
 var busboy = require('connect-busboy');
 var env = process.env.NODE_ENV || 'DEVELOPMENT';
-var db = process.env.PROGCHECK_DEV_MONGOLAB_URI || config.MONGOLAB_URI || 'mongodb://localhost/progcheck_dev';
+var db = process.env.MONGOLAB_URI || config.MONGOLAB_URI || 'mongodb://localhost/progcheck_dev';
 
 // Winston Logging
 var winston = require('winston');
