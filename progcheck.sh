@@ -23,9 +23,9 @@ if [ $? != 0 ]
 
   # Testing (2)
   tmux new-window -n dev -t ${SESSION_NAME}
-  tmux send-keys -t ${SESSION_NAME}:2 'nodemon server/server -w ./server' Enger
+  tmux send-keys -t ${SESSION_NAME}:2 'nodemon server/server -w ./server' Enter
   tmux split-window -h
-  tmux send-keys -t ${SESSION_NAME}:2 'gulp watch'
+  tmux send-keys -t ${SESSION_NAME}:2 'gulp watch' Enter
 
   # Go back to bash
   tmux select-window -t ${SESSION_NAME}:0
