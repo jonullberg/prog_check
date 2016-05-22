@@ -59,6 +59,7 @@ var ProgCheck;
             });
         };
         st.editQuestion = function (question) {
+            console.log('editing question');
             AdminData.Tests.setQuestion(question);
             var scope = $rootScope.$new();
             scope.params = {

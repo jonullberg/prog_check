@@ -33,7 +33,7 @@ var ProgCheck;
             $uibModalInstance.dismiss();
         };
         function getQuestion() {
-            qf.question = AdminData.Tests.getQuestion();
+            qf.testQuestion = AdminData.Tests.getQuestion();
         }
         function getTest() {
             qf.test = AdminData.Tests.getTest();

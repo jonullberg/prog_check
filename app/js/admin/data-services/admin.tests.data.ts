@@ -168,10 +168,8 @@ module ProgCheck {
     }
 
     function deleteQuestion(testId, questionId, cb) {
-      console.log('deleting')
       $http.delete('/api/tests/' + testId + '/questions/' + questionId)
         .then(function(response) {
-      console.log(response);
           this.setTest(response.data.test);
           handleCallback(cb, response, null);
         }.bind(this))

@@ -34,7 +34,6 @@ module ProgCheck {
       if ($scope.params.formType === 'editing') {
         updateTest(test);
       } else if ($scope.params.formType === 'creating') {
-        console.log('creating');
         createTest(test);
       }
       $uibModalInstance.close();

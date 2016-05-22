@@ -14,7 +14,6 @@ module ProgCheck {
     .controller('QuestionFormCtrl', ['$scope', '$uibModalInstance', '$sce', '$routeParams', 'AdminData', questionFormCtrl]);
 
   function questionFormCtrl($scope, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, $sce: ng.ISCEService, $routeParams, AdminData) {
-
     var qf = this;
     qf.trustAsHtml = $sce.trustAsHtml;
     $scope.$on('test:changed', getTest);
@@ -48,7 +47,7 @@ module ProgCheck {
 
     // Private Functions
     function getQuestion() {
-      qf.question = AdminData.Tests.getQuestion();
+      qf.testQuestion = AdminData.Tests.getQuestion();
     }
     function getTest() {
       qf.test = AdminData.Tests.getTest();

@@ -8,7 +8,6 @@ module ProgCheck {
   function studentAuthCtrl($scope, $location, UserService, Errors) {
     $scope.authSubmit = function(student) {
       UserService.studentSignIn(student, function(err, data) {
-        console.log(data);
         // if (err) {
         //   return Errors.addError({
         //     'msg': 'There was an error signing in'
