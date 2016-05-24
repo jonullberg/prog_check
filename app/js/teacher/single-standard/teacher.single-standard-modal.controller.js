@@ -39,7 +39,6 @@ var ProgCheck;
             });
         };
         ss.showExampleQuestion = function (goal) {
-            console.log('goal', goal);
             var original = goal.enableExample;
             ss.standard.goals.forEach(function (goal) {
                 goal.enableExample = false;
@@ -55,7 +54,6 @@ var ProgCheck;
         };
         function fetchStandard() {
             TeacherData.Standards.fetchStandard(TeacherData.Standards.getStandard()._id, function (err, response) {
-                console.log('standard', response.standard);
                 ss.standard = response.standard;
             });
         }

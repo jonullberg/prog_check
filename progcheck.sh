@@ -23,7 +23,7 @@ if [ $? != 0 ]
 
   # Testing (2)
   tmux new-window -n dev -t ${SESSION_NAME}
-  tmux send-keys -t ${SESSION_NAME}:2 'nodemon server/server -w ./server' Enter
+  tmux send-keys -t ${SESSION_NAME}:2 'MONGOLAB_URI=mongodb://heroku_h6x5hjmn:i5didbrricqeljn8oh6lou09m@ds053784.mongolab.com:53784/heroku_h6x5hjmn node server/server.js' Enter
   tmux split-window -h
   tmux send-keys -t ${SESSION_NAME}:2 'gulp watch' Enter
 

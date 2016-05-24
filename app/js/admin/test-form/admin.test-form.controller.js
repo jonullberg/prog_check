@@ -23,7 +23,6 @@ var ProgCheck;
                 updateTest(test);
             }
             else if ($scope.params.formType === 'creating') {
-                console.log('creating');
                 createTest(test);
             }
             $uibModalInstance.close();
