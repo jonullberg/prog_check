@@ -19,8 +19,10 @@ module ProgCheck {
     // Public Functions
     var tf = this;
     tf.init = function init() {
-      getTest();
-      getStandard();
+      // getTest();
+      AdminData.Standards.fetchStandard($routeParams.standardId, function(err, response) {
+        tf.standard = response.standard;
+      });
     };
 
     tf.boolToString = function(arg) {
@@ -49,8 +51,6 @@ module ProgCheck {
         tf.test._goal = tf.test.goalId;
         return;
       }
-      tf.test = AdminData.Tests.getTest();
-      tf.test = AdminData.Tests.getTest();
       tf.test._goal = tf.test.goalId;
     }
     function getStandard() {

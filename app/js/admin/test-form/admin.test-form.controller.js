@@ -8,8 +8,9 @@ var ProgCheck;
         $scope.$on('test:changed', getTest);
         var tf = this;
         tf.init = function init() {
-            getTest();
-            getStandard();
+            AdminData.Standards.fetchStandard($routeParams.standardId, function (err, response) {
+                tf.standard = response.standard;
+            });
         };
         tf.boolToString = function (arg) {
             return arg ? 'Yes' : 'No';
@@ -36,8 +37,6 @@ var ProgCheck;
                 tf.test._goal = tf.test.goalId;
                 return;
             }
-            tf.test = AdminData.Tests.getTest();
-            tf.test = AdminData.Tests.getTest();
             tf.test._goal = tf.test.goalId;
         }
         function getStandard() {

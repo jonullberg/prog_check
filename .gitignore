@@ -14,3 +14,5 @@ prog-check.sublime-project
 prog-check.sublime-workspace
 **/.vscode/
 **/report/
+*sublime-workspace
+*sublime-project
