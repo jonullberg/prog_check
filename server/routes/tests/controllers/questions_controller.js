@@ -23,14 +23,20 @@ function createQuestion(req, res) {
 }
 function updateTextQuestion(req, res) {
     var updatedQuestion = req.body;
-    delete updatedQuestion._id;
     Tests.update({
         '_id': req.params.testId,
         'questions._id': req.params.questionId
-    }, { $set: { 'questions.$': updatedQuestion } }, sendUpdateMessage);
-    function sendUpdateMessage(err, test) {
-        sendData(err, 'msg', 'Success', res);
-    }
+    }, { $set: { 'questions.$': updatedQuestion } }, function (err, test) {
+        if (err) {
+            console.log('Error', err);
+            return res.json({
+                'msg': 'Internal Server Error'
+            });
+        }
+        return res.json({
+            'msg': 'Success'
+        });
+    });
 }
 function deleteQuestionByTestId(req, res) {
     Tests.findById(req.params.testId, deleteQuestion);
